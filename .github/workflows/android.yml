@@ -1,8 +1,6 @@
 name: Android CI
 
 on:
-  push:
-    branches: [ "develop" ]
   pull_request:
     branches: [ "develop" ]
 
@@ -37,6 +35,10 @@ jobs:
     # gradle 권한 부여
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+
+    # ktlint
+    - name: Check ktlint
+      run: ./gradlew ktlintCheck
       
     # 최종 빌드
     - name: Build with Gradle
