@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name="com.mashup.gabbangzip.presentation.MainActivity"
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

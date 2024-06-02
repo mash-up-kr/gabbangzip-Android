@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.presentation.theme
+package com.mashup.gabbangzip.sharedalbum.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
