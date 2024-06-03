@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.buildsrc
+package com.mashup.gabbangzip.sharedalbum.buildsrc
 
 import org.gradle.api.JavaVersion
 
@@ -8,15 +8,15 @@ object AppConfig {
     const val targetSdk = 34
     const val kotlinCompilerExtension = "1.5.1"
     
-    const val applicationId = "com.mashup.gabbangzip.shared_album"
-    const val appNameSpace = "com.mashup.gabbangzip.shared_album"
+    const val applicationId = "com.mashup.gabbangzip.sharedalbum"
+    const val appNameSpace = "com.mashup.gabbangzip.sharedalbum"
     
     const val appVersionCode = 1
     const val appVersionName = "1.0"
     
-    const val dataNameSpace = "com.mashup.gabbangzip.data"
-    const val domainNameSpace = "com.mashup.gabbangzip.domain"
-    const val presentationNameSpace = "com.mashup.gabbangzip.presentation"
+    const val dataNameSpace = "com.mashup.gabbangzip.sharedalbum.data"
+    const val domainNameSpace = "com.mashup.gabbangzip.sharedalbum.domain"
+    const val presentationNameSpace = "com.mashup.gabbangzip.sharedalbum.presentation"
     
     const val testRunner = "androidx.test.runner.AndroidJUnitRunner"
     

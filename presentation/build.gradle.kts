@@ -1,4 +1,4 @@
-import com.mashup.gabbangzip.buildsrc.AppConfig
+import com.mashup.gabbangzip.sharedalbum.buildsrc.AppConfig
 
 plugins {
     alias(libs.plugins.androidLibrary)
@@ -10,20 +10,20 @@ plugins {
 android {
     namespace = AppConfig.presentationNameSpace
     compileSdk = AppConfig.compileSdk
-    
+
     defaultConfig {
         minSdk = AppConfig.minSdk
-        
+
         testInstrumentationRunner = AppConfig.testRunner
         consumerProguardFiles("consumer-rules.pro")
     }
-    
+
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -44,7 +44,7 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-    
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -60,11 +60,11 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    
+
     // dagger hilt
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
-    
+
     // coroutine
     implementation(libs.bundles.coroutine)
 }
