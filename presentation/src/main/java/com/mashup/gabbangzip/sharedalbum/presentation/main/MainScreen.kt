@@ -29,20 +29,21 @@ fun MainScreen(
 
     Scaffold(
         content = { padding ->
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
             ) {
                 TopBar(
                     topBarState = topBarState,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .wrapContentHeight()
+                        .wrapContentHeight(),
                 )
                 NavHost(
                     navController = navigator.navController,
                     startDestination = StartDestination.ROUTE,
-                    modifier = Modifier.weight(weight = 1f)
+                    modifier = Modifier.weight(weight = 1f),
                 ) {
                     loginNavGraph(
                         onLoginClick = {
@@ -50,14 +51,14 @@ fun MainScreen(
                             viewModel.updateTopBarState(
                                 topBarState = TopBarState.Main(
                                     titleText = "홈 화면",
-                                    iconRes = R.drawable.ic_launcher_foreground
-                                )
+                                    iconRes = R.drawable.ic_launcher_foreground,
+                                ),
                             )
                         },
                         onBackPressed = {
                             navigator.navController.popBackStack()
                             viewModel.popBackTopBarState()
-                        }
+                        },
                     )
                     homeNavGraph(
                         onGroupMakeClick = {
@@ -66,20 +67,20 @@ fun MainScreen(
                                 topBarState = TopBarState.Progress(
                                     titleText = "그룹 만들기",
                                     max = 3,
-                                    progress = 1
-                                )
+                                    progress = 1,
+                                ),
                             )
                         },
                         onBackPressed = {
                             navigator.navController.popBackStack()
                             viewModel.popBackTopBarState()
-                        }
+                        },
                     )
                     groupMakeNavGraph(
                         onBackPressed = {
                             navigator.navController.popBackStack()
                             viewModel.popBackTopBarState()
-                        }
+                        },
                     )
                 }
             }

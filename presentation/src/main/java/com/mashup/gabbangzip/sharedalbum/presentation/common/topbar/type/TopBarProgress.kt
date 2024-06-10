@@ -13,7 +13,7 @@ fun TopBarProgress(
     modifier: Modifier = Modifier,
     titleText: String,
     max: Int,
-    progress: Int
+    progress: Int,
 ) {
     Column(modifier = modifier) {
         Text(
@@ -21,14 +21,14 @@ fun TopBarProgress(
                 .fillMaxWidth()
                 .wrapContentHeight(),
             text = titleText,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
         Text(
             modifier = modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
             text = "$progress / $max",
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
     }
 }

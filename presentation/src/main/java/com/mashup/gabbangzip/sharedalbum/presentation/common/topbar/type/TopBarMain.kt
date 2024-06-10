@@ -23,14 +23,14 @@ fun TopBarMain(
         Image(
             modifier = Modifier.size(24.dp),
             painter = painterResource(id = iconRes),
-            contentDescription = null
+            contentDescription = null,
         )
         Text(
             modifier = modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
             text = titleText,
-            textAlign = TextAlign.Left
+            textAlign = TextAlign.Left,
         )
     }
 }

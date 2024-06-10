@@ -14,7 +14,7 @@ fun NavController.navigateLogin(navOptions: NavOptions) {
 
 fun NavGraphBuilder.loginNavGraph(
     onLoginClick: () -> Unit,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
 ) {
     composable(route = LoginRoute.route) {
         LoginScreen(onLoginClick = onLoginClick)

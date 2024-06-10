@@ -11,7 +11,7 @@ import androidx.compose.ui.text.style.TextAlign
 @Composable
 fun TopBarTitle(
     modifier: Modifier = Modifier,
-    titleText: String
+    titleText: String,
 ) {
     Box(modifier = modifier) {
         Text(
@@ -19,7 +19,7 @@ fun TopBarTitle(
                 .fillMaxWidth()
                 .wrapContentHeight(),
             text = titleText,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
     }
 }

@@ -13,7 +13,7 @@ fun NavController.navigateHome() {
 
 fun NavGraphBuilder.homeNavGraph(
     onGroupMakeClick: () -> Unit,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
 ) {
     composable(route = HomeRoute.route) {
         HomeScreen(onGroupMakeClick)

@@ -9,19 +9,22 @@ import com.mashup.gabbangzip.sharedalbum.presentation.common.topbar.type.TopBarT
 @Composable
 fun TopBar(
     modifier: Modifier = Modifier,
-    topBarState: TopBarState
+    topBarState: TopBarState,
 ) {
     when (topBarState) {
         is TopBarState.None -> Unit
+
         is TopBarState.Title -> TopBarTitle(
             modifier = modifier,
-            titleText = topBarState.titleText
+            titleText = topBarState.titleText,
         )
+
         is TopBarState.Main -> TopBarMain(
             modifier = modifier,
             titleText = topBarState.titleText,
             iconRes = topBarState.iconRes,
         )
+
         is TopBarState.Progress -> TopBarProgress(
             modifier = modifier,
             titleText = topBarState.titleText,

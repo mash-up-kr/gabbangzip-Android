@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
             SharedAlbumTheme {
                 // A surface container using the 'background' color from the theme
                 MainScreen(
-                    navigator = navigator
+                    navigator = navigator,
                 )
             }
         }

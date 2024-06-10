@@ -10,7 +10,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.groupMake.navigation.navig
 import com.mashup.gabbangzip.sharedalbum.presentation.home.navigation.navigateHome
 
 class MainNavigator(
-    val navController: NavHostController
+    val navController: NavHostController,
 ) {
     private val currentDestination: NavDestination?
         @Composable get() = navController

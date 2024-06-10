@@ -12,8 +12,7 @@ import java.util.Stack
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-) : ViewModel() {
+class MainViewModel @Inject constructor() : ViewModel() {
     private val topBarStateStack: Stack<TopBarState> = Stack<TopBarState>().apply {
         push(StartDestination.TOP_BAR_STATE)
     }

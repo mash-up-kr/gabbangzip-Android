@@ -12,7 +12,7 @@ fun NavController.navigateGroupMake() {
 }
 
 fun NavGraphBuilder.groupMakeNavGraph(
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
 ) {
     composable(route = GroupMakeRoute.route) {
         GroupMakeScreen()

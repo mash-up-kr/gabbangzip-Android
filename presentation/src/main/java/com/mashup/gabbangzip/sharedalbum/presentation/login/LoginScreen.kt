@@ -17,7 +17,7 @@ fun LoginScreen(onLoginClick: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = "로그인 화면")
         Spacer(modifier = Modifier.height(30.dp))
