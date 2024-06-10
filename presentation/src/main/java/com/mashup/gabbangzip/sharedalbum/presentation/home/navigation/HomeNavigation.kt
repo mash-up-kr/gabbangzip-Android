@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.home.navigation
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -20,7 +19,6 @@ fun NavGraphBuilder.homeNavGraph(
         HomeScreen(onGroupMakeClick)
         BackHandler {
             onBackPressed()
-            Log.e("test", "hello world 2")
         }
     }
 }

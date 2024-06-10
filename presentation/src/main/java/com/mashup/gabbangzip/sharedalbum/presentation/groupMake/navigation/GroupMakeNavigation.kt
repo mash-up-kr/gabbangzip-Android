@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.groupMake.navigation
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -19,7 +18,6 @@ fun NavGraphBuilder.groupMakeNavGraph(
         GroupMakeScreen()
         BackHandler {
             onBackPressed()
-            Log.e("test", "hello world 3")
         }
     }
 }
