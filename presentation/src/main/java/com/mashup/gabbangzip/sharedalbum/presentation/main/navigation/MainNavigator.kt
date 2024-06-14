@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.main
+package com.mashup.gabbangzip.sharedalbum.presentation.main.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

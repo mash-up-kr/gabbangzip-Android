@@ -19,6 +19,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.common.topbar.TopBarState
 import com.mashup.gabbangzip.sharedalbum.presentation.groupMake.navigation.groupMakeNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.home.navigation.homeNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.login.navigation.loginNavGraph
+import com.mashup.gabbangzip.sharedalbum.presentation.main.navigation.MainNavigator
 
 @Composable
 fun MainScreen(

@@ -4,7 +4,7 @@ import androidx.activity.compose.BackHandler
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.mashup.gabbangzip.sharedalbum.presentation.common.HomeRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.common.BaseRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.home.HomeScreen
 
 fun NavController.navigateHome() {
@@ -21,4 +21,8 @@ fun NavGraphBuilder.homeNavGraph(
             onBackPressed()
         }
     }
+}
+
+data object HomeRoute : BaseRoute {
+    override val route: String = "home"
 }

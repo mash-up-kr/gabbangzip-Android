@@ -3,9 +3,9 @@ package com.mashup.gabbangzip.sharedalbum.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.mashup.gabbangzip.sharedalbum.presentation.main.MainNavigator
+import com.mashup.gabbangzip.sharedalbum.presentation.main.navigation.MainNavigator
 import com.mashup.gabbangzip.sharedalbum.presentation.main.MainScreen
-import com.mashup.gabbangzip.sharedalbum.presentation.main.rememberMainNavigator
+import com.mashup.gabbangzip.sharedalbum.presentation.main.navigation.rememberMainNavigator
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import dagger.hilt.android.AndroidEntryPoint
 
