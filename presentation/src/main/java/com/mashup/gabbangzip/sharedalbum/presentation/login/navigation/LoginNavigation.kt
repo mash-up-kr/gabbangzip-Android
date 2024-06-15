@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.mashup.gabbangzip.sharedalbum.presentation.common.BaseRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.common.LoginRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.login.LoginScreen
 
 fun NavController.navigateLogin(navOptions: NavOptions) {
@@ -22,8 +22,4 @@ fun NavGraphBuilder.loginNavGraph(
             onBackPressed()
         }
     }
-}
-
-data object LoginRoute : BaseRoute {
-    override val route: String = "login"
 }
