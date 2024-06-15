@@ -11,14 +11,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.compose.NavHost
-import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.common.Route
 import com.mashup.gabbangzip.sharedalbum.presentation.common.topbar.TopBar
-import com.mashup.gabbangzip.sharedalbum.presentation.common.topbar.TopBarState
-import com.mashup.gabbangzip.sharedalbum.presentation.groupMake.navigation.groupMakeNavGraph
-import com.mashup.gabbangzip.sharedalbum.presentation.home.navigation.homeNavGraph
-import com.mashup.gabbangzip.sharedalbum.presentation.login.navigation.loginNavGraph
+import com.mashup.gabbangzip.sharedalbum.presentation.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.main.navigation.MainNavigator
 
 @Composable
@@ -41,49 +36,12 @@ fun MainScreen(
                         .wrapContentHeight(),
                     topBarState = topBarState,
                 )
-                NavHost(
+                MainNavHost(
                     modifier = Modifier.weight(weight = 1f),
-                    navController = navigator.navController,
+                    navigator = navigator,
                     startDestination = Route.initRoute,
-                ) {
-                    loginNavGraph(
-                        onLoginClick = {
-                            navigator.navigateHome()
-                            viewModel.updateTopBarState(
-                                topBarState = TopBarState.Main(
-                                    titleText = "홈 화면",
-                                    iconRes = R.drawable.ic_launcher_foreground,
-                                ),
-                            )
-                        },
-                        onBackPressed = {
-                            navigator.navController.popBackStack()
-                            viewModel.popBackTopBarState()
-                        },
-                    )
-                    homeNavGraph(
-                        onGroupMakeClick = {
-                            navigator.navigateGroupMake()
-                            viewModel.updateTopBarState(
-                                topBarState = TopBarState.Progress(
-                                    titleText = "그룹 만들기",
-                                    max = 3,
-                                    progress = 1,
-                                ),
-                            )
-                        },
-                        onBackPressed = {
-                            navigator.navController.popBackStack()
-                            viewModel.popBackTopBarState()
-                        },
-                    )
-                    groupMakeNavGraph(
-                        onBackPressed = {
-                            navigator.navController.popBackStack()
-                            viewModel.popBackTopBarState()
-                        },
-                    )
-                }
+                    viewModel = viewModel,
+                )
             }
         },
     )
