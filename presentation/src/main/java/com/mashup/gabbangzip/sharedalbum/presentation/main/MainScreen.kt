@@ -36,15 +36,15 @@ fun MainScreen(
                     .padding(padding),
             ) {
                 TopBar(
-                    topBarState = topBarState,
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight(),
+                    topBarState = topBarState,
                 )
                 NavHost(
+                    modifier = Modifier.weight(weight = 1f),
                     navController = navigator.navController,
                     startDestination = Route.initRoute,
-                    modifier = Modifier.weight(weight = 1f),
                 ) {
                     loginNavGraph(
                         onLoginClick = {
