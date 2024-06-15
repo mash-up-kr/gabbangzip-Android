@@ -1,6 +1,10 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.common.topbar
 
 sealed interface TopBarState {
+    companion object {
+        val initTopBarState = None
+    }
+
     data object None : TopBarState
 
     data class Title(

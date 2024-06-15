@@ -2,7 +2,6 @@ package com.mashup.gabbangzip.sharedalbum.presentation.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mashup.gabbangzip.sharedalbum.presentation.common.StartDestination
 import com.mashup.gabbangzip.sharedalbum.presentation.common.topbar.TopBarState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,11 +13,11 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
     private val topBarStateStack: Stack<TopBarState> = Stack<TopBarState>().apply {
-        push(StartDestination.TOP_BAR_STATE)
+        push(TopBarState.initTopBarState)
     }
 
     private val _topBarStateFlow: MutableStateFlow<TopBarState> =
-        MutableStateFlow(StartDestination.TOP_BAR_STATE)
+        MutableStateFlow(TopBarState.initTopBarState)
     val topBarStateFlow: StateFlow<TopBarState> get() = _topBarStateFlow
 
     fun updateTopBarState(topBarState: TopBarState) = viewModelScope.launch {

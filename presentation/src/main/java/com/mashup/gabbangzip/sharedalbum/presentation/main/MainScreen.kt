@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.common.StartDestination
+import com.mashup.gabbangzip.sharedalbum.presentation.common.Route
 import com.mashup.gabbangzip.sharedalbum.presentation.common.topbar.TopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.common.topbar.TopBarState
 import com.mashup.gabbangzip.sharedalbum.presentation.groupMake.navigation.groupMakeNavGraph
@@ -43,7 +43,7 @@ fun MainScreen(
                 )
                 NavHost(
                     navController = navigator.navController,
-                    startDestination = StartDestination.ROUTE,
+                    startDestination = Route.initRoute,
                     modifier = Modifier.weight(weight = 1f),
                 ) {
                     loginNavGraph(

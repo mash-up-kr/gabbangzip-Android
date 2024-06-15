@@ -1,6 +1,10 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.common
 
 sealed interface Route {
+    companion object {
+        val initRoute = LoginRoute.route
+    }
+
     val route: String
 }
 
