@@ -19,7 +19,7 @@ fun TopBarMain(
     modifier: Modifier = Modifier,
     titleText: String,
     @DrawableRes iconRes: Int,
-    onClickTitle: () -> Unit
+    onClickTitle: () -> Unit,
 ) {
     Row(modifier = modifier.clickable { onClickTitle() }) {
         Image(

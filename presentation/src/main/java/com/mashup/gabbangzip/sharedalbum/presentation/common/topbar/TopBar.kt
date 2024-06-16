@@ -37,7 +37,7 @@ fun TopBar(
             onClickTitle = {
                 viewModel.updateTopBar(LoginRoute)
                 navigator.navigateLogin()
-            }
+            },
         )
 
         is TopBarState.Progress -> TopBarProgress(
@@ -64,6 +64,6 @@ fun PreviewTopBar(@PreviewParameter(TopBarProvider::class) topBarState: TopBarSt
     TopBar(
         topBarState = topBarState,
         navigator = MainNavigator(NavHostController(context)),
-        viewModel = MainViewModel()
+        viewModel = MainViewModel(),
     )
 }
