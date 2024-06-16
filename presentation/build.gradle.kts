@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import com.mashup.gabbangzip.sharedalbum.buildsrc.AppConfig
 
 plugins {
@@ -13,6 +14,8 @@ android {
 
     defaultConfig {
         minSdk = AppConfig.minSdk
+        manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] =
+            gradleLocalProperties(rootDir, providers).getProperty("kakao_native_app_key")
 
         testInstrumentationRunner = AppConfig.testRunner
         consumerProguardFiles("consumer-rules.pro")
