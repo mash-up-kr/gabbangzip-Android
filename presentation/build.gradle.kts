@@ -67,4 +67,5 @@ dependencies {
 
     // coroutine
     implementation(libs.bundles.coroutine)
+    implementation(libs.kakao.login)
 }

@@ -33,6 +33,7 @@ coroutine = "1.7.3"
 room = "2.6.1"
 
 ktlint = "11.6.1"
+kakaoLogin = "2.20.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -72,6 +73,8 @@ coroutine-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutine
 
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
+kakao-login = { module = "com.kakao.sdk:v2-user", version.ref = "kakaoLogin" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
