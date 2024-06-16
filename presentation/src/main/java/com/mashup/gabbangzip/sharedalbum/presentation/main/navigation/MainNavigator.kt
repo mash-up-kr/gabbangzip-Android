@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.common.Route
 import com.mashup.gabbangzip.sharedalbum.presentation.groupMake.navigation.navigateGroupMake
 import com.mashup.gabbangzip.sharedalbum.presentation.home.navigation.navigateHome
+import com.mashup.gabbangzip.sharedalbum.presentation.login.navigation.navigateLogin
 
 class MainNavigator(
     val navController: NavHostController,
@@ -15,6 +16,10 @@ class MainNavigator(
         get() = navController.currentBackStackEntry?.destination?.route ?: Route.initRoute
     val previousDestinationRoute: String
         get() = navController.previousBackStackEntry?.destination?.route ?: Route.initRoute
+
+    fun navigateLogin() {
+        navController.navigateLogin()
+    }
 
     fun navigateHome() {
         navController.navigateHome()

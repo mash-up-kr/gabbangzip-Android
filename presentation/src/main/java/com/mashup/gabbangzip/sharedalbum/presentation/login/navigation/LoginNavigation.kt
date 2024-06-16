@@ -8,8 +8,8 @@ import androidx.navigation.compose.composable
 import com.mashup.gabbangzip.sharedalbum.presentation.common.LoginRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.login.LoginScreen
 
-fun NavController.navigateLogin(navOptions: NavOptions) {
-    navigate(LoginRoute.route, navOptions)
+fun NavController.navigateLogin() {
+    navigate(LoginRoute.route)
 }
 
 fun NavGraphBuilder.loginNavGraph(
