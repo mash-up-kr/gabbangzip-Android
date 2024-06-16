@@ -3,8 +3,8 @@ package com.mashup.gabbangzip.sharedalbum.presentation.main.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.common.topbar.TopBarState
+import com.mashup.gabbangzip.sharedalbum.presentation.common.GroupMakeRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.common.HomeRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.groupMake.navigation.groupMakeNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.home.navigation.homeNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.login.navigation.loginNavGraph
@@ -24,39 +24,28 @@ fun MainNavHost(
     ) {
         loginNavGraph(
             onLoginClick = {
+                viewModel.updateTopBar(HomeRoute)
                 navigator.navigateHome()
-                viewModel.updateTopBarState(
-                    topBarState = TopBarState.Main(
-                        titleText = "홈 화면",
-                        iconRes = R.drawable.ic_launcher_foreground,
-                    ),
-                )
             },
             onBackPressed = {
+                viewModel.updateTopBar(navigator.previousDestinationRoute)
                 navigator.navController.popBackStack()
-                viewModel.popBackTopBarState()
             },
         )
         homeNavGraph(
             onGroupMakeClick = {
+                viewModel.updateTopBar(GroupMakeRoute)
                 navigator.navigateGroupMake()
-                viewModel.updateTopBarState(
-                    topBarState = TopBarState.Progress(
-                        titleText = "그룹 만들기",
-                        max = 3,
-                        progress = 1,
-                    ),
-                )
             },
             onBackPressed = {
+                viewModel.updateTopBar(navigator.previousDestinationRoute)
                 navigator.navController.popBackStack()
-                viewModel.popBackTopBarState()
             },
         )
         groupMakeNavGraph(
             onBackPressed = {
+                viewModel.updateTopBar(navigator.previousDestinationRoute)
                 navigator.navController.popBackStack()
-                viewModel.popBackTopBarState()
             },
         )
     }
