@@ -35,6 +35,8 @@ fun MainScreen(
                         .fillMaxWidth()
                         .wrapContentHeight(),
                     topBarState = topBarState,
+                    navigator = navigator,
+                    viewModel = viewModel,
                 )
                 MainNavHost(
                     modifier = Modifier.weight(weight = 1f),

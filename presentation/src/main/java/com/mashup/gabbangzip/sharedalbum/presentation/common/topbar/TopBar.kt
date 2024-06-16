@@ -2,18 +2,25 @@ package com.mashup.gabbangzip.sharedalbum.presentation.common.topbar
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.navigation.NavHostController
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.common.LoginRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.common.topbar.type.TopBarMain
 import com.mashup.gabbangzip.sharedalbum.presentation.common.topbar.type.TopBarProgress
 import com.mashup.gabbangzip.sharedalbum.presentation.common.topbar.type.TopBarTitle
+import com.mashup.gabbangzip.sharedalbum.presentation.main.MainViewModel
+import com.mashup.gabbangzip.sharedalbum.presentation.main.navigation.MainNavigator
 
 @Composable
 fun TopBar(
     modifier: Modifier = Modifier,
     topBarState: TopBarState,
+    navigator: MainNavigator,
+    viewModel: MainViewModel,
 ) {
     when (topBarState) {
         is TopBarState.None -> Unit
@@ -27,6 +34,10 @@ fun TopBar(
             modifier = modifier,
             titleText = topBarState.titleText,
             iconRes = topBarState.iconRes,
+            onClickTitle = {
+                viewModel.updateTopBar(LoginRoute)
+                navigator.navigateLogin()
+            }
         )
 
         is TopBarState.Progress -> TopBarProgress(
@@ -46,13 +57,13 @@ class TopBarProvider : PreviewParameterProvider<TopBarState> {
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun TopBarPreview(
-    @PreviewParameter(TopBarProvider::class) state: TopBarState,
-) {
+fun PreviewTopBar(@PreviewParameter(TopBarProvider::class) topBarState: TopBarState) {
+    val context = LocalContext.current
     TopBar(
-        modifier = Modifier,
-        topBarState = state,
+        topBarState = topBarState,
+        navigator = MainNavigator(NavHostController(context)),
+        viewModel = MainViewModel()
     )
 }
