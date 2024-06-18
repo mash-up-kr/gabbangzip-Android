@@ -74,4 +74,5 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
     implementation(libs.kakao.login)
+    implementation(libs.androidx.security.crypto)
 }
