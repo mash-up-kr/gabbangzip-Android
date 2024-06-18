@@ -108,6 +108,16 @@ class LocalDataSourceImpl @Inject constructor(
         }
     }
 
+    override fun saveToken(accessToken: String, refreshToken: String) {
+        putString(KEY_ACCESS_TOKEN, accessToken)
+        putString(KEY_REFRESH_TOKEN, refreshToken)
+    }
+
+    override fun removeToken() {
+        remove(KEY_ACCESS_TOKEN)
+        remove(KEY_REFRESH_TOKEN)
+    }
+
     override fun removeAll() {
         sharedPreferences.edit {
             clear()
@@ -117,5 +127,7 @@ class LocalDataSourceImpl @Inject constructor(
     companion object {
         private const val TAG = "preferences"
         private const val PREF_NAME = "pic_preferences"
+        private const val KEY_ACCESS_TOKEN = "key_access_token"
+        private const val KEY_REFRESH_TOKEN = "key_refresh_token"
     }
 }

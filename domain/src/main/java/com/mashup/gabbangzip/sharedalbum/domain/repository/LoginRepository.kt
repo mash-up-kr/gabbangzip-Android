@@ -4,4 +4,5 @@ import com.mashup.gabbangzip.sharedalbum.domain.usecase.LoginParam
 
 interface LoginRepository {
     suspend fun login(param: LoginParam)
+    fun saveToken(accessToken: String, refreshToken: String)
 }
