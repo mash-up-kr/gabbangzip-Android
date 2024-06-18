@@ -73,12 +73,12 @@ class LocalDataSourceImpl @Inject constructor(
         }
     }
 
-    private fun getString(key: String, defaultValue: String): String {
+    private fun getString(key: String, defaultValue: String = ""): String {
         return getStringOrNull(key, defaultValue) ?: defaultValue
     }
 
     @Synchronized
-    private fun getStringOrNull(key: String, defaultValue: String?): String? {
+    private fun getStringOrNull(key: String, defaultValue: String? = null): String? {
         return sharedPreferences.getString(key, defaultValue).also {
             Log.d(TAG, "getStringOrNull: key: $key, value: $it")
         }
@@ -108,6 +108,12 @@ class LocalDataSourceImpl @Inject constructor(
         }
     }
 
+    override fun removeAll() {
+        sharedPreferences.edit {
+            clear()
+        }
+    }
+
     override fun saveToken(accessToken: String, refreshToken: String) {
         putString(KEY_ACCESS_TOKEN, accessToken)
         putString(KEY_REFRESH_TOKEN, refreshToken)
@@ -118,10 +124,12 @@ class LocalDataSourceImpl @Inject constructor(
         remove(KEY_REFRESH_TOKEN)
     }
 
-    override fun removeAll() {
-        sharedPreferences.edit {
-            clear()
-        }
+    override fun getAccessToken(): String? {
+        return getStringOrNull(KEY_ACCESS_TOKEN)
+    }
+
+    override fun getRefreshToken(): String? {
+        return getStringOrNull(KEY_REFRESH_TOKEN)
     }
 
     companion object {
