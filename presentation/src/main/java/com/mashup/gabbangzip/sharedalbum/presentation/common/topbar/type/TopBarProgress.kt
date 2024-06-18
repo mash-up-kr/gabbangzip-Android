@@ -17,14 +17,14 @@ fun TopBarProgress(
 ) {
     Column(modifier = modifier) {
         Text(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
             text = titleText,
             textAlign = TextAlign.Center,
         )
         Text(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
             text = "$progress / $max",

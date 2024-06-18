@@ -28,7 +28,7 @@ fun TopBarMain(
             contentDescription = null,
         )
         Text(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
             text = titleText,

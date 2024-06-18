@@ -15,7 +15,7 @@ fun TopBarTitle(
 ) {
     Box(modifier = modifier) {
         Text(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
             text = titleText,
