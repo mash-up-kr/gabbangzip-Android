@@ -77,9 +77,7 @@ object KakaoUserSdkUtil {
             } else if (user != null) {
                 Log.i(
                     TAG,
-                    "사용자 정보 요청 성공" +
-                            "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
-                            "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}",
+                    "사용자 정보 요청 성공\n닉네임: ${user.kakaoAccount?.profile?.nickname}\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}",
                 )
                 onSuccess(user.kakaoAccount?.profile)
             }

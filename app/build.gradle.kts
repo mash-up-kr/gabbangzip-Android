@@ -22,12 +22,7 @@ android {
         buildConfigField(
             type = "String",
             name = "KAKAO_NATIVE_APP_KEY",
-            value = "\"${
-                gradleLocalProperties(
-                    rootDir,
-                    providers,
-                ).getProperty("kakao_native_app_key")
-            }\"",
+            value = "\"${gradleLocalProperties(rootDir, providers).getProperty("kakao_native_app_key")}\"",
         )
 
         testInstrumentationRunner = AppConfig.testRunner
