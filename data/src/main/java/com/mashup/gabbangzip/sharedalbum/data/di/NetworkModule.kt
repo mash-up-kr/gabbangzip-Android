@@ -1,6 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.data.di
 
 import com.mashup.gabbangzip.sharedalbum.data.BuildConfig
+import com.mashup.gabbangzip.sharedalbum.data.interceptor.AuthInterceptor
 import com.mashup.gabbangzip.sharedalbum.data.service.LoginService
 import dagger.Module
 import dagger.Provides
@@ -32,10 +33,12 @@ internal class NetworkModule {
     @Provides
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
+        authInterceptor: AuthInterceptor,
     ): OkHttpClient {
         return OkHttpClient
             .Builder()
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(authInterceptor)
             .build()
     }
 
