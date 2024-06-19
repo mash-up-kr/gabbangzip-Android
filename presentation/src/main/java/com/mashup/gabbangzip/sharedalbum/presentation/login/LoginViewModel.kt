@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kakao.sdk.user.model.Profile
-import com.mashup.gabbangzip.sharedalbum.domain.usecase.LoginParam
+import com.mashup.gabbangzip.sharedalbum.domain.model.LoginParam
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.LoginUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.auth.KakaoUserSdkUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
