@@ -27,7 +27,7 @@ class LoginRepositoryImpl @Inject constructor(
                     refreshToken = refreshToken,
                 )
             }
-        }
+        }.getOrThrow()
     }
 
     override fun saveToken(accessToken: String, refreshToken: String) {
