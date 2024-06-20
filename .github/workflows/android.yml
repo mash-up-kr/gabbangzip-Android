@@ -36,6 +36,13 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
+    # ci 빌드를 위한 secrets 세팅
+    - name: Access github actions secrets
+      env:
+        KAKAO_NATIVE_APP_KEY: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
+      run: |
+        echo kakao_native_app_key="$KAKAO_NATIVE_APP_KEY" > ./local.properties
+
     # ktlint
     - name: Check ktlint
       run: ./gradlew ktlintCheck
