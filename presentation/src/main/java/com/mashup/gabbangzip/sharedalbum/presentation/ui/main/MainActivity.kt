@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
