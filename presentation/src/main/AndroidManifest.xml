@@ -10,6 +10,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation.GroupCreationActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.eventCreation.EventCreationActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

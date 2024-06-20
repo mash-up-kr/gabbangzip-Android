@@ -1,16 +1,18 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventCreation.EventCreationActivity
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation.GroupCreationActivity
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupList.GroupListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,33 +21,25 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SharedAlbumTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    Greeting("Android")
+                    GroupListScreen(
+                        onClickEventMakeButton = {
+                            EventCreationActivity.open(this@MainActivity)
+                        },
+                    )
                 }
             }
         }
     }
-}
 
-@Composable
-fun Greeting(
-    name: String,
-    modifier: Modifier = Modifier,
-) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier,
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SharedAlbumTheme {
-        Greeting("Android")
+    companion object {
+        fun open(context: Activity) {
+            context.startActivity(
+                Intent(context, MainActivity::class.java)
+            )
+        }
     }
 }
