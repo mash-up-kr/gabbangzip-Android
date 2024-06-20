@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kakao.sdk.user.model.Profile
 import com.mashup.gabbangzip.sharedalbum.domain.model.LoginParam
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.LoginUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.auth.KakaoUserSdkUtil
@@ -23,8 +22,14 @@ class LoginViewModel @Inject constructor(
         KakaoUserSdkUtil.loginWithKakao(
             context = context,
             onSuccess = { idToken, profile ->
-                if (idToken != null && profile != null) {
-                    picLogin(idToken, profile)
+                if (idToken != null && profile?.nickname != null && profile.profileImageUrl != null) {
+                    picLogin(
+                        idToken = idToken,
+                        nickname = profile.nickname!!,
+                        profileImage = profile.profileImageUrl!!,
+                    )
+                } else {
+                    Log.d(TAG, "정보 조회 실패")
                 }
             },
             onFailure = {
@@ -33,11 +38,11 @@ class LoginViewModel @Inject constructor(
         )
     }
 
-    private fun picLogin(idToken: String, profile: Profile) {
+    private fun picLogin(idToken: String, nickname: String, profileImage: String) {
         val param = LoginParam(
             idToken = idToken,
-            nickname = profile.nickname!!,
-            profileImage = profile.profileImageUrl!!,
+            nickname = nickname,
+            profileImage = profileImage,
         )
         viewModelScope.launch {
             loginUseCase(param)
