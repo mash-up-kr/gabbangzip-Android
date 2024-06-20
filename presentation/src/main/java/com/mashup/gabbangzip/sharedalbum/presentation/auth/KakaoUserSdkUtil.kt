@@ -17,7 +17,7 @@ object KakaoUserSdkUtil {
 
     fun loginWithKakao(
         context: Context,
-        onSuccess: (idToken: String?, profile: Profile?) -> Unit,
+        onSuccess: (idToken: String, profile: Profile) -> Unit,
         onFailure: (Throwable?) -> Unit,
     ) = with(UserApiClient.instance) {
         val callback = createKakaoAuthCallback(onSuccess, onFailure)
@@ -46,28 +46,30 @@ object KakaoUserSdkUtil {
     }
 
     private fun createKakaoAuthCallback(
-        onSuccess: (idToken: String?, profile: Profile?) -> Unit,
+        onSuccess: (idToken: String, profile: Profile) -> Unit,
         onFailure: (Throwable?) -> Unit = {},
     ): (OAuthToken?, Throwable?) -> Unit {
         val kakaoOAuthCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
                 Log.e(TAG, "카카오계정으로 로그인 실패", error)
                 onFailure(error)
-            } else if (token != null) {
+            } else if (token?.idToken != null) {
                 Log.i(TAG, "카카오계정으로 로그인 성공 ${token.idToken}")
                 getKakaoUserProfile(
                     onSuccess = { profile ->
-                        onSuccess(token.idToken, profile)
+                        onSuccess(token.idToken!!, profile)
                     },
                     onFailure = onFailure,
                 )
+            } else {
+                onFailure(IllegalStateException("아이디 토큰을 찾을 수 없음"))
             }
         }
         return kakaoOAuthCallback
     }
 
     private fun getKakaoUserProfile(
-        onSuccess: (Profile?) -> Unit,
+        onSuccess: (Profile) -> Unit,
         onFailure: (Throwable?) -> Unit = {},
     ) {
         UserApiClient.instance.me { user, error ->
@@ -79,7 +81,12 @@ object KakaoUserSdkUtil {
                     TAG,
                     "사용자 정보 요청 성공\n닉네임: ${user.kakaoAccount?.profile?.nickname}\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}",
                 )
-                onSuccess(user.kakaoAccount?.profile)
+                val profile = user.kakaoAccount?.profile
+                if (profile != null) {
+                    onSuccess(profile)
+                } else {
+                    onFailure(IllegalStateException("사용자 프로필 정보를 찾을 수 없음"))
+                }
             }
         }
     }

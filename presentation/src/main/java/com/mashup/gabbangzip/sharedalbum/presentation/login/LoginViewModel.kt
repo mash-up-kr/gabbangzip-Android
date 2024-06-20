@@ -22,7 +22,7 @@ class LoginViewModel @Inject constructor(
         KakaoUserSdkUtil.loginWithKakao(
             context = context,
             onSuccess = { idToken, profile ->
-                if (idToken != null && profile?.nickname != null && profile.profileImageUrl != null) {
+                if (profile.nickname != null && profile.profileImageUrl != null) {
                     picLogin(
                         idToken = idToken,
                         nickname = profile.nickname!!,
