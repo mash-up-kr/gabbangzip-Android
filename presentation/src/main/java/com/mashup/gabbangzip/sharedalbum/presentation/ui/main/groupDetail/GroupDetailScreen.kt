@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupList
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,10 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun GroupListScreen(
-    onClickGroupDetailButton: () -> Unit,
-    onClickEventMakeButton: () -> Unit,
-    onClickMyPageButton: () -> Unit,
+fun GroupDetailScreen(
+    onClickGroupMemberButton: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -23,17 +21,13 @@ fun GroupListScreen(
     ) {
         Text(
             modifier = Modifier.wrapContentSize(),
-            text = "메인 화면입니다",
+            text = "그룹 상세 화면입니다",
         )
-        Button(onClick = { onClickEventMakeButton.invoke() }) {
-            Text(text = "이벤트만들기 화면 가는 버튼")
-        }
-        Button(onClick = { onClickGroupDetailButton.invoke() }) {
-            Text(text = "그룹상세 화면 가는 버튼")
-        }
-        Button(onClick = { onClickMyPageButton.invoke() }) {
-            Text(text = "마이페이지 화면 가는 버튼")
+        Button(onClick = { onClickGroupMemberButton.invoke() }) {
+            Text(
+                modifier = Modifier.wrapContentSize(),
+                text = "그룹 멤버 화면 가는 버튼",
+            )
         }
     }
 }
-
