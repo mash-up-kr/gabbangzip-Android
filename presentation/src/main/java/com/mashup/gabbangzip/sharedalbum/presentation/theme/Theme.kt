@@ -43,6 +43,7 @@ fun SharedAlbumTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
+    // typography: PretendardTypography,
     content: @Composable () -> Unit,
 ) {
     val colorScheme =
@@ -65,7 +66,7 @@ fun SharedAlbumTheme(
     }
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = MaterialTheme.typography,
         content = content,
     )
 }
