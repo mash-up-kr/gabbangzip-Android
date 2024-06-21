@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventCreation.sample
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun GroupCreationScreen() {
+fun EventCreationSecondScreen() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -18,7 +18,7 @@ fun GroupCreationScreen() {
     ) {
         Text(
             modifier = Modifier.wrapContentSize(),
-            text = "그룹만들기 화면입니다",
+            text = "이벤트만들기 두번째 화면입니다",
         )
     }
 }

@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventCreation.navigation.EventCreationNavHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventCreation.navigation.EventCreationRoute
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +25,11 @@ class EventCreationActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    EventCreationScreen()
+                    EventCreationNavHost(
+                        modifier = Modifier.fillMaxSize(),
+                        navController = rememberNavController(),
+                        startDestination = EventCreationRoute.initRoute
+                    )
                 }
             }
         }
