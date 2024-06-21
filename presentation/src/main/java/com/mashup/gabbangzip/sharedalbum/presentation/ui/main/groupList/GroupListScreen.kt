@@ -41,7 +41,7 @@ fun GroupListScreen(
             rightIcon2Size = 24.dp,
             rightIcon2RightPadding = 16.dp,
             rightIcon2Description = "내 정보",
-            rightIconRes2 = R.drawable.ic_call_answer_video,
+            rightIcon2Res = R.drawable.ic_call_answer_video,
             topPadding = 16.dp,
             bottomPadding = 16.dp,
         )

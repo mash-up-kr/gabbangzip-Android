@@ -24,7 +24,7 @@ fun TopBar(
     titleAlign: TopBarTitleAlign = TopBarTitleAlign.CENTER,
     @DrawableRes leftIconRes: Int? = null,
     @DrawableRes rightIconRes: Int? = null,
-    @DrawableRes rightIconRes2: Int? = null,
+    @DrawableRes rightIcon2Res: Int? = null,
     leftIconDescription: String? = null,
     rightIconDescription: String? = null,
     rightIcon2Description: String? = null,
@@ -72,10 +72,10 @@ fun TopBar(
                 )
                 VerticalSpacer(rightIconRightPadding)
             }
-            if (rightIconRes2 != null) {
+            if (rightIcon2Res != null) {
                 Image(
                     modifier = Modifier.size(rightIcon2Size),
-                    painter = painterResource(id = rightIconRes2),
+                    painter = painterResource(id = rightIcon2Res),
                     contentDescription = rightIcon2Description,
                 )
                 VerticalSpacer(rightIcon2RightPadding)
