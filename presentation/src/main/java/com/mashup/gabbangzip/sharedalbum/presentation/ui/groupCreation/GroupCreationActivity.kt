@@ -28,7 +28,7 @@ class GroupCreationActivity : ComponentActivity() {
                     GroupCreationNavHost(
                         modifier = Modifier.fillMaxSize(),
                         navController = rememberNavController(),
-                        startDestination = GroupCreationRoute.initRoute
+                        startDestination = GroupCreationRoute.initRoute,
                     )
                 }
             }

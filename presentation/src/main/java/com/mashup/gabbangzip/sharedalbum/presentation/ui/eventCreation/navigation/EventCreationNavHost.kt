@@ -17,10 +17,10 @@ fun EventCreationNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = startDestination
+        startDestination = startDestination,
     ) {
         eventCreationFirstNavGraph(
-            onClickNextButton = { navController.navigateEventCreationSecond() }
+            onClickNextButton = { navController.navigateEventCreationSecond() },
         )
         eventCreationSecondNavGraph()
     }

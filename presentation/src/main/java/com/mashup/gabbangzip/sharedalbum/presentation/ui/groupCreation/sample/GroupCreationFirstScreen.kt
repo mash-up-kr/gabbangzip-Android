@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun GroupCreationFirstScreen(
-    onClickNextButton: () -> Unit
+    onClickNextButton: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),

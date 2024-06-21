@@ -19,7 +19,7 @@ fun NavGraphBuilder.groupListNavGraph(
         GroupListScreen(
             onClickGroupDetailButton = { onClickGroupDetailButton.invoke() },
             onClickEventMakeButton = { onClickEventMakeButton.invoke() },
-            onClickMyPageButton = { onClickMyPageButton.invoke() }
+            onClickMyPageButton = { onClickMyPageButton.invoke() },
         )
     }
 }

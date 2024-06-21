@@ -22,15 +22,15 @@ fun MainNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = startDestination
+        startDestination = startDestination,
     ) {
         groupListNavGraph(
             onClickEventMakeButton = { onClickEventMakeButton.invoke() },
             onClickGroupDetailButton = { navController.navigateGroupDetail() },
-            onClickMyPageButton = { navController.navigateMyPage() }
+            onClickMyPageButton = { navController.navigateMyPage() },
         )
         groupDetailNavGraph(
-            onClickGroupMemberButton = { navController.navigateGroupMember() }
+            onClickGroupMemberButton = { navController.navigateGroupMember() },
         )
         groupMemberNavGraph()
         myPageNavGraph()

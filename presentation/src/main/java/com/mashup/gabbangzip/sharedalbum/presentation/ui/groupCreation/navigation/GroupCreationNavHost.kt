@@ -17,10 +17,10 @@ fun GroupCreationNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = startDestination
+        startDestination = startDestination,
     ) {
         groupCreationFirstNavGraph(
-            onClickNextButton = { navController.navigateGroupCreationSecond() }
+            onClickNextButton = { navController.navigateGroupCreationSecond() },
         )
         groupCreationSecondNavGraph()
     }

@@ -28,7 +28,7 @@ class EventCreationActivity : ComponentActivity() {
                     EventCreationNavHost(
                         modifier = Modifier.fillMaxSize(),
                         navController = rememberNavController(),
-                        startDestination = EventCreationRoute.initRoute
+                        startDestination = EventCreationRoute.initRoute,
                     )
                 }
             }
@@ -38,7 +38,7 @@ class EventCreationActivity : ComponentActivity() {
     companion object {
         fun open(context: Activity) {
             context.startActivity(
-                Intent(context, EventCreationActivity::class.java)
+                Intent(context, EventCreationActivity::class.java),
             )
         }
     }

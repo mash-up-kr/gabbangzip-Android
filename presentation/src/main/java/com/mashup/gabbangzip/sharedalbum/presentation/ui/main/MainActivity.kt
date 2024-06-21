@@ -12,8 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventCreation.EventCreationActivity
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation.GroupCreationActivity
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupList.GroupListScreen
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import dagger.hilt.android.AndroidEntryPoint
