@@ -74,6 +74,6 @@ dependencies {
 
     // navigation
     implementation(libs.navigation.compose)
-    
+
     implementation(libs.kakao.login)
 }
