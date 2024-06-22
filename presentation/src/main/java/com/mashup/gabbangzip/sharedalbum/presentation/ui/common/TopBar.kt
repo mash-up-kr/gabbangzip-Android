@@ -58,11 +58,10 @@ fun TopBar(
         ) {
             if (leftIconRes != null) {
                 Image(
-                    modifier = Modifier.size(leftIconSize),
+                    modifier = Modifier.size(leftIconSize).padding(end = titleIconLeftPadding),
                     painter = painterResource(id = leftIconRes),
                     contentDescription = leftIconDescription,
                 )
-                VerticalSpacer(titleIconLeftPadding)
             }
             Text(
                 modifier = Modifier.weight(1.0f),
@@ -70,19 +69,17 @@ fun TopBar(
             )
             if (rightIconRes != null) {
                 Image(
-                    modifier = Modifier.size(rightIconSize),
+                    modifier = Modifier.size(rightIconSize).padding(end = rightIconRightPadding),
                     painter = painterResource(id = rightIconRes),
                     contentDescription = rightIconDescription,
                 )
-                VerticalSpacer(rightIconRightPadding)
             }
             if (rightIcon2Res != null) {
                 Image(
-                    modifier = Modifier.size(rightIcon2Size),
+                    modifier = Modifier.size(rightIcon2Size).padding(end = rightIcon2RightPadding),
                     painter = painterResource(id = rightIcon2Res),
                     contentDescription = rightIcon2Description,
                 )
-                VerticalSpacer(rightIcon2RightPadding)
             }
         }
         if (titleAlign == TopBarTitleAlign.CENTER) {
