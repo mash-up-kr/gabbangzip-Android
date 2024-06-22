@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.splash
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -6,44 +6,37 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.coroutineScope
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-class MainActivity : ComponentActivity() {
+@AndroidEntryPoint
+class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             SharedAlbumTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    Greeting("Android")
+                    SplashScreen()
                 }
             }
         }
+        lifecycle.coroutineScope.launch(Dispatchers.Default) {
+            delay(SPLASH_DISPLAY_TIME)
+            LoginActivity.open(this@SplashActivity)
+            finish()
+        }
     }
-}
 
-@Composable
-fun Greeting(
-    name: String,
-    modifier: Modifier = Modifier,
-) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier,
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SharedAlbumTheme {
-        Greeting("Android")
+    companion object {
+        private const val SPLASH_DISPLAY_TIME = 3000L // 3초
     }
 }

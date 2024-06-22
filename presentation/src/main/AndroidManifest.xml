@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name="com.mashup.gabbangzip.sharedalbum.presentation.MainActivity"
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -12,6 +12,22 @@
         </activity>
 
         <activity
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity"
+            android:exported="true"/>
+
+        <activity      
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
@@ -25,5 +41,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

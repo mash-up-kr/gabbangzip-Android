@@ -67,8 +67,13 @@ dependencies {
     // dagger hilt
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
 
     // coroutine
     implementation(libs.bundles.coroutine)
+
+    // navigation
+    implementation(libs.navigation.compose)
+
     implementation(libs.kakao.login)
 }
