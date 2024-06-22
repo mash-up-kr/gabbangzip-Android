@@ -7,17 +7,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.coroutineScope
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashActivity : ComponentActivity() {
-    private val coroutineScope = CoroutineScope(Dispatchers.Default)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -30,7 +29,7 @@ class SplashActivity : ComponentActivity() {
                 }
             }
         }
-        coroutineScope.launch {
+        lifecycle.coroutineScope.launch(Dispatchers.Default) {
             delay(SPLASH_DISPLAY_TIME)
             LoginActivity.open(this@SplashActivity)
             finish()
