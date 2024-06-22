@@ -4,4 +4,5 @@
     <string name="login_intro_subtitle">우리가 픽! 하는\n우리끼리 네컷앨범</string>
     <string name="login_with_kakao">카카오 로그인</string>
     <string name="login_failure_message">로그인에 실패했어요.</string>
+    <string name="vote_user_name">%s의 픽</string>
 </resources>
