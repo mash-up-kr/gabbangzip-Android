@@ -59,4 +59,7 @@ dependencies {
 
     // coroutine
     implementation(libs.bundles.coroutine)
+
+    // encrypted shared preferences
+    implementation(libs.androidx.security.crypto)
 }
