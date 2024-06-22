@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation.navigation
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation
 
 sealed interface GroupCreationRoute {
     val route: String

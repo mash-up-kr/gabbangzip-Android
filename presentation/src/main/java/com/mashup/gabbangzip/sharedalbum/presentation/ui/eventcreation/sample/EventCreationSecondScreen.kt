@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventCreation.sample
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.sample
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

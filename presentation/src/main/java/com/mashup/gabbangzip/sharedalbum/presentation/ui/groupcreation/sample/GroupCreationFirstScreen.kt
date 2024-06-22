@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventCreation.sample
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.sample
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun EventCreationFirstScreen(
+fun GroupCreationFirstScreen(
     onClickNextButton: () -> Unit,
 ) {
     Column(
@@ -21,7 +21,7 @@ fun EventCreationFirstScreen(
     ) {
         Text(
             modifier = Modifier.wrapContentSize(),
-            text = "이벤트만들기 첫번째 화면입니다",
+            text = "그룹만들기 화면입니다",
         )
         Button(onClick = { onClickNextButton.invoke() }) {
             Text(text = "다음 화면으로 이동하는 버튼")

@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventCreation.navigation
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.navigation
 
 sealed interface EventCreationRoute {
     val route: String

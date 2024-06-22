@@ -20,11 +20,11 @@
             android:exported="true"/>
 
         <activity
-            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation.GroupCreationActivity"
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity"
             android:exported="true"/>
 
         <activity
-            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.eventCreation.EventCreationActivity"
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity"
             android:exported="true"/>
 
     </application>

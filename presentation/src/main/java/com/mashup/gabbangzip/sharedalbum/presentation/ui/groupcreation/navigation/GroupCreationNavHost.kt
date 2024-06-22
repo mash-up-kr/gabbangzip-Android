@@ -1,12 +1,12 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation.navigation
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation.sample.navigation.groupCreationFirstNavGraph
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation.sample.navigation.groupCreationSecondNavGraph
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation.sample.navigation.navigateGroupCreationSecond
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.sample.navigation.groupCreationFirstNavGraph
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.sample.navigation.groupCreationSecondNavGraph
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.sample.navigation.navigateGroupCreationSecond
 
 @Composable
 fun GroupCreationNavHost(

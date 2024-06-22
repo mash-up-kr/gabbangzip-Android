@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation
 
 import android.app.Activity
 import android.content.Intent
@@ -11,8 +11,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation.navigation.GroupCreationNavHost
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupCreation.navigation.GroupCreationRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationNavHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationRoute
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
