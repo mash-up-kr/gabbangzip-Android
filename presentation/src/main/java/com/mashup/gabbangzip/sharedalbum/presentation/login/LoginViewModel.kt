@@ -22,11 +22,13 @@ class LoginViewModel @Inject constructor(
         KakaoUserSdkUtil.loginWithKakao(
             context = context,
             onSuccess = { idToken, profile ->
-                if (profile.nickname != null && profile.profileImageUrl != null) {
+                val nickname = profile.nickname
+                val profileImage = profile.profileImageUrl
+                if (nickname != null && profileImage != null) {
                     picLogin(
                         idToken = idToken,
-                        nickname = profile.nickname!!,
-                        profileImage = profile.profileImageUrl!!,
+                        nickname = nickname,
+                        profileImage = profileImage,
                     )
                 } else {
                     Log.d(TAG, "정보 조회 실패")

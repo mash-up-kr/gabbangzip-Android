@@ -21,12 +21,12 @@ class LoginRepositoryImpl @Inject constructor(
         runCatching {
             loginService.login(loginRequest = request)
         }.onSuccess { response ->
-            with(response.data!!) {
+            response.data?.run {
                 saveToken(
                     accessToken = accessToken,
                     refreshToken = refreshToken,
                 )
-            }
+            } ?: throw IllegalStateException("데이터 없음")
         }.getOrThrow()
     }
 
