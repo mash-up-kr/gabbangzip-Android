@@ -26,21 +26,11 @@ fun TopBar(
     modifier: Modifier = Modifier,
     titleText: String = "",
     titleAlign: TopBarTitleAlign = TopBarTitleAlign.CENTER,
-    @DrawableRes leftIconRes: Int? = null,
-    @DrawableRes rightIconRes: Int? = null,
-    @DrawableRes rightIcon2Res: Int? = null,
-    leftIconDescription: String? = null,
-    rightIconDescription: String? = null,
-    rightIcon2Description: String? = null,
-    leftIconSize: Dp = 26.dp,
-    rightIconSize: Dp = 26.dp,
-    rightIcon2Size: Dp = 26.dp,
+    leftIcon: TopBarIcon? = null,
+    rightIcon1: TopBarIcon? = null,
+    rightIcon2: TopBarIcon? = null,
     topPadding: Dp = 0.dp,
     bottomPadding: Dp = 0.dp,
-    leftIconLeftPadding: Dp = 0.dp,
-    titleIconLeftPadding: Dp = 0.dp,
-    rightIconRightPadding: Dp = 0.dp,
-    rightIcon2RightPadding: Dp = 0.dp,
 ) {
     Box(
         modifier = modifier
@@ -51,33 +41,38 @@ fun TopBar(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(start = leftIconLeftPadding),
+                .wrapContentHeight(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            if (leftIconRes != null) {
+            if (leftIcon?.resId != null) {
                 Image(
-                    modifier = Modifier.size(leftIconSize).padding(end = titleIconLeftPadding),
-                    painter = painterResource(id = leftIconRes),
-                    contentDescription = leftIconDescription,
+                    modifier = Modifier
+                        .padding(start = leftIcon.leftPadding, end = leftIcon.rightPadding)
+                        .size(leftIcon.size),
+                    painter = painterResource(id = leftIcon.resId),
+                    contentDescription = leftIcon.description,
                 )
             }
             Text(
                 modifier = Modifier.weight(1.0f),
                 text = if (titleAlign == TopBarTitleAlign.LEFT) titleText else "",
             )
-            if (rightIconRes != null) {
+            if (rightIcon1?.resId != null) {
                 Image(
-                    modifier = Modifier.size(rightIconSize).padding(end = rightIconRightPadding),
-                    painter = painterResource(id = rightIconRes),
-                    contentDescription = rightIconDescription,
+                    modifier = Modifier
+                        .padding(start = rightIcon1.leftPadding, end = rightIcon1.rightPadding)
+                        .size(rightIcon1.size),
+                    painter = painterResource(id = rightIcon1.resId),
+                    contentDescription = rightIcon1.description,
                 )
             }
-            if (rightIcon2Res != null) {
+            if (rightIcon2?.resId != null) {
                 Image(
-                    modifier = Modifier.size(rightIcon2Size).padding(end = rightIcon2RightPadding),
-                    painter = painterResource(id = rightIcon2Res),
-                    contentDescription = rightIcon2Description,
+                    modifier = Modifier
+                        .padding(start = rightIcon2.leftPadding, end = rightIcon2.rightPadding)
+                        .size(rightIcon2.size),
+                    painter = painterResource(id = rightIcon2.resId),
+                    contentDescription = rightIcon2.description,
                 )
             }
         }
@@ -97,6 +92,14 @@ enum class TopBarTitleAlign {
     CENTER, LEFT
 }
 
+data class TopBarIcon(
+    @DrawableRes val resId: Int,
+    val description: String,
+    val size: Dp,
+    val leftPadding: Dp = 0.dp,
+    val rightPadding: Dp = 0.dp,
+)
+
 class TopBarProvider : PreviewParameterProvider<TopBarState> {
     override val values: Sequence<TopBarState> = sequenceOf(
         TopBarState(
@@ -106,36 +109,47 @@ class TopBarProvider : PreviewParameterProvider<TopBarState> {
         TopBarState(
             title = "왼쪽 아이콘이 있는 가운데 제목",
             textAlign = TopBarTitleAlign.CENTER,
-            leftIconRes = R.drawable.ic_call_answer,
-            leftIconSize = 26.dp,
-            leftIconLeftPadding = 16.dp,
-            leftIconDescription = "",
+            leftIcon = TopBarIcon(
+                resId = R.drawable.ic_call_answer,
+                size = 26.dp,
+                leftPadding = 16.dp,
+                description = "",
+            ),
         ),
         TopBarState(
             title = "왼쪽 아이콘이 있는 왼쪽 제목",
             textAlign = TopBarTitleAlign.LEFT,
-            leftIconRes = R.drawable.ic_call_answer,
-            leftIconSize = 26.dp,
-            leftIconLeftPadding = 16.dp,
-            leftIconDescription = "",
             topPadding = 10.dp,
             bottomPadding = 10.dp,
+            leftIcon = TopBarIcon(
+                resId = R.drawable.ic_call_answer,
+                size = 26.dp,
+                leftPadding = 16.dp,
+                rightPadding = 8.dp,
+                description = "",
+            ),
         ),
         TopBarState(
-            title = "사이즈 다양한 아이콘이 가득한 가운데 제목",
+            title = "다양한 사이즈 아이콘과 가운데 제목",
             textAlign = TopBarTitleAlign.CENTER,
-            leftIconRes = R.drawable.ic_call_answer,
-            leftIconSize = 26.dp,
-            leftIconLeftPadding = 16.dp,
-            leftIconDescription = "",
-            rightIconRes = R.drawable.ic_call_answer_video,
-            rightIconSize = 20.dp,
-            rightIconRightPadding = 10.dp,
-            rightIconDescription = "",
-            rightIcon2Res = R.drawable.ic_call_answer_video_low,
-            rightIcon2Size = 42.dp,
-            rightIcon2RightPadding = 10.dp,
-            rightIcon2Description = "",
+            leftIcon = TopBarIcon(
+                resId = R.drawable.ic_call_answer,
+                size = 26.dp,
+                leftPadding = 16.dp,
+                description = "",
+            ),
+            rightIcon1 = TopBarIcon(
+                resId = R.drawable.ic_call_answer_video,
+                size = 20.dp,
+                rightPadding = 10.dp,
+                description = "",
+            ),
+            rightIcon2 = TopBarIcon(
+                resId = R.drawable.ic_call_answer_video_low,
+                size = 42.dp,
+                rightPadding = 10.dp,
+                description = "",
+            ),
             topPadding = 10.dp,
             bottomPadding = 10.dp,
         ),
@@ -145,21 +159,11 @@ class TopBarProvider : PreviewParameterProvider<TopBarState> {
 data class TopBarState(
     val title: String,
     val textAlign: TopBarTitleAlign = TopBarTitleAlign.CENTER,
-    val leftIconRes: Int? = null,
-    val rightIconRes: Int? = null,
-    val rightIcon2Res: Int? = null,
-    val leftIconDescription: String? = null,
-    val rightIconDescription: String? = null,
-    val rightIcon2Description: String? = null,
-    val leftIconSize: Dp = 26.dp,
-    val rightIconSize: Dp = 26.dp,
-    val rightIcon2Size: Dp = 26.dp,
+    val leftIcon: TopBarIcon? = null,
+    val rightIcon1: TopBarIcon? = null,
+    val rightIcon2: TopBarIcon? = null,
     val topPadding: Dp = 0.dp,
     val bottomPadding: Dp = 0.dp,
-    val leftIconLeftPadding: Dp = 0.dp,
-    val titleIconLeftPadding: Dp = 0.dp,
-    val rightIconRightPadding: Dp = 0.dp,
-    val rightIcon2RightPadding: Dp = 0.dp,
 )
 
 @Preview(showBackground = true)
@@ -172,18 +176,8 @@ fun TopBarPreview(
         titleAlign = state.textAlign,
         topPadding = state.topPadding,
         bottomPadding = state.bottomPadding,
-        leftIconRes = state.leftIconRes,
-        rightIconRes = state.rightIconRes,
-        rightIcon2Res = state.rightIcon2Res,
-        leftIconDescription = state.leftIconDescription,
-        rightIconDescription = state.rightIconDescription,
-        rightIcon2Description = state.rightIcon2Description,
-        leftIconSize = state.leftIconSize,
-        rightIconSize = state.rightIconSize,
-        rightIcon2Size = state.rightIcon2Size,
-        leftIconLeftPadding = state.leftIconLeftPadding,
-        titleIconLeftPadding = state.titleIconLeftPadding,
-        rightIconRightPadding = state.rightIconRightPadding,
-        rightIcon2RightPadding = state.rightIcon2RightPadding,
+        leftIcon = state.leftIcon,
+        rightIcon1 = state.rightIcon1,
+        rightIcon2 = state.rightIcon2,
     )
 }

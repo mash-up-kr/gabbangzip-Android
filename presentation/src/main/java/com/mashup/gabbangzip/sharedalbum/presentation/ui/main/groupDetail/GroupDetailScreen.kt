@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBar
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
 
 @Composable
@@ -25,19 +26,23 @@ fun GroupDetailScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TopBar(
-            leftIconSize = 26.dp,
-            leftIconLeftPadding = 8.dp,
-            leftIconDescription = "뒤로가기",
-            leftIconRes = R.drawable.ic_call_answer_low,
-            titleIconLeftPadding = 4.dp,
             titleText = "뛰뛰빵빵 가빵집",
             titleAlign = TopBarTitleAlign.LEFT,
-            rightIconSize = 30.dp,
-            rightIconRightPadding = 32.dp,
-            rightIconDescription = "내 정보",
-            rightIconRes = R.drawable.ic_call_answer_video_low,
             topPadding = 16.dp,
             bottomPadding = 16.dp,
+            leftIcon = TopBarIcon(
+                size = 26.dp,
+                leftPadding = 8.dp,
+                description = "뒤로가기",
+                resId = R.drawable.ic_call_answer_low,
+                rightPadding = 4.dp,
+            ),
+            rightIcon1 = TopBarIcon(
+                size = 30.dp,
+                rightPadding = 32.dp,
+                description = "내 정보",
+                resId = R.drawable.ic_call_answer_video_low,
+            ),
         )
         Column(
             modifier = Modifier

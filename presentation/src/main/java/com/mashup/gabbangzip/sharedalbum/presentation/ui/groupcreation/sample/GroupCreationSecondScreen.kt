@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBar
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
 
 @Composable
@@ -21,10 +22,12 @@ fun GroupCreationSecondScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TopBar(
-            leftIconSize = 26.dp,
-            leftIconLeftPadding = 16.dp,
-            leftIconDescription = "뒤로가기",
-            leftIconRes = R.drawable.ic_call_answer_low,
+            leftIcon = TopBarIcon(
+                size = 26.dp,
+                leftPadding = 16.dp,
+                description = "뒤로가기",
+                resId = R.drawable.ic_call_answer_low,
+            ),
             titleText = "그룹 만들기",
             titleAlign = TopBarTitleAlign.CENTER,
             topPadding = 10.dp,
