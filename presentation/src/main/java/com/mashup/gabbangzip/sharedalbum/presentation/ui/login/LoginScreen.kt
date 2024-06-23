@@ -38,20 +38,20 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 
 @Composable
 fun LoginScreen(onClickLoginButton: () -> Unit) {
-    PicIntroLottie()
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Gray0)
             .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Spacer(modifier = Modifier.height(83.dp))
+        Spacer(modifier = Modifier.weight(0.5f))
         Text(
             text = "PIC.",
             fontSize = 48.sp,
             color = Gray80,
         )
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "우리가 픽! 하는\n우리끼리 네컷앨범",
             fontSize = 22.sp,
@@ -60,6 +60,8 @@ fun LoginScreen(onClickLoginButton: () -> Unit) {
             textAlign = TextAlign.Center,
             color = Gray80,
         )
+        Spacer(modifier = Modifier.weight(0.4f))
+        PicIntroLottie()
         Spacer(modifier = Modifier.weight(1f))
         KakaoLoginButton(
             modifier = Modifier
@@ -74,14 +76,11 @@ fun LoginScreen(onClickLoginButton: () -> Unit) {
 fun PicIntroLottie(
     modifier: Modifier = Modifier,
 ) {
-    val composition by rememberLottieComposition(LottieCompositionSpec.Asset("lottie_login.lottie"))
+    val composition by rememberLottieComposition(
+        spec = LottieCompositionSpec.Asset("lottie_login_fit.lottie"),
+    )
 
-    // TODO: 로띠 파일 교체 필요
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Gray0),
-    ) {
+    Box(modifier = modifier) {
         LottieAnimation(composition)
     }
 }
