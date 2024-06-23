@@ -31,7 +31,7 @@ fun GroupListScreen(
             leftIcon = TopBarIcon(
                 size = 24.dp,
                 leftPadding = 16.dp,
-                description = "뒤로가기",
+                description = "",
                 resId = R.drawable.ic_call_answer_low,
                 rightPadding = 8.dp,
                 iconClickListener = {}
@@ -41,7 +41,7 @@ fun GroupListScreen(
             rightIcon1 = TopBarIcon(
                 size = 24.dp,
                 rightPadding = 10.dp,
-                description = "내 정보",
+                description = "알림",
                 resId = R.drawable.ic_call_answer_video_low,
                 iconClickListener = {}
             ),
@@ -50,7 +50,7 @@ fun GroupListScreen(
                 rightPadding = 16.dp,
                 description = "내 정보",
                 resId = R.drawable.ic_call_answer_video,
-                iconClickListener = {}
+                iconClickListener = { onClickMyPageButton.invoke() }
             ),
             topPadding = 16.dp,
             bottomPadding = 16.dp,
@@ -71,9 +71,6 @@ fun GroupListScreen(
             }
             Button(onClick = { onClickGroupDetailButton.invoke() }) {
                 Text(text = "그룹상세 화면 가는 버튼")
-            }
-            Button(onClick = { onClickMyPageButton.invoke() }) {
-                Text(text = "마이페이지 화면 가는 버튼")
             }
         }
     }
