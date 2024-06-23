@@ -20,7 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +30,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.KakaoOnPrimaryColor
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.KakaoPrimaryColor
@@ -38,13 +38,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 
 @Composable
 fun LoginScreen(onClickLoginButton: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White),
-    ) {
-        PicIntroLottie()
-    }
+    PicIntroLottie()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -67,7 +61,6 @@ fun LoginScreen(onClickLoginButton: () -> Unit) {
             color = Gray80,
         )
         Spacer(modifier = Modifier.weight(1f))
-        Spacer(modifier = Modifier.weight(1f))
         KakaoLoginButton(
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,7 +75,15 @@ fun PicIntroLottie(
     modifier: Modifier = Modifier,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.Asset("lottie_login.lottie"))
-    LottieAnimation(composition)
+
+    // TODO: 로띠 파일 교체 필요
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(Gray0),
+    ) {
+        LottieAnimation(composition)
+    }
 }
 
 @Composable
