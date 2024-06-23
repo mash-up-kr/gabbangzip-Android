@@ -37,14 +37,14 @@ fun GroupDetailScreen(
                 description = "뒤로가기",
                 resId = R.drawable.ic_call_answer_low,
                 rightPadding = 4.dp,
-                iconClickListener = onClickBackButton
+                iconClickListener = onClickBackButton,
             ),
             rightIcon1 = TopBarIcon(
                 size = 30.dp,
                 rightPadding = 32.dp,
                 description = "내 정보",
                 resId = R.drawable.ic_call_answer_video_low,
-                iconClickListener = {}
+                iconClickListener = {},
             ),
         )
         Column(

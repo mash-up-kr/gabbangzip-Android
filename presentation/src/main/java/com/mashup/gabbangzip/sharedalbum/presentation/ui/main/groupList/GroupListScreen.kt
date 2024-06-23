@@ -34,7 +34,7 @@ fun GroupListScreen(
                 description = "",
                 resId = R.drawable.ic_call_answer_low,
                 rightPadding = 8.dp,
-                iconClickListener = {}
+                iconClickListener = {},
             ),
             titleText = "PIC",
             titleAlign = TopBarTitleAlign.LEFT,
@@ -43,14 +43,14 @@ fun GroupListScreen(
                 rightPadding = 10.dp,
                 description = "알림",
                 resId = R.drawable.ic_call_answer_video_low,
-                iconClickListener = {}
+                iconClickListener = {},
             ),
             rightIcon2 = TopBarIcon(
                 size = 24.dp,
                 rightPadding = 16.dp,
                 description = "내 정보",
                 resId = R.drawable.ic_call_answer_video,
-                iconClickListener = onClickMyPageButton
+                iconClickListener = onClickMyPageButton,
             ),
             topPadding = 16.dp,
             bottomPadding = 16.dp,

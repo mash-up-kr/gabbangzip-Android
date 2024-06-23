@@ -17,7 +17,7 @@ fun NavGraphBuilder.groupDetailNavGraph(
     composable(route = MainRoute.GroupDetailRoute.route) {
         GroupDetailScreen(
             onClickGroupMemberButton = onClickGroupMemberButton,
-            onClickBackButton = onClickBackButton
+            onClickBackButton = onClickBackButton,
         )
     }
 }
