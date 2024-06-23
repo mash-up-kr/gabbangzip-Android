@@ -3,6 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.login
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,6 +27,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.KakaoOnPrimaryColor
@@ -33,10 +38,16 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 
 @Composable
 fun LoginScreen() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+    ) {
+        PicIntroLottie()
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
             .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -56,7 +67,6 @@ fun LoginScreen() {
             color = Gray80,
         )
         Spacer(modifier = Modifier.weight(1f))
-        PicIntroLottie()
         Spacer(modifier = Modifier.weight(1f))
         KakaoLoginButton(
             modifier = Modifier
@@ -71,7 +81,8 @@ fun LoginScreen() {
 fun PicIntroLottie(
     modifier: Modifier = Modifier,
 ) {
-    // TODO
+    val composition by rememberLottieComposition(LottieCompositionSpec.Asset("lottie_login.lottie"))
+    LottieAnimation(composition)
 }
 
 @Composable
