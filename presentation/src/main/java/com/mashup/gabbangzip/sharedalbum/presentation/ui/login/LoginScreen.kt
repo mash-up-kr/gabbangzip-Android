@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,7 +51,7 @@ fun LoginScreen(onClickLoginButton: () -> Unit) {
     ) {
         Spacer(modifier = Modifier.weight(0.5f))
         Text(
-            text = "PIC.",
+            text = stringResource(id = R.string.login_intro_title),
             fontSize = 48.sp,
             color = Gray80,
             fontFamily = pretendard,
@@ -58,7 +59,7 @@ fun LoginScreen(onClickLoginButton: () -> Unit) {
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = "우리가 픽! 하는\n우리끼리 네컷앨범",
+            text = stringResource(id = R.string.login_intro_subtitle),
             fontSize = 22.sp,
             color = Gray80,
             fontFamily = pretendard,
@@ -108,12 +109,12 @@ fun KakaoLoginButton(
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_kakao),
-            contentDescription = "카카오 로그인 아이콘",
+            contentDescription = stringResource(id = R.string.login_with_kakao),
             tint = KakaoOnPrimaryColor,
         )
         Spacer(modifier = Modifier.width(10.dp))
         Text(
-            text = "카카오 로그인",
+            text = stringResource(id = R.string.login_with_kakao),
             style = PicTypography.bodyMedium16,
             color = KakaoOnPrimaryColor,
         )
