@@ -10,7 +10,7 @@ fun NavGraphBuilder.eventCreationFirstNavGraph(
 ) {
     composable(route = EventCreationRoute.FirstScreenRoute.route) {
         EventCreationFirstScreen(
-            onClickNextButton = { onClickNextButton.invoke() },
+            onClickNextButton = onClickNextButton,
         )
     }
 }

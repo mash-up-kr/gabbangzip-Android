@@ -37,7 +37,7 @@ fun GroupDetailScreen(
                 description = "뒤로가기",
                 resId = R.drawable.ic_call_answer_low,
                 rightPadding = 4.dp,
-                iconClickListener = { onClickBackButton.invoke() }
+                iconClickListener = onClickBackButton
             ),
             rightIcon1 = TopBarIcon(
                 size = 30.dp,
@@ -58,7 +58,7 @@ fun GroupDetailScreen(
                 modifier = Modifier.wrapContentSize(),
                 text = "그룹 상세 화면입니다",
             )
-            Button(onClick = { onClickGroupMemberButton.invoke() }) {
+            Button(onClick = onClickGroupMemberButton) {
                 Text(
                     modifier = Modifier.wrapContentSize(),
                     text = "그룹 멤버 화면 가는 버튼",

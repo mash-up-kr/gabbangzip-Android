@@ -23,7 +23,7 @@ fun EventCreationFirstScreen(
             modifier = Modifier.wrapContentSize(),
             text = "이벤트만들기 첫번째 화면입니다",
         )
-        Button(onClick = { onClickNextButton.invoke() }) {
+        Button(onClick = onClickNextButton) {
             Text(text = "다음 화면으로 이동하는 버튼")
         }
     }

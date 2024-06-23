@@ -10,7 +10,7 @@ fun NavGraphBuilder.groupCreationFirstNavGraph(
 ) {
     composable(route = GroupCreationRoute.FirstScreenRoute.route) {
         GroupCreationFirstScreen(
-            onClickNextButton = { onClickNextButton.invoke() },
+            onClickNextButton = onClickNextButton,
         )
     }
 }

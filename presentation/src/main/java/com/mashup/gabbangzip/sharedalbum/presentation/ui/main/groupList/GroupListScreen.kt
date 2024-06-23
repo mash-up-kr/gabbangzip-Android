@@ -50,7 +50,7 @@ fun GroupListScreen(
                 rightPadding = 16.dp,
                 description = "내 정보",
                 resId = R.drawable.ic_call_answer_video,
-                iconClickListener = { onClickMyPageButton.invoke() }
+                iconClickListener = onClickMyPageButton
             ),
             topPadding = 16.dp,
             bottomPadding = 16.dp,
@@ -66,10 +66,10 @@ fun GroupListScreen(
                 modifier = Modifier.wrapContentSize(),
                 text = "메인 화면입니다",
             )
-            Button(onClick = { onClickEventMakeButton.invoke() }) {
+            Button(onClick = onClickEventMakeButton) {
                 Text(text = "이벤트만들기 화면 가는 버튼")
             }
-            Button(onClick = { onClickGroupDetailButton.invoke() }) {
+            Button(onClick = onClickGroupDetailButton) {
                 Text(text = "그룹상세 화면 가는 버튼")
             }
         }

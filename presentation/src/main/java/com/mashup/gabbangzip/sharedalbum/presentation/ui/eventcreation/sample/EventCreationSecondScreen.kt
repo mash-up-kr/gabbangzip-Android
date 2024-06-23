@@ -29,7 +29,7 @@ fun EventCreationSecondScreen(
                 leftPadding = 16.dp,
                 description = "뒤로가기",
                 resId = R.drawable.ic_call_answer_low,
-                iconClickListener = { onClickBackButton.invoke() },
+                iconClickListener = onClickBackButton,
             ),
             titleText = "이벤트 만들기",
             titleAlign = TopBarTitleAlign.CENTER,

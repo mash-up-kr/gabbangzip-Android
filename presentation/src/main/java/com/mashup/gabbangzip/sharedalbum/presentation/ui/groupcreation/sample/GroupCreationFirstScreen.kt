@@ -23,7 +23,7 @@ fun GroupCreationFirstScreen(
             modifier = Modifier.wrapContentSize(),
             text = "그룹만들기 화면입니다",
         )
-        Button(onClick = { onClickNextButton.invoke() }) {
+        Button(onClick = onClickNextButton) {
             Text(text = "다음 화면으로 이동하는 버튼")
         }
     }

@@ -29,7 +29,7 @@ fun MyPageScreen(
                 leftPadding = 16.dp,
                 description = "뒤로가기",
                 resId = R.drawable.ic_call_answer_low,
-                iconClickListener = { onClickBackButton.invoke() },
+                iconClickListener = onClickBackButton,
             ),
             titleText = "내 정보",
             titleAlign = TopBarTitleAlign.CENTER,

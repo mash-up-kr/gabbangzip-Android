@@ -27,7 +27,7 @@ fun GroupMemberScreen(onClickBackButton: () -> Unit) {
                 leftPadding = 16.dp,
                 description = "뒤로가기",
                 resId = R.drawable.ic_call_answer_low,
-                iconClickListener = { onClickBackButton.invoke() }
+                iconClickListener = onClickBackButton,
             ),
             titleText = "그룹 멤버",
             titleAlign = TopBarTitleAlign.CENTER,

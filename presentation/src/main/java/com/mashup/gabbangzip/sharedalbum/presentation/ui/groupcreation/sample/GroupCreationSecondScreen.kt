@@ -29,7 +29,7 @@ fun GroupCreationSecondScreen(
                 leftPadding = 16.dp,
                 description = "뒤로가기",
                 resId = R.drawable.ic_call_answer_low,
-                iconClickListener = {},
+                iconClickListener = onClickBackButton,
             ),
             titleText = "그룹 만들기",
             titleAlign = TopBarTitleAlign.CENTER,
