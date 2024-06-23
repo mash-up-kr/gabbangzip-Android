@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,7 +35,9 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.KakaoOnPrimaryColor
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.KakaoPrimaryColor
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.pretendard
 
 @Composable
 fun LoginScreen(onClickLoginButton: () -> Unit) {
@@ -50,15 +53,19 @@ fun LoginScreen(onClickLoginButton: () -> Unit) {
             text = "PIC.",
             fontSize = 48.sp,
             color = Gray80,
+            fontFamily = pretendard,
+            fontWeight = FontWeight.Black,
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "우리가 픽! 하는\n우리끼리 네컷앨범",
             fontSize = 22.sp,
+            color = Gray80,
+            fontFamily = pretendard,
+            fontWeight = FontWeight.Normal,
             letterSpacing = (-0.02).em,
             lineHeight = 27.sp,
             textAlign = TextAlign.Center,
-            color = Gray80,
         )
         Spacer(modifier = Modifier.weight(0.4f))
         PicIntroLottie()
@@ -107,7 +114,7 @@ fun KakaoLoginButton(
         Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = "카카오 로그인",
-            fontSize = 16.sp, // TODO: Body 16
+            style = PicTypography.bodyMedium16,
             color = KakaoOnPrimaryColor,
         )
     }
