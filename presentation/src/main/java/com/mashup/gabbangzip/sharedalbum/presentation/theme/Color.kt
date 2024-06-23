@@ -2,10 +2,8 @@ package com.mashup.gabbangzip.sharedalbum.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
-// White
-val White = Color(0xFFFFFFFF)
-
 // Gray
+val Gray0 = Color(0xFFFFFFFF)
 val Gray20 = Color(0xFFF9F9F9)
 val Gray40 = Color(0xFFF5F5F5)
 val Gray50 = Color(0xFFD9D9D9)
