@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -27,6 +28,7 @@ fun TopBar(
     modifier: Modifier = Modifier,
     titleText: String = "",
     titleAlign: TopBarTitleAlign = TopBarTitleAlign.CENTER,
+    titleStyle: TextStyle = TextStyle.Default,
     leftIcon: TopBarIcon? = null,
     rightIcon1: TopBarIcon? = null,
     rightIcon2: TopBarIcon? = null,
@@ -58,6 +60,7 @@ fun TopBar(
             Text(
                 modifier = Modifier.weight(1.0f),
                 text = if (titleAlign == TopBarTitleAlign.LEFT) titleText else "",
+                style = titleStyle,
             )
             if (rightIcon1?.resId != null) {
                 Image(
@@ -87,6 +90,7 @@ fun TopBar(
                     .wrapContentHeight(),
                 text = titleText,
                 textAlign = TextAlign.Center,
+                style = titleStyle,
             )
         }
     }
