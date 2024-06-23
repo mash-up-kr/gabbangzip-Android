@@ -1,7 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.login
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.model.LoginParam
@@ -9,6 +8,10 @@ import com.mashup.gabbangzip.sharedalbum.domain.usecase.LoginUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.auth.KakaoUserSdkUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,6 +20,8 @@ class LoginViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val loginUseCase: LoginUseCase,
 ) : ViewModel() {
+    private val _uiState = MutableStateFlow(LoginUiState())
+    val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
     fun login() {
         KakaoUserSdkUtil.loginWithKakao(
@@ -31,11 +36,21 @@ class LoginViewModel @Inject constructor(
                         profileImage = profileImage,
                     )
                 } else {
-                    Log.d(TAG, "정보 조회 실패")
+                    _uiState.update { state ->
+                        state.copy(
+                            isLoading = false,
+                            errorMessage = "정보 조회 실패",
+                        )
+                    }
                 }
             },
             onFailure = {
-                Log.d(TAG, "카카오 로그인 실패 또는 정보 조회 실패 $it")
+                _uiState.update { state ->
+                    state.copy(
+                        isLoading = false,
+                        errorMessage = "카카오 로그인 실패 또는 정보 조회 실패 $it",
+                    )
+                }
             },
         )
     }
@@ -47,16 +62,29 @@ class LoginViewModel @Inject constructor(
             profileImage = profileImage,
         )
         viewModelScope.launch {
+            _uiState.update { state ->
+                state.copy(
+                    isLoading = true,
+                    errorMessage = null,
+                )
+            }
             loginUseCase(param)
                 .onSuccess {
-                    Log.d(TAG, "로그인 성공")
+                    _uiState.update { state ->
+                        state.copy(
+                            isLoading = false,
+                            errorMessage = null,
+                            isUserLoggedIn = true,
+                        )
+                    }
                 }.onFailure {
-                    Log.d(TAG, "로그인 실패 $it")
+                    _uiState.update { state ->
+                        state.copy(
+                            isLoading = false,
+                            errorMessage = "로그인 실패 $it",
+                        )
+                    }
                 }
         }
-    }
-
-    companion object {
-        private const val TAG = "LoginViewModel"
     }
 }
