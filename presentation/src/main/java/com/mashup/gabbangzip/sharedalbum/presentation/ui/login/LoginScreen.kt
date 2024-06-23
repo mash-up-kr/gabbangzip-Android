@@ -101,8 +101,8 @@ fun KakaoLoginButton(
         modifier = modifier
             .clip(shape = RoundedCornerShape(12.dp))
             .background(color = KakaoPrimaryColor)
-            .padding(15.dp)
-            .clickable { onClick() },
+            .clickable { onClick() }
+            .padding(15.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {
