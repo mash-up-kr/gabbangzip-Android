@@ -37,7 +37,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.KakaoPrimaryColor
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onClickLoginButton: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -117,6 +117,6 @@ fun KakaoLoginButton(
 @Composable
 fun LoginScreenPreview() {
     SharedAlbumTheme {
-        LoginScreen()
+        LoginScreen(onClickLoginButton = {})
     }
 }

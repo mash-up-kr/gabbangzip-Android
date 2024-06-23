@@ -34,9 +34,12 @@ coroutine = "1.7.3"
 room = "2.6.1"
 
 ktlint = "11.6.1"
+kakaoLogin = "2.20.1"
+securityCrypto = "1.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -74,6 +77,8 @@ coroutine-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutine
 
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
+kakao-login = { module = "com.kakao.sdk:v2-user", version.ref = "kakaoLogin" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
