@@ -74,10 +74,10 @@ internal val PicTypography = PretendardTypography(
 private fun pretendardTextStyle(
     fontSize: Int,
     fontWeight: FontWeight,
-    lineHeight: Int = 24,
+//    lineHeight: Int,
 ) = TextStyle(
     fontFamily = pretendard,
     fontWeight = fontWeight,
     fontSize = fontSize.sp,
-    lineHeight = lineHeight.sp,
+//    lineHeight = lineHeight.sp,
 )
