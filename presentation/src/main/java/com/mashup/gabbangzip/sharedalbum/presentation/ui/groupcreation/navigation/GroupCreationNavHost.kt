@@ -22,6 +22,8 @@ fun GroupCreationNavHost(
         groupCreationFirstNavGraph(
             onClickNextButton = { navController.navigateGroupCreationSecond() },
         )
-        groupCreationSecondNavGraph()
+        groupCreationSecondNavGraph(
+            onClickBackButton = { navController.popBackStack() },
+        )
     }
 }

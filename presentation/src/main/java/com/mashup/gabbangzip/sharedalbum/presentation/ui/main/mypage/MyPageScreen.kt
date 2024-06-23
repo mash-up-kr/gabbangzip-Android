@@ -15,7 +15,9 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
 
 @Composable
-fun MyPageScreen() {
+fun MyPageScreen(
+    onClickBackButton: () -> Unit,
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -27,6 +29,7 @@ fun MyPageScreen() {
                 leftPadding = 16.dp,
                 description = "뒤로가기",
                 resId = R.drawable.ic_call_answer_low,
+                iconClickListener = { onClickBackButton.invoke() },
             ),
             titleText = "내 정보",
             titleAlign = TopBarTitleAlign.CENTER,

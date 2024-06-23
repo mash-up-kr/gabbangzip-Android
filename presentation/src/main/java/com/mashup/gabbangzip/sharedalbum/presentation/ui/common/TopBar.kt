@@ -2,6 +2,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -47,6 +48,7 @@ fun TopBar(
             if (leftIcon?.resId != null) {
                 Image(
                     modifier = Modifier
+                        .clickable { leftIcon.iconClickListener.invoke() }
                         .padding(start = leftIcon.leftPadding, end = leftIcon.rightPadding)
                         .size(leftIcon.size),
                     painter = painterResource(id = leftIcon.resId),
@@ -60,6 +62,7 @@ fun TopBar(
             if (rightIcon1?.resId != null) {
                 Image(
                     modifier = Modifier
+                        .clickable { rightIcon1.iconClickListener.invoke() }
                         .padding(start = rightIcon1.leftPadding, end = rightIcon1.rightPadding)
                         .size(rightIcon1.size),
                     painter = painterResource(id = rightIcon1.resId),
@@ -69,6 +72,7 @@ fun TopBar(
             if (rightIcon2?.resId != null) {
                 Image(
                     modifier = Modifier
+                        .clickable { rightIcon2.iconClickListener.invoke() }
                         .padding(start = rightIcon2.leftPadding, end = rightIcon2.rightPadding)
                         .size(rightIcon2.size),
                     painter = painterResource(id = rightIcon2.resId),
@@ -98,6 +102,7 @@ data class TopBarIcon(
     val size: Dp,
     val leftPadding: Dp = 0.dp,
     val rightPadding: Dp = 0.dp,
+    val iconClickListener: () -> Unit,
 )
 
 class TopBarProvider : PreviewParameterProvider<TopBarState> {
@@ -114,6 +119,7 @@ class TopBarProvider : PreviewParameterProvider<TopBarState> {
                 size = 26.dp,
                 leftPadding = 16.dp,
                 description = "",
+                iconClickListener = {},
             ),
         ),
         TopBarState(
@@ -127,6 +133,7 @@ class TopBarProvider : PreviewParameterProvider<TopBarState> {
                 leftPadding = 16.dp,
                 rightPadding = 8.dp,
                 description = "",
+                iconClickListener = {},
             ),
         ),
         TopBarState(
@@ -137,18 +144,21 @@ class TopBarProvider : PreviewParameterProvider<TopBarState> {
                 size = 26.dp,
                 leftPadding = 16.dp,
                 description = "",
+                iconClickListener = {},
             ),
             rightIcon1 = TopBarIcon(
                 resId = R.drawable.ic_call_answer_video,
                 size = 20.dp,
                 rightPadding = 10.dp,
                 description = "",
+                iconClickListener = {},
             ),
             rightIcon2 = TopBarIcon(
                 resId = R.drawable.ic_call_answer_video_low,
                 size = 42.dp,
                 rightPadding = 10.dp,
                 description = "",
+                iconClickListener = {},
             ),
             topPadding = 10.dp,
             bottomPadding = 10.dp,

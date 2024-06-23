@@ -10,8 +10,8 @@ fun NavController.navigateGroupMember() {
     navigate(MainRoute.GroupMemberRoute.route)
 }
 
-fun NavGraphBuilder.groupMemberNavGraph() {
+fun NavGraphBuilder.groupMemberNavGraph(onClickBackButton: () -> Unit) {
     composable(route = MainRoute.GroupMemberRoute.route) {
-        GroupMemberScreen()
+        GroupMemberScreen(onClickBackButton)
     }
 }

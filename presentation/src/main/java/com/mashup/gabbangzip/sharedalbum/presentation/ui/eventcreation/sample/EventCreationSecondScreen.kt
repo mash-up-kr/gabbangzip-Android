@@ -15,7 +15,9 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
 
 @Composable
-fun EventCreationSecondScreen() {
+fun EventCreationSecondScreen(
+    onClickBackButton: () -> Unit,
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -27,6 +29,7 @@ fun EventCreationSecondScreen() {
                 leftPadding = 16.dp,
                 description = "뒤로가기",
                 resId = R.drawable.ic_call_answer_low,
+                iconClickListener = { onClickBackButton.invoke() },
             ),
             titleText = "이벤트 만들기",
             titleAlign = TopBarTitleAlign.CENTER,

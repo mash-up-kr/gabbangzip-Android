@@ -22,6 +22,8 @@ fun EventCreationNavHost(
         eventCreationFirstNavGraph(
             onClickNextButton = { navController.navigateEventCreationSecond() },
         )
-        eventCreationSecondNavGraph()
+        eventCreationSecondNavGraph(
+            onClickBackButton = { navController.popBackStack() },
+        )
     }
 }

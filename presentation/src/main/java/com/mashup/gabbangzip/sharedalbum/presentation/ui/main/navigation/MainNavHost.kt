@@ -31,8 +31,13 @@ fun MainNavHost(
         )
         groupDetailNavGraph(
             onClickGroupMemberButton = { navController.navigateGroupMember() },
+            onClickBackButton = { navController.popBackStack() },
         )
-        groupMemberNavGraph()
-        myPageNavGraph()
+        groupMemberNavGraph(
+            onClickBackButton = { navController.popBackStack() },
+        )
+        myPageNavGraph(
+            onClickBackButton = { navController.popBackStack() },
+        )
     }
 }

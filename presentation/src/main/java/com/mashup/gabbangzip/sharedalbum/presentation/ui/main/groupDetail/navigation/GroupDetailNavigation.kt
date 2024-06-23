@@ -12,10 +12,12 @@ fun NavController.navigateGroupDetail() {
 
 fun NavGraphBuilder.groupDetailNavGraph(
     onClickGroupMemberButton: () -> Unit,
+    onClickBackButton: () -> Unit,
 ) {
     composable(route = MainRoute.GroupDetailRoute.route) {
         GroupDetailScreen(
-            onClickGroupMemberButton = { onClickGroupMemberButton.invoke() },
+            onClickGroupMemberButton = onClickGroupMemberButton,
+            onClickBackButton = onClickBackButton
         )
     }
 }

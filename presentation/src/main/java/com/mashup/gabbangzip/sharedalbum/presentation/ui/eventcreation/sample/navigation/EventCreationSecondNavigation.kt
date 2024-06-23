@@ -10,8 +10,8 @@ fun NavController.navigateEventCreationSecond() {
     navigate(EventCreationRoute.SecondScreenRoute.route)
 }
 
-fun NavGraphBuilder.eventCreationSecondNavGraph() {
+fun NavGraphBuilder.eventCreationSecondNavGraph(onClickBackButton: () -> Unit) {
     composable(route = EventCreationRoute.SecondScreenRoute.route) {
-        EventCreationSecondScreen()
+        EventCreationSecondScreen(onClickBackButton)
     }
 }

@@ -15,7 +15,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
 
 @Composable
-fun GroupMemberScreen() {
+fun GroupMemberScreen(onClickBackButton: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -27,6 +27,7 @@ fun GroupMemberScreen() {
                 leftPadding = 16.dp,
                 description = "뒤로가기",
                 resId = R.drawable.ic_call_answer_low,
+                iconClickListener = { onClickBackButton.invoke() }
             ),
             titleText = "그룹 멤버",
             titleAlign = TopBarTitleAlign.CENTER,
