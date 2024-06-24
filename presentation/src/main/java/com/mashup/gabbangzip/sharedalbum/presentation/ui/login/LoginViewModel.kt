@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.login
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.login
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

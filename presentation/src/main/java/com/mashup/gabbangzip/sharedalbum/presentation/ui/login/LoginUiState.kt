@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.login
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.login
 
 data class LoginUiState(
     val isLoading: Boolean = false,
