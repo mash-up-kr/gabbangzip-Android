@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

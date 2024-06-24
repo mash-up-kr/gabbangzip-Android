@@ -24,6 +24,11 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupItemNormal
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupItemVersion
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupTitle
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.MyPageDialog
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.UserContainer
 
 @Composable
 fun MyPageScreen(
