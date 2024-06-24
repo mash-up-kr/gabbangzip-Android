@@ -130,7 +130,7 @@ fun MyPageScreen(
                 .wrapContentHeight()
                 .clickable(onClick = { showDialog = DialogState.Withdrawal })
                 .padding(vertical = 20.dp, horizontal = 16.dp),
-            text = stringResource(id = R.string.withdrawal),
+            text = stringResource(id = R.string.account_withdrawal),
         )
     }
 }
