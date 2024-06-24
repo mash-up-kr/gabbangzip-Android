@@ -12,8 +12,9 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.R
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
@@ -31,11 +32,11 @@ fun MyPageScreen(
             leftIcon = TopBarIcon(
                 size = 26.dp,
                 leftPadding = 16.dp,
-                description = "뒤로가기",
-                resId = R.drawable.ic_call_answer_low,
+                description = stringResource(id = R.string.go_back),
+                resId = R.drawable.ic_back,
                 iconClickListener = onClickBackButton,
             ),
-            titleText = "내 정보",
+            titleText = stringResource(id = R.string.my_page),
             titleAlign = TopBarTitleAlign.CENTER,
             topPadding = 10.dp,
             bottomPadding = 10.dp,
@@ -46,7 +47,7 @@ fun MyPageScreen(
                 .wrapContentHeight()
                 .padding(vertical = 20.dp, horizontal = 16.dp),
             userName = "연규",
-            loginWay = "카카오톡 로그인",
+            loginWay = stringResource(id = R.string.login_kakao),
         )
         Spacer(
             modifier = Modifier
@@ -59,7 +60,7 @@ fun MyPageScreen(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(vertical = 20.dp, horizontal = 16.dp),
-            text = "알림 설정",
+            text = stringResource(id = R.string.notification_setting),
         )
         GroupItemNormal(
             modifier = Modifier
@@ -67,7 +68,7 @@ fun MyPageScreen(
                 .wrapContentHeight()
                 .clickable { /** 알림설정 넘어가는 코드 **/ }
                 .padding(vertical = 20.dp, horizontal = 16.dp),
-            text = "앱 알림 설정",
+            text = stringResource(id = R.string.app_notification_setting),
         )
         Spacer(
             modifier = Modifier
@@ -81,14 +82,14 @@ fun MyPageScreen(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(vertical = 20.dp, horizontal = 16.dp),
-            text = "계정 설정",
+            text = stringResource(id = R.string.account_setting),
         )
         GroupItemVersion(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(top = 10.dp, bottom = 10.dp, start = 16.dp, end = 21.dp),
-            titleText = "현재 버전",
+            titleText = stringResource(id = R.string.current_version),
             versionName = "1.0.0",
         )
         GroupItemNormal(
@@ -97,7 +98,7 @@ fun MyPageScreen(
                 .wrapContentHeight()
                 .clickable { /** 로그아웃 코드 **/ }
                 .padding(vertical = 20.dp, horizontal = 16.dp),
-            text = "로그아웃",
+            text = stringResource(id = R.string.logout),
         )
         GroupItemNormal(
             modifier = Modifier
@@ -105,7 +106,7 @@ fun MyPageScreen(
                 .wrapContentHeight()
                 .clickable { /** 회원탈퇴 코드 **/ }
                 .padding(vertical = 20.dp, horizontal = 16.dp),
-            text = "회원탈퇴",
+            text = stringResource(id = R.string.withdrawal),
         )
     }
 }
