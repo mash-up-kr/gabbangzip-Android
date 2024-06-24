@@ -37,7 +37,8 @@ fun MainNavHost(
             onClickBackButton = { navController.popBackStack() },
         )
         myPageNavGraph(
-            onClickBackButton = { navController.popBackStack() },
+            onClickBack = { navController.popBackStack() },
+            onClickAlarmSetting = { },
         )
     }
 }
