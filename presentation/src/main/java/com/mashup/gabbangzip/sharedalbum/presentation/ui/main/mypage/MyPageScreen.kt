@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -29,12 +30,14 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.G
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupTitle
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.MyPageDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.UserContainer
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.viewmodel.MyPageViewModel
 
 @Composable
 fun MyPageScreen(
     userName: String,
     onClickBack: () -> Unit,
     onClickNotificationSetting: () -> Unit,
+    viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     var showDialog by remember { mutableStateOf(DialogState.None) }
 
@@ -47,7 +50,7 @@ fun MyPageScreen(
             onDismiss = { showDialog = DialogState.None },
             onConfirm = {
                 showDialog = DialogState.None
-                // Todo : 로그아웃 로직 작성하기
+                viewModel.logout()
             },
         )
     } else if (showDialog == DialogState.Withdrawal) {
@@ -59,7 +62,7 @@ fun MyPageScreen(
             onDismiss = { showDialog = DialogState.None },
             onConfirm = {
                 showDialog = DialogState.None
-                // Todo : 회원탈퇴 로직 작성하기
+                viewModel.withdrawal()
             },
         )
     }
