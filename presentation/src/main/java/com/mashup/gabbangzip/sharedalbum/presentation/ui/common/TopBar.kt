@@ -2,7 +2,6 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -50,7 +49,7 @@ fun TopBar(
             if (leftIcon?.resId != null) {
                 Image(
                     modifier = Modifier
-                        .clickable { leftIcon.iconClickListener() }
+                        .platformRippleClickable { leftIcon.iconClickListener() }
                         .padding(start = leftIcon.leftPadding, end = leftIcon.rightPadding)
                         .size(leftIcon.size),
                     painter = painterResource(id = leftIcon.resId),
@@ -65,7 +64,7 @@ fun TopBar(
             if (rightIcon1?.resId != null) {
                 Image(
                     modifier = Modifier
-                        .clickable { rightIcon1.iconClickListener() }
+                        .platformRippleClickable { rightIcon1.iconClickListener() }
                         .padding(start = rightIcon1.leftPadding, end = rightIcon1.rightPadding)
                         .size(rightIcon1.size),
                     painter = painterResource(id = rightIcon1.resId),
@@ -75,7 +74,7 @@ fun TopBar(
             if (rightIcon2?.resId != null) {
                 Image(
                     modifier = Modifier
-                        .clickable { rightIcon2.iconClickListener() }
+                        .platformRippleClickable { rightIcon2.iconClickListener() }
                         .padding(start = rightIcon2.leftPadding, end = rightIcon2.rightPadding)
                         .size(rightIcon2.size),
                     painter = painterResource(id = rightIcon2.resId),
