@@ -77,5 +77,5 @@ dependencies {
     implementation(libs.navigation.compose)
 
     implementation(libs.kakao.login)
-    implementation (libs.lottie.compose)
+    implementation(libs.lottie.compose)
 }
