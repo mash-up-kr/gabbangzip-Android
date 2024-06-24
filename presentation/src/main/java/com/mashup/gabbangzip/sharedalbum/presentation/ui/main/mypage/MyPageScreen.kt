@@ -29,21 +29,33 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
 fun MyPageScreen(
     userName: String,
     onClickBack: () -> Unit,
-    onClickAlarmSetting: () -> Unit,
+    onClickNotificationSetting: () -> Unit,
 ) {
     var showDialog by remember { mutableStateOf(DialogState.None) }
 
-    if (showDialog != DialogState.None) {
+    if (showDialog == DialogState.Logout) {
         MyPageDialog(
-            titleText = "로그아웃 하시겠어요?",
-            contentsText = "정말정말 로그아웃하시겠어요?!",
-            confirmText = "로그아웃",
-            dismissText = "취소",
+            titleText = stringResource(id = R.string.dialog_logout_title),
+            contentsText = "",
+            confirmText = stringResource(id = R.string.logout),
+            dismissText = stringResource(id = R.string.cancel),
             onDismiss = { showDialog = DialogState.None },
             onConfirm = {
                 showDialog = DialogState.None
-                // Add logout logic here
-            }
+                // Todo : 로그아웃 로직 작성하기
+            },
+        )
+    } else if (showDialog == DialogState.Withdrawal) {
+        MyPageDialog(
+            titleText = stringResource(id = R.string.dialog_withdrawal_title),
+            contentsText = stringResource(id = R.string.dialog_withdrawal_contents),
+            confirmText = stringResource(id = R.string.withdrawal),
+            dismissText = stringResource(id = R.string.cancel),
+            onDismiss = { showDialog = DialogState.None },
+            onConfirm = {
+                showDialog = DialogState.None
+                // Todo : 회원탈퇴 로직 작성하기
+            },
         )
     }
 
@@ -90,7 +102,7 @@ fun MyPageScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .clickable(onClick = onClickAlarmSetting)
+                .clickable(onClick = onClickNotificationSetting)
                 .padding(vertical = 20.dp, horizontal = 16.dp),
             text = stringResource(id = R.string.app_notification_setting),
         )

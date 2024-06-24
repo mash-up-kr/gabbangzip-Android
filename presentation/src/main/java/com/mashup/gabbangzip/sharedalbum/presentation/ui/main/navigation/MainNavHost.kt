@@ -18,6 +18,7 @@ fun MainNavHost(
     navController: NavHostController,
     startDestination: String,
     onClickEventMakeButton: () -> Unit,
+    onClickNotificationSetting: () -> Unit,
 ) {
     NavHost(
         modifier = modifier,
@@ -38,7 +39,7 @@ fun MainNavHost(
         )
         myPageNavGraph(
             onClickBack = { navController.popBackStack() },
-            onClickAlarmSetting = { },
+            onClickNotificationSetting = onClickNotificationSetting,
         )
     }
 }

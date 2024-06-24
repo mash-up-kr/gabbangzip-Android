@@ -12,13 +12,13 @@ fun NavController.navigateMyPage() {
 
 fun NavGraphBuilder.myPageNavGraph(
     onClickBack: () -> Unit,
-    onClickAlarmSetting: () -> Unit,
+    onClickNotificationSetting: () -> Unit,
 ) {
     composable(route = MainRoute.MyPageRoute.route) {
         MyPageScreen(
             userName = "계원",
             onClickBack = onClickBack,
-            onClickAlarmSetting = onClickAlarmSetting,
+            onClickNotificationSetting = onClickNotificationSetting,
         )
     }
 }
