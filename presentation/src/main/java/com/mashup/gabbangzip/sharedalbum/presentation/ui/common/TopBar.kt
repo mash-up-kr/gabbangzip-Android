@@ -50,7 +50,7 @@ fun TopBar(
             if (leftIcon?.resId != null) {
                 Image(
                     modifier = Modifier
-                        .clickable { leftIcon.iconClickListener.invoke() }
+                        .clickable { leftIcon.iconClickListener() }
                         .padding(start = leftIcon.leftPadding, end = leftIcon.rightPadding)
                         .size(leftIcon.size),
                     painter = painterResource(id = leftIcon.resId),
@@ -65,7 +65,7 @@ fun TopBar(
             if (rightIcon1?.resId != null) {
                 Image(
                     modifier = Modifier
-                        .clickable { rightIcon1.iconClickListener.invoke() }
+                        .clickable { rightIcon1.iconClickListener() }
                         .padding(start = rightIcon1.leftPadding, end = rightIcon1.rightPadding)
                         .size(rightIcon1.size),
                     painter = painterResource(id = rightIcon1.resId),
@@ -75,7 +75,7 @@ fun TopBar(
             if (rightIcon2?.resId != null) {
                 Image(
                     modifier = Modifier
-                        .clickable { rightIcon2.iconClickListener.invoke() }
+                        .clickable { rightIcon2.iconClickListener() }
                         .padding(start = rightIcon2.leftPadding, end = rightIcon2.rightPadding)
                         .size(rightIcon2.size),
                     painter = painterResource(id = rightIcon2.resId),

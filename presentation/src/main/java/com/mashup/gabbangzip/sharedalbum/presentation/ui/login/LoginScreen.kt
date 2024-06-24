@@ -21,7 +21,7 @@ fun LoginScreen(onClickLoginButton: () -> Unit) {
             modifier = Modifier.wrapContentSize(),
             text = "로그인 화면입니다",
         )
-        Button(onClick = { onClickLoginButton.invoke() }) {
+        Button(onClick = { onClickLoginButton() }) {
             Text(text = "로그인으로 가는 버튼")
         }
     }
