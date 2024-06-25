@@ -1,9 +1,11 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.LoadUserInfoUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.LogoutUseCase
+import com.mashup.gabbangzip.sharedalbum.presentation.auth.KakaoUserSdkUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.MyPageUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
-    private val loadUserInfoUseCase: LoadUserInfoUseCase
+    loadUserInfoUseCase: LoadUserInfoUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(MyPageUiState())
     val uiState: StateFlow<MyPageUiState> = _uiState.asStateFlow()
@@ -48,11 +50,33 @@ class MyPageViewModel @Inject constructor(
 
     fun logout() {
         viewModelScope.launch {
+            KakaoUserSdkUtil.logout()
             logoutUseCase()
         }
     }
 
-    fun withdrawal() {
-        // Todo : 회원탈퇴 로직 작성하기
+    fun withdrawal(onSuccess: () -> Unit) {
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
+        KakaoUserSdkUtil.withdrawal(
+            onSuccess = {
+                // Todo : 가빵집 서버 회원탈퇴 로직 작성하기
+                _uiState.update {
+                    it.copy(isLoading = false)
+                }
+                onSuccess()
+            },
+            onFailure = {
+                _uiState.update { state ->
+                    state.copy(isLoading = false)
+                }
+                Log.d(TAG, "카카오 서버 회원탈퇴 실패 $it")
+            },
+        )
+    }
+
+    companion object {
+        private const val TAG = "MyPageViewModel"
     }
 }

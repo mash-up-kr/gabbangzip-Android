@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 data class MyPageUiState(
     val userName: String = "",
     val dialogState: DialogState = DialogState.None,
+    val isLoading: Boolean = false,
 ) {
     enum class DialogState {
         None, Logout, Withdrawal
