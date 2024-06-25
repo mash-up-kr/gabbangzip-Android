@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
@@ -18,49 +19,59 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.UserInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.Photo
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.VoteResult
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.VoteState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteResult
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteState
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 @Composable
 fun VoteScreen(
-    state: VoteState,
+    state: PhotoVoteState,
     onCancelVote: () -> Unit,
-    onSwiped: (result: VoteResult, photo: Photo) -> Unit,
+    onSwiped: (result: PhotoVoteResult, photo: Photo) -> Unit,
+    onSwipeFinish: () -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp),
     ) {
-        CancelVote(
+        CancelVoteButton(
             modifier = Modifier
                 .padding(top = 17.dp)
                 .align(Alignment.End),
             onCancelVote = onCancelVote,
         )
+
         UserProfile(
             modifier = Modifier
                 .padding(top = 17.dp)
                 .align(Alignment.CenterHorizontally),
-            state = state,
+            userInfo = state.userInfo,
         )
-        VoteCardContainer(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+
+        PhotoCardContainer(
+            modifier = Modifier
+                .padding(vertical = 24.dp)
+                .align(Alignment.CenterHorizontally),
             onSwiped = onSwiped,
-            state = state,
+            photoList = state.photoList,
+            onSwipeFinish = onSwipeFinish,
         )
     }
 }
 
 @Composable
-fun CancelVote(
+private fun CancelVoteButton(
     modifier: Modifier,
     onCancelVote: () -> Unit,
 ) {
@@ -74,17 +85,15 @@ fun CancelVote(
                 onClick = onCancelVote,
             ),
         imageVector = Icons.Default.Close,
-        contentDescription = null,
+        contentDescription = stringResource(R.string.cancel_icon),
     )
 }
 
 @Composable
 private fun UserProfile(
     modifier: Modifier,
-    state: VoteState,
+    userInfo: UserInfo,
 ) {
-    val context = LocalContext.current
-
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -94,34 +103,68 @@ private fun UserProfile(
             modifier = Modifier
                 .width(50.dp)
                 .height(50.dp),
-            model = state.userProfile.imageUrl,
+            model = userInfo.imageUrl,
             contentScale = ContentScale.Crop,
-            contentDescription = null,
+            contentDescription = stringResource(R.string.profile_image),
         )
-        Text(text = context.getString(R.string.vote_user_name, state.userProfile.name))
+        Text(text = stringResource(R.string.vote_user_name, userInfo.name))
     }
 }
 
 @Composable
-private fun VoteCardContainer(
+private fun PhotoCardContainer(
     modifier: Modifier = Modifier,
-    onSwiped: (result: VoteResult, photo: Photo) -> Unit,
-    state: VoteState,
+    photoList: ImmutableList<Photo>,
+    onSwiped: (result: PhotoVoteResult, photo: Photo) -> Unit,
+    onSwipeFinish: () -> Unit,
 ) {
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-        state.photoList.list.forEach { photo ->
-            VoteCard(
-                modifier = Modifier
-                    .padding(
-                        horizontal = 16.dp,
-                        vertical = 24.dp,
-                    ),
-                onSwiped = onSwiped,
+        photoList.forEach { photo ->
+            PhotoCard(
+                onSwiped = { result, info ->
+                    if (info.id == photoList.first().id) {
+                        onSwipeFinish()
+                    }
+                    onSwiped(result, info)
+                },
                 photo = photo,
+                content = {
+                    PhotoCardContent(
+                        modifier = Modifier.fillMaxSize(),
+                        photo = photo,
+                    )
+                },
             )
         }
+    }
+}
+
+@Composable
+private fun PhotoCardContent(
+    modifier: Modifier = Modifier,
+    photo: Photo,
+) {
+    Box(
+        modifier = modifier,
+    ) {
+        AsyncImage(
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(RoundedCornerShape(12.dp)),
+            model = photo.imageUrl,
+            contentScale = ContentScale.Crop,
+            contentDescription = stringResource(R.string.vote_photo),
+        )
+
+        Text(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(5.dp),
+            text = photo.date,
+            color = Color.White,
+        )
     }
 }
