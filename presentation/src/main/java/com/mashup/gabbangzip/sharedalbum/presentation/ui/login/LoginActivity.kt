@@ -33,7 +33,11 @@ class LoginActivity : ComponentActivity() {
 
                 if (state.errorMessage != null) {
                     Log.d(TAG, "${state.errorMessage}")
-                    Toast.makeText(this, getString(R.string.login_with_kakao), Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        this,
+                        getString(R.string.login_failure_message),
+                        Toast.LENGTH_SHORT,
+                    )
                         .show()
                 }
 
