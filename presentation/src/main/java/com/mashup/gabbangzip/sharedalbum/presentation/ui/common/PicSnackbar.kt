@@ -56,7 +56,7 @@ fun PicSnackbarHost(
 }
 
 @Composable
-fun PicSnackbar(
+private fun PicSnackbar(
     type: PicSnackbarType = PicSnackbarType.NORMAL,
     message: String,
 ) {
@@ -89,7 +89,7 @@ fun PicSnackbar(
 
 @Preview
 @Composable
-fun PickSnackbarPreView() {
+private fun PickSnackbarPreView() {
     SharedAlbumTheme {
         PicSnackbar(
             type = PicSnackbarType.WARNING,
