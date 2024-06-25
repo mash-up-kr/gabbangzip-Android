@@ -37,8 +37,7 @@ class LoginActivity : ComponentActivity() {
                         this,
                         getString(R.string.login_failure_message),
                         Toast.LENGTH_SHORT,
-                    )
-                        .show()
+                    ).show()
                 }
 
                 if (state.isUserLoggedIn) {
