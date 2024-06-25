@@ -42,9 +42,7 @@ class LoginActivity : ComponentActivity() {
                 ) { contentPadding ->
                     Box(modifier = Modifier.padding(contentPadding)) {
                         LoginScreen(
-                            onClickLoginButton = {
-                                viewModel.login()
-                            },
+                            onClickLoginButton = viewModel::login,
                         )
                     }
                 }
