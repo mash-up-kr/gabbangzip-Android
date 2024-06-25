@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
     }
 
     companion object {
-        fun open(context: Activity) {
+        fun openActivity(context: Activity) {
             context.startActivity(
                 Intent(context, MainActivity::class.java),
             )

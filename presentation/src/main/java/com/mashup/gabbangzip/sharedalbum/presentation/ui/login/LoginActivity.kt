@@ -42,7 +42,7 @@ class LoginActivity : ComponentActivity() {
                 }
 
                 if (state.isUserLoggedIn) {
-                    MainActivity.open(this)
+                    MainActivity.openActivity(this)
                     finish()
                 }
             }
@@ -52,7 +52,7 @@ class LoginActivity : ComponentActivity() {
     companion object {
         private const val TAG = "LoginActivity"
 
-        fun open(context: Activity) {
+        fun openActivity(context: Activity) {
             context.startActivity(
                 Intent(context, LoginActivity::class.java),
             )
