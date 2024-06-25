@@ -21,3 +21,7 @@ val Perfume = Color(0xFFB4ABFA)
 val Malibu = Color(0xFF6F93FF)
 
 val Alert = Color(0xFFFF5252)
+
+// Kakao
+val KakaoPrimaryColor = Color(0xFFFEE500)
+val KakaoOnPrimaryColor = Color(0xFF121212)

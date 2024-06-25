@@ -3,39 +3,55 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.login
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
+import androidx.activity.viewModels
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
+    private val viewModel by viewModels<LoginViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val state by viewModel.uiState.collectAsStateWithLifecycle()
+
             SharedAlbumTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    LoginScreen(
-                        onClickLoginButton = {
-                            MainActivity.open(this@LoginActivity)
-                            finish()
-                        },
-                    )
+                LoginScreen(
+                    onClickLoginButton = {
+                        viewModel.login()
+                    },
+                )
+
+                if (state.errorMessage != null) {
+                    Log.d(TAG, "${state.errorMessage}")
+                    Toast.makeText(
+                        this,
+                        getString(R.string.login_failure_message),
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+
+                if (state.isUserLoggedIn) {
+                    MainActivity.openActivity(this)
+                    finish()
                 }
             }
         }
     }
 
     companion object {
-        fun open(context: Activity) {
+        private const val TAG = "LoginActivity"
+
+        fun openActivity(context: Activity) {
             context.startActivity(
                 Intent(context, LoginActivity::class.java),
             )

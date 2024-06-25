@@ -8,7 +8,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 
-private val pretendard = FontFamily(
+internal val pretendard = FontFamily(
+    Font(R.font.pretendard_black, FontWeight.Black),
     Font(R.font.pretendard_bold, FontWeight.Bold),
     Font(R.font.pretendard_medium, FontWeight.Medium),
     Font(R.font.pretendard_regular, FontWeight.Normal),
