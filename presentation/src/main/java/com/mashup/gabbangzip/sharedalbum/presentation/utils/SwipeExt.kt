@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.utils
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -18,10 +17,10 @@ import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 @Composable
-fun rememberSwipeState(maxWidth: Float, maxHeight: Float): Swipe =
-    remember { Swipe(maxWidth, maxHeight) }
+fun rememberSwipeState(maxWidth: Float, maxHeight: Float): SwipeState =
+    remember { SwipeState(maxWidth, maxHeight) }
 
-open class Swipe(val maxWidth: Float, val maxHeight: Float) {
+class SwipeState(val maxWidth: Float, val maxHeight: Float) {
     val offsetX = Animatable(0f)
     val offsetY = Animatable(0f)
 
@@ -34,7 +33,7 @@ open class Swipe(val maxWidth: Float, val maxHeight: Float) {
         offsetX.animateTo(maxWidth * 2, tween(400))
     }
 
-    fun disLiked(scope: CoroutineScope) = scope.launch {
+    fun disliked(scope: CoroutineScope) = scope.launch {
         offsetX.animateTo(-(maxWidth * 2), tween(400))
     }
 
@@ -44,15 +43,14 @@ open class Swipe(val maxWidth: Float, val maxHeight: Float) {
     }
 }
 
-@SuppressLint("ModifierFactoryUnreferencedReceiver")
 fun Modifier.swiper(
-    state: Swipe,
+    state: SwipeState,
     onDragReset: () -> Unit = {},
     onDragLiked: () -> Unit,
-    onDragDisLiked: () -> Unit,
+    onDragDisliked: () -> Unit,
 ): Modifier = composed {
     val scope = rememberCoroutineScope()
-    Modifier
+    this then Modifier
         .pointerInput(Unit) {
             detectDragGestures(
                 onDragEnd = {
@@ -71,8 +69,8 @@ fun Modifier.swiper(
 
                         state.offsetX.targetValue < 0 -> {
                             state
-                                .disLiked(scope)
-                                .invokeOnCompletion { onDragDisLiked() }
+                                .disliked(scope)
+                                .invokeOnCompletion { onDragDisliked() }
                         }
                     }
                 },
