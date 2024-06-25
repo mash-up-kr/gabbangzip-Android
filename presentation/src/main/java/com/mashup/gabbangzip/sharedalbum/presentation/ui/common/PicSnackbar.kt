@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -57,7 +58,7 @@ fun PicSnackbarHost(
 
 @Composable
 private fun PicSnackbar(
-    type: PicSnackbarType = PicSnackbarType.NORMAL,
+    type: PicSnackbarType,
     message: String,
 ) {
     Row(
@@ -85,6 +86,17 @@ private fun PicSnackbar(
             style = PicTypography.bodyMedium16,
         )
     }
+}
+
+suspend fun SnackbarHostState.showPicSnackbar(
+    type: PicSnackbarType = PicSnackbarType.NORMAL,
+    message: String,
+) {
+    showSnackbar(
+        message = message,
+        actionLabel = type.name,
+        duration = SnackbarDuration.Short,
+    )
 }
 
 @Preview
