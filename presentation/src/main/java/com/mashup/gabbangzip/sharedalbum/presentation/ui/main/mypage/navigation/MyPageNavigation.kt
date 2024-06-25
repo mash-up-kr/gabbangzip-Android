@@ -17,7 +17,6 @@ fun NavGraphBuilder.myPageNavGraph(
 ) {
     composable(route = MainRoute.MyPageRoute.route) {
         MyPageScreen(
-            userName = "계원",
             onClickBack = onClickBack,
             onClickNotificationSetting = onClickNotificationSetting,
             navigateLoginAndFinish = navigateLoginAndFinish,

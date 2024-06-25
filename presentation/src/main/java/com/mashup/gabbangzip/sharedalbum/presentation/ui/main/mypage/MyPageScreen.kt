@@ -34,13 +34,12 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.viewmodel.M
 
 @Composable
 fun MyPageScreen(
-    userName: String,
     onClickBack: () -> Unit,
     onClickNotificationSetting: () -> Unit,
     navigateLoginAndFinish: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
-    var showDialog by remember { mutableStateOf(DialogState.None) }
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (showDialog == DialogState.Logout) {
         MyPageDialog(
@@ -92,7 +91,7 @@ fun MyPageScreen(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(vertical = 20.dp, horizontal = 16.dp),
-            userName = userName,
+            userName = state.userName,
             loginWay = stringResource(id = R.string.login_kakao),
         )
         Spacer(
