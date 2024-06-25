@@ -24,6 +24,21 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 
+enum class PicSnackbarType(
+    @DrawableRes val iconResId: Int? = null,
+) {
+    NORMAL,
+    CHECK(iconResId = R.drawable.ic_check),
+    WARNING(iconResId = R.drawable.ic_warning),
+    ;
+
+    companion object {
+        fun find(key: String?): PicSnackbarType {
+            return entries.associateBy(PicSnackbarType::name)[key] ?: NORMAL
+        }
+    }
+}
+
 @Composable
 fun PicSnackbar(
     @DrawableRes iconResId: Int? = null,
