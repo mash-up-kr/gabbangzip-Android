@@ -89,7 +89,7 @@ private fun PicSnackbar(
 
 @Preview
 @Composable
-private fun PickSnackbarPreView() {
+private fun PicSnackbarPreview() {
     SharedAlbumTheme {
         PicSnackbar(
             type = PicSnackbarType.WARNING,
