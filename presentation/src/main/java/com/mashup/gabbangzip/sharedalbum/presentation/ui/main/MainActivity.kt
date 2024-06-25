@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                             )
                         },
                         navigateLoginAndFinish = {
-                            LoginActivity.open(this@MainActivity)
+                            LoginActivity.openActivity(this@MainActivity)
                             finish()
                         }
                     )
@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
     }
 
     companion object {
-        fun open(context: Activity) {
+        fun openActivity(context: Activity) {
             context.startActivity(
                 Intent(context, MainActivity::class.java),
             )

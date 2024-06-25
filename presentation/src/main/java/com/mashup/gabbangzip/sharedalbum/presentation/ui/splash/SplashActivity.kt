@@ -31,7 +31,7 @@ class SplashActivity : ComponentActivity() {
         }
         lifecycle.coroutineScope.launch(Dispatchers.Default) {
             delay(SPLASH_DISPLAY_TIME)
-            LoginActivity.open(this@SplashActivity)
+            LoginActivity.openActivity(this@SplashActivity)
             finish()
         }
     }
