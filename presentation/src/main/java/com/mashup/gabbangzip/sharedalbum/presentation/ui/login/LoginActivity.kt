@@ -10,6 +10,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +33,8 @@ class LoginActivity : ComponentActivity() {
 
                 if (state.errorMessage != null) {
                     Log.d(TAG, "${state.errorMessage}")
-                    Toast.makeText(this, "로그인에 실패했어요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.login_with_kakao), Toast.LENGTH_SHORT)
+                        .show()
                 }
 
                 if (state.isUserLoggedIn) {
