@@ -139,7 +139,7 @@ class LocalDataSourceImpl @Inject constructor(
 
     override fun loadUserInfo(): UserInfo {
         return UserInfo(
-            userName = getString(KEY_USER_NAME, "")
+            userName = getString(KEY_USER_NAME, ""),
         )
     }
 

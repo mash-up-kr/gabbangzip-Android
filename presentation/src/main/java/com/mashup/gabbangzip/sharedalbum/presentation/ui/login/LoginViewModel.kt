@@ -74,7 +74,7 @@ class LoginViewModel @Inject constructor(
             loginUseCase(param)
                 .onSuccess {
                     saveUserInfoUseCase(
-                        userInfo = UserInfo(userName = nickname)
+                        userInfo = UserInfo(userName = nickname),
                     )
                     _uiState.update { state ->
                         state.copy(

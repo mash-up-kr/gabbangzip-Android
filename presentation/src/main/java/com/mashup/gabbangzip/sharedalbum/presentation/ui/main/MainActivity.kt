@@ -39,13 +39,13 @@ class MainActivity : ComponentActivity() {
                             startActivity(
                                 Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
                                     putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
-                                }
+                                },
                             )
                         },
                         navigateLoginAndFinish = {
                             LoginActivity.openActivity(this@MainActivity)
                             finish()
-                        }
+                        },
                     )
                 }
             }
