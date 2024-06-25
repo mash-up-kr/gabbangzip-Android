@@ -75,7 +75,7 @@ fun LoginScreen(onClickLoginButton: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 36.dp),
-            onClick = { onClickLoginButton() },
+            onClick = onClickLoginButton,
         )
     }
 }
