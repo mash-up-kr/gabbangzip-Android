@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,6 +38,20 @@ enum class PicSnackbarType(
         fun find(key: String?): PicSnackbarType {
             return entries.associateBy(PicSnackbarType::name)[key] ?: NORMAL
         }
+    }
+}
+
+@Composable
+fun PicSnackbarHost(
+    state: SnackbarHostState,
+) {
+    SnackbarHost(
+        hostState = state,
+    ) { data ->
+        PicSnackbar(
+            type = PicSnackbarType.find(data.visuals.actionLabel),
+            message = data.visuals.message,
+        )
     }
 }
 
