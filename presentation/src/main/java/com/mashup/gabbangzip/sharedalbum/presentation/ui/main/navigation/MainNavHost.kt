@@ -25,14 +25,19 @@ fun MainNavHost(
         startDestination = startDestination,
     ) {
         groupListNavGraph(
-            onClickEventMakeButton = { onClickEventMakeButton.invoke() },
+            onClickEventMakeButton = { onClickEventMakeButton() },
             onClickGroupDetailButton = { navController.navigateGroupDetail() },
             onClickMyPageButton = { navController.navigateMyPage() },
         )
         groupDetailNavGraph(
             onClickGroupMemberButton = { navController.navigateGroupMember() },
+            onClickBackButton = { navController.popBackStack() },
         )
-        groupMemberNavGraph()
-        myPageNavGraph()
+        groupMemberNavGraph(
+            onClickBackButton = { navController.popBackStack() },
+        )
+        myPageNavGraph(
+            onClickBackButton = { navController.popBackStack() },
+        )
     }
 }

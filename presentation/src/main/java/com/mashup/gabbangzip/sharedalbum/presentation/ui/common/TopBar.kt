@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -20,12 +21,14 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.R
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.platformRippleClickable
 
 @Composable
 fun TopBar(
     modifier: Modifier = Modifier,
     titleText: String = "",
     titleAlign: TopBarTitleAlign = TopBarTitleAlign.CENTER,
+    titleStyle: TextStyle = TextStyle.Default,
     leftIcon: TopBarIcon? = null,
     rightIcon1: TopBarIcon? = null,
     rightIcon2: TopBarIcon? = null,
@@ -47,6 +50,7 @@ fun TopBar(
             if (leftIcon?.resId != null) {
                 Image(
                     modifier = Modifier
+                        .platformRippleClickable { leftIcon.iconClickListener() }
                         .padding(start = leftIcon.leftPadding, end = leftIcon.rightPadding)
                         .size(leftIcon.size),
                     painter = painterResource(id = leftIcon.resId),
@@ -56,10 +60,12 @@ fun TopBar(
             Text(
                 modifier = Modifier.weight(1.0f),
                 text = if (titleAlign == TopBarTitleAlign.LEFT) titleText else "",
+                style = titleStyle,
             )
             if (rightIcon1?.resId != null) {
                 Image(
                     modifier = Modifier
+                        .platformRippleClickable { rightIcon1.iconClickListener() }
                         .padding(start = rightIcon1.leftPadding, end = rightIcon1.rightPadding)
                         .size(rightIcon1.size),
                     painter = painterResource(id = rightIcon1.resId),
@@ -69,6 +75,7 @@ fun TopBar(
             if (rightIcon2?.resId != null) {
                 Image(
                     modifier = Modifier
+                        .platformRippleClickable { rightIcon2.iconClickListener() }
                         .padding(start = rightIcon2.leftPadding, end = rightIcon2.rightPadding)
                         .size(rightIcon2.size),
                     painter = painterResource(id = rightIcon2.resId),
@@ -83,6 +90,7 @@ fun TopBar(
                     .wrapContentHeight(),
                 text = titleText,
                 textAlign = TextAlign.Center,
+                style = titleStyle,
             )
         }
     }
@@ -98,6 +106,7 @@ data class TopBarIcon(
     val size: Dp,
     val leftPadding: Dp = 0.dp,
     val rightPadding: Dp = 0.dp,
+    val iconClickListener: () -> Unit,
 )
 
 class TopBarProvider : PreviewParameterProvider<TopBarState> {
@@ -114,6 +123,7 @@ class TopBarProvider : PreviewParameterProvider<TopBarState> {
                 size = 26.dp,
                 leftPadding = 16.dp,
                 description = "",
+                iconClickListener = {},
             ),
         ),
         TopBarState(
@@ -127,6 +137,7 @@ class TopBarProvider : PreviewParameterProvider<TopBarState> {
                 leftPadding = 16.dp,
                 rightPadding = 8.dp,
                 description = "",
+                iconClickListener = {},
             ),
         ),
         TopBarState(
@@ -137,18 +148,21 @@ class TopBarProvider : PreviewParameterProvider<TopBarState> {
                 size = 26.dp,
                 leftPadding = 16.dp,
                 description = "",
+                iconClickListener = {},
             ),
             rightIcon1 = TopBarIcon(
                 resId = R.drawable.ic_call_answer_video,
                 size = 20.dp,
                 rightPadding = 10.dp,
                 description = "",
+                iconClickListener = {},
             ),
             rightIcon2 = TopBarIcon(
                 resId = R.drawable.ic_call_answer_video_low,
                 size = 42.dp,
                 rightPadding = 10.dp,
                 description = "",
+                iconClickListener = {},
             ),
             topPadding = 10.dp,
             bottomPadding = 10.dp,

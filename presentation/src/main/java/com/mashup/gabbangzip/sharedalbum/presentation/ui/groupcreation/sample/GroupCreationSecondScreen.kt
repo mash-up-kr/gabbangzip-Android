@@ -15,7 +15,9 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
 
 @Composable
-fun GroupCreationSecondScreen() {
+fun GroupCreationSecondScreen(
+    onClickBackButton: () -> Unit,
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -27,6 +29,7 @@ fun GroupCreationSecondScreen() {
                 leftPadding = 16.dp,
                 description = "뒤로가기",
                 resId = R.drawable.ic_call_answer_low,
+                iconClickListener = onClickBackButton,
             ),
             titleText = "그룹 만들기",
             titleAlign = TopBarTitleAlign.CENTER,

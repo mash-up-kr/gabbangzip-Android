@@ -17,9 +17,9 @@ fun NavGraphBuilder.groupListNavGraph(
 ) {
     composable(route = MainRoute.GroupListRoute.route) {
         GroupListScreen(
-            onClickGroupDetailButton = { onClickGroupDetailButton.invoke() },
-            onClickEventMakeButton = { onClickEventMakeButton.invoke() },
-            onClickMyPageButton = { onClickMyPageButton.invoke() },
+            onClickGroupDetailButton = onClickGroupDetailButton,
+            onClickEventMakeButton = onClickEventMakeButton,
+            onClickMyPageButton = onClickMyPageButton,
         )
     }
 }
