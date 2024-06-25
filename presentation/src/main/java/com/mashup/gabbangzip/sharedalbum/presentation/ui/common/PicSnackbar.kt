@@ -57,10 +57,12 @@ fun PicSnackbarHost(
         modifier = Modifier.padding(bottom = snackbarPosition),
         hostState = state,
     ) { data ->
-        PicSnackbar(
-            type = PicSnackbarType.find(data.visuals.actionLabel),
-            message = data.visuals.message,
-        )
+        with(data.visuals) {
+            PicSnackbar(
+                type = PicSnackbarType.find(actionLabel),
+                message = message,
+            )
+        }
     }
 }
 
