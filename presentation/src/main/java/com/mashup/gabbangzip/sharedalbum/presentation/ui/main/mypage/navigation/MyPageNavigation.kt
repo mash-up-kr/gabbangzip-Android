@@ -13,12 +13,14 @@ fun NavController.navigateMyPage() {
 fun NavGraphBuilder.myPageNavGraph(
     onClickBack: () -> Unit,
     onClickNotificationSetting: () -> Unit,
+    navigateLoginAndFinish: () -> Unit,
 ) {
     composable(route = MainRoute.MyPageRoute.route) {
         MyPageScreen(
             userName = "계원",
             onClickBack = onClickBack,
             onClickNotificationSetting = onClickNotificationSetting,
+            navigateLoginAndFinish = navigateLoginAndFinish,
         )
     }
 }

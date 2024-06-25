@@ -36,4 +36,8 @@ class LoginRepositoryImpl @Inject constructor(
             refreshToken = refreshToken,
         )
     }
+
+    override fun removeToken() {
+        localDataSource.removeToken()
+    }
 }

@@ -37,6 +37,7 @@ fun MyPageScreen(
     userName: String,
     onClickBack: () -> Unit,
     onClickNotificationSetting: () -> Unit,
+    navigateLoginAndFinish: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     var showDialog by remember { mutableStateOf(DialogState.None) }
@@ -51,6 +52,7 @@ fun MyPageScreen(
             onConfirm = {
                 showDialog = DialogState.None
                 viewModel.logout()
+                navigateLoginAndFinish()
             },
         )
     } else if (showDialog == DialogState.Withdrawal) {

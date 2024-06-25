@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +41,10 @@ class MainActivity : ComponentActivity() {
                                     putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
                                 }
                             )
+                        },
+                        navigateLoginAndFinish = {
+                            LoginActivity.open(this@MainActivity)
+                            finish()
                         }
                     )
                 }
