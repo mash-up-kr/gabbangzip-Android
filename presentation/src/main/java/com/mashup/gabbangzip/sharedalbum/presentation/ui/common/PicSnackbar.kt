@@ -41,7 +41,7 @@ enum class PicSnackbarType(
 
 @Composable
 fun PicSnackbar(
-    @DrawableRes iconResId: Int? = null,
+    type: PicSnackbarType = PicSnackbarType.NORMAL,
     message: String,
 ) {
     Row(
@@ -55,10 +55,10 @@ fun PicSnackbar(
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        if (iconResId != null) {
+        if (type.iconResId != null) {
             Image(
                 modifier = Modifier.size(20.dp),
-                painter = painterResource(id = iconResId),
+                painter = painterResource(id = type.iconResId),
                 contentDescription = "snackbar icon",
             )
             Spacer(modifier = Modifier.width(16.dp))
@@ -76,7 +76,7 @@ fun PicSnackbar(
 fun PickSnackbarPreView() {
     SharedAlbumTheme {
         PicSnackbar(
-            iconResId = R.drawable.ic_warning,
+            type = PicSnackbarType.WARNING,
             message = "로그인에 실패했어요.",
         )
     }
