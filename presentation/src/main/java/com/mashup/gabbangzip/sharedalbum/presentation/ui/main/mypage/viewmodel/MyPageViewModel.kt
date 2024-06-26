@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.LoadUserInfoUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.LogoutUseCase
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.WithdrawalUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.auth.KakaoUserSdkUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.MyPageUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
-    loadUserInfoUseCase: LoadUserInfoUseCase,
+    private val loadUserInfoUseCase: LoadUserInfoUseCase,
+    private val withdrawalUseCase: WithdrawalUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(MyPageUiState())
     val uiState: StateFlow<MyPageUiState> = _uiState.asStateFlow()
@@ -61,11 +63,13 @@ class MyPageViewModel @Inject constructor(
         }
         KakaoUserSdkUtil.withdrawal(
             onSuccess = {
-                // Todo : 가빵집 서버 회원탈퇴 로직 작성하기
-                _uiState.update {
-                    it.copy(isLoading = false)
+                viewModelScope.launch {
+                    withdrawalUseCase()
+                    _uiState.update {
+                        it.copy(isLoading = false)
+                    }
+                    onSuccess()
                 }
-                onSuccess()
             },
             onFailure = {
                 _uiState.update { state ->
