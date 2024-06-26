@@ -8,4 +8,7 @@
     <string name="profile_image">프로필 이미지</string>
     <string name="cancel_icon">취소</string>
     <string name="vote_photo">투표 사진</string>
+    <string name="group_creation_title">시작하기 위해\n그룹원이 필요해요!</string>
+    <string name="group_creation_button_name">그룹 만들기</string>
+    <string name="group_creation_button_description">초대 링크를 받으셨나요?\n링크를 눌러 바로 그룹에 들어갈 수 있어요.</string>
 </resources>
