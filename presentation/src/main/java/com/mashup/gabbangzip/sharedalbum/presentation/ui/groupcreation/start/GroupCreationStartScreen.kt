@@ -71,7 +71,6 @@ fun GroupCreationFirstScreen(
                 composition = composition,
                 progress = { progress },
             )
-
         }
         BottomButton(
             modifier = Modifier

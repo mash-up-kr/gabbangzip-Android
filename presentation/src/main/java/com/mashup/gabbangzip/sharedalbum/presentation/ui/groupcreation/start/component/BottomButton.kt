@@ -70,6 +70,6 @@ fun BottomButtonPreview() {
     BottomButton(
         descriptionText = "초대 링크를 받으셨나요?\n링크를 눌러 바로 그룹에 들어갈 수 있어요.",
         buttonText = "그룹 만들기",
-        onClickNextButton = {}
+        onClickNextButton = {},
     )
 }
