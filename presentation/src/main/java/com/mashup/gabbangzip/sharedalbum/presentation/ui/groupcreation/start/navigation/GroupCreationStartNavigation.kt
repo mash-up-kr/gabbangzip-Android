@@ -5,7 +5,7 @@ import androidx.navigation.compose.composable
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.start.GroupCreationFirstScreen
 
-fun NavGraphBuilder.groupCreationFirstNavGraph(
+fun NavGraphBuilder.groupCreationStartNavGraph(
     onClickNextButton: () -> Unit,
 ) {
     composable(route = GroupCreationRoute.FirstScreenRoute.route) {
