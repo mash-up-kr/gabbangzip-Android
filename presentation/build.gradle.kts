@@ -78,4 +78,7 @@ dependencies {
 
     implementation(libs.kakao.login)
     implementation(libs.lottie.compose)
+
+    // compose coil
+    implementation(libs.coil.compose)
 }
