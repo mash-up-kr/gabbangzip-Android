@@ -20,4 +20,9 @@
     <string name="login_with_kakao">카카오 로그인</string>
     <string name="login_failure_message">로그인에 실패했어요.</string>
     <string name="withdrawal_failure_message">회원탈퇴에 실패했어요.</string>
+
+    <string name="vote_user_name">%s의 픽</string>
+    <string name="profile_image">프로필 이미지</string>
+    <string name="cancel_icon">취소</string>
+    <string name="vote_photo">투표 사진</string>
 </resources>
