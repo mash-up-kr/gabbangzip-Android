@@ -73,7 +73,7 @@ fun MyPageScreen(
             )
         }
     }
-    
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
