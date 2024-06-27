@@ -2,8 +2,8 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.intro.na
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.intro.GroupCreationIntroScreen
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationRoute
 
 fun NavGraphBuilder.groupCreationIntroNavGraph(
     onClickNextButton: () -> Unit,
