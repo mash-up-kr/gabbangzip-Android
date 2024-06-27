@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.start
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.intro
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,10 +28,10 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.pretendard
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.start.component.BottomButton
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.intro.component.BottomButton
 
 @Composable
-fun GroupCreationFirstScreen(
+fun GroupCreationIntroScreen(
     onClickNextButton: () -> Unit,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.moving_shape))
@@ -86,7 +86,7 @@ fun GroupCreationFirstScreen(
 @Preview(showBackground = true)
 @Composable
 fun GroupCreationFirstScreenPreview() {
-    GroupCreationFirstScreen(
+    GroupCreationIntroScreen(
         onClickNextButton = {},
     )
 }
