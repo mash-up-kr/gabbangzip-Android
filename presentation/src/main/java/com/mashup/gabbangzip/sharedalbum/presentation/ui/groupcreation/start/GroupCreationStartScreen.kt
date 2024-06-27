@@ -32,7 +32,6 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.start.com
 
 @Composable
 fun GroupCreationFirstScreen(
-    modifier: Modifier = Modifier,
     onClickNextButton: () -> Unit,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.moving_shape))
