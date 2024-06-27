@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.semantics.Role
 
-fun Modifier.platformRippleClickable(
+fun Modifier.rippleClickable(
     enabled: Boolean = true,
     onClickLabel: String? = null,
     role: Role? = null,
@@ -17,6 +17,22 @@ fun Modifier.platformRippleClickable(
     this then clickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = rememberRipple(),
+        enabled = enabled,
+        onClickLabel = onClickLabel,
+        role = role,
+        onClick = onClick,
+    )
+}
+
+fun Modifier.noRippleClickable(
+    enabled: Boolean = true,
+    onClickLabel: String? = null,
+    role: Role? = null,
+    onClick: () -> Unit,
+): Modifier = composed {
+    this then clickable(
+        interactionSource = remember { MutableInteractionSource() },
+        indication = null,
         enabled = enabled,
         onClickLabel = onClickLabel,
         role = role,

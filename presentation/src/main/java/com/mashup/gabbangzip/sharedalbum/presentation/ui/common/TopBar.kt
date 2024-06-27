@@ -20,8 +20,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.platformRippleClickable
+import androidx.core.R
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 
 @Composable
 fun TopBar(
@@ -50,7 +50,7 @@ fun TopBar(
             if (leftIcon?.resId != null) {
                 Image(
                     modifier = Modifier
-                        .platformRippleClickable { leftIcon.iconClickListener() }
+                        .rippleClickable { leftIcon.iconClickListener() }
                         .padding(start = leftIcon.leftPadding, end = leftIcon.rightPadding)
                         .size(leftIcon.size),
                     painter = painterResource(id = leftIcon.resId),
@@ -65,7 +65,7 @@ fun TopBar(
             if (rightIcon1?.resId != null) {
                 Image(
                     modifier = Modifier
-                        .platformRippleClickable { rightIcon1.iconClickListener() }
+                        .rippleClickable { rightIcon1.iconClickListener() }
                         .padding(start = rightIcon1.leftPadding, end = rightIcon1.rightPadding)
                         .size(rightIcon1.size),
                     painter = painterResource(id = rightIcon1.resId),
@@ -75,7 +75,7 @@ fun TopBar(
             if (rightIcon2?.resId != null) {
                 Image(
                     modifier = Modifier
-                        .platformRippleClickable { rightIcon2.iconClickListener() }
+                        .rippleClickable { rightIcon2.iconClickListener() }
                         .padding(start = rightIcon2.leftPadding, end = rightIcon2.rightPadding)
                         .size(rightIcon2.size),
                     painter = painterResource(id = rightIcon2.resId),
