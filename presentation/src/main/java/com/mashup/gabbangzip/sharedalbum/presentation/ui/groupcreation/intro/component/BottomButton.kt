@@ -20,7 +20,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.platformRippleClickable
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 
 @Composable
 fun BottomButton(
@@ -48,7 +48,7 @@ fun BottomButton(
                 .wrapContentHeight()
                 .clip(RoundedCornerShape(16.dp))
                 .background(Gray80)
-                .platformRippleClickable(onClick = onClickNextButton),
+                .rippleClickable(onClick = onClickNextButton),
         ) {
             Text(
                 modifier = Modifier
