@@ -14,14 +14,10 @@ fun GroupTitle(
     modifier: Modifier = Modifier,
     text: String,
 ) {
-    Box(modifier = modifier) {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            text = text,
-            style = PicTypography.headBold14,
-            color = Gray80,
-        )
-    }
+    Text(
+        modifier = modifier,
+        text = text,
+        style = PicTypography.headBold14,
+        color = Gray80,
+    )
 }
