@@ -1,5 +1,8 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage
 
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -14,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -41,9 +45,18 @@ fun MyPageScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
     val versionName = remember {
         runCatching { context.packageManager.getPackageInfo(context.packageName, 0).versionName }
             .getOrDefault("")
+    }
+    // Todo : 갔다오면 isNotificationEnabled 가 변경되도록 구현
+    val isNotificationEnabled = remember(configuration) {
+        if ((context.getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager)?.areNotificationsEnabled() == false) {
+            "OFF"
+        } else {
+            "ON"
+        }
     }
 
     when (state.dialogState) {
@@ -123,7 +136,7 @@ fun MyPageScreen(
                 .clickable(onClick = onClickNotificationSetting)
                 .padding(vertical = 20.dp, horizontal = 16.dp),
             text = stringResource(id = R.string.app_notification_setting),
-            subText = "on", // Todo : 실제 state 가져오기
+            subText = isNotificationEnabled,
         )
         Spacer(
             modifier = Modifier
