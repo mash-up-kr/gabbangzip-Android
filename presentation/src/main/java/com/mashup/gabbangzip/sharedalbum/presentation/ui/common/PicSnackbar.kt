@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
@@ -23,26 +22,11 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.BlackAlpha50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
-
-enum class PicSnackbarType(
-    @DrawableRes val iconResId: Int? = null,
-) {
-    NORMAL,
-    CHECK(iconResId = R.drawable.ic_check),
-    WARNING(iconResId = R.drawable.ic_warning),
-    ;
-
-    companion object {
-        fun find(key: String?): PicSnackbarType {
-            return entries.associateBy(PicSnackbarType::name)[key] ?: NORMAL
-        }
-    }
-}
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 
 @Composable
 fun PicSnackbarHost(
