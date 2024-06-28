@@ -15,10 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
@@ -59,7 +61,7 @@ private fun PicKeywordButton(
                 modifier = Modifier.size(58.dp),
                 model = imageUrl,
                 contentScale = ContentScale.Crop,
-                contentDescription = null,
+                contentDescription = stringResource(R.string.pic_keyword_button, text),
                 colorFilter = ColorFilter.tint(if (selected) selectedColor else Gray50),
             )
         }
