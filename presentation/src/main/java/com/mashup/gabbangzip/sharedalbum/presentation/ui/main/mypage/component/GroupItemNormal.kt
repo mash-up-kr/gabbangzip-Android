@@ -1,7 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
@@ -16,7 +15,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 fun GroupItemNormal(
     modifier: Modifier = Modifier,
     text: String,
-    stateText: String = "",
+    subText: String = "",
 ) {
     Row(modifier = modifier) {
         Text(
@@ -29,7 +28,7 @@ fun GroupItemNormal(
         )
         Text(
             modifier = Modifier.wrapContentSize(),
-            text = stateText,
+            text = subText,
             style = PicTypography.bodyMedium16,
             color = Gray60,
         )
@@ -41,6 +40,6 @@ fun GroupItemNormal(
 fun GroupItemNormalPreview() {
     GroupItemNormal(
         text = "현재버전",
-        stateText = "1.1.0",
+        subText = "1.1.0",
     )
 }
