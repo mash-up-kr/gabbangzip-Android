@@ -123,7 +123,7 @@ fun MyPageScreen(
                 .clickable(onClick = onClickNotificationSetting)
                 .padding(vertical = 20.dp, horizontal = 16.dp),
             text = stringResource(id = R.string.app_notification_setting),
-            subText = "on" // Todo : 실제 state 가져오기
+            subText = "on", // Todo : 실제 state 가져오기
         )
         Spacer(
             modifier = Modifier
@@ -145,7 +145,7 @@ fun MyPageScreen(
                 .wrapContentHeight()
                 .padding(vertical = 20.dp, horizontal = 16.dp),
             text = stringResource(id = R.string.current_version),
-            subText = versionName
+            subText = versionName,
         )
         GroupItemNormal(
             modifier = Modifier
