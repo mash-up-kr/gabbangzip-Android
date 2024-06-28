@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -41,6 +43,11 @@ fun MyPageScreen(
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val versionName = remember {
+        runCatching { context.packageManager.getPackageInfo(context.packageName, 0).versionName }
+            .getOrDefault("")
+    }
 
     when (state.dialogState) {
         MyPageUiState.DialogState.None -> Unit
@@ -119,7 +126,7 @@ fun MyPageScreen(
                 .clickable(onClick = onClickNotificationSetting)
                 .padding(vertical = 20.dp, horizontal = 16.dp),
             text = stringResource(id = R.string.app_notification_setting),
-            stateText = "on"
+            stateText = "on" // Todo : 실제 state 가져오기
         )
         Spacer(
             modifier = Modifier
@@ -139,10 +146,9 @@ fun MyPageScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .clickable(onClick = onClickNotificationSetting)
                 .padding(vertical = 20.dp, horizontal = 16.dp),
             text = stringResource(id = R.string.current_version),
-            stateText =  "1.0.0" // Todo : 실제 버전 받아오기
+            stateText = versionName
         )
         GroupItemNormal(
             modifier = Modifier
