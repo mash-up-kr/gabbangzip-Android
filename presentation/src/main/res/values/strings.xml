@@ -2,7 +2,6 @@
 <resources>
     <string name="my_page">마이페이지</string>
     <string name="go_back">뒤로가기</string>
-    <string name="login_kakao">카카오톡 로그인</string>
     <string name="notification_setting">알림 설정</string>
     <string name="account_setting">계정 설정</string>
     <string name="app_notification_setting">앱 알림 설정</string>

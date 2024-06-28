@@ -96,9 +96,8 @@ fun MyPageScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(vertical = 20.dp, horizontal = 16.dp),
+                .padding(vertical = 14.dp, horizontal = 16.dp),
             userName = state.userName,
-            loginWay = stringResource(id = R.string.login_kakao),
         )
         Spacer(
             modifier = Modifier
