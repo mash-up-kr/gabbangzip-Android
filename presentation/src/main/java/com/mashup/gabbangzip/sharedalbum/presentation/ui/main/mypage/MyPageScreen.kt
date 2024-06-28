@@ -119,6 +119,7 @@ fun MyPageScreen(
                 .clickable(onClick = onClickNotificationSetting)
                 .padding(vertical = 20.dp, horizontal = 16.dp),
             text = stringResource(id = R.string.app_notification_setting),
+            stateText = "on"
         )
         Spacer(
             modifier = Modifier
@@ -134,13 +135,14 @@ fun MyPageScreen(
                 .padding(vertical = 20.dp, horizontal = 16.dp),
             text = stringResource(id = R.string.account_setting),
         )
-        GroupItemVersion(
+        GroupItemNormal(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(top = 10.dp, bottom = 10.dp, start = 16.dp, end = 21.dp),
-            titleText = stringResource(id = R.string.current_version),
-            versionName = "1.0.0",
+                .clickable(onClick = onClickNotificationSetting)
+                .padding(vertical = 20.dp, horizontal = 16.dp),
+            text = stringResource(id = R.string.current_version),
+            stateText =  "1.0.0" // Todo : 실제 버전 받아오기
         )
         GroupItemNormal(
             modifier = Modifier
