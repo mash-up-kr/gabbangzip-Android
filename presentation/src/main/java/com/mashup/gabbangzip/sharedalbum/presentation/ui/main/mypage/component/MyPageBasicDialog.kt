@@ -74,6 +74,7 @@ fun MyPageBasicDialog(
                     modifier = Modifier
                         .width(145.dp)
                         .wrapContentHeight()
+                        .padding(end = 4.dp)
                         .platformRippleClickable(onClick = onDismiss),
                     text = dismissText,
                     backgroundColor = Gray40,
@@ -83,6 +84,7 @@ fun MyPageBasicDialog(
                     modifier = Modifier
                         .width(145.dp)
                         .wrapContentHeight()
+                        .padding(start = 4.dp)
                         .platformRippleClickable(onClick = onConfirm),
                     text = confirmText,
                     backgroundColor = Gray80,
