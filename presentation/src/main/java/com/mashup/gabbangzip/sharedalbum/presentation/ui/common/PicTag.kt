@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -20,9 +21,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Malibu
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 
@@ -32,11 +34,12 @@ fun PicTag(
     text: String,
     textStyle: TextStyle = PicTypography.bodyMedium12,
     iconUrl: String = "",
+    iconColor: Color = Gray50,
 ) {
     Box(
         modifier = modifier
             .background(
-                color = Gray20,
+                color = Gray80,
                 shape = RoundedCornerShape(20.dp),
             )
             .padding(horizontal = 10.dp, vertical = 6.dp),
@@ -51,13 +54,13 @@ fun PicTag(
                     model = iconUrl,
                     contentScale = ContentScale.Crop,
                     contentDescription = stringResource(R.string.pic_tag, text),
-                    colorFilter = ColorFilter.tint(Gray50),
+                    colorFilter = ColorFilter.tint(iconColor),
                 )
             }
             Text(
                 text = text,
                 style = textStyle,
-                color = Gray60,
+                color = Gray0,
             )
         }
     }
@@ -76,6 +79,7 @@ fun PicTagPreview() {
             PicTag(
                 text = "학교",
                 iconUrl = "https://developer.android.com/images/brand/Android_Robot.png",
+                iconColor = Malibu
             )
         }
     }
