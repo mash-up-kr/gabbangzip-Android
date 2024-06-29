@@ -14,7 +14,7 @@
     <string name="dialog_logout_title">로그아웃 하시겠어요?</string>
     <string name="dialog_withdrawal_title">탈퇴하실건가요?</string>
     <string name="dialog_withdrawal_contents">탈퇴 시 그룹, 활동 내역이\n삭제되며 복구되지 않습니다.</string>
-    <string name="login_intro_title">PIC.</string>
+    <string name="login_intro_title">PIC</string>
     <string name="login_intro_subtitle">우리가 픽! 하는\n우리끼리 네컷앨범</string>
     <string name="login_with_kakao">카카오 로그인</string>
     <string name="login_failure_message">로그인에 실패했어요.</string>
@@ -27,7 +27,7 @@
 
     <string name="app_notification_off">OFF</string>
     <string name="app_notification_on">ON</string>
-  
+
     <string name="group_creation_title">시작하기 위해\n그룹원이 필요해요!</string>
     <string name="group_creation_button_name">그룹 만들기</string>
     <string name="group_creation_button_description">초대 링크를 받으셨나요?\n링크를 눌러 바로 그룹에 들어갈 수 있어요.</string>
