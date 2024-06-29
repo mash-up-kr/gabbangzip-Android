@@ -28,6 +28,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Malibu
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 private fun PicKeywordButton(
@@ -41,7 +42,7 @@ private fun PicKeywordButton(
 ) {
     Box(
         modifier = modifier
-            .clickable { onButtonClicked(text, selected) }
+            .noRippleClickable { onButtonClicked(text, selected) }
             .background(
                 color = if (selected) selectedColor.copy(alpha = 0.3f) else Gray40,
                 shape = RoundedCornerShape(20.dp),
