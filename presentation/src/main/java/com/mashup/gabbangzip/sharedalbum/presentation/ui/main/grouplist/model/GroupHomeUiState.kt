@@ -7,5 +7,5 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 data class GroupHomeUiState(
     val groupList: ImmutableList<GroupInfo> = ImmutableList(emptyList()),
     val user: UserInfo = UserInfo("", ""),
-    val isLoading: Boolean = true,
+    val isLoading: Boolean = false,
 )
