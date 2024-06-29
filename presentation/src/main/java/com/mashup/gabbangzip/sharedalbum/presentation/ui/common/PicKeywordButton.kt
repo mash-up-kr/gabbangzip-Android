@@ -1,5 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,12 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
@@ -33,7 +34,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 private fun PicKeywordButton(
     modifier: Modifier = Modifier,
     text: String,
-    imageUrl: String,
+    @DrawableRes imageRes: Int,
     selected: Boolean,
     selectedColor: Color,
     textStyle: TextStyle = PicTypography.bodyMedium16,
@@ -57,10 +58,9 @@ private fun PicKeywordButton(
                 style = textStyle,
                 color = if (selected) Gray80 else Gray60,
             )
-            AsyncImage(
+            Image(
                 modifier = Modifier.size(58.dp),
-                model = imageUrl,
-                contentScale = ContentScale.Crop,
+                painter = painterResource(id = imageRes),
                 contentDescription = stringResource(R.string.pic_keyword_button, text),
                 colorFilter = ColorFilter.tint(if (selected) selectedColor else Gray50),
             )
@@ -77,13 +77,13 @@ fun PicKeywordButtonPreview() {
         ) {
             PicKeywordButton(
                 text = "학교",
-                imageUrl = "https://developer.android.com/images/brand/Android_Robot.png",
+                imageRes = R.drawable.ic_kakao,
                 selected = true,
                 selectedColor = Malibu,
             ) { _, _ -> }
             PicKeywordButton(
                 text = "학교",
-                imageUrl = "https://developer.android.com/images/brand/Android_Robot.png",
+                imageRes = R.drawable.ic_kakao,
                 selected = false,
                 selectedColor = Malibu,
             ) { _, _ -> }
