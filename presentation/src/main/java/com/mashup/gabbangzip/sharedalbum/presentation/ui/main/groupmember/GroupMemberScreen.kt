@@ -2,7 +2,6 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,14 +14,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
@@ -39,32 +40,16 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 private val topBarHeight = 56.dp
 
 @Composable
-fun GroupMemberScreen(onClickBackButton: () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        TopBar(
-            leftIcon = TopBarIcon(
-                size = 26.dp,
-                leftPadding = 16.dp,
-                description = "뒤로가기",
-                resId = R.drawable.ic_back,
-                iconClickListener = onClickBackButton,
-            ),
-            titleText = "그룹 멤버",
-            titleAlign = TopBarTitleAlign.CENTER,
-            topPadding = 10.dp,
-            bottomPadding = 10.dp,
-        )
-        Text(
-            modifier = Modifier
-                .wrapContentSize()
-                .weight(1.0f),
-            text = "그룹 멤버 화면입니다",
-        )
-    }
+fun GroupMemberScreen(
+    onClickBackButton: () -> Unit,
+    viewModel: GroupMemberViewModel = hiltViewModel(),
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    GroupMemberScreen(
+        state = state,
+        onClickBackButton = onClickBackButton,
+    )
 }
 
 @Composable
