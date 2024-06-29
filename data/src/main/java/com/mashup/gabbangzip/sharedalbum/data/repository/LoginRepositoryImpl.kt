@@ -1,6 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.data.repository
 
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.LoginRequest
+import com.mashup.gabbangzip.sharedalbum.data.dto.request.TokenRefreshRequest
 import com.mashup.gabbangzip.sharedalbum.data.service.LoginService
 import com.mashup.gabbangzip.sharedalbum.domain.datasource.LocalDataSource
 import com.mashup.gabbangzip.sharedalbum.domain.model.LoginParam
@@ -39,5 +40,21 @@ class LoginRepositoryImpl @Inject constructor(
 
     override fun isUserLoggedIn(): Boolean {
         return localDataSource.getAccessToken()?.isNotBlank() ?: false
+    }
+
+    override suspend fun generateNewAccessToken(refreshToken: String) {
+        val request = TokenRefreshRequest(
+            refreshToken = refreshToken,
+        )
+        runCatching {
+            loginService.getNewAccessToken(request)
+        }.onSuccess { response ->
+            response.data?.run {
+                saveToken(
+                    accessToken = accessToken,
+                    refreshToken = refreshToken,
+                )
+            } ?: throw IllegalStateException("데이터 없음")
+        }.getOrThrow()
     }
 }
