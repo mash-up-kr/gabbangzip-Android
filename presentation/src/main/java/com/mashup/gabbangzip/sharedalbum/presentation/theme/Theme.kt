@@ -60,7 +60,7 @@ fun SharedAlbumTheme(
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = Gray0.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = true
         }
     }
     MaterialTheme(

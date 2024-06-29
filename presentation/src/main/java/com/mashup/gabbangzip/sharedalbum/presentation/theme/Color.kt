@@ -25,3 +25,5 @@ val Alert = Color(0xFFFF5252)
 // Kakao
 val KakaoPrimaryColor = Color(0xFFFEE500)
 val KakaoOnPrimaryColor = Color(0xFF121212)
+
+val BlackAlpha50 = Color(0x80000000)
