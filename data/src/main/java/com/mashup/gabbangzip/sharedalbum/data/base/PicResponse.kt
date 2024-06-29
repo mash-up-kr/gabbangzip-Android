@@ -5,11 +5,11 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class PicResponse<T>(
-    @Json(name = "isSuccess")
+    @Json(name = "is_success")
     val isSuccess: Boolean,
     @Json(name = "data")
     val data: T?,
-    @Json(name = "errorResponse")
+    @Json(name = "error_response")
     val errorResponse: PicErrorResponse?,
 )
 

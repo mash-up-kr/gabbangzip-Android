@@ -34,4 +34,5 @@
   
     <string name="pic_tag">% 태그 이미지</string>
     <string name="pic_keyword_button">% 키워드 버튼 이미지</string>
+    <string name="pic_button">% 버튼 이미지</string>
 </resources>

@@ -20,6 +20,23 @@ val Coral = Color(0xFFFD7B56)
 val Dandelion = Color(0xFFFFDD65)
 val Malibu = Color(0xFF6F93FF)
 
+// Main alpha 20
+val ConiferAlpha20 = Color(0xFFD9F7A6)
+val MayaBlueAlpha20 = Color(0xFFB9EAFF)
+val MagentaPinkAlpha20 = Color(0xFFFFC8E8)
+val LavenderAlpha20 = Color(0xFFD4C0FF)
+val CoralAlpha20 = Color(0xFFFFC3B2)
+val DandelionAlpha20 = Color(0xFFFFEFB8)
+val MalibuAlpha20 = Color(0xFFBCCDFF)
+
+val ConiferAlpha30 = Color(0xFFA5E63A)
+val MayaBlueAlpha30 = Color(0xFF6BD0FC)
+val MagentaPinkAlpha30 = Color(0xFFFE9DD7)
+val LavenderAlpha30 = Color(0xFFA880FE)
+val CoralAlpha30 = Color(0xFFFD7B56)
+val DandelionAlpha30 = Color(0xFFFFDD65)
+val MalibuAlpha30 = Color(0xFF6F93FF)
+
 val Alert = Color(0xFFFF5252)
 val Cultured = Color(0xFFF3F5F7)
 val SilverSand = Color(0xFFBBBFC3)
