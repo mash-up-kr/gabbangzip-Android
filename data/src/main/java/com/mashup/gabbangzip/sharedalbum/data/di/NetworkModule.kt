@@ -61,6 +61,6 @@ internal class NetworkModule {
     fun provideUserService(retrofit: Retrofit): UserService = retrofit.create()
 
     companion object {
-        private const val BASE_URL = "http://ec2-43-203-14-157.ap-northeast-2.compute.amazonaws.com:8080"
+        private const val BASE_URL = "http://ec2-43-203-14-157.ap-northeast-2.compute.amazonaws.com"
     }
 }
