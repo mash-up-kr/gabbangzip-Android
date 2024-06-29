@@ -5,6 +5,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class UserDeleteResponse(
-    @Json(name = "userId")
+    @Json(name = "user_id")
     val userId: Long,
 )
