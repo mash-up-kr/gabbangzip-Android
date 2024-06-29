@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupMember
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
