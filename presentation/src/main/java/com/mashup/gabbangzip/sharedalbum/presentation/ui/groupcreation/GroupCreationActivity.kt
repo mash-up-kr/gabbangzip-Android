@@ -36,7 +36,7 @@ class GroupCreationActivity : ComponentActivity() {
     }
 
     companion object {
-        fun open(context: Activity) {
+        fun openActivity(context: Activity) {
             context.startActivity(
                 Intent(context, GroupCreationActivity::class.java),
             )

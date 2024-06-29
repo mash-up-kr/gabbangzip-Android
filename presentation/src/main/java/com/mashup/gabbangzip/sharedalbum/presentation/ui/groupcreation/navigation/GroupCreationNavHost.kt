@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.sample.navigation.groupCreationFirstNavGraph
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.intro.navigation.groupCreationIntroNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.sample.navigation.groupCreationSecondNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.sample.navigation.navigateGroupCreationSecond
 
@@ -19,7 +19,7 @@ fun GroupCreationNavHost(
         navController = navController,
         startDestination = startDestination,
     ) {
-        groupCreationFirstNavGraph(
+        groupCreationIntroNavGraph(
             onClickNextButton = { navController.navigateGroupCreationSecond() },
         )
         groupCreationSecondNavGraph(
