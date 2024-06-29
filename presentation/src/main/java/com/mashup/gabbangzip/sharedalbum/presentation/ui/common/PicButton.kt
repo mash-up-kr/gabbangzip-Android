@@ -29,19 +29,27 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SilverSand
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 
 @Composable
 fun PicButton(
     modifier: Modifier = Modifier,
     text: String,
     enable: Boolean = true,
+    isRippleClickable: Boolean = false,
     backgroundColor: Color = Gray80,
     contentColor: Color = Gray0,
     onButtonClicked: () -> Unit = {},
 ) {
     Box(
         modifier = modifier
-            .noRippleClickable(enabled = enable) { onButtonClicked() }
+            .then(
+                if (isRippleClickable) {
+                    Modifier.rippleClickable(enabled = enable, onClick = onButtonClicked)
+                } else {
+                    Modifier.noRippleClickable(enabled = enable, onClick = onButtonClicked)
+                },
+            )
             .background(
                 color = if (enable) backgroundColor else SilverSand,
                 shape = RoundedCornerShape(16.dp),
@@ -61,13 +69,20 @@ fun PicButton(
 fun PicDialogButton(
     modifier: Modifier = Modifier,
     text: String,
+    isRippleClickable: Boolean = false,
     backgroundColor: Color = Gray80,
     contentColor: Color = Gray0,
     onButtonClicked: () -> Unit = {},
 ) {
     Box(
         modifier = modifier
-            .noRippleClickable { onButtonClicked() }
+            .then(
+                if (isRippleClickable) {
+                    Modifier.rippleClickable(onClick = onButtonClicked)
+                } else {
+                    Modifier.noRippleClickable(onClick = onButtonClicked)
+                },
+            )
             .background(
                 color = backgroundColor,
                 shape = RoundedCornerShape(12.dp),
@@ -87,6 +102,7 @@ fun PicDialogButton(
 fun PicNormalButton(
     modifier: Modifier = Modifier,
     text: String,
+    isRippleClickable: Boolean = false,
     backgroundColor: Color = Gray80,
     contentColor: Color = Gray0,
     @DrawableRes iconRes: Int? = null,
@@ -94,7 +110,13 @@ fun PicNormalButton(
 ) {
     Box(
         modifier = modifier
-            .noRippleClickable { onButtonClicked() }
+            .then(
+                if (isRippleClickable) {
+                    Modifier.rippleClickable(onClick = onButtonClicked)
+                } else {
+                    Modifier.noRippleClickable(onClick = onButtonClicked)
+                },
+            )
             .background(
                 color = backgroundColor,
                 shape = RoundedCornerShape(14.dp),
@@ -136,6 +158,11 @@ fun PicButtonPreview() {
             PicButton(
                 modifier = Modifier.fillMaxWidth(),
                 text = "다음",
+            )
+            PicButton(
+                modifier = Modifier.fillMaxWidth(),
+                text = "다음",
+                isRippleClickable = true,
             )
             PicButton(
                 modifier = Modifier.fillMaxWidth(),
