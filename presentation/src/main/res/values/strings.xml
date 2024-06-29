@@ -24,4 +24,6 @@
     <string name="profile_image">프로필 이미지</string>
     <string name="cancel_icon">취소</string>
     <string name="vote_photo">투표 사진</string>
+    <string name="app_notification_off">OFF</string>
+    <string name="app_notification_on">ON</string>
 </resources>

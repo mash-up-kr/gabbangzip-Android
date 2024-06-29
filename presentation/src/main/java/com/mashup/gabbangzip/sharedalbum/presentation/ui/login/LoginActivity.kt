@@ -27,7 +27,8 @@ class LoginActivity : ComponentActivity() {
             SharedAlbumTheme {
                 LoginScreen(
                     onClickLoginButton = {
-                        viewModel.login()
+                        MainActivity.openActivity(this)
+                        finish()
                     },
                 )
 
