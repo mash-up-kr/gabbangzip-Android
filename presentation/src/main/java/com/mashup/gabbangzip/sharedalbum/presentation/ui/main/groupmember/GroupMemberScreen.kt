@@ -43,7 +43,6 @@ private val topBarHeight = 56.dp
 @Composable
 fun GroupMemberScreen(
     onClickBackButton: () -> Unit,
-    onClickCopyButton: () -> Unit,
     viewModel: GroupMemberViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -51,7 +50,7 @@ fun GroupMemberScreen(
     GroupMemberScreen(
         state = state,
         onClickBackButton = onClickBackButton,
-        onClickCopyButton = onClickCopyButton,
+        onClickCopyButton = { /* TODO */ },
     )
 }
 
