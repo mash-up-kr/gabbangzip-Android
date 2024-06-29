@@ -5,7 +5,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 data class GroupMemberUiState(
-    val keyWord: GroupKeyWord,
-    val members: ImmutableList<Member>,
-    val isFull: Boolean,
+    val keyWord: GroupKeyWord = GroupKeyWord.SCHOOL,
+    val members: ImmutableList<Member> = ImmutableList(emptyList()),
+    val isFull: Boolean = false,
 )
