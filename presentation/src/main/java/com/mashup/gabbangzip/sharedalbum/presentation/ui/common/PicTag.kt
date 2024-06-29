@@ -79,7 +79,7 @@ fun PicTagPreview() {
             PicTag(
                 text = "학교",
                 iconUrl = "https://developer.android.com/images/brand/Android_Robot.png",
-                iconColor = Malibu
+                iconColor = Malibu,
             )
         }
     }
