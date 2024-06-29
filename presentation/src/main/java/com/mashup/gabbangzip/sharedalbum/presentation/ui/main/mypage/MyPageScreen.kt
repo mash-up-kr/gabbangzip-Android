@@ -188,4 +188,3 @@ fun MyPageScreen(
 
 fun getNotificationEnabled(context: Context): Boolean =
     ((context.getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager)?.areNotificationsEnabled() == false).not()
-
