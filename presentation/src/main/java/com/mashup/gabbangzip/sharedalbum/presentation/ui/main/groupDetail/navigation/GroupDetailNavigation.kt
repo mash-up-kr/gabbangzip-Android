@@ -7,6 +7,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.GroupD
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 
 fun NavController.navigateGroupDetail() {
+    // TODO : 디테일 화면 구현 하시는 분 id를 넘겨주시면 됩니다.
     navigate(MainRoute.GroupDetailRoute.route)
 }
 
