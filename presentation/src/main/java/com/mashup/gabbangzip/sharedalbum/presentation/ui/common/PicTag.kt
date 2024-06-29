@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Malibu
@@ -39,7 +39,7 @@ fun PicTag(
     Box(
         modifier = modifier
             .background(
-                color = Gray80,
+                color = Gray40,
                 shape = RoundedCornerShape(20.dp),
             )
             .padding(horizontal = 10.dp, vertical = 6.dp),
@@ -60,7 +60,7 @@ fun PicTag(
             Text(
                 text = text,
                 style = textStyle,
-                color = Gray0,
+                color = Gray80,
             )
         }
     }
