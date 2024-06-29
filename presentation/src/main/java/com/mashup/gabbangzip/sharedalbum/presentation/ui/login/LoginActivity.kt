@@ -4,14 +4,23 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,22 +32,29 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val state by viewModel.uiState.collectAsStateWithLifecycle()
+            val snackbarHostState = remember { SnackbarHostState() }
 
             SharedAlbumTheme {
-                LoginScreen(
-                    onClickLoginButton = {
-                        MainActivity.openActivity(this)
-                        finish()
+                Scaffold(
+                    snackbarHost = {
+                        PicSnackbarHost(state = snackbarHostState)
                     },
-                )
+                ) { contentPadding ->
+                    Box(modifier = Modifier.padding(contentPadding)) {
+                        LoginScreen(
+                            onClickLoginButton = viewModel::login,
+                        )
+                    }
+                }
 
                 if (state.errorMessage != null) {
                     Log.d(TAG, "${state.errorMessage}")
-                    Toast.makeText(
-                        this,
-                        getString(R.string.login_failure_message),
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                    LaunchedEffect(snackbarHostState) {
+                        snackbarHostState.showPicSnackbar(
+                            type = PicSnackbarType.WARNING,
+                            message = getString(R.string.login_failure_message),
+                        )
+                    }
                 }
 
                 if (state.isUserLoggedIn) {
