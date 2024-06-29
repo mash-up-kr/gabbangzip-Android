@@ -62,7 +62,7 @@ private fun PicSnackbar(
             .wrapContentSize()
             .padding(
                 horizontal = 24.dp,
-                vertical = 20.dp,
+                vertical = 16.dp,
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
