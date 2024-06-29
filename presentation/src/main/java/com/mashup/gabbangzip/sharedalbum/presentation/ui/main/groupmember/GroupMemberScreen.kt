@@ -13,6 +13,9 @@ import androidx.core.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.model.Member
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 @Composable
 fun GroupMemberScreen(onClickBackButton: () -> Unit) {
@@ -41,4 +44,39 @@ fun GroupMemberScreen(onClickBackButton: () -> Unit) {
             text = "그룹 멤버 화면입니다",
         )
     }
+}
+
+@Composable
+private fun GroupMemberScreen(
+    state: GroupMemberUiState,
+    onClickBackButton: () -> Unit,
+) {
+
+}
+
+@Composable
+private fun GroupMemberList(
+    modifier: Modifier = Modifier,
+    type: GroupKeyWord,
+    list: ImmutableList<Member>,
+) {
+
+}
+
+@Composable
+private fun GroupMemberItem(
+    modifier: Modifier = Modifier,
+    type: GroupKeyWord,
+    member: Member,
+) {
+
+}
+
+@Composable
+private fun InvitationSection(
+    modifier: Modifier = Modifier,
+    isEnabled: Boolean,
+    onButtonClick: () -> Unit,
+) {
+
 }
