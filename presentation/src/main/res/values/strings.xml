@@ -12,8 +12,11 @@
     <string name="group_creation_title">시작하기 위해\n그룹원이 필요해요!</string>
     <string name="group_creation_button_name">그룹 만들기</string>
     <string name="group_creation_button_description">초대 링크를 받으셨나요?\n링크를 눌러 바로 그룹에 들어갈 수 있어요.</string>
-  
+
     <string name="pic_tag">% 태그 이미지</string>
     <string name="pic_keyword_button">% 키워드 버튼 이미지</string>
     <string name="pic_button">% 버튼 이미지</string>
+    <string name="group_main_picture">그룹 대표 사진</string>
+    <string name="group_symbol">그룹 심볼</string>
+    <string name="detail_page_move">상세 페이지 이동</string>
 </resources>
