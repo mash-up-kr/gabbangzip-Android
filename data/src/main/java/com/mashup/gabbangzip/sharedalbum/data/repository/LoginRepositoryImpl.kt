@@ -44,4 +44,8 @@ class LoginRepositoryImpl @Inject constructor(
     override fun removeToken() {
         localDataSource.removeToken()
     }
+    
+    override fun isUserLoggedIn(): Boolean {
+        return localDataSource.getAccessToken()?.isNotBlank() ?: false
+    }
 }

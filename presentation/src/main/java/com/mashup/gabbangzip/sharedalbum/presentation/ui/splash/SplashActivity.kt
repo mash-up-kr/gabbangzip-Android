@@ -3,23 +3,28 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.splash
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashActivity : ComponentActivity() {
+    private val viewModel by viewModels<SplashViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.checkUserLoggedIn()
         setContent {
+            val state by viewModel.state.collectAsStateWithLifecycle()
+
             SharedAlbumTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -27,16 +32,21 @@ class SplashActivity : ComponentActivity() {
                 ) {
                     SplashScreen()
                 }
+
+                when (state.isUserLoggedIn) {
+                    true -> {
+                        MainActivity.openActivity(this)
+                        finish()
+                    }
+
+                    false -> {
+                        LoginActivity.openActivity(this)
+                        finish()
+                    }
+
+                    else -> {}
+                }
             }
         }
-        lifecycle.coroutineScope.launch(Dispatchers.Default) {
-            delay(SPLASH_DISPLAY_TIME)
-            LoginActivity.openActivity(this@SplashActivity)
-            finish()
-        }
-    }
-
-    companion object {
-        private const val SPLASH_DISPLAY_TIME = 3000L // 3초
     }
 }
