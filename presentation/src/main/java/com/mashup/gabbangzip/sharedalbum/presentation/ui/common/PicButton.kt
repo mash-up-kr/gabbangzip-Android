@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
@@ -32,15 +31,12 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SilverSand
 
 @Composable
-private fun PicBaseButton(
+fun PicButton(
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues,
     text: String,
-    textStyle: TextStyle,
     enable: Boolean = true,
     backgroundColor: Color = Gray80,
     contentColor: Color = Gray0,
-    @DrawableRes iconRes: Int? = null,
     onButtonClicked: () -> Unit = {},
 ) {
     Button(
@@ -52,8 +48,62 @@ private fun PicBaseButton(
             disabledContentColor = Gray0,
         ),
         shape = RoundedCornerShape(16.dp),
-        contentPadding = contentPadding,
+        contentPadding = PaddingValues(vertical = 20.dp),
         enabled = enable,
+        onClick = onButtonClicked,
+    ) {
+        Text(
+            text = text,
+            style = PicTypography.bodyMedium17,
+        )
+    }
+}
+
+@Composable
+fun PicDialogButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    backgroundColor: Color = Gray80,
+    contentColor: Color = Gray0,
+    onButtonClicked: () -> Unit = {},
+) {
+    Button(
+        modifier = modifier,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = backgroundColor,
+            contentColor = contentColor,
+        ),
+        shape = RoundedCornerShape(12.dp),
+        contentPadding = PaddingValues(vertical = 18.dp),
+        onClick = onButtonClicked,
+    ) {
+        Text(
+            text = text,
+            style = PicTypography.bodyMedium14,
+        )
+    }
+}
+
+@Composable
+fun PicNormalButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    backgroundColor: Color = Gray80,
+    contentColor: Color = Gray0,
+    @DrawableRes iconRes: Int? = null,
+    onButtonClicked: () -> Unit = {},
+) {
+    Button(
+        modifier = modifier,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = backgroundColor,
+            contentColor = contentColor,
+        ),
+        shape = RoundedCornerShape(14.dp),
+        contentPadding = PaddingValues(
+            vertical = 16.dp,
+            horizontal = if (iconRes == null) 26.dp else 30.dp,
+        ),
         onClick = onButtonClicked,
     ) {
         Row(
@@ -70,71 +120,10 @@ private fun PicBaseButton(
             }
             Text(
                 text = text,
-                style = textStyle,
+                style = PicTypography.bodyMedium16,
             )
         }
     }
-}
-
-@Composable
-fun PicButton(
-    modifier: Modifier = Modifier,
-    text: String,
-    enable: Boolean = true,
-    backgroundColor: Color = Gray80,
-    contentColor: Color = Gray0,
-    onButtonClicked: () -> Unit = {},
-) {
-    PicBaseButton(
-        modifier = modifier,
-        contentPadding = PaddingValues(vertical = 20.dp),
-        text = text,
-        textStyle = PicTypography.bodyMedium17,
-        enable = enable,
-        backgroundColor = backgroundColor,
-        contentColor = contentColor,
-        onButtonClicked = onButtonClicked,
-    )
-}
-
-@Composable
-fun PicDialogButton(
-    modifier: Modifier = Modifier,
-    text: String,
-    backgroundColor: Color = Gray80,
-    contentColor: Color = Gray0,
-    onButtonClicked: () -> Unit = {},
-) {
-    PicBaseButton(
-        modifier = modifier,
-        contentPadding = PaddingValues(vertical = 18.dp),
-        text = text,
-        textStyle = PicTypography.bodyMedium14,
-        backgroundColor = backgroundColor,
-        contentColor = contentColor,
-        onButtonClicked = onButtonClicked,
-    )
-}
-
-@Composable
-fun PicNormalButton(
-    modifier: Modifier = Modifier,
-    text: String,
-    backgroundColor: Color = Gray80,
-    contentColor: Color = Gray0,
-    @DrawableRes iconRes: Int? = null,
-    onButtonClicked: () -> Unit = {},
-) {
-    PicBaseButton(
-        modifier = modifier,
-        contentPadding = PaddingValues(vertical = 16.dp, horizontal = 26.dp),
-        text = text,
-        textStyle = PicTypography.bodyMedium16,
-        backgroundColor = backgroundColor,
-        contentColor = contentColor,
-        iconRes = iconRes,
-        onButtonClicked = onButtonClicked,
-    )
 }
 
 @Preview(showBackground = true)
