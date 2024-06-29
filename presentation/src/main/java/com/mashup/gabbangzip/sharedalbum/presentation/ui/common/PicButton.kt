@@ -86,7 +86,7 @@ fun PicButton(
     onButtonClicked: () -> Unit = {},
 ) {
     PicBaseButton(
-        modifier =  modifier,
+        modifier = modifier,
         contentPadding = PaddingValues(vertical = 20.dp),
         text = text,
         textStyle = PicTypography.bodyMedium17,
@@ -106,7 +106,7 @@ fun PicDialogButton(
     onButtonClicked: () -> Unit = {},
 ) {
     PicBaseButton(
-        modifier =  modifier,
+        modifier = modifier,
         contentPadding = PaddingValues(vertical = 18.dp),
         text = text,
         textStyle = PicTypography.bodyMedium14,
@@ -126,7 +126,7 @@ fun PicNormalButton(
     onButtonClicked: () -> Unit = {},
 ) {
     PicBaseButton(
-        modifier =  modifier,
+        modifier = modifier,
         contentPadding = PaddingValues(vertical = 16.dp, horizontal = 26.dp),
         text = text,
         textStyle = PicTypography.bodyMedium16,
@@ -163,7 +163,7 @@ fun PicButtonPreview() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 PicDialogButton(
                     modifier = Modifier.weight(1f),
@@ -177,7 +177,7 @@ fun PicButtonPreview() {
                 )
             }
             PicNormalButton(
-                text = "내 PIC 올리기"
+                text = "내 PIC 올리기",
             )
             PicNormalButton(
                 text = "링크 복사",
