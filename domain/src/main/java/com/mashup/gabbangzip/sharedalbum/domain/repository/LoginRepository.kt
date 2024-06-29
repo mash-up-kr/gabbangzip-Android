@@ -5,4 +5,5 @@ import com.mashup.gabbangzip.sharedalbum.domain.model.LoginParam
 interface LoginRepository {
     suspend fun login(param: LoginParam)
     fun saveToken(accessToken: String, refreshToken: String)
+    fun isUserLoggedIn(): Boolean
 }

@@ -36,4 +36,8 @@ class LoginRepositoryImpl @Inject constructor(
             refreshToken = refreshToken,
         )
     }
+
+    override fun isUserLoggedIn(): Boolean {
+        return localDataSource.getAccessToken()?.isNotBlank() ?: false
+    }
 }
