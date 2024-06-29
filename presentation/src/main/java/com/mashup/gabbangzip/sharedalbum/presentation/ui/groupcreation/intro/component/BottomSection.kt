@@ -23,7 +23,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 
 @Composable
-fun BottomButton(
+fun BottomSection(
     modifier: Modifier = Modifier,
     descriptionText: String,
     buttonText: String,
@@ -67,7 +67,7 @@ fun BottomButton(
 @Preview(showBackground = true)
 @Composable
 fun BottomButtonPreview() {
-    BottomButton(
+    BottomSection(
         descriptionText = "초대 링크를 받으셨나요?\n링크를 눌러 바로 그룹에 들어갈 수 있어요.",
         buttonText = "그룹 만들기",
         onClickNextButton = {},

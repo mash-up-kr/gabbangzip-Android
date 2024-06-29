@@ -28,7 +28,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.pretendard
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.intro.component.BottomButton
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.intro.component.BottomSection
 
 @Composable
 fun GroupCreationIntroScreen(
@@ -71,7 +71,7 @@ fun GroupCreationIntroScreen(
                 progress = { progress },
             )
         }
-        BottomButton(
+        BottomSection(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
