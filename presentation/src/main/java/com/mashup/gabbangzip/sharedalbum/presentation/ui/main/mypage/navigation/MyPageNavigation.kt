@@ -10,8 +10,16 @@ fun NavController.navigateMyPage() {
     navigate(MainRoute.MyPageRoute.route)
 }
 
-fun NavGraphBuilder.myPageNavGraph(onClickBackButton: () -> Unit) {
+fun NavGraphBuilder.myPageNavGraph(
+    onClickBack: () -> Unit,
+    onClickNotificationSetting: () -> Unit,
+    navigateLoginAndFinish: () -> Unit,
+) {
     composable(route = MainRoute.MyPageRoute.route) {
-        MyPageScreen(onClickBackButton)
+        MyPageScreen(
+            onClickBack = onClickBack,
+            onClickNotificationSetting = onClickNotificationSetting,
+            navigateLoginAndFinish = navigateLoginAndFinish,
+        )
     }
 }

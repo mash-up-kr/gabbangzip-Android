@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.core.R
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 
 @Composable
@@ -119,7 +119,7 @@ class TopBarProvider : PreviewParameterProvider<TopBarState> {
             title = "왼쪽 아이콘이 있는 가운데 제목",
             textAlign = TopBarTitleAlign.CENTER,
             leftIcon = TopBarIcon(
-                resId = R.drawable.ic_call_answer,
+                resId = R.drawable.ic_back,
                 size = 26.dp,
                 leftPadding = 16.dp,
                 description = "",
@@ -132,7 +132,7 @@ class TopBarProvider : PreviewParameterProvider<TopBarState> {
             topPadding = 10.dp,
             bottomPadding = 10.dp,
             leftIcon = TopBarIcon(
-                resId = R.drawable.ic_call_answer,
+                resId = R.drawable.ic_back,
                 size = 26.dp,
                 leftPadding = 16.dp,
                 rightPadding = 8.dp,
@@ -144,21 +144,21 @@ class TopBarProvider : PreviewParameterProvider<TopBarState> {
             title = "다양한 사이즈 아이콘과 가운데 제목",
             textAlign = TopBarTitleAlign.CENTER,
             leftIcon = TopBarIcon(
-                resId = R.drawable.ic_call_answer,
+                resId = R.drawable.ic_back,
                 size = 26.dp,
                 leftPadding = 16.dp,
                 description = "",
                 iconClickListener = {},
             ),
             rightIcon1 = TopBarIcon(
-                resId = R.drawable.ic_call_answer_video,
+                resId = R.drawable.ic_back,
                 size = 20.dp,
                 rightPadding = 10.dp,
                 description = "",
                 iconClickListener = {},
             ),
             rightIcon2 = TopBarIcon(
-                resId = R.drawable.ic_call_answer_video_low,
+                resId = R.drawable.ic_back,
                 size = 42.dp,
                 rightPadding = 10.dp,
                 description = "",

@@ -7,6 +7,7 @@ import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.mashup.gabbangzip.sharedalbum.domain.datasource.LocalDataSource
+import com.mashup.gabbangzip.sharedalbum.domain.model.UserInfo
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -132,10 +133,25 @@ class LocalDataSourceImpl @Inject constructor(
         return getStringOrNull(KEY_REFRESH_TOKEN)
     }
 
+    override fun saveUserInfo(userInfo: UserInfo) {
+        putString(KEY_USER_NAME, userInfo.userName)
+    }
+
+    override fun loadUserInfo(): UserInfo {
+        return UserInfo(
+            userName = getString(KEY_USER_NAME, ""),
+        )
+    }
+
+    override fun removeUserInfo() {
+        remove(KEY_USER_NAME)
+    }
+
     companion object {
         private const val TAG = "preferences"
         private const val PREF_NAME = "pic_preferences"
         private const val KEY_ACCESS_TOKEN = "key_access_token"
         private const val KEY_REFRESH_TOKEN = "key_refresh_token"
+        private const val KEY_USER_NAME = "key_user_name"
     }
 }
