@@ -64,6 +64,7 @@ class MyPageViewModel @Inject constructor(
         KakaoUserSdkUtil.withdrawal(
             onSuccess = {
                 viewModelScope.launch {
+                    logoutUseCase()
                     withdrawalUseCase()
                     _uiState.update {
                         it.copy(isLoading = false)
