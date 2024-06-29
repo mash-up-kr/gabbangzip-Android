@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,37 +37,34 @@ fun PicDialog(
     Dialog(onDismissRequest = onDismiss) {
         Column(
             modifier = modifier
+                .width(330.dp)
                 .clip(RoundedCornerShape(20.dp))
                 .background(Gray0)
                 .padding(top = 30.dp, bottom = 18.dp, start = 16.dp, end = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Column(
-                modifier = Modifier.width(298.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = titleText,
+                textAlign = TextAlign.Center,
+                style = PicTypography.headBold16,
+                color = Gray80,
+            )
+            if (contentText.isNotEmpty()) {
                 Text(
-                    text = titleText,
+                    modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
+                    text = contentText,
                     textAlign = TextAlign.Center,
-                    style = PicTypography.headBold16,
-                    color = Gray80,
+                    style = PicTypography.bodyMedium14,
+                    color = Gray60,
                 )
-                if (contentText.isNotEmpty()) {
-                    Text(
-                        text = contentText,
-                        textAlign = TextAlign.Center,
-                        style = PicTypography.bodyMedium14,
-                        color = Gray60,
-                    )
-                }
             }
             Row(
-                modifier = Modifier.padding(top = 26.dp),
+                modifier = Modifier.fillMaxWidth().padding(top = 26.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 PicDialogButton(
-                    modifier = Modifier.width(145.dp),
+                    modifier = Modifier.weight(0.5f),
                     text = dismissText,
                     isRippleClickable = true,
                     backgroundColor = Cultured,
@@ -74,7 +72,7 @@ fun PicDialog(
                     onButtonClicked = onDismiss,
                 )
                 PicDialogButton(
-                    modifier = Modifier.width(145.dp),
+                    modifier = Modifier.weight(0.5f),
                     text = confirmText,
                     isRippleClickable = true,
                     onButtonClicked = onConfirm,
