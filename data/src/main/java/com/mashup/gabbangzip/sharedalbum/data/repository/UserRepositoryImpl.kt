@@ -10,10 +10,6 @@ class UserRepositoryImpl @Inject constructor(
     private val userService: UserService,
     private val localDataSource: LocalDataSource,
 ) : UserRepository {
-    override fun saveUserInfo(userInfo: UserInfo) {
-        localDataSource.saveUserInfo(userInfo)
-    }
-
     override fun loadUserInfo(): UserInfo {
         return localDataSource.loadUserInfo()
     }

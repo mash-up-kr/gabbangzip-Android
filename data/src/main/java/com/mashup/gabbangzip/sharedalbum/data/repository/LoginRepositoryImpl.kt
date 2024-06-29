@@ -4,6 +4,7 @@ import com.mashup.gabbangzip.sharedalbum.data.dto.request.LoginRequest
 import com.mashup.gabbangzip.sharedalbum.data.service.LoginService
 import com.mashup.gabbangzip.sharedalbum.domain.datasource.LocalDataSource
 import com.mashup.gabbangzip.sharedalbum.domain.model.LoginParam
+import com.mashup.gabbangzip.sharedalbum.domain.model.UserInfo
 import com.mashup.gabbangzip.sharedalbum.domain.repository.LoginRepository
 import javax.inject.Inject
 
@@ -25,6 +26,9 @@ class LoginRepositoryImpl @Inject constructor(
                 saveToken(
                     accessToken = accessToken,
                     refreshToken = refreshToken,
+                )
+                localDataSource.saveUserInfo(
+                    UserInfo(userName = nickname),
                 )
             } ?: throw IllegalStateException("데이터 없음")
         }.getOrThrow()

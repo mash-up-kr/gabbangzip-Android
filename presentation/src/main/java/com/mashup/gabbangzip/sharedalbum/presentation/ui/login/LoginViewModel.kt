@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.model.LoginParam
-import com.mashup.gabbangzip.sharedalbum.domain.model.UserInfo
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.LoginUseCase
-import com.mashup.gabbangzip.sharedalbum.domain.usecase.SaveUserInfoUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.auth.KakaoUserSdkUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -21,7 +19,6 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val loginUseCase: LoginUseCase,
-    private val saveUserInfoUseCase: SaveUserInfoUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
@@ -73,9 +70,6 @@ class LoginViewModel @Inject constructor(
             }
             loginUseCase(param)
                 .onSuccess {
-                    saveUserInfoUseCase(
-                        userInfo = UserInfo(userName = nickname),
-                    )
                     _uiState.update { state ->
                         state.copy(
                             isLoading = false,
