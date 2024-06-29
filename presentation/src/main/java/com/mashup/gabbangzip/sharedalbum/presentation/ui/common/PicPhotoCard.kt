@@ -33,7 +33,7 @@ fun PicPhotoCard(
                 color = Color.White,
                 shape = RoundedCornerShape(20.dp),
             )
-            .background(color = GroupKeyWord.getBackgroundColor(groupInfo.keyword)),
+            .background(color = groupInfo.keyword.backgroundColor),
     ) {
         KeywordMiniSymbol(
             modifier = Modifier
@@ -42,7 +42,7 @@ fun PicPhotoCard(
                     top = 24.dp,
                     start = 22.dp,
                 ),
-            symbol = groupInfo.keyword,
+            keyword = groupInfo.keyword,
         )
 
         KeywordMiniSymbol(
@@ -52,7 +52,7 @@ fun PicPhotoCard(
                     top = 24.dp,
                     end = 22.dp,
                 ),
-            symbol = groupInfo.keyword,
+            keyword = groupInfo.keyword,
         )
 
         KeywordMiniSymbol(
@@ -62,7 +62,7 @@ fun PicPhotoCard(
                     bottom = 24.dp,
                     start = 22.dp,
                 ),
-            symbol = groupInfo.keyword,
+            keyword = groupInfo.keyword,
         )
 
         KeywordMiniSymbol(
@@ -72,7 +72,7 @@ fun PicPhotoCard(
                     bottom = 24.dp,
                     end = 22.dp,
                 ),
-            symbol = groupInfo.keyword,
+            keyword = groupInfo.keyword,
         )
 
         GroupImage(
@@ -86,10 +86,10 @@ fun PicPhotoCard(
 }
 
 @Composable
-private fun KeywordMiniSymbol(modifier: Modifier, symbol: GroupKeyWord) {
+private fun KeywordMiniSymbol(modifier: Modifier, keyword: GroupKeyWord) {
     Image(
         modifier = modifier.size(10.dp),
-        painter = painterResource(id = GroupKeyWord.getSymbol(symbol)),
+        painter = painterResource(id = keyword.symbolResId),
         contentDescription = stringResource(R.string.group_symbol),
     )
 }
@@ -109,7 +109,7 @@ private fun GroupImage(modifier: Modifier, groupInfo: GroupInfo) {
         AsyncImage(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = GroupKeyWord.getBackgroundColor(groupInfo.keyword)),
+                .background(color = groupInfo.keyword.backgroundColor),
             model = groupInfo.thumbnailFrameUrl,
             contentScale = ContentScale.FillBounds,
             contentDescription = null,

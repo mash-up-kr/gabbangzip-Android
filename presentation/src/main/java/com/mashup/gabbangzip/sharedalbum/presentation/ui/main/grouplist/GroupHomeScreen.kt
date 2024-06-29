@@ -124,7 +124,7 @@ private fun GroupTag(
             PicTag(
                 modifier = modifier.padding(end = 6.dp),
                 text = it,
-                iconRes = GroupKeyWord.getSymbol(keyword),
+                iconRes = keyword.symbolResId,
             )
         }
     }
