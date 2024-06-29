@@ -56,6 +56,6 @@ internal class NetworkModule {
     fun provideLoginService(retrofit: Retrofit): LoginService = retrofit.create()
 
     companion object {
-        private const val BASE_URL = "http://3.39.133.214:8080" // TODO("임시서버")
+        private const val BASE_URL = "http://ec2-43-203-14-157.ap-northeast-2.compute.amazonaws.com"
     }
 }
