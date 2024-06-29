@@ -19,7 +19,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
@@ -99,6 +98,7 @@ fun PicDialogButton(
 fun PicNormalButton(
     modifier: Modifier = Modifier,
     text: String,
+    enable: Boolean = true,
     isRippleClickable: Boolean = false,
     backgroundColor: Color = Gray80,
     contentColor: Color = Gray0,
@@ -108,17 +108,13 @@ fun PicNormalButton(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(14.dp))
-            .background(backgroundColor)
+            .background(if (enable) backgroundColor else SilverSand)
             .then(
                 if (isRippleClickable) {
                     Modifier.rippleClickable(onClick = onButtonClicked)
                 } else {
                     Modifier.noRippleClickable(onClick = onButtonClicked)
                 },
-            )
-            .background(
-                color = backgroundColor,
-                shape = RoundedCornerShape(14.dp),
             )
             .padding(
                 vertical = 16.dp,
@@ -134,7 +130,7 @@ fun PicNormalButton(
                 Image(
                     modifier = Modifier.size(20.dp),
                     painter = painterResource(id = iconRes),
-                    contentDescription = stringResource(R.string.pic_button, text),
+                    contentDescription = null,//stringResource(R.string.pic_button, text),
                     colorFilter = ColorFilter.tint(contentColor),
                 )
             }
