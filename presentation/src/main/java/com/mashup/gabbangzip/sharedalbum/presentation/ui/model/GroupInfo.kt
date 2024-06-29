@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.model
 
+import com.mashup.gabbangzip.sharedalbum.domain.model.GroupKeyWord
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 data class GroupInfo(

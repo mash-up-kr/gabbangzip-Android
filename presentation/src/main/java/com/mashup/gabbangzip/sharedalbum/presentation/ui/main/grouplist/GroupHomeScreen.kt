@@ -27,7 +27,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicPhotoCard
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouplist.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupInfo
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
+import com.mashup.gabbangzip.sharedalbum.domain.model.GroupKeyWord
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 

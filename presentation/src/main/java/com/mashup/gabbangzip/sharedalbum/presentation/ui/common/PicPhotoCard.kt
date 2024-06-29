@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupInfo
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
+import com.mashup.gabbangzip.sharedalbum.domain.model.GroupKeyWord
 
 @Composable
 fun PicPhotoCard(

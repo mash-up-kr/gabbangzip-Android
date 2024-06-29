@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.model
+package com.mashup.gabbangzip.sharedalbum.domain.model
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
