@@ -92,7 +92,7 @@ private fun pretendardTextStyle(
     fontWeight = fontWeight,
     fontSize = fontSize.sp,
     platformStyle = PlatformTextStyle(
-        includeFontPadding = false
+        includeFontPadding = false,
     ),
 //    lineHeight = lineHeight.sp,
 )
