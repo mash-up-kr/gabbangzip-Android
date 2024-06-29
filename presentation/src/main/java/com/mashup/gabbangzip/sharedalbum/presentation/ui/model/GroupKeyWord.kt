@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.model
 
-import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.ConiferAlpha30
@@ -11,7 +10,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.MagentaPinkAlpha30
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.MalibuAlpha30
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.MayaBlueAlpha30
 
-enum class GroupKeyWord{
+enum class GroupKeyWord {
     SCHOOL,
     COMPANY,
     CREW,
