@@ -1,6 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.theme
 
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -17,6 +18,7 @@ internal val pretendard = FontFamily(
 
 @Immutable
 data class PretendardTypography(
+    val headBold24: TextStyle,
     val headBold20: TextStyle,
     val headBold18: TextStyle,
     val headBold16: TextStyle,
@@ -25,11 +27,16 @@ data class PretendardTypography(
     val bodyMedium16: TextStyle,
     val bodyMedium14: TextStyle,
     val bodyMedium12: TextStyle,
+    val textNormal22: TextStyle,
     val textNormal14: TextStyle,
     val captionNormal12: TextStyle,
 )
 
 internal val PicTypography = PretendardTypography(
+    headBold24 = pretendardTextStyle(
+        fontWeight = FontWeight.Bold,
+        fontSize = 24,
+    ),
     headBold20 = pretendardTextStyle(
         fontWeight = FontWeight.Bold,
         fontSize = 20,
@@ -62,6 +69,10 @@ internal val PicTypography = PretendardTypography(
         fontWeight = FontWeight.Medium,
         fontSize = 12,
     ),
+    textNormal22 = pretendardTextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 22,
+    ),
     textNormal14 = pretendardTextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 14,
@@ -80,5 +91,8 @@ private fun pretendardTextStyle(
     fontFamily = pretendard,
     fontWeight = fontWeight,
     fontSize = fontSize.sp,
+    platformStyle = PlatformTextStyle(
+        includeFontPadding = false
+    ),
 //    lineHeight = lineHeight.sp,
 )
