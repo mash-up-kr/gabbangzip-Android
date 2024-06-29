@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
@@ -43,16 +44,14 @@ fun PicButton(
 ) {
     Box(
         modifier = modifier
+            .clip(RoundedCornerShape(16.dp))
+            .background(if (enable) backgroundColor else SilverSand)
             .then(
                 if (isRippleClickable) {
                     Modifier.rippleClickable(enabled = enable, onClick = onButtonClicked)
                 } else {
                     Modifier.noRippleClickable(enabled = enable, onClick = onButtonClicked)
                 },
-            )
-            .background(
-                color = if (enable) backgroundColor else SilverSand,
-                shape = RoundedCornerShape(16.dp),
             )
             .padding(vertical = 20.dp),
         contentAlignment = Alignment.Center,
@@ -76,16 +75,14 @@ fun PicDialogButton(
 ) {
     Box(
         modifier = modifier
+            .clip(RoundedCornerShape(12.dp))
+            .background(backgroundColor)
             .then(
                 if (isRippleClickable) {
                     Modifier.rippleClickable(onClick = onButtonClicked)
                 } else {
                     Modifier.noRippleClickable(onClick = onButtonClicked)
                 },
-            )
-            .background(
-                color = backgroundColor,
-                shape = RoundedCornerShape(12.dp),
             )
             .padding(vertical = 18.dp),
         contentAlignment = Alignment.Center,
@@ -110,6 +107,8 @@ fun PicNormalButton(
 ) {
     Box(
         modifier = modifier
+            .clip(RoundedCornerShape(14.dp))
+            .background(backgroundColor)
             .then(
                 if (isRippleClickable) {
                     Modifier.rippleClickable(onClick = onButtonClicked)
