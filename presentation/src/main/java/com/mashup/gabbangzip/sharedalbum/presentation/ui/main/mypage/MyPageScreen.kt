@@ -35,9 +35,8 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupItemNormal
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupTitle
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.LogoutDialog
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.MyPageDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.UserContainer
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.WithdrawalDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.viewmodel.MyPageViewModel
 
 @Composable
@@ -66,38 +65,44 @@ fun MyPageScreen(
         }
     }
 
-    when (state.dialogState) {
-        MyPageUiState.DialogState.None -> Unit
-        MyPageUiState.DialogState.Logout -> {
-            LogoutDialog(
-                onDismiss = {
-                    viewModel.dismissDialog()
-                },
-                onConfirm = {
-                    viewModel.dismissDialog()
-                    viewModel.logout()
-                    navigateLoginAndFinish()
-                },
+    MyPageDialog(
+        dialogState = state.dialogState,
+        onDismiss = {
+            viewModel.dismissDialog()
+        },
+        onLogout = {
+            viewModel.dismissDialog()
+            viewModel.logout()
+            navigateLoginAndFinish()
+        },
+        onWithdrawal = {
+            viewModel.dismissDialog()
+            viewModel.withdrawal(
+                onSuccess = { navigateLoginAndFinish() },
             )
-        }
+        },
+    )
+    MyPageScreen(
+        userName = state.userName,
+        notificationEnabledString = if (isNotificationEnabledState) onString else offString,
+        versionName = versionName,
+        onClickBack = onClickBack,
+        onClickNotificationSetting = onClickNotificationSetting,
+        showLogoutDialog = viewModel::showLogoutDialog,
+        showWithdrawalDialog = viewModel::showWithdrawalDialog,
+    )
+}
 
-        MyPageUiState.DialogState.Withdrawal -> {
-            WithdrawalDialog(
-                onDismiss = {
-                    viewModel.dismissDialog()
-                },
-                onConfirm = {
-                    viewModel.dismissDialog()
-                    viewModel.withdrawal(
-                        onSuccess = {
-                            navigateLoginAndFinish()
-                        },
-                    )
-                },
-            )
-        }
-    }
-
+@Composable
+fun MyPageScreen(
+    userName: String,
+    notificationEnabledString: String,
+    versionName: String,
+    onClickBack: () -> Unit,
+    onClickNotificationSetting: () -> Unit,
+    showLogoutDialog: () -> Unit,
+    showWithdrawalDialog: () -> Unit,
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -121,7 +126,7 @@ fun MyPageScreen(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(vertical = 14.dp, horizontal = 16.dp),
-            userName = state.userName,
+            userName = userName,
         )
         Spacer(
             modifier = Modifier
@@ -143,7 +148,7 @@ fun MyPageScreen(
                 .clickable(onClick = onClickNotificationSetting)
                 .padding(vertical = 20.dp, horizontal = 16.dp),
             text = stringResource(id = R.string.app_notification_setting),
-            subText = if (isNotificationEnabledState) onString else offString,
+            subText = notificationEnabledString,
         )
         Spacer(
             modifier = Modifier
@@ -171,7 +176,7 @@ fun MyPageScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .clickable(onClick = { viewModel.showLogoutDialog() })
+                .clickable(onClick = showLogoutDialog)
                 .padding(vertical = 20.dp, horizontal = 16.dp),
             text = stringResource(id = R.string.logout),
         )
@@ -179,7 +184,7 @@ fun MyPageScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .clickable(onClick = { viewModel.showWithdrawalDialog() })
+                .clickable(onClick = showWithdrawalDialog)
                 .padding(vertical = 20.dp, horizontal = 16.dp),
             text = stringResource(id = R.string.account_withdrawal),
         )
