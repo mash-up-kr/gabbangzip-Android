@@ -78,6 +78,7 @@ fun PicPhotoCard(
         GroupImage(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp)
                 .align(Alignment.Center),
             groupInfo = groupInfo,
         )
@@ -96,7 +97,7 @@ private fun KeywordMiniSymbol(modifier: Modifier, symbol: GroupKeyWord) {
 @Composable
 private fun GroupImage(modifier: Modifier, groupInfo: GroupInfo) {
     Box(
-        modifier = modifier.padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp),
+        modifier = modifier,
     ) {
         AsyncImage(
             modifier = Modifier.matchParentSize(),
