@@ -19,14 +19,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicPhotoCard
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouplist.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupInfo
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
@@ -50,7 +51,7 @@ fun GroupHomeScreen(
             if (state.groupList.last() != it) {
                 Spacer(
                     modifier = Modifier
-                        .padding(vertical = 24.dp)
+                        .padding(top = 40.dp, bottom = 24.dp)
                         .height(8.dp)
                         .fillMaxWidth()
                         .background(color = Gray20),
@@ -78,6 +79,7 @@ private fun GroupContainer(
         GroupTag(
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
             tagList = groupInfo.tags,
+            keyword = groupInfo.keyword,
         )
         PicPhotoCard(
             modifier = Modifier
@@ -112,16 +114,18 @@ private fun GroupTitle(modifier: Modifier, groupName: String) {
 }
 
 @Composable
-private fun GroupTag(modifier: Modifier, tagList: ImmutableList<String>) {
+private fun GroupTag(
+    modifier: Modifier,
+    tagList: ImmutableList<String>,
+    keyword: GroupKeyWord,
+) {
     if (tagList.isNotEmpty()) {
-        Row(modifier = modifier) {
-            tagList.forEach {
-                Text(
-                    text = it,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(end = 8.dp),
-                )
-            }
+        tagList.forEach {
+            PicTag(
+                modifier = modifier.padding(end = 6.dp),
+                text = it,
+                iconRes = GroupKeyWord.getSymbol(keyword),
+            )
         }
     }
 }
