@@ -27,7 +27,7 @@
 
     <string name="app_notification_off">OFF</string>
     <string name="app_notification_on">ON</string>
-  
+
     <string name="group_creation_title">시작하기 위해\n그룹원이 필요해요!</string>
     <string name="group_creation_button_name">그룹 만들기</string>
     <string name="group_creation_button_description">초대 링크를 받으셨나요?\n링크를 눌러 바로 그룹에 들어갈 수 있어요.</string>
@@ -38,4 +38,8 @@
     <string name="group_main_picture">그룹 대표 사진</string>
     <string name="group_symbol">그룹 심볼</string>
     <string name="detail_page_move">상세 페이지 이동</string>
+
+    <string name="group_member_list_title">그룹원</string>
+    <string name="group_add_more_crew">그룹원을 추가하고 싶으세요?</string>
+    <string name="group_maximum_count_error">그룹 최대 인원은 6명이에요.</string>
 </resources>

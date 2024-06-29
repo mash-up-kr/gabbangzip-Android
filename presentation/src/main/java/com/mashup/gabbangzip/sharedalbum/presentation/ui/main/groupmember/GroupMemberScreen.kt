@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -71,7 +72,7 @@ private fun GroupMemberScreen(
                 resId = R.drawable.ic_back,
                 iconClickListener = onClickBackButton,
             ),
-            titleText = "그룹원",
+            titleText = stringResource(id = R.string.group_member_list_title),
             titleAlign = TopBarTitleAlign.CENTER,
             topPadding = 16.dp,
             bottomPadding = 16.dp,
@@ -165,7 +166,13 @@ private fun InvitationSection(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = if (isEnabled) "그룹원을 추가하고 싶으세요?" else "그룹 최대 인원은 6명이에요.",
+            text = stringResource(
+                if (isEnabled) {
+                    R.string.group_add_more_crew
+                } else {
+                    R.string.group_maximum_count_error
+                },
+            ),
             style = PicTypography.bodyMedium14,
             color = Gray60,
         )
