@@ -44,5 +44,4 @@ enum class GroupKeyword(
         backgroundColor = LavenderAlpha30,
     ),
     ;
-
 }
