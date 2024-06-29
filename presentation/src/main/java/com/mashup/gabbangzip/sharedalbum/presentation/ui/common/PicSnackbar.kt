@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.SnackbarDuration
@@ -75,6 +76,9 @@ private fun PicSnackbar(
             Spacer(modifier = Modifier.width(16.dp))
         }
         Text(
+            modifier = Modifier
+                .wrapContentHeight()
+                .padding(vertical = 2.dp),
             text = message,
             color = Gray0,
             style = PicTypography.bodyMedium16,
