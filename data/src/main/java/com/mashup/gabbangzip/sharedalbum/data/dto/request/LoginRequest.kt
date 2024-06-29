@@ -5,12 +5,12 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class LoginRequest(
-    @Json(name = "idToken")
+    @Json(name = "id_token")
     val idToken: String,
     @Json(name = "provider")
     val provider: String,
     @Json(name = "nickname")
     val nickname: String,
-    @Json(name = "profileImage")
+    @Json(name = "profile_image")
     val profileImage: String,
 )
