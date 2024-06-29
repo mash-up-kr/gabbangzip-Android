@@ -6,9 +6,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.navigation.groupDetailNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.navigation.navigateGroupDetail
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupList.navigation.groupListNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupMember.navigation.groupMemberNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupMember.navigation.navigateGroupMember
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouplist.navigation.groupListNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.navigation.myPageNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.navigation.navigateMyPage
 
@@ -25,9 +25,9 @@ fun MainNavHost(
         startDestination = startDestination,
     ) {
         groupListNavGraph(
-            onClickEventMakeButton = { onClickEventMakeButton() },
-            onClickGroupDetailButton = { navController.navigateGroupDetail() },
-            onClickMyPageButton = { navController.navigateMyPage() },
+            onClickGroupDetail = { navController.navigateGroupDetail() },
+            onClickMyPage = { navController.navigateMyPage() },
+            onClickEventMake = { onClickEventMakeButton() },
         )
         groupDetailNavGraph(
             onClickGroupMemberButton = { navController.navigateGroupMember() },
