@@ -17,15 +17,15 @@ import androidx.core.view.WindowCompat
 
 private val DarkColorScheme =
     darkColorScheme(
-        primary = Manz,
-        secondary = ClassicRose,
+        primary = Conifer,
+        secondary = MagentaPink,
         tertiary = Malibu,
     )
 
 private val LightColorScheme =
     lightColorScheme(
-        primary = Manz,
-        secondary = ClassicRose,
+        primary = Conifer,
+        secondary = MagentaPink,
         tertiary = Malibu,
         /* Other default colors to override
         background = Color(0xFFFFFBFE),
@@ -60,7 +60,7 @@ fun SharedAlbumTheme(
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = Gray0.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = true
         }
     }
     MaterialTheme(
