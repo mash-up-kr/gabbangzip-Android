@@ -9,8 +9,7 @@ class WithdrawalUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
 ) {
     suspend operator fun invoke() {
-        loginRepository.removeToken()
         userRepository.deleteUser()
-        userRepository.removeUserInfo()
+        loginRepository.removeToken()
     }
 }
