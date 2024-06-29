@@ -143,6 +143,10 @@ class LocalDataSourceImpl @Inject constructor(
         )
     }
 
+    override fun removeUserInfo() {
+        remove(KEY_USER_NAME)
+    }
+
     companion object {
         private const val TAG = "preferences"
         private const val PREF_NAME = "pic_preferences"

@@ -18,6 +18,10 @@ class UserRepositoryImpl @Inject constructor(
         return localDataSource.loadUserInfo()
     }
 
+    override fun removeUserInfo() {
+        localDataSource.removeUserInfo()
+    }
+
     override suspend fun deleteUser() {
         userService.deleteUser()
     }

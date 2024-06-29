@@ -10,4 +10,5 @@ interface LocalDataSource {
     fun getRefreshToken(): String?
     fun saveUserInfo(userInfo: UserInfo)
     fun loadUserInfo(): UserInfo
+    fun removeUserInfo()
 }
