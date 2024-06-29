@@ -33,7 +33,7 @@ fun PicPhotoCard(
                 color = Color.White,
                 shape = RoundedCornerShape(20.dp),
             )
-            .background(color = groupInfo.keyword.backgroundColor),
+            .background(color = Color.Blue),
     ) {
         KeywordMiniSymbol(
             modifier = Modifier

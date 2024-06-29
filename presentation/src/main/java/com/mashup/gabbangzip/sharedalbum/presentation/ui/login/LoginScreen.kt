@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.login
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -50,12 +51,9 @@ fun LoginScreen(onClickLoginButton: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.weight(0.5f))
-        Text(
-            text = stringResource(id = R.string.login_intro_title),
-            fontSize = 48.sp,
-            color = Gray80,
-            fontFamily = pretendard,
-            fontWeight = FontWeight.Black,
+        Image(
+            painter = painterResource(id = R.drawable.ic_pic_title_logo),
+            contentDescription = stringResource(id = R.string.login_intro_title),
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
