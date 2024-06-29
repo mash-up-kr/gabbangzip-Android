@@ -29,7 +29,7 @@ fun PicTextField(
     modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
-    hint: String,
+    hint: String = "",
     maxLength: Int = 0,
 ) {
     BasicTextField(
