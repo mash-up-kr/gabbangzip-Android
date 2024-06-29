@@ -2,16 +2,15 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,6 +28,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SilverSand
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun PicButton(
@@ -39,22 +39,20 @@ fun PicButton(
     contentColor: Color = Gray0,
     onButtonClicked: () -> Unit = {},
 ) {
-    Button(
-        modifier = modifier,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = backgroundColor,
-            contentColor = contentColor,
-            disabledContainerColor = SilverSand,
-            disabledContentColor = Gray0,
-        ),
-        shape = RoundedCornerShape(16.dp),
-        contentPadding = PaddingValues(vertical = 20.dp),
-        enabled = enable,
-        onClick = onButtonClicked,
+    Box(
+        modifier = modifier
+            .noRippleClickable(enabled = enable) { onButtonClicked() }
+            .background(
+                color = if (enable) backgroundColor else SilverSand,
+                shape = RoundedCornerShape(16.dp),
+            )
+            .padding(vertical = 20.dp),
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = text,
             style = PicTypography.bodyMedium17,
+            color = contentColor,
         )
     }
 }
@@ -67,19 +65,20 @@ fun PicDialogButton(
     contentColor: Color = Gray0,
     onButtonClicked: () -> Unit = {},
 ) {
-    Button(
-        modifier = modifier,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = backgroundColor,
-            contentColor = contentColor,
-        ),
-        shape = RoundedCornerShape(12.dp),
-        contentPadding = PaddingValues(vertical = 18.dp),
-        onClick = onButtonClicked,
+    Box(
+        modifier = modifier
+            .noRippleClickable { onButtonClicked() }
+            .background(
+                color = backgroundColor,
+                shape = RoundedCornerShape(12.dp),
+            )
+            .padding(vertical = 18.dp),
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = text,
             style = PicTypography.bodyMedium14,
+            color = contentColor,
         )
     }
 }
@@ -93,18 +92,18 @@ fun PicNormalButton(
     @DrawableRes iconRes: Int? = null,
     onButtonClicked: () -> Unit = {},
 ) {
-    Button(
-        modifier = modifier,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = backgroundColor,
-            contentColor = contentColor,
-        ),
-        shape = RoundedCornerShape(14.dp),
-        contentPadding = PaddingValues(
-            vertical = 16.dp,
-            horizontal = if (iconRes == null) 26.dp else 30.dp,
-        ),
-        onClick = onButtonClicked,
+    Box(
+        modifier = modifier
+            .noRippleClickable { onButtonClicked() }
+            .background(
+                color = backgroundColor,
+                shape = RoundedCornerShape(14.dp),
+            )
+            .padding(
+                vertical = 16.dp,
+                horizontal = if (iconRes == null) 26.dp else 30.dp,
+            ),
+        contentAlignment = Alignment.Center,
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -121,6 +120,7 @@ fun PicNormalButton(
             Text(
                 text = text,
                 style = PicTypography.bodyMedium16,
+                color = contentColor,
             )
         }
     }
