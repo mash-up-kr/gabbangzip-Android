@@ -28,7 +28,7 @@
     <string name="app_notification_off">OFF</string>
     <string name="app_notification_on">ON</string>
 
-    <string name="group_creation_title">시작하기 위해\n그룹원이 필요해요!</string>
+    <string name="group_creation_title">내 친구들과\n그룹을 만들어\nPic과 함게해 볼까요?</string>
     <string name="group_creation_button_name">그룹 만들기</string>
     <string name="group_creation_button_description">초대 링크를 받으셨나요?\n링크를 눌러 바로 그룹에 들어갈 수 있어요.</string>
 
