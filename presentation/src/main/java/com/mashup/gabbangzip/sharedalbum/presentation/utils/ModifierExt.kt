@@ -47,7 +47,7 @@ fun Modifier.hideKeyboardOnOutsideClicked(): Modifier = composed {
     val focusManager = LocalFocusManager.current
     this then pointerInput(Unit) {
         detectTapGestures(
-            onTap = { focusManager.clearFocus() }
+            onTap = { focusManager.clearFocus() },
         )
     }
 }
