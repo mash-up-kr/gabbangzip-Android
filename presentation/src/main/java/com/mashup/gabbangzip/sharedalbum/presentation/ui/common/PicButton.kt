@@ -130,7 +130,7 @@ fun PicNormalButton(
                 Image(
                     modifier = Modifier.size(20.dp),
                     painter = painterResource(id = iconRes),
-                    contentDescription = null,//stringResource(R.string.pic_button, text),
+                    contentDescription = null,
                     colorFilter = ColorFilter.tint(contentColor),
                 )
             }
