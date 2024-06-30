@@ -20,7 +20,6 @@ class GroupMemberProvider : PreviewParameterProvider<GroupMemberUiState> {
                         Member(id = 1, name = "윤서", isLeader = false),
                     ),
                 ),
-                isFull = true,
             ),
             GroupMemberUiState(
                 keyWord = GroupKeyWord.SCHOOL,
@@ -29,7 +28,6 @@ class GroupMemberProvider : PreviewParameterProvider<GroupMemberUiState> {
                         Member(id = 0, name = "연규", isLeader = true),
                     ),
                 ),
-                isFull = false,
             ),
         )
 }
