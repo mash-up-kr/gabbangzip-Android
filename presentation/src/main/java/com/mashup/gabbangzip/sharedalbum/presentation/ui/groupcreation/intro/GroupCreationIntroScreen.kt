@@ -34,6 +34,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.pretendard
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 
 @Composable
@@ -79,33 +80,21 @@ fun GroupCreationIntroScreen(
             )
         }
         Text(
-            modifier = Modifier
-                .wrapContentSize()
-                .padding(bottom = 8.dp),
+            modifier = Modifier.wrapContentSize(),
             text = stringResource(id = R.string.group_creation_button_description),
             textAlign = TextAlign.Center,
             color = Gray60,
             style = PicTypography.bodyMedium14,
         )
-        Box(
+        PicButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .clip(RoundedCornerShape(16.dp))
-                .background(Gray80)
-                .rippleClickable(onClick = onClickNextButton),
-        ) {
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(vertical = 20.dp),
-                text = stringResource(id = R.string.group_creation_button_name),
-                textAlign = TextAlign.Center,
-                style = PicTypography.bodyMedium17,
-                color = Gray0,
-            )
-        }
+                .padding(horizontal = 21.dp, vertical = 16.dp),
+            text = stringResource(id = R.string.group_creation_button_name),
+            isRippleClickable = true,
+            onButtonClicked = onClickNextButton
+        )
     }
 }
 
