@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.name
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +13,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,16 +31,12 @@ fun GroupCreationNameScreen(
     onBackButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
 ) {
-    val focusManager = LocalFocusManager.current
     var name by remember { mutableStateOf("") }
-
-    BackHandler { onBackButtonClicked() }
 
     Column(
         modifier = Modifier
             .hideKeyboardOnOutsideClicked()
-            .padding(horizontal = 16.dp)
-            .imePadding(),
+            .padding(horizontal = 16.dp),
     ) {
         Column(
             modifier = Modifier.weight(1f),
@@ -70,6 +64,7 @@ fun GroupCreationNameScreen(
         PicButton(
             modifier = Modifier
                 .fillMaxWidth()
+                .imePadding()
                 .padding(bottom = 16.dp),
             text = stringResource(id = R.string.group_creation_button_next),
             isRippleClickable = true,
