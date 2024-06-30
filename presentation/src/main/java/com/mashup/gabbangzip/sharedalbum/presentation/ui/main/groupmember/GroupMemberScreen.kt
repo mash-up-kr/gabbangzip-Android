@@ -2,7 +2,6 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -39,8 +38,6 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.model.
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
-private val topBarHeight = 56.dp
-
 @Composable
 fun GroupMemberScreen(
     onClickBackButton: () -> Unit,
@@ -61,13 +58,12 @@ private fun GroupMemberScreen(
     onClickBackButton: () -> Unit,
     onClickCopyButton: () -> Unit,
 ) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Gray0),
     ) {
         TopBar(
-            modifier = Modifier.height(topBarHeight),
             leftIcon = TopBarIcon(
                 size = 26.dp,
                 leftPadding = 16.dp,
@@ -80,20 +76,31 @@ private fun GroupMemberScreen(
             topPadding = 16.dp,
             bottomPadding = 16.dp,
         )
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = topBarHeight),
-        ) {
-            GroupMemberList(
-                type = state.keyWord,
-                list = state.members,
-            )
-            InvitationSection(
-                isEnabled = state.isFull.not(),
-                onButtonClick = onClickCopyButton,
-            )
-        }
+        GroupMemberScreenContent(
+            modifier = Modifier.fillMaxWidth(),
+            state = state,
+            onClickCopyButton = onClickCopyButton,
+        )
+    }
+}
+
+@Composable
+private fun GroupMemberScreenContent(
+    modifier: Modifier = Modifier,
+    state: GroupMemberUiState,
+    onClickCopyButton: () -> Unit,
+) {
+    Column(
+        modifier = modifier,
+    ) {
+        GroupMemberList(
+            type = state.keyWord,
+            list = state.members,
+        )
+        InvitationSection(
+            isEnabled = state.isFull.not(),
+            onButtonClick = onClickCopyButton,
+        )
     }
 }
 
