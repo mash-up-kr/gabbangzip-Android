@@ -69,7 +69,7 @@ private fun GroupMemberScreen(
             leftIcon = TopBarIcon(
                 size = 26.dp,
                 leftPadding = 16.dp,
-                description = "뒤로가기",
+                description = stringResource(id = R.string.go_back),
                 resId = R.drawable.ic_back,
                 iconClickListener = onClickBackButton,
             ),
@@ -166,7 +166,7 @@ private fun GroupMemberItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 6.dp),
-                    text = "그룹장",
+                    text = stringResource(id = R.string.group_leader),
                     style = PicTypography.textNormal14,
                     color = Gray80,
                 )
@@ -188,9 +188,9 @@ private fun InvitationSection(
         Text(
             text = stringResource(
                 if (isEnabled) {
-                    R.string.group_add_more_crew
+                    R.string.group_add_more_member
                 } else {
-                    R.string.group_maximum_count_error
+                    R.string.group_maximum_count
                 },
             ),
             style = PicTypography.bodyMedium14,
@@ -198,7 +198,7 @@ private fun InvitationSection(
         )
         Spacer(modifier = Modifier.height(8.dp))
         PicNormalButton(
-            text = "링크 복사",
+            text = stringResource(id = R.string.button_copy_link),
             iconRes = R.drawable.ic_link,
             enable = isEnabled,
             onButtonClicked = onButtonClick,
