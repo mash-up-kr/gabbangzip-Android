@@ -99,10 +99,16 @@ private fun GroupMemberScreenContent(
             .verticalScroll(scrollState),
     ) {
         GroupMemberList(
+            modifier = Modifier
+                .fillMaxWidth()
+                .defaultMinSize(minHeight = 280.dp),
             type = state.keyWord,
             list = state.members,
         )
         InvitationSection(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 24.dp),
             isEnabled = state.isFull.not(),
             onButtonClick = onClickCopyButton,
         )
@@ -116,8 +122,7 @@ private fun GroupMemberList(
     list: ImmutableList<Member>,
 ) {
     Column(
-        modifier = modifier
-            .defaultMinSize(minHeight = 280.dp),
+        modifier = modifier,
     ) {
         list.forEach { member ->
             GroupMemberItem(
@@ -177,7 +182,7 @@ private fun InvitationSection(
     onButtonClick: () -> Unit,
 ) {
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
