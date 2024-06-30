@@ -1,7 +1,9 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.name
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
@@ -14,8 +16,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
@@ -28,7 +33,7 @@ fun GroupCreationNameScreen(
     onNextButtonClicked: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
-    var text by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
             .pointerInput(Unit) {
@@ -45,20 +50,22 @@ fun GroupCreationNameScreen(
             modifier = Modifier.weight(1f),
         ) {
             PicProgressBar(
-                modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 32.dp),
                 level = 1
             )
             Text(
                 modifier = Modifier.padding(bottom = 16.dp),
-                text = "그룹의 이름은 무엇인가요?",
+                text = stringResource(id = R.string.group_creation_name_title),
                 style = PicTypography.headBold18,
                 color = Gray80,
             )
             PicTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = text,
-                onValueChange = { text = it },
-                hint = "최대 10자 까지 입력 가능해요.",
+                value = name,
+                onValueChange = { name = it },
+                hint = stringResource(id = R.string.group_creation_name_hint),
                 maxLength = 10,
             )
         }
@@ -66,9 +73,9 @@ fun GroupCreationNameScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
-            text = "다음",
+            text = stringResource(id = R.string.group_creation_button_next),
             isRippleClickable = true,
-            enable = true,
+            enable = name.isNotBlank(),
         )
     }
 }
@@ -77,8 +84,14 @@ fun GroupCreationNameScreen(
 @Composable
 fun GroupCreationNameScreenPreview() {
     SharedAlbumTheme {
-        GroupCreationNameScreen(
-            onNextButtonClicked = {}
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Gray0),
+        ) {
+            GroupCreationNameScreen(
+                onNextButtonClicked = {},
+            )
+        }
     }
 }
