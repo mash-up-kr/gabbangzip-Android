@@ -161,7 +161,7 @@ private fun GroupMemberItem(
                 style = PicTypography.bodyMedium16,
                 color = Gray80,
             )
-            if (member.isMaster) {
+            if (member.isLeader) {
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
