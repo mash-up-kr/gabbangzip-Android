@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -190,18 +191,11 @@ private fun InvitationSection(
 
 @Composable
 @Preview
-private fun GroupMemberScreenPreview() {
+private fun GroupMemberScreenPreview(
+    @PreviewParameter(GroupMemberProvider::class) state: GroupMemberUiState,
+) {
     GroupMemberScreen(
-        state = GroupMemberUiState(
-            keyWord = GroupKeyWord.EXERCISE,
-            members = ImmutableList(
-                listOf(
-                    Member(id = 0, name = "연규", isMaster = true),
-                    Member(id = 1, name = "윤서", isMaster = false),
-                ),
-            ),
-            isFull = false,
-        ),
+        state = state,
         onClickBackButton = {},
         onClickCopyButton = {},
     )
