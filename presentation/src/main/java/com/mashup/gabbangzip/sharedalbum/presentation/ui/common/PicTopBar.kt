@@ -139,7 +139,6 @@ fun PicBackButtonTopBar(
                     contentDescription = stringResource(id = rightIcon2.desc),
                 )
             }
-
         }
         if (titleAlign == PicTopBarTitleAlign.CENTER) {
             Text(
