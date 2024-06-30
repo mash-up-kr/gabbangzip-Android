@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
@@ -22,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class GroupCreationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             SharedAlbumTheme {
                 Scaffold { contentPadding ->
@@ -29,7 +31,7 @@ class GroupCreationActivity : ComponentActivity() {
                         modifier = Modifier
                             .fillMaxSize()
                             .background(Gray0)
-                            .padding(contentPadding)
+                            .padding(contentPadding),
                     ) {
                         GroupCreationNavHost(
                             modifier = Modifier.fillMaxSize(),
