@@ -1,0 +1,219 @@
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
+
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Coral
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
+
+@Composable
+fun PicTopBar(
+    modifier: Modifier = Modifier,
+    rightIcon1: PicTopBarIcon,
+    rightIcon2: PicTopBarIcon,
+    rightIcon1Clicked: () -> Unit,
+    rightIcon2Clicked: () -> Unit,
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(vertical = 14.dp, horizontal = 16.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight().align(Alignment.CenterEnd),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Image(
+                modifier = Modifier.width(42.dp).height(26.dp),
+                painter = painterResource(id = PicTopBarIcon.PIC_LOGO.iconRes),
+                contentDescription = PicTopBarIcon.PIC_LOGO.desc,
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Image(
+                modifier = Modifier
+                    .padding(end = 12.dp)
+                    .size(26.dp)
+                    .noRippleClickable { rightIcon1Clicked() },
+                painter = painterResource(id = rightIcon1.iconRes),
+                contentDescription = rightIcon1.desc,
+            )
+            Image(
+                modifier = Modifier
+                    .size(26.dp)
+                    .noRippleClickable { rightIcon2Clicked() },
+                painter = painterResource(id = rightIcon2.iconRes),
+                contentDescription = rightIcon2.desc,
+            )
+        }
+    }
+}
+
+@Composable
+fun PicBackButtonTopBar(
+    modifier: Modifier = Modifier,
+    titleText: String,
+    titleAlign: TopBarTitleAlign = TopBarTitleAlign.CENTER,
+    backButtonClicked: () -> Unit,
+    rightIcon1: PicTopBarIcon? = null,
+    rightIcon2: PicTopBarIcon? = null,
+    rightIcon1Clicked: () -> Unit = {},
+    rightIcon2Clicked: () -> Unit = {},
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(vertical = 14.dp, horizontal = 16.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Image(
+                modifier = Modifier
+                    .noRippleClickable { backButtonClicked() }
+                    .size(26.dp),
+                painter = painterResource(id = PicTopBarIcon.BACK.iconRes),
+                contentDescription = PicTopBarIcon.BACK.desc,
+            )
+            if (titleAlign == TopBarTitleAlign.LEFT) {
+                Text(
+                    modifier = Modifier
+                        .padding(start = 6.dp)
+                        .weight(1.0f),
+                    text = titleText,
+                    style = PicTypography.bodyMedium17,
+                    color = Gray80,
+                )
+            }
+            if (rightIcon1 != null) {
+                Image(
+                    modifier = Modifier
+                        .padding(end = 12.dp)
+                        .size(26.dp)
+                        .noRippleClickable { rightIcon1Clicked() },
+                    painter = painterResource(id = rightIcon1.iconRes),
+                    contentDescription = rightIcon1.desc,
+                )
+            }
+            if (rightIcon2 != null) {
+                Image(
+                    modifier = Modifier
+                        .size(26.dp)
+                        .noRippleClickable { rightIcon2Clicked() },
+                    painter = painterResource(id = rightIcon2.iconRes),
+                    contentDescription = rightIcon2.desc,
+                )
+            }
+
+        }
+        if (titleAlign == TopBarTitleAlign.CENTER) {
+            Text(
+                modifier = Modifier.fillMaxWidth(1.0f),
+                text = titleText,
+                textAlign = TextAlign.Center,
+                style = PicTypography.bodyMedium16,
+                color = Gray80,
+            )
+        }
+    }
+}
+
+@Composable
+fun PicTextOnlyTopBar(
+    modifier: Modifier = Modifier,
+    titleText: String,
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(vertical = 14.dp, horizontal = 16.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            text = titleText,
+            style = PicTypography.bodyMedium16,
+            color = Gray80,
+        )
+    }
+}
+
+enum class PicTopBarIcon(@DrawableRes val iconRes: Int, val desc: String) {
+    PIC_LOGO(R.drawable.ic_pic_title_logo, "로고"),
+    BACK(R.drawable.ic_back, "백버튼"),
+    PLUS(R.drawable.ic_plus, "플러스 아이콘"),
+    USER(R.drawable.ic_user, "유저 아이콘"),
+    GROUP_MEMBER(R.drawable.ic_group_member, "그룹 멤버 아이콘"),
+    ;
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PicTopBarPreview() {
+    SharedAlbumTheme {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Coral),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            PicTopBar(
+                modifier = Modifier.background(Gray0.copy(alpha = 0.2f)).padding(top = 56.dp),
+                rightIcon1 = PicTopBarIcon.PLUS,
+                rightIcon2 = PicTopBarIcon.USER,
+                rightIcon1Clicked = {},
+                rightIcon2Clicked = {},
+            )
+            PicBackButtonTopBar(
+                modifier = Modifier.background(Gray0.copy(alpha = 0.2f)).padding(top = 56.dp),
+                titleText = "그룹 만들기",
+                backButtonClicked = {},
+            )
+            PicBackButtonTopBar(
+                modifier = Modifier.background(Gray0.copy(alpha = 0.2f)).padding(top = 56.dp),
+                titleText = "뛰뛰빵빵 가빵집",
+                titleAlign = TopBarTitleAlign.LEFT,
+                backButtonClicked = {},
+                rightIcon1 = PicTopBarIcon.PLUS,
+                rightIcon2 = PicTopBarIcon.GROUP_MEMBER,
+            )
+            PicTextOnlyTopBar(
+                modifier = Modifier.background(Gray0.copy(alpha = 0.2f)).padding(top = 56.dp),
+                titleText = "완료",
+            )
+        }
+    }
+}
