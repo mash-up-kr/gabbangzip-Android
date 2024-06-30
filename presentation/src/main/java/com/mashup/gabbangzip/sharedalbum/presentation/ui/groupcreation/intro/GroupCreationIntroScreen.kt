@@ -40,7 +40,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 fun GroupCreationIntroScreen(
     onClickNextButton: () -> Unit,
 ) {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.moving_shape))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.change_shape))
     val progress by animateLottieCompositionAsState(
         composition = composition,
         iterations = LottieConstants.IterateForever,
@@ -72,46 +72,39 @@ fun GroupCreationIntroScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .align(Alignment.Center),
+                    .align(Alignment.Center)
+                    .padding(horizontal = 114.dp),
                 composition = composition,
                 progress = { progress },
             )
         }
-        Column(
+        Text(
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(bottom = 8.dp),
+            text = stringResource(id = R.string.group_creation_button_description),
+            textAlign = TextAlign.Center,
+            color = Gray60,
+            style = PicTypography.bodyMedium14,
+        )
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(bottom = 16.dp, start = 22.dp, end = 22.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .clip(RoundedCornerShape(16.dp))
+                .background(Gray80)
+                .rippleClickable(onClick = onClickNextButton),
         ) {
             Text(
                 modifier = Modifier
-                    .wrapContentSize()
-                    .padding(bottom = 8.dp),
-                text = stringResource(id = R.string.group_creation_button_description),
-                textAlign = TextAlign.Center,
-                color = Gray60,
-                style = PicTypography.bodyMedium14,
-            )
-            Box(
-                modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(Gray80)
-                    .rippleClickable(onClick = onClickNextButton),
-            ) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .padding(vertical = 20.dp),
-                    text = stringResource(id = R.string.group_creation_button_name),
-                    textAlign = TextAlign.Center,
-                    style = PicTypography.bodyMedium17,
-                    color = Gray0,
-                )
-            }
+                    .padding(vertical = 20.dp),
+                text = stringResource(id = R.string.group_creation_button_name),
+                textAlign = TextAlign.Center,
+                style = PicTypography.bodyMedium17,
+                color = Gray0,
+            )
         }
     }
 }
