@@ -8,7 +8,7 @@ import javax.inject.Inject
 class CreateGroupUseCase @Inject constructor(
     private val groupRepository: GroupRepository,
 ) {
-    suspend operator fun invoke(param: GroupParam): GroupInfo? {
-        return runCatching { groupRepository.createGroup(param) }.getOrNull()
+    suspend operator fun invoke(param: GroupParam): Result<GroupInfo> {
+        return runCatching { groupRepository.createGroup(param) }
     }
 }
