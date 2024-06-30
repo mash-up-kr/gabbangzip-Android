@@ -16,16 +16,14 @@ class GroupRepositoryImpl @Inject constructor(
             keyword = groupParam.keyword,
             groupImageUrl = groupParam.groupImageUrl,
         )
-        return groupService.createGroup(request).let { response ->
-            response.data?.run {
-                GroupInfo(
-                    id = id,
-                    groupName = groupName,
-                    keyword = keyword,
-                    groupImageUrl = groupImageUrl,
-                    groupInvitationUrl = groupInvitationUrl,
-                )
-            } ?: throw IllegalStateException("데이터 없음")
-        }
+        return groupService.createGroup(request).data?.run {
+            GroupInfo(
+                id = id,
+                groupName = groupName,
+                keyword = keyword,
+                groupImageUrl = groupImageUrl,
+                groupInvitationUrl = groupInvitationUrl,
+            )
+        } ?: throw IllegalStateException("데이터 없음")
     }
 }
