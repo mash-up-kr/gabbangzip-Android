@@ -4,7 +4,6 @@ import com.mashup.gabbangzip.sharedalbum.data.base.PicResponse
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.CreateGroupRequest
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.CreateGroupResponse
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupDetailInfo
-import com.mashup.gabbangzip.sharedalbum.domain.model.GroupInfo
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -15,6 +14,7 @@ interface GroupService {
     suspend fun createGroup(
         @Body loginRequest: CreateGroupRequest,
     ): PicResponse<CreateGroupResponse>
+
     @GET("api/v1/groups/{id}")
     suspend fun getGroupDetail(
         @Path(value = "id") groupId: Long,
