@@ -19,4 +19,4 @@ interface GroupService {
     suspend fun getGroupDetail(
         @Path(value = "id") groupId: Long,
     ): PicResponse<GroupDetailResponse>
-}
+}d
