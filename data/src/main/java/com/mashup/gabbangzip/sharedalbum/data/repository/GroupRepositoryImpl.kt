@@ -5,6 +5,7 @@ import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupDetailInfo
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupParam
+import com.mashup.gabbangzip.sharedalbum.domain.model.ImageWithFrame
 import com.mashup.gabbangzip.sharedalbum.domain.repository.GroupRepository
 import javax.inject.Inject
 
@@ -29,7 +30,20 @@ class GroupRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getGroupDetail(groupId: Long): GroupDetailInfo {
-        return groupService.getGroupDetail(groupId).data
-            ?: throw IllegalStateException("데이터 없음")
+        return groupService.getGroupDetail(groupId).data?.run {
+            GroupDetailInfo(
+                name = name,
+                keyword = keyword,
+                status = status,
+                statusDescription = statusDescription,
+                updatedImages = updatedImages,
+                piced = piced,
+                recentEventDate = recentEventDate,
+                cardFrontImageUrl = cardFrontImageUrl,
+                cardBackImages = cardBackImages.map {
+                    ImageWithFrame(it.imageUrl, it.frameUrl)
+                },
+            )
+        } ?: throw IllegalStateException("데이터 없음")
     }
 }
