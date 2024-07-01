@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouplist.model
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model
 
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.UserInfo
