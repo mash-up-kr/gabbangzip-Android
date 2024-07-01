@@ -41,41 +41,34 @@ fun PicTopBar(
     rightIcon1Clicked: () -> Unit,
     rightIcon2Clicked: () -> Unit,
 ) {
-    Box(
+    Row(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(vertical = 14.dp, horizontal = 16.dp),
-        contentAlignment = Alignment.Center,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Row(
+        Image(
+            modifier = Modifier.width(42.dp).height(26.dp),
+            painter = painterResource(id = PicTopBarIcon.PIC_LOGO.iconRes),
+            contentDescription = stringResource(id = PicTopBarIcon.PIC_LOGO.desc),
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        Image(
             modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Image(
-                modifier = Modifier.width(42.dp).height(26.dp),
-                painter = painterResource(id = PicTopBarIcon.PIC_LOGO.iconRes),
-                contentDescription = stringResource(id = PicTopBarIcon.PIC_LOGO.desc),
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Image(
-                modifier = Modifier
-                    .padding(end = 12.dp)
-                    .size(26.dp)
-                    .noRippleClickable { rightIcon1Clicked() },
-                painter = painterResource(id = rightIcon1.iconRes),
-                contentDescription = stringResource(id = rightIcon1.desc),
-            )
-            Image(
-                modifier = Modifier
-                    .size(26.dp)
-                    .noRippleClickable { rightIcon2Clicked() },
-                painter = painterResource(id = rightIcon2.iconRes),
-                contentDescription = stringResource(id = rightIcon2.desc),
-            )
-        }
+                .padding(end = 12.dp)
+                .size(26.dp)
+                .noRippleClickable { rightIcon1Clicked() },
+            painter = painterResource(id = rightIcon1.iconRes),
+            contentDescription = stringResource(id = rightIcon1.desc),
+        )
+        Image(
+            modifier = Modifier
+                .size(26.dp)
+                .noRippleClickable { rightIcon2Clicked() },
+            painter = painterResource(id = rightIcon2.iconRes),
+            contentDescription = stringResource(id = rightIcon2.desc),
+        )
     }
 }
 
@@ -157,19 +150,16 @@ fun PicTextOnlyTopBar(
     modifier: Modifier = Modifier,
     titleText: String,
 ) {
-    Box(
+    Text(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(vertical = 14.dp, horizontal = 16.dp),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = titleText,
-            style = PicTypography.bodyMedium16,
-            color = Gray80,
-        )
-    }
+        text = titleText,
+        style = PicTypography.bodyMedium16,
+        color = Gray80,
+        textAlign = TextAlign.Center,
+    )
 }
 
 enum class PicTopBarTitleAlign {
