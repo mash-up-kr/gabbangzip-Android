@@ -3,8 +3,8 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigati
 sealed interface GroupCreationRoute {
     val route: String
 
-    data object FirstScreenRoute : GroupCreationRoute {
-        override val route: String = "groupFirstScreenRoute"
+    data object IntroScreenRoute : GroupCreationRoute {
+        override val route: String = "groupIntroScreenRoute"
     }
 
     data object SecondScreenRoute : GroupCreationRoute {
@@ -12,6 +12,6 @@ sealed interface GroupCreationRoute {
     }
 
     companion object {
-        val initRoute = FirstScreenRoute.route
+        val initRoute = IntroScreenRoute.route
     }
 }
