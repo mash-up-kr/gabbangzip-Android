@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,6 +33,7 @@ fun GroupCreationNameScreen(
     onNextButtonClicked: () -> Unit,
 ) {
     var name by remember { mutableStateOf("") }
+    val buttonEnabled by remember { derivedStateOf { name.isNotBlank() } }
 
     Column(
         modifier = Modifier
@@ -69,7 +71,7 @@ fun GroupCreationNameScreen(
                 .padding(bottom = 16.dp),
             text = stringResource(id = R.string.group_creation_button_next),
             isRippleClickable = true,
-            enable = name.isNotBlank(),
+            enable = buttonEnabled,
             onButtonClicked = onNextButtonClicked,
         )
     }
