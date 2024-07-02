@@ -17,6 +17,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 fun PicProgressBar(
     modifier: Modifier = Modifier,
     level: Int,
+    total: Float,
 ) {
     LinearProgressIndicator(
         modifier = modifier
@@ -25,7 +26,7 @@ fun PicProgressBar(
         color = Gray80,
         trackColor = Gray20,
         strokeCap = StrokeCap.Round,
-        progress = { (level / 4f) },
+        progress = { (level / total) },
     )
 }
 
@@ -35,5 +36,6 @@ fun PicProgressBarPreview() {
     PicProgressBar(
         modifier = Modifier.fillMaxWidth(),
         level = 1,
+        total = 4f,
     )
 }

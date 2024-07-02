@@ -46,6 +46,7 @@ fun GroupCreationNameScreen(
                     .fillMaxWidth()
                     .padding(bottom = 32.dp),
                 level = 1,
+                total = 4f,
             )
             Text(
                 modifier = Modifier.padding(bottom = 16.dp),
