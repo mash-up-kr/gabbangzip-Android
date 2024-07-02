@@ -1,7 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.data.dto.response
 
 import com.mashup.gabbangzip.sharedalbum.data.dto.model.ImageWithFrame
-import com.mashup.gabbangzip.sharedalbum.domain.model.GroupKeyword
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.time.LocalDateTime
