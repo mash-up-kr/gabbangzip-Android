@@ -22,6 +22,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicProgressBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextField
@@ -36,12 +37,17 @@ fun GroupCreationNameScreen(
     val buttonEnabled by remember { derivedStateOf { name.isNotBlank() } }
 
     Column(
-        modifier = Modifier
-            .hideKeyboardOnOutsideClicked()
-            .padding(horizontal = 16.dp),
+        modifier = Modifier.hideKeyboardOnOutsideClicked(),
     ) {
+        PicBackButtonTopBar(
+            modifier = Modifier.background(Gray0.copy(alpha = 0.2f)),
+            titleText = stringResource(id = R.string.group_creation_button_name),
+            backButtonClicked = onBackButtonClicked,
+        )
         Column(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .weight(1f),
         ) {
             PicProgressBar(
                 modifier = Modifier
@@ -68,7 +74,7 @@ fun GroupCreationNameScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .imePadding()
-                .padding(bottom = 16.dp),
+                .padding(start = 22.dp, end = 22.dp, bottom = 16.dp),
             text = stringResource(id = R.string.group_creation_button_next),
             isRippleClickable = true,
             enable = buttonEnabled,
