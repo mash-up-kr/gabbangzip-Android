@@ -11,7 +11,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.MagentaPinkAlpha30
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.MalibuAlpha30
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.MayaBlueAlpha30
 
-enum class GroupKeyWord(
+enum class GroupKeyword(
     @DrawableRes val symbolResId: Int,
     val backgroundColor: Color,
 ) {

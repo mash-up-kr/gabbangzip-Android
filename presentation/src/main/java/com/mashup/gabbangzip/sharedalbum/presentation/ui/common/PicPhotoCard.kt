@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupInfo
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 
 @Composable
 fun PicPhotoCard(
@@ -86,7 +86,7 @@ fun PicPhotoCard(
 }
 
 @Composable
-private fun KeywordMiniSymbol(modifier: Modifier, keyword: GroupKeyWord) {
+private fun KeywordMiniSymbol(modifier: Modifier, keyword: GroupKeyword) {
     Image(
         modifier = modifier.size(10.dp),
         painter = painterResource(id = keyword.symbolResId),
