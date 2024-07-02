@@ -11,4 +11,10 @@ interface GroupService {
     suspend fun createGroup(
         @Body loginRequest: CreateGroupRequest,
     ): PicResponse<CreateGroupResponse>
+import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.GroupDataResponse
+import retrofit2.http.GET
+
+interface GroupService {
+    @GET("api/v1/groups")
+    suspend fun getGroupList(): PicResponse<GroupDataResponse>
 }

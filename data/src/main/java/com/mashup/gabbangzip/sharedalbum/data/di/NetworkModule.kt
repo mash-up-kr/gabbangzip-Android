@@ -8,6 +8,7 @@ import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.DefaultRetrofit
 import com.mashup.gabbangzip.sharedalbum.data.interceptor.AuthInterceptor
 import com.mashup.gabbangzip.sharedalbum.data.interceptor.TokenAuthenticator
 import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
+import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.data.service.LoginService
 import com.mashup.gabbangzip.sharedalbum.data.service.UserService
 import dagger.Module
@@ -97,6 +98,10 @@ internal class NetworkModule {
     fun provideUserService(
         @DefaultRetrofit retrofit: Retrofit,
     ): UserService = retrofit.create()
+
+    @Singleton
+    @Provides
+    fun provideUserService(retrofit: Retrofit): UserService = retrofit.create()
 
     @Singleton
     @Provides
