@@ -27,18 +27,14 @@ class GroupCreationActivity : ComponentActivity() {
         setContent {
             SharedAlbumTheme {
                 Scaffold { contentPadding ->
-                    Box(
+                    GroupCreationNavHost(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(Gray0)
                             .padding(contentPadding),
-                    ) {
-                        GroupCreationNavHost(
-                            modifier = Modifier.fillMaxSize(),
-                            navController = rememberNavController(),
-                            startDestination = GroupCreationRoute.initRoute,
-                        )
-                    }
+                        navController = rememberNavController(),
+                        startDestination = GroupCreationRoute.initRoute,
+                    )
                 }
             }
         }
