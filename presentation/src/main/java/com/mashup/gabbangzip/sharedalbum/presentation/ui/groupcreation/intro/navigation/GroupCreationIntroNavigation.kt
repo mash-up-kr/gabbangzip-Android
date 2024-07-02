@@ -8,7 +8,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigatio
 fun NavGraphBuilder.groupCreationIntroNavGraph(
     onClickNextButton: () -> Unit,
 ) {
-    composable(route = GroupCreationRoute.FirstScreenRoute.route) {
+    composable(route = GroupCreationRoute.IntroScreenRoute.route) {
         GroupCreationIntroScreen(
             onClickNextButton = onClickNextButton,
         )
