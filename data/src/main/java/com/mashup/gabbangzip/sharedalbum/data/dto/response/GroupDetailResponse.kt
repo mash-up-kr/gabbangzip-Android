@@ -11,7 +11,7 @@ data class GroupDetailResponse(
     @Json(name = "name")
     val name: String,
     @Json(name = "keyword")
-    val keyword: GroupKeyword,
+    val keyword: String,
     @Json(name = "status")
     val status: String,
     @Json(name = "status_description")

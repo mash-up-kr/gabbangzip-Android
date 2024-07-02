@@ -4,7 +4,7 @@ import java.time.LocalDateTime
 
 data class GroupDetailInfo(
     val name: String,
-    val keyword: GroupKeyword,
+    val keyword: String,
     val status: String,
     val statusDescription: String,
     val updatedImages: Boolean,
