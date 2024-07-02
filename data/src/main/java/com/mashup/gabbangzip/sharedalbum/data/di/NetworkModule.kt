@@ -6,13 +6,13 @@ import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.AuthRetrofit
 import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.DefaultClient
 import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.DefaultRetrofit
 import com.mashup.gabbangzip.sharedalbum.data.interceptor.AuthInterceptor
+import com.mashup.gabbangzip.sharedalbum.data.interceptor.TokenAuthenticator
 import com.mashup.gabbangzip.sharedalbum.data.service.LoginService
 import com.mashup.gabbangzip.sharedalbum.data.service.UserService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -41,7 +41,7 @@ internal class NetworkModule {
     fun provideDefaultOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
         authInterceptor: AuthInterceptor,
-        tokenAuthenticator: Authenticator,
+        tokenAuthenticator: TokenAuthenticator,
     ): OkHttpClient {
         return OkHttpClient
             .Builder()
@@ -93,7 +93,9 @@ internal class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideUserService(retrofit: Retrofit): UserService = retrofit.create()
+    fun provideUserService(
+        @DefaultRetrofit retrofit: Retrofit,
+    ): UserService = retrofit.create()
 
     companion object {
         private const val BASE_URL = "http://ec2-43-203-14-157.ap-northeast-2.compute.amazonaws.com"
