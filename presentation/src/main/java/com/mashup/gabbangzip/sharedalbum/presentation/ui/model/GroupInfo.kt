@@ -10,6 +10,6 @@ data class GroupInfo(
     val thumbnailUrl: String,
     val thumbnailFrameUrl: String,
     val fourCutImageUrl: String,
-    val keyword: GroupKeyword,
+    val keyword: GroupKeyWord,
     val tags: ImmutableList<String>,
 )
