@@ -134,12 +134,12 @@ class LocalDataSourceImpl @Inject constructor(
     }
 
     override fun saveUserInfo(userInfo: UserInfo) {
-        putString(KEY_USER_NAME, userInfo.userName)
+        putString(KEY_USER_NAME, userInfo.name)
     }
 
     override fun loadUserInfo(): UserInfo {
         return UserInfo(
-            userName = getString(KEY_USER_NAME, ""),
+            name = getString(KEY_USER_NAME, ""),
         )
     }
 

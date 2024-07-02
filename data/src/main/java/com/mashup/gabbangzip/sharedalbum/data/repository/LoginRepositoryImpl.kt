@@ -28,7 +28,7 @@ class LoginRepositoryImpl @Inject constructor(
                     refreshToken = refreshToken,
                 )
                 localDataSource.saveUserInfo(
-                    UserInfo(userName = nickname),
+                    UserInfo(name = nickname),
                 )
             } ?: throw IllegalStateException("데이터 없음")
         }.getOrThrow()

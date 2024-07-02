@@ -14,17 +14,17 @@ class GroupRepositoryImpl @Inject constructor(
 ) : GroupRepository {
     override suspend fun createGroup(groupParam: GroupParam): GroupInfo {
         val request = CreateGroupRequest(
-            groupName = groupParam.groupName,
+            groupName = groupParam.name,
             keyword = groupParam.keyword,
-            groupImageUrl = groupParam.groupImageUrl,
+            groupImageUrl = groupParam.imageUrl,
         )
         return groupService.createGroup(request).data?.run {
             GroupInfo(
                 id = id,
-                groupName = groupName,
+                name = groupName,
                 keyword = keyword,
-                groupImageUrl = groupImageUrl,
-                groupInvitationUrl = groupInvitationUrl,
+                imageUrl = groupImageUrl,
+                invitationUrl = groupInvitationUrl,
             )
         } ?: throw IllegalStateException("데이터 없음")
     }
