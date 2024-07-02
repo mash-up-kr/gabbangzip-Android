@@ -6,8 +6,8 @@ import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.AuthRetrofit
 import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.DefaultClient
 import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.DefaultRetrofit
 import com.mashup.gabbangzip.sharedalbum.data.interceptor.AuthInterceptor
-import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.data.interceptor.TokenAuthenticator
+import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.data.service.LoginService
 import com.mashup.gabbangzip.sharedalbum.data.service.UserService
 import dagger.Module
