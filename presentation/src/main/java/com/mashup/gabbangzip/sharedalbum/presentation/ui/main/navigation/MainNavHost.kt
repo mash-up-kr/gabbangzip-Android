@@ -6,9 +6,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.navigation.groupDetailNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.navigation.navigateGroupDetail
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupMember.navigation.groupMemberNavGraph
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupMember.navigation.navigateGroupMember
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouplist.navigation.groupListNavGraph
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.navigation.groupMemberNavGraph
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.navigation.navigateGroupMember
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.navigation.myPageNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.navigation.navigateMyPage
 

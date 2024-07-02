@@ -1,9 +1,9 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupMember.navigation
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupMember.GroupMemberScreen
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.GroupMemberScreen
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 
 fun NavController.navigateGroupMember() {
