@@ -62,7 +62,7 @@ class LoginRepositoryImpl @Inject constructor(
                     accessToken = accessToken,
                     refreshToken = refreshToken,
                 )
-            } ?: throw IllegalStateException("데이터 없음")
+            } ?: throw IllegalStateException("데이터 없음d")
         }.getOrThrow()
     }
 }
