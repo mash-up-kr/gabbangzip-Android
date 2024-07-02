@@ -9,7 +9,7 @@ fun NavGraphBuilder.groupCreationNameNavGraph(
     onBackButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
 ) {
-    composable(route = GroupCreationRoute.SecondScreenRoute.route) {
+    composable(route = GroupCreationRoute.NameScreenRoute.route) {
         GroupCreationNameScreen(
             onBackButtonClicked = onBackButtonClicked,
             onNextButtonClicked = onNextButtonClicked,

@@ -7,8 +7,8 @@ sealed interface GroupCreationRoute {
         override val route: String = "groupIntroScreenRoute"
     }
 
-    data object SecondScreenRoute : GroupCreationRoute {
-        override val route: String = "groupSecondScreenRoute"
+    data object NameScreenRoute : GroupCreationRoute {
+        override val route: String = "groupNameScreenRoute"
     }
 
     companion object {
