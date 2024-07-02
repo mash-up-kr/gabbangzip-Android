@@ -1,7 +1,9 @@
 package com.mashup.gabbangzip.sharedalbum.data.di
 
+import com.mashup.gabbangzip.sharedalbum.data.repository.GroupRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.LoginRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.UserRepositoryImpl
+import com.mashup.gabbangzip.sharedalbum.domain.repository.GroupRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.LoginRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.UserRepository
 import dagger.Binds
@@ -20,4 +22,8 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun bindUserRepository(userRepositoryImpl: UserRepositoryImpl): UserRepository
+
+    @Singleton
+    @Binds
+    fun bindGroupRepository(groupRepositoryImpl: GroupRepositoryImpl): GroupRepository
 }
