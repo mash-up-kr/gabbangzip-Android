@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,6 +34,7 @@ fun GroupCreationNameScreen(
     onBackButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
 ) {
+    val focusManager = LocalFocusManager.current
     var name by remember { mutableStateOf("") }
     val buttonEnabled by remember { derivedStateOf { name.isNotBlank() } }
 
@@ -78,7 +80,10 @@ fun GroupCreationNameScreen(
             text = stringResource(id = R.string.group_creation_button_next),
             isRippleClickable = true,
             enable = buttonEnabled,
-            onButtonClicked = onNextButtonClicked,
+            onButtonClicked = {
+                focusManager.clearFocus()
+                onNextButtonClicked()
+            },
         )
     }
 }
