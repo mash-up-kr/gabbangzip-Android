@@ -1,7 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,12 +23,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Coral
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
@@ -164,15 +162,6 @@ fun PicTextOnlyTopBar(
 
 enum class PicTopBarTitleAlign {
     CENTER, LEFT
-}
-
-enum class PicTopBarIcon(@DrawableRes val iconRes: Int, @StringRes val desc: Int) {
-    PIC_LOGO(R.drawable.ic_pic_title_logo, R.string.login_intro_title),
-    BACK(R.drawable.ic_back, R.string.go_back),
-    PLUS(R.drawable.ic_plus, R.string.go_plus),
-    USER(R.drawable.ic_user, R.string.go_user),
-    GROUP_MEMBER(R.drawable.ic_group_member, R.string.go_group_member),
-    ;
 }
 
 @Preview(showBackground = true)
