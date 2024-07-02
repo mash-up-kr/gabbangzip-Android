@@ -7,4 +7,5 @@ interface LoginRepository {
     fun saveToken(accessToken: String, refreshToken: String)
     fun removeToken()
     fun isUserLoggedIn(): Boolean
+    suspend fun generateNewAccessToken(refreshToken: String)
 }
