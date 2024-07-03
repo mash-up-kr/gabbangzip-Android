@@ -5,6 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.intro.navigation.groupCreationIntroNavGraph
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.keyword.navigation.groupCreationKeywordNavGraph
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.keyword.navigation.navigateToGroupCreationKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.name.navigation.groupCreationNameNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.name.navigation.navigateToGroupCreationName
 
@@ -24,7 +26,11 @@ fun GroupCreationNavHost(
         )
         groupCreationNameNavGraph(
             onBackButtonClicked = { navController.popBackStack() },
-            onNextButtonClicked = {},
+            onNextButtonClicked = { navController.navigateToGroupCreationKeyword() },
+        )
+        groupCreationKeywordNavGraph(
+            onBackButtonClicked = { navController.popBackStack() },
+            onNextButtonClicked = {}
         )
     }
 }

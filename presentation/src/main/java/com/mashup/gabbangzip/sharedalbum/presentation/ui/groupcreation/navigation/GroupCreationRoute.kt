@@ -11,6 +11,10 @@ sealed interface GroupCreationRoute {
         override val route: String = "groupNameScreenRoute"
     }
 
+    data object KeywordScreenRoute : GroupCreationRoute {
+        override val route: String = "groupKeywordScreenRoute"
+    }
+
     companion object {
         val initRoute = IntroScreenRoute.route
     }
