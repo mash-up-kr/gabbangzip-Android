@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.data.repository
 
+import com.mashup.gabbangzip.sharedalbum.data.base.callApi
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.LoginRequest
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.TokenRefreshRequest
 import com.mashup.gabbangzip.sharedalbum.data.service.LoginService
@@ -20,19 +21,14 @@ class LoginRepositoryImpl @Inject constructor(
             nickname = param.nickname,
             profileImage = param.profileImage,
         )
-        runCatching {
-            loginService.login(loginRequest = request)
-        }.onSuccess { response ->
-            response.data?.run {
-                saveToken(
-                    accessToken = accessToken,
-                    refreshToken = refreshToken,
-                )
-                localDataSource.saveUserInfo(
-                    UserInfo(userName = nickname),
-                )
-            } ?: throw IllegalStateException("데이터 없음")
-        }.getOrThrow()
+        val response = callApi { loginService.login(loginRequest = request) }
+        saveToken(
+            accessToken = response.accessToken,
+            refreshToken = response.refreshToken,
+        )
+        localDataSource.saveUserInfo(
+            UserInfo(userName = response.nickname),
+        )
     }
 
     override fun saveToken(accessToken: String, refreshToken: String) {
@@ -54,15 +50,10 @@ class LoginRepositoryImpl @Inject constructor(
         val request = TokenRefreshRequest(
             refreshToken = refreshToken,
         )
-        runCatching {
-            loginService.getNewAccessToken(request)
-        }.onSuccess { response ->
-            response.data?.run {
-                saveToken(
-                    accessToken = accessToken,
-                    refreshToken = refreshToken,
-                )
-            } ?: throw IllegalStateException("데이터 없음")
-        }.getOrThrow()
+        val response = callApi { loginService.getNewAccessToken(request) }
+        saveToken(
+            accessToken = response.accessToken,
+            refreshToken = response.refreshToken,
+        )
     }
 }
