@@ -30,7 +30,7 @@ fun GroupCreationNavHost(
         )
         groupCreationKeywordNavGraph(
             onBackButtonClicked = { navController.popBackStack() },
-            onNextButtonClicked = {}
+            onNextButtonClicked = {},
         )
     }
 }

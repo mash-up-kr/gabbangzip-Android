@@ -36,7 +36,7 @@ fun GroupCreationKeywordScreen(
     onNextButtonClicked: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
-    val (selectedKeyword, setSelected) =  remember { mutableStateOf(GroupKeyWord.SCHOOL) }
+    val (selectedKeyword, setSelected) = remember { mutableStateOf(GroupKeyWord.SCHOOL) }
 
     Column {
         PicBackButtonTopBar(
