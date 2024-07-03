@@ -37,7 +37,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.model.Member
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 @Composable
@@ -118,7 +118,7 @@ private fun GroupMemberScreenContent(
 @Composable
 private fun GroupMemberList(
     modifier: Modifier = Modifier,
-    type: GroupKeyWord,
+    type: GroupKeyword,
     list: ImmutableList<Member>,
 ) {
     Column(
@@ -136,7 +136,7 @@ private fun GroupMemberList(
 @Composable
 private fun GroupMemberItem(
     modifier: Modifier = Modifier,
-    type: GroupKeyWord,
+    type: GroupKeyword,
     member: Member,
 ) {
     Row(
