@@ -37,9 +37,10 @@
     <string name="group_creation_button_next">다음</string>
     <string name="group_creation_name_title">그룹의 이름은 무엇인가요?</string>
     <string name="group_creation_name_hint">최대 10자 까지 입력 가능해요.</string>
+    <string name="group_creation_keyword_title">그룹의 키워드를 선택해 주세요</string>
 
     <string name="pic_tag">% 태그 이미지</string>
-    <string name="pic_keyword_button">% 키워드 버튼 이미지</string>
+    <string name="pic_keyword_button">%s 키워드 버튼 이미지</string>
     <string name="pic_button">% 버튼 이미지</string>
     <string name="group_main_picture">그룹 대표 사진</string>
     <string name="group_symbol">그룹 심볼</string>

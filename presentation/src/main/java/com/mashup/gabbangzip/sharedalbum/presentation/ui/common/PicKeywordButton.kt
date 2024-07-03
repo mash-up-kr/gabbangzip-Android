@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,26 +24,24 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Malibu
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
-private fun PicKeywordButton(
+fun PicKeywordButton(
     modifier: Modifier = Modifier,
-    text: String,
-    @DrawableRes imageRes: Int,
+    keyword: GroupKeyWord,
     selected: Boolean,
-    selectedColor: Color,
     textStyle: TextStyle = PicTypography.bodyMedium16,
-    onButtonClicked: (String, Boolean) -> Unit,
+    onButtonClicked: (GroupKeyWord) -> Unit,
 ) {
     Box(
         modifier = modifier
-            .noRippleClickable { onButtonClicked(text, selected) }
+            .noRippleClickable { onButtonClicked(keyword) }
             .background(
-                color = if (selected) selectedColor.copy(alpha = 0.3f) else Gray40,
+                color = if (selected) keyword.backgroundColor.copy(alpha = 0.3f) else Gray40,
                 shape = RoundedCornerShape(20.dp),
             )
             .padding(horizontal = 28.dp, vertical = 18.dp),
@@ -54,15 +51,15 @@ private fun PicKeywordButton(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
-                text = text,
+                text = stringResource(id = keyword.tagNameResId),
                 style = textStyle,
                 color = if (selected) Gray80 else Gray60,
             )
             Image(
                 modifier = Modifier.size(58.dp),
-                painter = painterResource(id = imageRes),
-                contentDescription = stringResource(R.string.pic_keyword_button, text),
-                colorFilter = ColorFilter.tint(if (selected) selectedColor else Gray50),
+                painter = painterResource(id = keyword.symbolResId),
+                contentDescription = stringResource(R.string.pic_keyword_button, keyword.name),
+                colorFilter = (if (selected) null else Gray50)?.let { ColorFilter.tint(it) },
             )
         }
     }
@@ -76,17 +73,15 @@ fun PicKeywordButtonPreview() {
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             PicKeywordButton(
-                text = "학교",
-                imageRes = R.drawable.ic_kakao,
+                keyword = GroupKeyWord.EXERCISE,
                 selected = true,
-                selectedColor = Malibu,
-            ) { _, _ -> }
+                onButtonClicked = {},
+            )
             PicKeywordButton(
-                text = "학교",
-                imageRes = R.drawable.ic_kakao,
+                keyword = GroupKeyWord.EXERCISE,
                 selected = false,
-                selectedColor = Malibu,
-            ) { _, _ -> }
+                onButtonClicked = {},
+            )
         }
     }
 }
