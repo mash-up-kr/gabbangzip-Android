@@ -20,3 +20,9 @@ data class PicErrorResponse(
     @Json(name = "message")
     val message: String,
 )
+
+suspend fun <T> callApi(
+    execute: suspend () -> PicResponse<T>,
+): T {
+    return execute().data ?: throw IllegalStateException()
+}

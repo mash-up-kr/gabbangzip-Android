@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.data.repository
 
+import com.mashup.gabbangzip.sharedalbum.data.base.callApi
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.CreateGroupRequest
 import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupInfo
@@ -16,7 +17,8 @@ class GroupRepositoryImpl @Inject constructor(
             keyword = groupParam.keyword,
             groupImageUrl = groupParam.groupImageUrl,
         )
-        return groupService.createGroup(request).data?.run {
+        val response = callApi { groupService.createGroup(request) }
+        return response.run {
             GroupInfo(
                 id = id,
                 groupName = groupName,
@@ -24,6 +26,6 @@ class GroupRepositoryImpl @Inject constructor(
                 groupImageUrl = groupImageUrl,
                 groupInvitationUrl = groupInvitationUrl,
             )
-        } ?: throw IllegalStateException("데이터 없음")
+        }
     }
 }
