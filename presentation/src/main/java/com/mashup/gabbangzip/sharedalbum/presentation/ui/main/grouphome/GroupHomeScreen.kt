@@ -123,7 +123,7 @@ private fun GroupTag(
             modifier = modifier.padding(end = 6.dp),
             text = keyword.name,
             iconRes = keyword.symbolResId,
-        )                              
+        )
         PicTag(
             text = statusDesc,
         )
