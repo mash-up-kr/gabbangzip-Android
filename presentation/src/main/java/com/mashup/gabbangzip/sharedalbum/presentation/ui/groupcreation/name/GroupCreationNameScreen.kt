@@ -46,7 +46,10 @@ fun GroupCreationNameScreen(
                 .background(Gray0.copy(alpha = 0.2f))
                 .padding(top = 16.dp),
             titleText = stringResource(id = R.string.group_creation_button_name),
-            backButtonClicked = onBackButtonClicked,
+            backButtonClicked = {
+                focusManager.clearFocus()
+                onBackButtonClicked()
+            },
         )
         Column(
             modifier = Modifier
