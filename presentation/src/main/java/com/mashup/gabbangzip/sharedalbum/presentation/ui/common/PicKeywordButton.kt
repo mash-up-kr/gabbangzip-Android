@@ -43,7 +43,7 @@ fun PicKeywordButton(
                 color = if (selected) keyword.backgroundColor else Gray40,
                 shape = RoundedCornerShape(20.dp),
             )
-            .padding(horizontal = 22.dp, vertical = 18.dp),
+            .padding(horizontal = 28.dp, vertical = 18.dp),
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

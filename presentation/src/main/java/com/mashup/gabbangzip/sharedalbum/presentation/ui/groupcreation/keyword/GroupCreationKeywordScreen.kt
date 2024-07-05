@@ -26,20 +26,20 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTop
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicKeywordButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicProgressBar
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 
 @Composable
 fun GroupCreationKeywordScreen(
     onBackButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
 ) {
-    val (selectedKeyword, setSelected) = remember { mutableStateOf(GroupKeyWord.SCHOOL) }
+    val (selectedKeyword, setSelected) = remember { mutableStateOf(GroupKeyword.SCHOOL) }
 
     Column {
         PicBackButtonTopBar(
             modifier = Modifier
                 .background(Gray0.copy(alpha = 0.2f))
-                .padding(top = 8.dp),
+                .padding(top = 16.dp),
             titleText = stringResource(id = R.string.group_creation_button_name),
             backButtonClicked = onBackButtonClicked,
         )
@@ -66,7 +66,7 @@ fun GroupCreationKeywordScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
-                items(GroupKeyWord.entries) { groupKeyword ->
+                items(GroupKeyword.entries) { groupKeyword ->
                     PicKeywordButton(
                         keyword = groupKeyword,
                         selected = selectedKeyword == groupKeyword,

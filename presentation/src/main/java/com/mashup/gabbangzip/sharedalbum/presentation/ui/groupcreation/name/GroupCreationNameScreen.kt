@@ -42,7 +42,9 @@ fun GroupCreationNameScreen(
         modifier = Modifier.hideKeyboardOnOutsideClicked(),
     ) {
         PicBackButtonTopBar(
-            modifier = Modifier.background(Gray0.copy(alpha = 0.2f)).padding(top = 8.dp),
+            modifier = Modifier
+                .background(Gray0.copy(alpha = 0.2f))
+                .padding(top = 16.dp),
             titleText = stringResource(id = R.string.group_creation_button_name),
             backButtonClicked = onBackButtonClicked,
         )
