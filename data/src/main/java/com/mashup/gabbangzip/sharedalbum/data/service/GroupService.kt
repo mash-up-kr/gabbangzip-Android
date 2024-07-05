@@ -22,4 +22,5 @@ interface GroupService {
     @GET("api/v1/groups/{id}")
     suspend fun getGroupDetail(
         @Path(value = "id") groupId: Long,
-    ): PicResponse<GroupDetailResponse>}
+    ): PicResponse<GroupDetailResponse>
+}

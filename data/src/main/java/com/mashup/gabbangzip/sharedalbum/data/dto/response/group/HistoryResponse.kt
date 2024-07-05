@@ -21,6 +21,6 @@ fun HistoryResponse.toDomainModel(): HistoryDomainModel {
         id = id,
         name = name,
         date = date,
-        images = images.map { it.toDomainModel() }
+        images = images.map { it.toDomainModel() },
     )
 }

@@ -6,4 +6,3 @@ data class HistoryDomainModel(
     val date: String,
     val images: List<CardBackImageDomainModel>,
 )
-
