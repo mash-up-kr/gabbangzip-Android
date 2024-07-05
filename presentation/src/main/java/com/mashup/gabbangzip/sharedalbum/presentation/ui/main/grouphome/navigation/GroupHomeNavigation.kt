@@ -8,7 +8,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.Gr
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 
 fun NavController.navigateGroupHome() {
-    navigate(MainRoute.GroupListRoute.route)
+    navigate(MainRoute.GroupHomeRoute.route)
 }
 
 fun NavGraphBuilder.groupHomeNavGraph(
@@ -16,7 +16,7 @@ fun NavGraphBuilder.groupHomeNavGraph(
     onClickEventMake: () -> Unit,
     onClickMyPage: () -> Unit,
 ) {
-    composable(route = MainRoute.GroupListRoute.route) {
+    composable(route = MainRoute.GroupHomeRoute.route) {
         GroupHomeScreen(
             state = GroupHomeUiState(),
             onClickGroupDetail = onClickGroupDetail,

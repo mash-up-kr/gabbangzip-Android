@@ -7,8 +7,8 @@ sealed interface MainRoute {
         override val route: String = "groupDetail"
     }
 
-    data object GroupListRoute : MainRoute {
-        override val route: String = "groupList"
+    data object GroupHomeRoute : MainRoute {
+        override val route: String = "groupHome"
     }
 
     data object GroupMemberRoute : MainRoute {
@@ -20,6 +20,6 @@ sealed interface MainRoute {
     }
 
     companion object {
-        val initRoute = GroupListRoute.route
+        val initRoute = GroupHomeRoute.route
     }
 }
