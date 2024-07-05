@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupInfo
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 
 @Composable
@@ -101,7 +101,7 @@ private fun GroupImage(modifier: Modifier, groupInfo: GroupInfo) {
     ) {
         AsyncImage(
             modifier = Modifier.matchParentSize(),
-            model = groupInfo.thumbnailUrl,
+            model = groupInfo.cardFrontImageUrl,
             contentScale = ContentScale.Crop,
             contentDescription = stringResource(R.string.group_main_picture),
         )
@@ -110,7 +110,8 @@ private fun GroupImage(modifier: Modifier, groupInfo: GroupInfo) {
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = groupInfo.keyword.backgroundColor),
-            model = groupInfo.thumbnailFrameUrl,
+            // TODO: 다음 이슈에서  이미지 타입 drawable추가 하여 해결
+            model = groupInfo,
             contentScale = ContentScale.FillBounds,
             contentDescription = null,
         )

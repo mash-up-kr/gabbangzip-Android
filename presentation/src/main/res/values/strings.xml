@@ -44,6 +44,13 @@
     <string name="group_main_picture">그룹 대표 사진</string>
     <string name="group_symbol">그룹 심볼</string>
     <string name="detail_page_move">상세 페이지 이동</string>
+    <string name="tag_school">학교</string>
+    <string name="tag_company">회사</string>
+    <string name="tag_crew">동아리</string>
+    <string name="tag_network">친목</string>
+    <string name="tag_exercise">운동</string>
+    <string name="tag_hobby">취미</string>
+    <string name="tag_somoim">소모임</string>
 
     <string name="group_member_list_title">그룹원</string>
     <string name="group_leader">그룹장</string>

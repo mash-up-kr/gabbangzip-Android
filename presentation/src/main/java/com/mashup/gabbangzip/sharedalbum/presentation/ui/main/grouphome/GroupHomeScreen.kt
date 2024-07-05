@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouplist
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,16 +25,15 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicPhotoCard
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouplist.model.GroupHomeUiState
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupInfo
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun GroupHomeScreen(
     state: GroupHomeUiState,
-    onClickGroupDetail: (id: Int) -> Unit,
+    onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: () -> Unit,
     onClickMyPage: () -> Unit,
 ) {
@@ -65,7 +64,7 @@ fun GroupHomeScreen(
 private fun GroupContainer(
     modifier: Modifier,
     groupInfo: GroupInfo,
-    onGroupDetailClick: (id: Int) -> Unit,
+    onGroupDetailClick: (id: Long) -> Unit,
 ) {
     Column(
         modifier = modifier.noRippleClickable { onGroupDetailClick(groupInfo.id) },
@@ -74,12 +73,12 @@ private fun GroupContainer(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            groupName = groupInfo.groupName,
+            groupName = groupInfo.name,
         )
         GroupTag(
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
-            tagList = groupInfo.tags,
             keyword = groupInfo.keyword,
+            statusDesc = groupInfo.statusDescription,
         )
         PicPhotoCard(
             modifier = Modifier
@@ -116,16 +115,17 @@ private fun GroupTitle(modifier: Modifier, groupName: String) {
 @Composable
 private fun GroupTag(
     modifier: Modifier,
-    tagList: ImmutableList<String>,
     keyword: GroupKeyword,
+    statusDesc: String,
 ) {
-    if (tagList.isNotEmpty()) {
-        tagList.forEach {
-            PicTag(
-                modifier = modifier.padding(end = 6.dp),
-                text = it,
-                iconRes = keyword.symbolResId,
-            )
-        }
+    Row(modifier = modifier) {
+        PicTag(
+            modifier = modifier.padding(end = 6.dp),
+            text = keyword.name,
+            iconRes = keyword.symbolResId,
+        )
+        PicTag(
+            text = statusDesc,
+        )
     }
 }

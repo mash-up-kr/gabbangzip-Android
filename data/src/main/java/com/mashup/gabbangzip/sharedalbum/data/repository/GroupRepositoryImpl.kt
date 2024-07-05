@@ -2,9 +2,11 @@ package com.mashup.gabbangzip.sharedalbum.data.repository
 
 import com.mashup.gabbangzip.sharedalbum.data.base.callApi
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.CreateGroupRequest
+import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.toDomainModel
 import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupParam
+import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.repository.GroupRepository
 import javax.inject.Inject
 
@@ -27,5 +29,13 @@ class GroupRepositoryImpl @Inject constructor(
                 groupInvitationUrl = groupInvitationUrl,
             )
         }
+    }
+
+    override suspend fun getGroupList(): List<GroupDomainModel> {
+        return groupService
+            .getGroupList()
+            .data
+            ?.toDomainModel()
+            ?: throw IllegalStateException("데이터 없음")
     }
 }
