@@ -7,12 +7,12 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.GroupHom
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 
-fun NavController.navigateGroupList() {
+fun NavController.navigateGroupHome() {
     navigate(MainRoute.GroupListRoute.route)
 }
 
-fun NavGraphBuilder.groupListNavGraph(
-    onClickGroupDetail: (id: Int) -> Unit,
+fun NavGraphBuilder.groupHomeNavGraph(
+    onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: () -> Unit,
     onClickMyPage: () -> Unit,
 ) {
