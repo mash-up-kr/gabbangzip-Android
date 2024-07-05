@@ -55,7 +55,7 @@ enum class GroupKeyword(
     ;
 
     companion object {
-        fun getKeyword(keyword: String): GroupKeyWord {
+        fun getKeyword(keyword: String): GroupKeyword {
             return entries.associateBy { it.name }[keyword]
                 ?: throw IllegalArgumentException("Invalid keyword")
         }

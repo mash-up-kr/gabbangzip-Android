@@ -29,7 +29,6 @@ class GroupRepositoryImpl @Inject constructor(
                 groupInvitationUrl = groupInvitationUrl,
             )
         }
-        } ?: throw IllegalStateException("데이터 없음")
     }
 
     override suspend fun getGroupList(): List<GroupDomainModel> {

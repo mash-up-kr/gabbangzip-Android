@@ -27,7 +27,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicPhotoCard
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
@@ -115,7 +115,7 @@ private fun GroupTitle(modifier: Modifier, groupName: String) {
 @Composable
 private fun GroupTag(
     modifier: Modifier,
-    keyword: GroupKeyWord,
+    keyword: GroupKeyword,
     statusDsc: String,
 ) {
     Row(modifier = modifier) {

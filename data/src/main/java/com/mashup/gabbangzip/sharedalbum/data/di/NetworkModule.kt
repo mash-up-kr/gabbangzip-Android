@@ -100,10 +100,6 @@ internal class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideUserService(retrofit: Retrofit): UserService = retrofit.create()
-
-    @Singleton
-    @Provides
     fun provideGroupService(retrofit: Retrofit): GroupService = retrofit.create()
 
     companion object {
