@@ -6,8 +6,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
@@ -30,7 +32,9 @@ class GroupCreationActivity : ComponentActivity() {
                         modifier = Modifier
                             .fillMaxSize()
                             .background(Gray0)
-                            .padding(contentPadding),
+                            .padding(contentPadding)
+                            .consumeWindowInsets(contentPadding)
+                            .systemBarsPadding(),
                         navController = rememberNavController(),
                         startDestination = GroupCreationRoute.initRoute,
                     )
