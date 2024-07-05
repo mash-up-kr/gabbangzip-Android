@@ -27,7 +27,7 @@ class LoginRepositoryImpl @Inject constructor(
             refreshToken = response.refreshToken,
         )
         localDataSource.saveUserInfo(
-            UserInfo(userName = response.nickname),
+            UserInfo(name = response.nickname),
         )
     }
 

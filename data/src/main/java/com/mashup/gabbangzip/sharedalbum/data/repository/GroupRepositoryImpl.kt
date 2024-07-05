@@ -2,8 +2,6 @@ package com.mashup.gabbangzip.sharedalbum.data.repository
 
 import com.mashup.gabbangzip.sharedalbum.data.base.callApi
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.CreateGroupRequest
-import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.CardBackImageResponse
-import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.GroupDetailResponse
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.toDomainModel
 import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupInfo
@@ -17,18 +15,18 @@ class GroupRepositoryImpl @Inject constructor(
 ) : GroupRepository {
     override suspend fun createGroup(groupParam: GroupParam): GroupInfo {
         val request = CreateGroupRequest(
-            groupName = groupParam.groupName,
+            groupName = groupParam.name,
             keyword = groupParam.keyword,
-            groupImageUrl = groupParam.groupImageUrl,
+            groupImageUrl = groupParam.imageUrl,
         )
         val response = callApi { groupService.createGroup(request) }
         return response.run {
             GroupInfo(
                 id = id,
-                groupName = groupName,
+                name = groupName,
                 keyword = keyword,
-                groupImageUrl = groupImageUrl,
-                groupInvitationUrl = groupInvitationUrl,
+                imageUrl = groupImageUrl,
+                invitationUrl = groupInvitationUrl,
             )
         }
     }

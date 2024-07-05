@@ -26,7 +26,7 @@ class MyPageViewModel @Inject constructor(
     val uiState: StateFlow<MyPageUiState> = _uiState.asStateFlow()
 
     init {
-        val userName = loadUserInfoUseCase().userName
+        val userName = loadUserInfoUseCase().name
         _uiState.update {
             it.copy(userName = userName)
         }
