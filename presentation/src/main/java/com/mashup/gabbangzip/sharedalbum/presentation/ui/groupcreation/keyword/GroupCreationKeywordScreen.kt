@@ -3,13 +3,12 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.keyword
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -29,18 +28,18 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicKeywordButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicProgressBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun GroupCreationKeywordScreen(
     onBackButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
 ) {
-    val scrollState = rememberScrollState()
     val (selectedKeyword, setSelected) = remember { mutableStateOf(GroupKeyWord.SCHOOL) }
 
     Column {
         PicBackButtonTopBar(
-            modifier = Modifier.background(Gray0.copy(alpha = 0.2f)).padding(top = 8.dp),
+            modifier = Modifier
+                .background(Gray0.copy(alpha = 0.2f))
+                .padding(top = 8.dp),
             titleText = stringResource(id = R.string.group_creation_button_name),
             backButtonClicked = onBackButtonClicked,
         )
@@ -62,12 +61,12 @@ fun GroupCreationKeywordScreen(
                 style = PicTypography.headBold18,
                 color = Gray80,
             )
-            FlowRow(
-                modifier = Modifier.verticalScroll(scrollState),
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
-                GroupKeyWord.entries.forEach { groupKeyword ->
+                items(GroupKeyWord.entries) { groupKeyword ->
                     PicKeywordButton(
                         keyword = groupKeyword,
                         selected = selectedKeyword == groupKeyword,

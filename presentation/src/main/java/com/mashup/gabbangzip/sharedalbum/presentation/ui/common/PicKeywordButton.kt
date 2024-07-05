@@ -5,8 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,7 +43,7 @@ fun PicKeywordButton(
                 color = if (selected) keyword.backgroundColor.copy(alpha = 0.3f) else Gray40,
                 shape = RoundedCornerShape(20.dp),
             )
-            .padding(horizontal = 28.dp, vertical = 18.dp),
+            .padding(horizontal = 22.dp, vertical = 18.dp),
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -55,7 +55,7 @@ fun PicKeywordButton(
                 color = if (selected) Gray80 else Gray60,
             )
             Image(
-                modifier = Modifier.size(58.dp),
+                modifier = Modifier.fillMaxSize(),
                 painter = painterResource(id = keyword.symbolResId),
                 contentDescription = stringResource(R.string.pic_keyword_button, keyword.name),
                 colorFilter = (if (selected) null else Gray50)?.let { ColorFilter.tint(it) },
