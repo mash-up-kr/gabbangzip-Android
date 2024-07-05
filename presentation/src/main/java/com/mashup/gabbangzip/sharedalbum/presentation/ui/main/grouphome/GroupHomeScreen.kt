@@ -78,7 +78,7 @@ private fun GroupContainer(
         GroupTag(
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
             keyword = groupInfo.keyword,
-            statusDsc = groupInfo.statusDescription,
+            statusDesc = groupInfo.statusDescription,
         )
         PicPhotoCard(
             modifier = Modifier
@@ -116,16 +116,16 @@ private fun GroupTitle(modifier: Modifier, groupName: String) {
 private fun GroupTag(
     modifier: Modifier,
     keyword: GroupKeyword,
-    statusDsc: String,
+    statusDesc: String,
 ) {
     Row(modifier = modifier) {
         PicTag(
             modifier = modifier.padding(end = 6.dp),
             text = keyword.name,
             iconRes = keyword.symbolResId,
-        )
+        )                              
         PicTag(
-            text = statusDsc,
+            text = statusDesc,
         )
     }
 }
