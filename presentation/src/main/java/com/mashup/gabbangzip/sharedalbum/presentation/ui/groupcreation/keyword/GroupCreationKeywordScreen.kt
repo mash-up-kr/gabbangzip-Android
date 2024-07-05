@@ -66,11 +66,11 @@ fun GroupCreationKeywordScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
-                items(GroupKeyword.entries) { groupKeyword ->
+                items(GroupKeyword.entries) { keyword ->
                     PicKeywordButton(
-                        keyword = groupKeyword,
-                        selected = selectedKeyword == groupKeyword,
-                        onButtonClicked = { keyword -> setSelected(keyword) },
+                        keyword = keyword,
+                        selected = selectedKeyword == keyword,
+                        onButtonClicked = { setSelected(it) },
                     )
                 }
             }
