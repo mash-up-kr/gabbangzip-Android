@@ -11,7 +11,7 @@ import retrofit2.http.POST
 interface GroupService {
     @POST("api/v1/groups")
     suspend fun createGroup(
-        @Body loginRequest: CreateGroupRequest,
+        @Body createGroupRequest: CreateGroupRequest,
     ): PicResponse<CreateGroupResponse>
 
     @GET("api/v1/groups")
