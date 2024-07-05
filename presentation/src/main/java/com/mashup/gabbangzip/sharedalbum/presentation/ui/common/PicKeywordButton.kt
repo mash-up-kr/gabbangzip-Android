@@ -25,22 +25,22 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyWord
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun PicKeywordButton(
     modifier: Modifier = Modifier,
-    keyword: GroupKeyWord,
+    keyword: GroupKeyword,
     selected: Boolean,
     textStyle: TextStyle = PicTypography.bodyMedium16,
-    onButtonClicked: (GroupKeyWord) -> Unit,
+    onButtonClicked: (GroupKeyword) -> Unit,
 ) {
     Box(
         modifier = modifier
             .noRippleClickable { onButtonClicked(keyword) }
             .background(
-                color = if (selected) keyword.backgroundColor.copy(alpha = 0.3f) else Gray40,
+                color = if (selected) keyword.backgroundColor else Gray40,
                 shape = RoundedCornerShape(20.dp),
             )
             .padding(horizontal = 22.dp, vertical = 18.dp),
@@ -58,7 +58,7 @@ fun PicKeywordButton(
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(id = keyword.symbolResId),
                 contentDescription = stringResource(R.string.pic_keyword_button, keyword.name),
-                colorFilter = (if (selected) null else Gray50)?.let { ColorFilter.tint(it) },
+                colorFilter = ColorFilter.tint(if (selected) keyword.symbolColor else Gray50),
             )
         }
     }
@@ -72,12 +72,12 @@ fun PicKeywordButtonPreview() {
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             PicKeywordButton(
-                keyword = GroupKeyWord.EXERCISE,
+                keyword = GroupKeyword.EXERCISE,
                 selected = true,
                 onButtonClicked = {},
             )
             PicKeywordButton(
-                keyword = GroupKeyWord.EXERCISE,
+                keyword = GroupKeyword.EXERCISE,
                 selected = false,
                 onButtonClicked = {},
             )
