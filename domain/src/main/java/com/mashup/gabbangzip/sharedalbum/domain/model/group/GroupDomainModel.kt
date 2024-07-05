@@ -9,4 +9,5 @@ data class GroupDomainModel(
     val recentEventDate: String,
     val status: String,
     val statusDescription: String,
+    val history: List<HistoryDomainModel>? = listOf(),
 )

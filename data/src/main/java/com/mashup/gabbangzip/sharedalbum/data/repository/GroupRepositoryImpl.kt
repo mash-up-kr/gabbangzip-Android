@@ -2,6 +2,8 @@ package com.mashup.gabbangzip.sharedalbum.data.repository
 
 import com.mashup.gabbangzip.sharedalbum.data.base.callApi
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.CreateGroupRequest
+import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.CardBackImageResponse
+import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.GroupDetailResponse
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.toDomainModel
 import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupInfo
@@ -34,6 +36,14 @@ class GroupRepositoryImpl @Inject constructor(
     override suspend fun getGroupList(): List<GroupDomainModel> {
         return groupService
             .getGroupList()
+            .data
+            ?.toDomainModel()
+            ?: throw IllegalStateException("데이터 없음")
+    }
+
+    override suspend fun getGroupDetail(groupId: Long): GroupDomainModel {
+        return groupService
+            .getGroupDetail(groupId)
             .data
             ?.toDomainModel()
             ?: throw IllegalStateException("데이터 없음")
