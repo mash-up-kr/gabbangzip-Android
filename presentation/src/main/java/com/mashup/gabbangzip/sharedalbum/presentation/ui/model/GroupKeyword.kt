@@ -31,17 +31,23 @@ enum class GroupKeyword(
         symbolColor = Conifer,
         tagNameResId = R.string.tag_school,
     ),
+    CREW(
+        symbolResId = R.drawable.sb_crew,
+        backgroundColor = MayaBlueAlpha30,
+        symbolColor = MayaBlue,
+        tagNameResId = R.string.tag_crew,
+    ),
     COMPANY(
         symbolResId = R.drawable.sb_company,
         backgroundColor = MagentaPinkAlpha30,
         symbolColor = MagentaPink,
         tagNameResId = R.string.tag_company,
     ),
-    CREW(
-        symbolResId = R.drawable.sb_crew,
-        backgroundColor = MayaBlueAlpha30,
-        symbolColor = MayaBlue,
-        tagNameResId = R.string.tag_crew,
+    LITTLE_MOIM(
+        symbolResId = R.drawable.sb_little_moim,
+        backgroundColor = LavenderAlpha30,
+        symbolColor = Lavender,
+        tagNameResId = R.string.tag_somoim,
     ),
     NETWORK(
         symbolResId = R.drawable.sb_network,
@@ -60,12 +66,6 @@ enum class GroupKeyword(
         backgroundColor = MalibuAlpha30,
         symbolColor = Malibu,
         tagNameResId = R.string.tag_hobby,
-    ),
-    LITTLE_MOIM(
-        symbolResId = R.drawable.sb_little_moim,
-        backgroundColor = LavenderAlpha30,
-        symbolColor = Lavender,
-        tagNameResId = R.string.tag_somoim,
     ),
     ;
 
