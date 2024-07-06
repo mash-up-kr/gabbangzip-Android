@@ -96,18 +96,22 @@ fun FlippableBoxPreview(modifier: Modifier = Modifier) {
                 .size(100.dp)
                 .align(Alignment.Center),
             frontScreen = {
-                SampleFrontScreen(
+                Box(
                     modifier = Modifier
                         .matchParentSize()
                         .background(Color.Red),
-                )
+                ) {
+                    Text(text = "앞면 입니다")
+                }
             },
             backScreen = {
-                SampleBackScreen(
+                Box(
                     modifier = Modifier
                         .matchParentSize()
                         .background(Color.Cyan),
-                )
+                ) {
+                    Text(text = "뒷면 입니다")
+                }
             },
             flipAnimationSpec = tween(
                 durationMillis = 700,
@@ -117,19 +121,5 @@ fun FlippableBoxPreview(modifier: Modifier = Modifier) {
             onBackScreenClick = { /** 뒷면 클릭 시 수행 하는 작업 **/ },
             enableFlipByDrag = true,
         )
-    }
-}
-
-@Composable
-private fun SampleFrontScreen(modifier: Modifier = Modifier) {
-    Box(modifier = modifier) {
-        Text(text = "앞면 입니다")
-    }
-}
-
-@Composable
-private fun SampleBackScreen(modifier: Modifier = Modifier) {
-    Box(modifier = modifier) {
-        Text(text = "뒷면 입니다")
     }
 }
