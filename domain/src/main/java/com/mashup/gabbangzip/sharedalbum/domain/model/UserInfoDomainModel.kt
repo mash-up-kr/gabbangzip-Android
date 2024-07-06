@@ -1,5 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.domain.model
 
-data class UserInfo(
+data class UserInfoDomainModel(
     val name: String,
 )

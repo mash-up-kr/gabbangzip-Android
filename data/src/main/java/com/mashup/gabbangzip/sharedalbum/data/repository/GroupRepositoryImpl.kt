@@ -4,9 +4,9 @@ import com.mashup.gabbangzip.sharedalbum.data.base.callApi
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.CreateGroupRequest
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.toDomainModel
 import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
-import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupInfoDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupParam
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupDomainModel
+import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupInfoDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.repository.GroupRepository
 import javax.inject.Inject
 

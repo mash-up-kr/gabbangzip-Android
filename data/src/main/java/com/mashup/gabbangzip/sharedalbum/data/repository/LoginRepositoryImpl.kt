@@ -6,7 +6,7 @@ import com.mashup.gabbangzip.sharedalbum.data.dto.request.TokenRefreshRequest
 import com.mashup.gabbangzip.sharedalbum.data.service.LoginService
 import com.mashup.gabbangzip.sharedalbum.domain.datasource.LocalDataSource
 import com.mashup.gabbangzip.sharedalbum.domain.model.LoginParam
-import com.mashup.gabbangzip.sharedalbum.domain.model.UserInfo
+import com.mashup.gabbangzip.sharedalbum.domain.model.UserInfoDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.repository.LoginRepository
 import javax.inject.Inject
 
@@ -27,7 +27,7 @@ class LoginRepositoryImpl @Inject constructor(
             refreshToken = response.refreshToken,
         )
         localDataSource.saveUserInfo(
-            UserInfo(name = response.nickname),
+            UserInfoDomainModel(name = response.nickname),
         )
     }
 

@@ -1,6 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.domain.datasource
 
-import com.mashup.gabbangzip.sharedalbum.domain.model.UserInfo
+import com.mashup.gabbangzip.sharedalbum.domain.model.UserInfoDomainModel
 
 interface LocalDataSource {
     fun removeAll()
@@ -8,7 +8,7 @@ interface LocalDataSource {
     fun removeToken()
     fun getAccessToken(): String?
     fun getRefreshToken(): String?
-    fun saveUserInfo(userInfo: UserInfo)
-    fun loadUserInfo(): UserInfo
+    fun saveUserInfo(userInfo: UserInfoDomainModel)
+    fun loadUserInfo(): UserInfoDomainModel
     fun removeUserInfo()
 }

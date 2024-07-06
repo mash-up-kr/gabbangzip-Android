@@ -7,7 +7,7 @@ import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.mashup.gabbangzip.sharedalbum.domain.datasource.LocalDataSource
-import com.mashup.gabbangzip.sharedalbum.domain.model.UserInfo
+import com.mashup.gabbangzip.sharedalbum.domain.model.UserInfoDomainModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -133,12 +133,12 @@ class LocalDataSourceImpl @Inject constructor(
         return getStringOrNull(KEY_REFRESH_TOKEN)
     }
 
-    override fun saveUserInfo(userInfo: UserInfo) {
+    override fun saveUserInfo(userInfo: UserInfoDomainModel) {
         putString(KEY_USER_NAME, userInfo.name)
     }
 
-    override fun loadUserInfo(): UserInfo {
-        return UserInfo(
+    override fun loadUserInfo(): UserInfoDomainModel {
+        return UserInfoDomainModel(
             name = getString(KEY_USER_NAME, ""),
         )
     }
