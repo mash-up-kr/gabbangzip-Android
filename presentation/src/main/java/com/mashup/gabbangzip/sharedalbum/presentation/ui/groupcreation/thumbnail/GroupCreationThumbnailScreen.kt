@@ -101,6 +101,7 @@ fun GroupCreationThumbnailScreen(
                     ),
                 contentAlignment = Alignment.Center,
             ) {
+                // Todo : 이미지 관련 Box 개발은 홈 완성 시 추가 예정
                 if (thumbnailUri == null) {
                     Box(
                         modifier = Modifier
