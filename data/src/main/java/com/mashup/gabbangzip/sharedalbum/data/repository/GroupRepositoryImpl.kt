@@ -32,18 +32,10 @@ class GroupRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getGroupList(): List<GroupDomainModel> {
-        return groupService
-            .getGroupList()
-            .data
-            ?.toDomainModel()
-            ?: throw IllegalStateException("데이터 없음")
+        return callApi { groupService.getGroupList() }.toDomainModel()
     }
 
     override suspend fun getGroupDetail(groupId: Long): GroupDomainModel {
-        return groupService
-            .getGroupDetail(groupId)
-            .data
-            ?.toDomainModel()
-            ?: throw IllegalStateException("데이터 없음")
+        return callApi { groupService.getGroupDetail(groupId) }.toDomainModel()
     }
 }
