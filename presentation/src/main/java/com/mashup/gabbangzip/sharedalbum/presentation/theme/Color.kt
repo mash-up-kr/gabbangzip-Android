@@ -47,3 +47,5 @@ val KakaoPrimaryColor = Color(0xFFFEE500)
 val KakaoOnPrimaryColor = Color(0xFF121212)
 
 val BlackAlpha50 = Color(0x80000000)
+val Gray0Alpha80 = Color(0xCCFFFFFF)
+val Gray20Alpha80 = Color(0xCCF9F9F9)

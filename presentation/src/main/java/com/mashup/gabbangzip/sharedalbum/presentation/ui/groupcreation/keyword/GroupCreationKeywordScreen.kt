@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0Alpha80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
@@ -38,7 +39,7 @@ fun GroupCreationKeywordScreen(
     Column {
         PicBackButtonTopBar(
             modifier = Modifier
-                .background(Gray0.copy(alpha = 0.2f))
+                .background(Gray0Alpha80)
                 .padding(top = 16.dp),
             titleText = stringResource(id = R.string.group_creation_button_name),
             backButtonClicked = onBackButtonClicked,
