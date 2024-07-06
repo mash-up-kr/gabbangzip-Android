@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,6 +24,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
@@ -54,9 +53,9 @@ fun PicKeywordButton(
                 style = textStyle,
                 color = if (selected) Gray80 else Gray60,
             )
-            Image(
+            StableImage(
                 modifier = Modifier.fillMaxSize(),
-                painter = painterResource(id = keyword.symbolResId),
+                drawableResId = keyword.symbolResId,
                 contentDescription = stringResource(R.string.pic_keyword_button, keyword.name),
                 colorFilter = ColorFilter.tint(if (selected) keyword.symbolColor else Gray50),
             )
