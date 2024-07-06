@@ -62,8 +62,11 @@ fun FlippableBox(
     Box(
         modifier = modifier
             .noRippleClickable {
-                if (isFront) onFrontScreenClick?.invoke() ?: run { rotationAngle += 180f }
-                else onBackScreenClick?.invoke() ?: run { rotationAngle += 180f }
+                if (isFront) {
+                    onFrontScreenClick?.invoke() ?: run { rotationAngle += 180f }
+                } else {
+                    onBackScreenClick?.invoke() ?: run { rotationAngle += 180f }
+                }
             }
             .run {
                 if (enableFlipByDrag) {
@@ -80,7 +83,7 @@ fun FlippableBox(
             .graphicsLayer {
                 rotationY = nativeAnimatedRotationAngle + if (isFront) 0f else 180f
             },
-        content = if (isFront) frontScreen else backScreen
+        content = if (isFront) frontScreen else backScreen,
     )
 }
 
