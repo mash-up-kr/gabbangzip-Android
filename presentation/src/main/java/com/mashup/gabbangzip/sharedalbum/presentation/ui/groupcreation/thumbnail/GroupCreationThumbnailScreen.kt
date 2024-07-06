@@ -17,12 +17,15 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.BlackAlpha50
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0Alpha80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
@@ -76,7 +79,7 @@ fun GroupCreationThumbnailScreen(
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .padding(bottom = 32.dp),
-                text = "그룹의 대표 사진을 추가해 주세요", // Todo : resource 로 정리
+                text = stringResource(id = R.string.group_add_description),
                 style = PicTypography.headBold18,
                 color = Gray80,
                 textAlign = TextAlign.Center,
@@ -99,20 +102,36 @@ fun GroupCreationThumbnailScreen(
                 contentAlignment = Alignment.Center,
             ) {
                 if (thumbnailUri == null) {
-                    StableImage(
-                        drawableResId = R.drawable.ic_plus, // Todo : 이미지 추가 아이콘으로 변경 + resource 로 정리
-                        contentDescription = "이미지 추가", // Todo : resource 로 정리
-                    )
+                    Box(
+                        modifier = Modifier
+                            .matchParentSize()
+                            .background(Gray0),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        StableImage(
+                            drawableResId = R.drawable.ic_image_add,
+                            contentDescription = stringResource(id = R.string.group_add),
+                            colorFilter = ColorFilter.tint(Gray80),
+                        )
+                    }
                 } else {
                     AsyncImage(
                         model = thumbnailUri,
-                        contentDescription = "썸네일 이미지", // Todo : resource 로 정리
+                        contentDescription = stringResource(id = R.string.thumbnail_image),
                     )
                     if (modifyButtonEnabled) {
-                        StableImage(
-                            drawableResId = R.drawable.ic_check, // Todo : 이미지 추가 아이콘으로 변경 + resource 로 정리
-                            contentDescription = "이미지 추가", // Todo : resource 로 정리
-                        )
+                        Box(
+                            modifier = Modifier
+                                .matchParentSize()
+                                .background(BlackAlpha50),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            StableImage(
+                                drawableResId = R.drawable.ic_image_modify,
+                                contentDescription = stringResource(id = R.string.group_modify),
+                                colorFilter = ColorFilter.tint(Gray0),
+                            )
+                        }
                     }
                 }
             }
