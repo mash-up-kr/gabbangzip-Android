@@ -27,11 +27,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class GroupCreationActivity : ComponentActivity() {
     private val viewModel by viewModels<GroupCreationViewModel>()
+    private lateinit var photoPicker: PicPhotoPicker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        val photoPicker = PicPhotoPicker.create(this@GroupCreationActivity) {
+        photoPicker = PicPhotoPicker.create(this@GroupCreationActivity) {
             viewModel.updateThumbnail(it)
         }
 
@@ -56,6 +57,11 @@ class GroupCreationActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        photoPicker.unregister()
     }
 
     companion object {

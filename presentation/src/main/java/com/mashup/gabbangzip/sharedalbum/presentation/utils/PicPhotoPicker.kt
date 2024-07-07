@@ -15,6 +15,10 @@ class PicPhotoPicker private constructor(
         launcher.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
     }
 
+    fun unregister() {
+        launcher.unregister()
+    }
+
     companion object {
         /**
          * 이미지 1개 가져오기
