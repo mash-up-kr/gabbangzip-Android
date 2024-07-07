@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -27,6 +28,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTop
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 
 @Composable
 fun GroupDetailScreen(
@@ -55,6 +57,43 @@ private fun GroupDetailScreenContent(
     modifier: Modifier = Modifier,
 ) {
 
+}
+
+@Composable
+private fun RecentEvent(
+    modifier: Modifier = Modifier,
+) {
+
+}
+
+@Composable
+private fun EventHistoryGridContent(
+    modifier: Modifier = Modifier,
+) {
+
+}
+
+@Composable
+private fun EventHistoryEmptyContent(
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Spacer(modifier = Modifier.height(43.dp))
+        StableImage(
+            drawableResId = R.drawable.ic_empty_history,
+            contentDescription = "역대 이벤트 기본 이미지",
+        )
+        Text(
+            modifier = Modifier.padding(top = 16.dp, bottom = 45.dp),
+            text = "그룹 이벤트를 만들고\n우리끼리 PIC으로 인생 네컷을 모아보세요.",
+            style = PicTypography.textNormal14,
+            color = Gray60,
+            textAlign = TextAlign.Center,
+        )
+    }
 }
 
 @Composable
@@ -96,6 +135,16 @@ private fun GroupDetailEmptyContent(
                 .padding(start = 16.dp, end = 16.dp, bottom = 30.dp),
             text = "다음",
             isRippleClickable = true,
+        )
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+private fun EmptyHistoryPreview() {
+    SharedAlbumTheme {
+        EventHistoryEmptyContent(
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }
