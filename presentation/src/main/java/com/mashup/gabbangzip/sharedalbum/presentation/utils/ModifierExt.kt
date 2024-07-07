@@ -1,5 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.utils
 
+import androidx.compose.foundation.Indication
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -17,7 +19,7 @@ fun Modifier.rippleClickable(
     role: Role? = null,
     onClick: () -> Unit,
 ): Modifier = composed {
-    this then clickable(
+    this then singleClickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = rememberRipple(),
         enabled = enabled,
@@ -33,7 +35,7 @@ fun Modifier.noRippleClickable(
     role: Role? = null,
     onClick: () -> Unit,
 ): Modifier = composed {
-    this then clickable(
+    this then singleClickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = null,
         enabled = enabled,
@@ -41,6 +43,47 @@ fun Modifier.noRippleClickable(
         role = role,
         onClick = onClick,
     )
+}
+
+fun Modifier.singleClickable(
+    onClick: () -> Unit,
+    enabled: Boolean = true,
+    onClickLabel: String? = null,
+    role: Role? = null,
+    debounceMillis: Long = 300L,
+): Modifier = composed {
+    multipleEventsCutter(debounceMillis = debounceMillis) { manager ->
+        this then singleClickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication = LocalIndication.current,
+            onClick = { manager.processEvent { onClick() } },
+            enabled = enabled,
+            onClickLabel = onClickLabel,
+            role = role,
+            debounceMillis = debounceMillis,
+        )
+    }
+}
+
+fun Modifier.singleClickable(
+    interactionSource: MutableInteractionSource,
+    indication: Indication?,
+    onClick: () -> Unit,
+    enabled: Boolean = true,
+    onClickLabel: String? = null,
+    role: Role? = null,
+    debounceMillis: Long = 300L,
+): Modifier = composed {
+    multipleEventsCutter(debounceMillis = debounceMillis) { manager ->
+        this then clickable(
+            interactionSource = interactionSource,
+            indication = indication,
+            enabled = enabled,
+            onClickLabel = onClickLabel,
+            role = role,
+            onClick = { manager.processEvent { onClick() } },
+        )
+    }
 }
 
 fun Modifier.hideKeyboardOnOutsideClicked(): Modifier = composed {
