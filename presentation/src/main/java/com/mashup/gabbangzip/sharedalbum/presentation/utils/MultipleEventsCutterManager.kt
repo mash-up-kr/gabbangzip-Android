@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.debounce
 
 /***
- * onClick 중복 클릭 방지를 위한 코드
+ * onClick 중복 클릭 방지를 위한 지연 실행 Manager
  * @see (https://al-e-shevelev.medium.com/how-to-prevent-multiple-clicks-in-android-jetpack-compose-8e62224c9c5e)[link]
  */
 interface MultipleEventsCutterManager {
