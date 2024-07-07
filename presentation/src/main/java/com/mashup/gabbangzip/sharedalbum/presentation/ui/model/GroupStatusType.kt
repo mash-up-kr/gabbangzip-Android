@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.model
 
 enum class GroupStatusType {
     NO_PAST_AND_CURRENT_EVENT,
