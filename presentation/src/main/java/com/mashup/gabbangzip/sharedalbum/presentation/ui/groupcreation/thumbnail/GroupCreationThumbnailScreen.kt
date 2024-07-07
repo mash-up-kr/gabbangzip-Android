@@ -43,12 +43,12 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 
 @Composable
 fun GroupCreationThumbnailScreen(
-    thumbnailUri: Uri?,
+    initialThumbnail: Uri?,
     onBackButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
     onGetThumbnailButtonClicked: () -> Unit,
 ) {
-    val buttonEnabled by rememberUpdatedState(newValue = thumbnailUri != null)
+    val buttonEnabled by rememberUpdatedState(newValue = initialThumbnail != null)
     var modifyButtonEnabled by remember { mutableStateOf(false) }
 
     Column(
@@ -89,7 +89,7 @@ fun GroupCreationThumbnailScreen(
                 textAlign = TextAlign.Center,
             )
             ThumbnailCard(
-                thumbnailUri = thumbnailUri,
+                thumbnailUri = initialThumbnail,
                 modifyButtonEnabled = modifyButtonEnabled,
                 onThumbnailButtonClick = { modifyButtonEnabled = true },
                 openPhotoPicker = onGetThumbnailButtonClicked,
@@ -177,7 +177,7 @@ private fun CardCoverIcon(
 @Composable
 fun GroupCreationThumbnailScreenPreview() {
     GroupCreationThumbnailScreen(
-        thumbnailUri = null,
+        initialThumbnail = null,
         onBackButtonClicked = {},
         onNextButtonClicked = {},
         onGetThumbnailButtonClicked = {},

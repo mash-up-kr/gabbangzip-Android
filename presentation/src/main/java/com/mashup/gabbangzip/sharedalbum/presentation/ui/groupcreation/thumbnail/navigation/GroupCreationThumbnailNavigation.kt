@@ -12,14 +12,14 @@ fun NavController.navigateToGroupCreationThumbnail() {
 }
 
 fun NavGraphBuilder.groupCreationThumbnailNavGraph(
-    thumbnailUri: Uri?,
+    initialThumbnail: Uri?,
     onBackButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
     onGetThumbnailButtonClicked: () -> Unit,
 ) {
     composable(route = GroupCreationRoute.ThumbnailScreenRoute.route) {
         GroupCreationThumbnailScreen(
-            thumbnailUri = thumbnailUri,
+            initialThumbnail = initialThumbnail,
             onBackButtonClicked = onBackButtonClicked,
             onNextButtonClicked = onNextButtonClicked,
             onGetThumbnailButtonClicked = onGetThumbnailButtonClicked,

@@ -11,11 +11,13 @@ fun NavController.navigateToGroupCreationName() {
 }
 
 fun NavGraphBuilder.groupCreationNameNavGraph(
+    initialName: String,
     onBackButtonClicked: () -> Unit,
-    onNextButtonClicked: () -> Unit,
+    onNextButtonClicked: (name: String) -> Unit,
 ) {
     composable(route = GroupCreationRoute.NameScreenRoute.route) {
         GroupCreationNameScreen(
+            initialName = initialName,
             onBackButtonClicked = onBackButtonClicked,
             onNextButtonClicked = onNextButtonClicked,
         )
