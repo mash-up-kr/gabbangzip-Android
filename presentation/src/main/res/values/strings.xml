@@ -44,6 +44,7 @@
     <string name="pic_button">%s 버튼 이미지</string>
     <string name="pic_calendar">캘린더</string>
     <string name="pic_date_default">YY/MM/DD</string>
+    <string name="pic_gallery">갤러리</string>
     <string name="group_main_picture">그룹 대표 사진</string>
     <string name="group_symbol">그룹 심볼</string>
     <string name="detail_page_move">상세 페이지 이동</string>
