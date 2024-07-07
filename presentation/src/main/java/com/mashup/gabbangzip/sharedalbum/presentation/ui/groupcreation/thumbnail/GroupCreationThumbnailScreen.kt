@@ -1,6 +1,8 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.thumbnail
 
 import android.net.Uri
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +19,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -27,6 +30,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.BlackAlpha50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0Alpha80
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -84,58 +88,12 @@ fun GroupCreationThumbnailScreen(
                 color = Gray80,
                 textAlign = TextAlign.Center,
             )
-            Box(
-                modifier = Modifier
-                    .size(310.dp, 420.dp)
-                    .background(Gray50)
-                    .rippleClickable(
-                        onClick = {
-                            if (buttonEnabled.not()) {
-                                onGetThumbnailButtonClicked() // 이미지 X
-                            } else if (modifyButtonEnabled.not()) {
-                                modifyButtonEnabled = true // 이미지 O, 수정 아이콘 X
-                            } else {
-                                onGetThumbnailButtonClicked() // 이미지 O, 수정 아이콘 O
-                            }
-                        },
-                    ),
-                contentAlignment = Alignment.Center,
-            ) {
-                // Todo : 이미지 관련 Box 개발은 홈 완성 시 추가 예정
-                if (thumbnailUri == null) {
-                    Box(
-                        modifier = Modifier
-                            .matchParentSize()
-                            .background(Gray0),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        StableImage(
-                            drawableResId = R.drawable.ic_image_add,
-                            contentDescription = stringResource(id = R.string.group_add),
-                            colorFilter = ColorFilter.tint(Gray80),
-                        )
-                    }
-                } else {
-                    AsyncImage(
-                        model = thumbnailUri,
-                        contentDescription = stringResource(id = R.string.thumbnail_image),
-                    )
-                    if (modifyButtonEnabled) {
-                        Box(
-                            modifier = Modifier
-                                .matchParentSize()
-                                .background(BlackAlpha50),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            StableImage(
-                                drawableResId = R.drawable.ic_image_modify,
-                                contentDescription = stringResource(id = R.string.group_modify),
-                                colorFilter = ColorFilter.tint(Gray0),
-                            )
-                        }
-                    }
-                }
-            }
+            ThumbnailCard(
+                thumbnailUri = thumbnailUri,
+                modifyButtonEnabled = modifyButtonEnabled,
+                onThumbnailButtonClick = { modifyButtonEnabled = true },
+                openPhotoPicker = onGetThumbnailButtonClicked,
+            )
         }
         PicButton(
             modifier = Modifier
@@ -145,6 +103,72 @@ fun GroupCreationThumbnailScreen(
             isRippleClickable = true,
             enable = buttonEnabled,
             onButtonClicked = onNextButtonClicked,
+        )
+    }
+}
+
+@Composable
+private fun ThumbnailCard(
+    thumbnailUri: Uri?,
+    modifyButtonEnabled: Boolean,
+    onThumbnailButtonClick: () -> Unit,
+    openPhotoPicker: () -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .size(310.dp, 420.dp)
+            .background(Gray50),
+        contentAlignment = Alignment.Center,
+    ) {
+        // Todo : 이미지 관련 Box 개발은 홈 완성 시 추가 예정
+        if (thumbnailUri == null) {
+            CardCoverIcon(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(Gray20)
+                    .rippleClickable(onClick = openPhotoPicker),
+                iconRes = R.drawable.ic_image_add,
+                iconContentDescription = R.string.group_add,
+                iconColor = Gray80,
+            )
+        } else {
+            AsyncImage(
+                modifier = Modifier
+                    .matchParentSize()
+                    .rippleClickable(onClick = onThumbnailButtonClick),
+                model = thumbnailUri,
+                contentDescription = stringResource(id = R.string.thumbnail_image),
+            )
+            if (modifyButtonEnabled) {
+                CardCoverIcon(
+                    modifier = Modifier
+                        .matchParentSize()
+                        .background(BlackAlpha50)
+                        .rippleClickable(onClick = openPhotoPicker),
+                    iconRes = R.drawable.ic_image_modify,
+                    iconContentDescription = R.string.group_modify,
+                    iconColor = Gray0,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun CardCoverIcon(
+    modifier: Modifier = Modifier,
+    @DrawableRes iconRes: Int,
+    @StringRes iconContentDescription: Int,
+    iconColor: Color,
+) {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.Center,
+    ) {
+        StableImage(
+            drawableResId = iconRes,
+            contentDescription = stringResource(id = iconContentDescription),
+            colorFilter = ColorFilter.tint(iconColor),
         )
     }
 }
