@@ -3,7 +3,6 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mashup.gabbangzip.sharedalbum.domain.model.GroupParam
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.CreateGroupUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import dagger.hilt.android.lifecycle.HiltViewModel
