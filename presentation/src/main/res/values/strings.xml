@@ -39,9 +39,11 @@
     <string name="group_creation_name_hint">최대 10자 까지 입력 가능해요.</string>
     <string name="group_creation_keyword_title">그룹의 키워드를 선택해 주세요</string>
 
-    <string name="pic_tag">% 태그 이미지</string>
+    <string name="pic_tag">%s 태그 이미지</string>
     <string name="pic_keyword_button">%s 키워드 버튼 이미지</string>
-    <string name="pic_button">% 버튼 이미지</string>
+    <string name="pic_button">%s 버튼 이미지</string>
+    <string name="pic_calendar">캘린더</string>
+    <string name="pic_date_default">YY/MM/DD</string>
     <string name="group_main_picture">그룹 대표 사진</string>
     <string name="group_symbol">그룹 심볼</string>
     <string name="detail_page_move">상세 페이지 이동</string>
