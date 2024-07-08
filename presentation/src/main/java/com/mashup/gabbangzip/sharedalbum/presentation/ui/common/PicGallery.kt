@@ -1,6 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -18,7 +19,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -34,7 +36,12 @@ fun PicGallery(
         modifier = modifier
             .size(100.dp)
             .clip(RoundedCornerShape(10.dp))
-            .background(Gray40)
+            .background(Gray20)
+            .border(
+                width = 1.dp,
+                color = Gray50,
+                shape = RoundedCornerShape(10.dp),
+            )
             .padding(horizontal = 36.dp, vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
