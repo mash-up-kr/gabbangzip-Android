@@ -27,7 +27,7 @@ fun MainNavHost(
         startDestination = startDestination,
     ) {
         groupHomeNavGraph(
-            onClickGroupDetail = { navController.navigateGroupDetail() },
+            onClickGroupDetail = { id -> navController.navigateGroupDetail(id) },
             onClickMyPage = { navController.navigateMyPage() },
             onClickEventMake = { onClickEventMakeButton() },
         )

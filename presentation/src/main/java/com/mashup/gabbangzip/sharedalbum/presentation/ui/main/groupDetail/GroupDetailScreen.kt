@@ -46,6 +46,16 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 
 @Composable
 fun GroupDetailScreen(
+    groupId: Long,
+    onClickGroupMemberButton: () -> Unit,
+    onClickBackButton: () -> Unit,
+) {
+    // TODO: viewModel state 연결
+}
+
+@Composable
+fun GroupDetailScreen(
+    state: GroupDetailUiState,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
 ) {
@@ -63,6 +73,10 @@ fun GroupDetailScreen(
             rightIcon2Clicked = onClickGroupMemberButton,
         )
     }
+    GroupDetailScreenContent(
+        modifier = Modifier.fillMaxWidth(),
+        state = state,
+    )
 }
 
 @Composable
