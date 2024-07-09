@@ -4,9 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.sample.navigation.eventCreationFirstNavGraph
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.sample.navigation.eventCreationSecondNavGraph
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.sample.navigation.navigateEventCreationSecond
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.intro.navigation.eventCreationIntroNavGraph
 
 @Composable
 fun EventCreationNavHost(
@@ -19,11 +17,8 @@ fun EventCreationNavHost(
         navController = navController,
         startDestination = startDestination,
     ) {
-        eventCreationFirstNavGraph(
-            onClickNextButton = { navController.navigateEventCreationSecond() },
-        )
-        eventCreationSecondNavGraph(
-            onClickBackButton = { navController.popBackStack() },
+        eventCreationIntroNavGraph(
+            onNextButtonClicked = {},
         )
     }
 }
