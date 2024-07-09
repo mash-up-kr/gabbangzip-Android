@@ -166,7 +166,7 @@ enum class PicTopBarTitleAlign {
 
 @Preview(showBackground = true)
 @Composable
-fun PicTopBarPreview() {
+private fun PicTopBarPreview() {
     SharedAlbumTheme {
         Column(
             modifier = Modifier
