@@ -47,7 +47,7 @@ fun PicDatePickerField(
         Text(
             text = date.ifEmpty { stringResource(id = R.string.pic_date_default) },
             style = PicTypography.bodyMedium16,
-            color = if (date.isEmpty()) Gray60 else Gray80,
+            color = Gray60,
         )
     }
 }
