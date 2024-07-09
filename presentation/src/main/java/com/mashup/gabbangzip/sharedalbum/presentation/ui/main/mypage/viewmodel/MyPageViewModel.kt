@@ -57,7 +57,10 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun withdrawal(onSuccess: () -> Unit) {
+    fun withdrawal(
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit,
+    ) {
         _uiState.update {
             it.copy(isLoading = true)
         }
@@ -75,6 +78,7 @@ class MyPageViewModel @Inject constructor(
                 _uiState.update { state ->
                     state.copy(isLoading = false)
                 }
+                onFailure()
                 Log.d(TAG, "카카오 서버 회원탈퇴 실패 $it")
             },
         )

@@ -34,6 +34,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupItemNormal
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupTitle
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.MyPageDialog
@@ -45,6 +46,7 @@ fun MyPageScreen(
     onClickBack: () -> Unit,
     onClickNotificationSetting: () -> Unit,
     navigateLoginAndFinish: () -> Unit,
+    showToastMessage: (message: String, type: PicSnackbarType) -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -59,6 +61,7 @@ fun MyPageScreen(
     var isNotificationEnabledState by remember {
         mutableStateOf(getNotificationEnabled(context))
     }
+    val withdrawalFailureMessage = stringResource(id = R.string.withdrawal_failure_message)
 
     LaunchedEffect(Unit) {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
@@ -80,6 +83,7 @@ fun MyPageScreen(
             viewModel.dismissDialog()
             viewModel.withdrawal(
                 onSuccess = { navigateLoginAndFinish() },
+                onFailure = { showToastMessage(withdrawalFailureMessage, PicSnackbarType.WARNING) },
             )
         },
     )
@@ -105,7 +109,9 @@ fun MyPageScreen(
     showWithdrawalDialog: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().background(Gray0),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Gray0),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TopBar(
