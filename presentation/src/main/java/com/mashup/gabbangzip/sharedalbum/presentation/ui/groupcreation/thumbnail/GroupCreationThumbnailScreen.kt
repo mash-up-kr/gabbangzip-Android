@@ -175,7 +175,7 @@ private fun CardCoverIcon(
 
 @Preview(showBackground = true)
 @Composable
-fun GroupCreationThumbnailScreenPreview() {
+private fun GroupCreationThumbnailScreenPreview() {
     GroupCreationThumbnailScreen(
         initialThumbnail = null,
         onBackButtonClicked = {},
