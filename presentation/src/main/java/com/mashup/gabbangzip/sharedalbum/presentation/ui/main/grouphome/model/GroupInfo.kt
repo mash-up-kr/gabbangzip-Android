@@ -2,11 +2,13 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model
 
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupDomainModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 
 data class GroupInfo(
     val id: Long,
     val cardBackImages: List<CardBackImage>,
     val cardFrontImageUrl: String,
+    val frontImageFrame: PicPhotoFrame,
     val keyword: GroupKeyword,
     val name: String,
     val recentEventDate: String,
@@ -20,6 +22,7 @@ fun GroupDomainModel.toUiModel(): GroupInfo {
         cardBackImages = cardBackImages.toUiModel(),
         cardFrontImageUrl = cardFrontImageUrl,
         keyword = GroupKeyword.getKeyword(keyword),
+        frontImageFrame = PicPhotoFrame.getFrontType(keyword),
         name = name,
         recentEventDate = recentEventDate,
         status = GroupStatusType.getType(status),
