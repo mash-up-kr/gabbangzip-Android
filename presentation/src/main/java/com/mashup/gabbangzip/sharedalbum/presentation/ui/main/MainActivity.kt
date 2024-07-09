@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
