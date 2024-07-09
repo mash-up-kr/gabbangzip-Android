@@ -19,6 +19,7 @@ fun EventCreationNavHost(
     ) {
         eventCreationIntroNavGraph(
             onNextButtonClicked = {},
+            onBackButtonClicked = {},
         )
     }
 }

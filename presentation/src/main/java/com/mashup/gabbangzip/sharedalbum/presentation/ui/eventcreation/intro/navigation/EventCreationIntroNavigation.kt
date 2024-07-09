@@ -7,11 +7,12 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.navigatio
 
 fun NavGraphBuilder.eventCreationIntroNavGraph(
     onNextButtonClicked: () -> Unit,
+    onBackButtonClicked: () -> Unit,
 ) {
     composable(route = EventCreationRoute.IntroScreenRoute.route) {
         EventCreationIntroScreen(
             onNextButtonClicked = onNextButtonClicked,
-            onBackButtonClicked = {},
+            onBackButtonClicked = onBackButtonClicked,
         )
     }
 }
