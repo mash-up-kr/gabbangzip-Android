@@ -39,6 +39,10 @@
     <string name="group_creation_name_hint">최대 10자 까지 입력 가능해요.</string>
     <string name="group_creation_keyword_title">그룹의 키워드를 선택해 주세요</string>
 
+    <string name="event_creation">이벤트 만들기</string>
+    <string name="event_creation_title">이벤트를 생성하고\n함께한 순간을 공유해요!</string>
+    <string name="event_creation_description">공유한 사진을 함께 PIC하면 네컷사진을 만들 수 있어요.</string>
+
     <string name="pic_tag">%s 태그 이미지</string>
     <string name="pic_keyword_button">%s 키워드 버튼 이미지</string>
     <string name="pic_button">%s 버튼 이미지</string>

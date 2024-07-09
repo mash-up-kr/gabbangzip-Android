@@ -95,7 +95,7 @@ fun GroupCreationIntroScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun GroupCreationFirstScreenPreview() {
+private fun GroupCreationFirstScreenPreview() {
     GroupCreationIntroScreen(
         onClickNextButton = {},
     )

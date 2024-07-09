@@ -3,8 +3,8 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.navigati
 sealed interface EventCreationRoute {
     val route: String
 
-    data object FirstScreenRoute : EventCreationRoute {
-        override val route: String = "eventFirstScreenRoute"
+    data object IntroScreenRoute : EventCreationRoute {
+        override val route: String = "eventIntroScreenRoute"
     }
 
     data object SecondScreenRoute : EventCreationRoute {
@@ -12,6 +12,6 @@ sealed interface EventCreationRoute {
     }
 
     companion object {
-        val initRoute = FirstScreenRoute.route
+        val initRoute = IntroScreenRoute.route
     }
 }
