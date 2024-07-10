@@ -30,6 +30,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.hideKeyboardOnOutsid
 @Composable
 fun EventCreationScreen(
     onCompleteButtonClicked: () -> Unit,
+    onGalleryButtonClicked: () -> Unit,
     onBackButtonClicked: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
@@ -104,7 +105,7 @@ private fun EventCreationTitle(text: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun EventCreationScreenPreview() {
+private fun EventCreationScreenPreview() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -112,6 +113,7 @@ fun EventCreationScreenPreview() {
     ) {
         EventCreationScreen(
             onCompleteButtonClicked = {},
+            onGalleryButtonClicked = {},
             onBackButtonClicked = {},
         )
     }
