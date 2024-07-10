@@ -35,7 +35,7 @@ fun PicSnackbarHost(
 ) {
     val configuration = LocalConfiguration.current
     val snackbarPosition = remember(configuration) {
-        (configuration.screenHeightDp - 80).dp
+        (configuration.screenHeightDp - 54).dp
     }
 
     SnackbarHost(
