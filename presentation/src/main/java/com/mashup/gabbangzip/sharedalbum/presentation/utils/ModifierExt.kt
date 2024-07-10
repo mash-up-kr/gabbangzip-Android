@@ -45,27 +45,7 @@ fun Modifier.noRippleClickable(
     )
 }
 
-fun Modifier.singleClickable(
-    onClick: () -> Unit,
-    enabled: Boolean = true,
-    onClickLabel: String? = null,
-    role: Role? = null,
-    debounceMillis: Long = 300L,
-): Modifier = composed {
-    multipleEventsCutter(debounceMillis = debounceMillis) { manager ->
-        this then singleClickable(
-            interactionSource = remember { MutableInteractionSource() },
-            indication = LocalIndication.current,
-            onClick = { manager.processEvent { onClick() } },
-            enabled = enabled,
-            onClickLabel = onClickLabel,
-            role = role,
-            debounceMillis = debounceMillis,
-        )
-    }
-}
-
-fun Modifier.singleClickable(
+private fun Modifier.singleClickable(
     interactionSource: MutableInteractionSource,
     indication: Indication?,
     onClick: () -> Unit,
