@@ -20,6 +20,6 @@ sealed interface MainRoute {
     }
 
     companion object {
-        val initRoute = MyPageRoute.route
+        val initRoute = GroupHomeRoute.route
     }
 }
