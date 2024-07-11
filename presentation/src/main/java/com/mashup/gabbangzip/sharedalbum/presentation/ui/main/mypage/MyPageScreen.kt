@@ -2,6 +2,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage
 
 import android.app.NotificationManager
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -37,11 +38,15 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupItemNormal
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupTitle
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.MyPageDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.UserContainer
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.viewmodel.MyPageViewModel
+
+private const val TAG = "MyPageScreen"
 
 @Composable
 fun MyPageScreen(
@@ -93,7 +98,6 @@ fun MyPageScreen(
                 viewModel.dismissDialog()
                 viewModel.withdrawal(
                     onSuccess = { navigateLoginAndFinish() },
-                    onFailure = { },
                 )
             },
         )
@@ -109,6 +113,15 @@ fun MyPageScreen(
             showLogoutDialog = viewModel::showLogoutDialog,
             showWithdrawalDialog = viewModel::showWithdrawalDialog,
         )
+    }
+    if (state.errorMessage != null) {
+        Log.d(TAG, "${state.errorMessage}")
+        LaunchedEffect(snackbarHostState) {
+            snackbarHostState.showPicSnackbar(
+                type = PicSnackbarType.WARNING,
+                message = withdrawalFailureMessage,
+            )
+        }
     }
 }
 

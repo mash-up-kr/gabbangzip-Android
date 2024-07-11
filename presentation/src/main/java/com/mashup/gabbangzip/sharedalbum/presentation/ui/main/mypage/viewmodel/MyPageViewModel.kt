@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.LoadUserInfoUseCase
@@ -57,12 +56,9 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun withdrawal(
-        onSuccess: () -> Unit,
-        onFailure: () -> Unit,
-    ) {
+    fun withdrawal(onSuccess: () -> Unit) {
         _uiState.update {
-            it.copy(isLoading = true)
+            it.copy(isLoading = true, errorMessage = null)
         }
         KakaoUserSdkUtil.withdrawal(
             onSuccess = {
@@ -76,10 +72,11 @@ class MyPageViewModel @Inject constructor(
             },
             onFailure = {
                 _uiState.update { state ->
-                    state.copy(isLoading = false)
+                    state.copy(
+                        isLoading = false,
+                        errorMessage = "카카오 서버 회원 탈퇴 실패 $it",
+                    )
                 }
-                onFailure()
-                Log.d(TAG, "카카오 서버 회원탈퇴 실패 $it")
             },
         )
     }
