@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -31,10 +33,10 @@ import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupItemNormal
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupTitle
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.MyPageDialog
@@ -46,7 +48,6 @@ fun MyPageScreen(
     onClickBack: () -> Unit,
     onClickNotificationSetting: () -> Unit,
     navigateLoginAndFinish: () -> Unit,
-    showToastMessage: (message: String, type: PicSnackbarType) -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -62,6 +63,7 @@ fun MyPageScreen(
         mutableStateOf(getNotificationEnabled(context))
     }
     val withdrawalFailureMessage = stringResource(id = R.string.withdrawal_failure_message)
+    val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(Unit) {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
@@ -69,37 +71,50 @@ fun MyPageScreen(
         }
     }
 
-    MyPageDialog(
-        dialogState = state.dialogState,
-        onDismiss = {
-            viewModel.dismissDialog()
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Gray0),
+        snackbarHost = {
+            PicSnackbarHost(state = snackbarHostState)
         },
-        onLogout = {
-            viewModel.dismissDialog()
-            viewModel.logout()
-            navigateLoginAndFinish()
-        },
-        onWithdrawal = {
-            viewModel.dismissDialog()
-            viewModel.withdrawal(
-                onSuccess = { navigateLoginAndFinish() },
-                onFailure = { showToastMessage(withdrawalFailureMessage, PicSnackbarType.WARNING) },
-            )
-        },
-    )
-    MyPageScreen(
-        userName = state.userName,
-        notificationEnabledString = if (isNotificationEnabledState) onString else offString,
-        versionName = versionName,
-        onClickBack = onClickBack,
-        onClickNotificationSetting = onClickNotificationSetting,
-        showLogoutDialog = viewModel::showLogoutDialog,
-        showWithdrawalDialog = viewModel::showWithdrawalDialog,
-    )
+    ) { contentPadding ->
+        MyPageDialog(
+            dialogState = state.dialogState,
+            onDismiss = {
+                viewModel.dismissDialog()
+            },
+            onLogout = {
+                viewModel.dismissDialog()
+                viewModel.logout()
+                navigateLoginAndFinish()
+            },
+            onWithdrawal = {
+                viewModel.dismissDialog()
+                viewModel.withdrawal(
+                    onSuccess = { navigateLoginAndFinish() },
+                    onFailure = { },
+                )
+            },
+        )
+        MyPageScreen(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentPadding),
+            userName = state.userName,
+            notificationEnabledString = if (isNotificationEnabledState) onString else offString,
+            versionName = versionName,
+            onClickBack = onClickBack,
+            onClickNotificationSetting = onClickNotificationSetting,
+            showLogoutDialog = viewModel::showLogoutDialog,
+            showWithdrawalDialog = viewModel::showWithdrawalDialog,
+        )
+    }
 }
 
 @Composable
 fun MyPageScreen(
+    modifier: Modifier = Modifier,
     userName: String,
     notificationEnabledString: String,
     versionName: String,
@@ -109,7 +124,7 @@ fun MyPageScreen(
     showWithdrawalDialog: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Gray0),
         horizontalAlignment = Alignment.CenterHorizontally,

@@ -21,7 +21,6 @@ fun MainNavHost(
     onClickEventMakeButton: () -> Unit,
     onClickNotificationSetting: () -> Unit,
     navigateLoginAndFinish: () -> Unit,
-    showToastMessage: (message: String, type: PicSnackbarType) -> Unit,
 ) {
     NavHost(
         modifier = modifier,
@@ -44,7 +43,6 @@ fun MainNavHost(
             onClickBack = { navController.popBackStack() },
             onClickNotificationSetting = onClickNotificationSetting,
             navigateLoginAndFinish = navigateLoginAndFinish,
-            showToastMessage = showToastMessage,
         )
     }
 }

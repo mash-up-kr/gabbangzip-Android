@@ -6,20 +6,12 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
@@ -28,26 +20,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel by viewModels<MainViewModel>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val snackbarHostState = remember { SnackbarHostState() }
-
             SharedAlbumTheme {
-                Scaffold(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background),
-                    snackbarHost = {
-                        PicSnackbarHost(state = snackbarHostState)
-                    },
-                ) { contentPadding ->
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background,
+                ) {
                     MainNavHost(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(contentPadding),
+                        modifier = Modifier.fillMaxSize(),
                         navController = rememberNavController(),
                         startDestination = MainRoute.initRoute,
                         onClickEventMakeButton = {
@@ -64,21 +46,7 @@ class MainActivity : ComponentActivity() {
                             LoginActivity.openActivity(this@MainActivity)
                             finish()
                         },
-                        showToastMessage = { message, type -> viewModel.showToastMessage(message, type) },
                     )
-                }
-            }
-
-            LaunchedEffect(true) {
-                viewModel.effect.collect {
-                    when (it) {
-                        is MainViewModel.Event.ShowToast -> {
-                            snackbarHostState.showPicSnackbar(
-                                type = it.snackbarType,
-                                message = it.message,
-                            )
-                        }
-                    }
                 }
             }
         }

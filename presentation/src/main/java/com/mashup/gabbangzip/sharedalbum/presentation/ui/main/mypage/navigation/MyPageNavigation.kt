@@ -15,14 +15,12 @@ fun NavGraphBuilder.myPageNavGraph(
     onClickBack: () -> Unit,
     onClickNotificationSetting: () -> Unit,
     navigateLoginAndFinish: () -> Unit,
-    showToastMessage: (message: String, type: PicSnackbarType) -> Unit,
 ) {
     composable(route = MainRoute.MyPageRoute.route) {
         MyPageScreen(
             onClickBack = onClickBack,
             onClickNotificationSetting = onClickNotificationSetting,
             navigateLoginAndFinish = navigateLoginAndFinish,
-            showToastMessage = showToastMessage,
         )
     }
 }
