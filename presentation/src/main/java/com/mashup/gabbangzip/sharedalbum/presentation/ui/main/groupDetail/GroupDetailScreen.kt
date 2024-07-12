@@ -130,24 +130,40 @@ private fun RecentEventContainer(
                 letterSpacing = (-0.02).em,
             )
         } else {
-            Text(
-                text = event.date,
-                style = PicTypography.bodyMedium16,
-                color = Gray80,
-            )
-            Text(
-                modifier = Modifier.padding(top = 8.dp),
-                text = event.title,
-                style = PicTypography.headBold20,
-                color = Gray80,
-            )
-            Text(
-                modifier = Modifier.padding(top = 8.dp),
-                text = event.deadline,
-                style = PicTypography.textNormal14,
-                color = Gray80,
+            RecentEventSummary(
+                modifier = modifier,
+                event = event,
             )
         }
+    }
+}
+
+@Composable
+private fun RecentEventSummary(
+    modifier: Modifier = Modifier,
+    event: GroupEvent,
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            text = event.date,
+            style = PicTypography.bodyMedium16,
+            color = Gray80,
+        )
+        Text(
+            modifier = Modifier.padding(top = 8.dp),
+            text = event.title,
+            style = PicTypography.headBold20,
+            color = Gray80,
+        )
+        Text(
+            modifier = Modifier.padding(top = 8.dp),
+            text = event.deadline,
+            style = PicTypography.textNormal14,
+            color = Gray80,
+        )
     }
 }
 
