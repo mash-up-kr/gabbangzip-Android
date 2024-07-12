@@ -12,6 +12,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.mashup.gabbangzip.sharedalbum.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.splash.SplashActivity
+import com.mashup.gabbangzip.sharedalbum.utils.NotificationUtil
 
 class PicMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -52,12 +53,12 @@ class PicMessagingService : FirebaseMessagingService() {
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val channel = NotificationChannel(
                 CHANEL_ID,
-                "Channel human readable title",
+                CHANEL_NAME,
                 NotificationManager.IMPORTANCE_HIGH,
             )
 
             notificationManager.createNotificationChannel(channel)
-            notificationManager.notify(NOTIFICATION_ID, notificationBuilder)
+            notificationManager.notify(NotificationUtil.getNotificationId(), notificationBuilder)
         } else {
             Log.d("PicMessagingService", "sendNotification: title or body is null")
         }
@@ -71,6 +72,6 @@ class PicMessagingService : FirebaseMessagingService() {
 
     companion object {
         private const val CHANEL_ID = "PIC"
-        private const val NOTIFICATION_ID = 0
+        private const val CHANEL_NAME = "PIC 알람"
     }
 }
