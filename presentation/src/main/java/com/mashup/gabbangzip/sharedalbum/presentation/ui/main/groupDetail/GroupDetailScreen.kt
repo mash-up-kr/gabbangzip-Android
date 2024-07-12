@@ -64,7 +64,7 @@ fun GroupDetailScreen(
     ) {
         PicBackButtonTopBar(
             modifier = Modifier.fillMaxWidth(),
-            titleText = "그룹 이름",
+            titleText = state.groupInfo.name,
             titleAlign = PicTopBarTitleAlign.LEFT,
             backButtonClicked = onClickBackButton,
             rightIcon1 = PicTopBarIcon.PLUS,
