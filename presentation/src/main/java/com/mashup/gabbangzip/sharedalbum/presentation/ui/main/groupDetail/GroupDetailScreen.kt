@@ -15,12 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -29,20 +26,13 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.pretendard
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.GroupDetailUiState
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.GroupEvent
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.HistoryItem
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 
 @Composable
 fun GroupDetailScreen(
@@ -112,108 +102,6 @@ private fun GroupDetailScreenContent(
 }
 
 @Composable
-private fun RecentEventContainer(
-    modifier: Modifier = Modifier,
-    event: GroupEvent,
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        if (event.status == GroupStatusType.EVENT_COMPLETED) {
-            Text(
-                text = "네컷 사진이 만들어졌어요!",
-                fontFamily = pretendard,
-                fontWeight = FontWeight.Normal,
-                fontSize = 20.sp,
-                lineHeight = 28.sp,
-                letterSpacing = (-0.02).em,
-            )
-        } else {
-            RecentEventSummary(
-                modifier = modifier,
-                event = event,
-            )
-        }
-    }
-}
-
-@Composable
-private fun RecentEventSummary(
-    modifier: Modifier = Modifier,
-    event: GroupEvent,
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            text = event.date,
-            style = PicTypography.bodyMedium16,
-            color = Gray80,
-        )
-        Text(
-            modifier = Modifier.padding(top = 8.dp),
-            text = event.title,
-            style = PicTypography.headBold20,
-            color = Gray80,
-        )
-        Text(
-            modifier = Modifier.padding(top = 8.dp),
-            text = event.deadline,
-            style = PicTypography.textNormal14,
-            color = Gray80,
-        )
-    }
-}
-
-@Composable
-private fun EventHistoryContainer(
-    modifier: Modifier = Modifier,
-    history: ImmutableList<HistoryItem>,
-) {
-    if (history.isEmpty()) {
-        EventHistoryEmptyContent(modifier = modifier)
-    } else {
-        EventHistoryGridContent(
-            modifier = modifier,
-            history = history,
-        )
-    }
-}
-
-@Composable
-private fun EventHistoryGridContent(
-    modifier: Modifier = Modifier,
-    history: ImmutableList<HistoryItem>,
-) {
-
-}
-
-@Composable
-private fun EventHistoryEmptyContent(
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Spacer(modifier = Modifier.height(43.dp))
-        StableImage(
-            drawableResId = R.drawable.ic_empty_history,
-            contentDescription = "역대 이벤트 기본 이미지",
-        )
-        Text(
-            modifier = Modifier.padding(top = 16.dp, bottom = 45.dp),
-            text = "그룹 이벤트를 만들고\n우리끼리 PIC으로 인생 네컷을 모아보세요.",
-            style = PicTypography.textNormal14,
-            color = Gray60,
-            textAlign = TextAlign.Center,
-        )
-    }
-}
-
-@Composable
 private fun GroupDetailEmptyContent(
     modifier: Modifier = Modifier,
 ) {
@@ -252,31 +140,6 @@ private fun GroupDetailEmptyContent(
                 .padding(start = 16.dp, end = 16.dp, bottom = 30.dp),
             text = "다음",
             isRippleClickable = true,
-        )
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-private fun RecentEventPreview() {
-    SharedAlbumTheme {
-        RecentEventContainer(
-            event = GroupEvent(
-                title = "가빵집 MT",
-                date = "2024.11.03",
-                status = GroupStatusType.AFTER_MY_UPLOAD,
-                deadline = "6월 14일 월요일 PIC 종료",
-            ),
-        )
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-private fun EmptyHistoryPreview() {
-    SharedAlbumTheme {
-        EventHistoryEmptyContent(
-            modifier = Modifier.fillMaxWidth(),
         )
     }
 }
