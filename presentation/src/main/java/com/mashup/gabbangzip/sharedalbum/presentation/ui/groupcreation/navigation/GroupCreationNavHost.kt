@@ -64,7 +64,7 @@ fun GroupCreationNavHost(
         )
         groupCreationCompleteNavGraph(
             onNextButtonClicked = onNextButtonClicked,
-            showSnackbarMessage = showSnackbarMessage
+            showSnackbarMessage = showSnackbarMessage,
         )
     }
 }

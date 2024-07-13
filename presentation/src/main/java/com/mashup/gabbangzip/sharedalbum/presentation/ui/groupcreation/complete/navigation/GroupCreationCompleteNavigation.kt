@@ -17,7 +17,7 @@ fun NavGraphBuilder.groupCreationCompleteNavGraph(
     composable(route = GroupCreationRoute.CompleteScreenRoute.route) {
         GroupCreationCompleteScreen(
             onNextButtonClicked = onNextButtonClicked,
-            showSnackbarMessage = showSnackbarMessage
+            showSnackbarMessage = showSnackbarMessage,
         )
     }
 }

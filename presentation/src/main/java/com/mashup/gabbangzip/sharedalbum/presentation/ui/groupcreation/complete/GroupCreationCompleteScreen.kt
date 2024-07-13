@@ -111,6 +111,6 @@ fun GroupCreationCompleteScreen(
 private fun GroupCreationCompleteScreenPreview() {
     GroupCreationCompleteScreen(
         onNextButtonClicked = { },
-        showSnackbarMessage = { }
+        showSnackbarMessage = { },
     )
 }
