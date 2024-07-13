@@ -53,6 +53,8 @@ class GroupCreationActivity : ComponentActivity() {
                         onGetThumbnailButtonClicked = photoPicker::open,
                         updateName = viewModel::updateName,
                         updateKeyword = viewModel::updateKeyword,
+                        onNextButtonClicked = { finish() },
+                        onCopyLinkButton = { }
                     )
                 }
             }
