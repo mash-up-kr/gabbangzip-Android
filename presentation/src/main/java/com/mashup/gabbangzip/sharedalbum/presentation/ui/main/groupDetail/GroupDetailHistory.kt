@@ -53,6 +53,29 @@ fun EventHistoryContainer(
 }
 
 @Composable
+private fun EventHistoryEmptyContent(
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Spacer(modifier = Modifier.height(43.dp))
+        StableImage(
+            drawableResId = R.drawable.ic_empty_history,
+            contentDescription = "역대 이벤트 기본 이미지",
+        )
+        Text(
+            modifier = Modifier.padding(top = 16.dp, bottom = 45.dp),
+            text = "그룹 이벤트를 만들고\n우리끼리 PIC으로 인생 네컷을 모아보세요.",
+            style = PicTypography.textNormal14,
+            color = Gray60,
+            textAlign = TextAlign.Center,
+        )
+    }
+}
+
+@Composable
 private fun EventHistoryGridContent(
     modifier: Modifier = Modifier,
     history: ImmutableList<HistoryItem>,
@@ -68,6 +91,34 @@ private fun EventHistoryGridContent(
                 item = item,
             )
         }
+    }
+}
+
+
+@Composable
+private fun EventHistoryItemContainer(
+    modifier: Modifier = Modifier,
+    item: HistoryItem,
+) {
+    Column(modifier = modifier) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+                .background(color = Gray60),
+        )
+        Text(
+            modifier = Modifier.padding(top = 6.dp),
+            text = item.title,
+            style = PicTypography.headBold18,
+            color = Gray80,
+        )
+        Text(
+            modifier = Modifier.padding(top = 6.dp),
+            text = item.date,
+            style = PicTypography.captionNormal12,
+            color = Gray60,
+        )
     }
 }
 
@@ -102,33 +153,6 @@ private fun EventHistoryGridPreview() {
     )
 }
 
-@Composable
-private fun EventHistoryItemContainer(
-    modifier: Modifier = Modifier,
-    item: HistoryItem,
-) {
-    Column(modifier = modifier) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f)
-                .background(color = Gray60),
-        )
-        Text(
-            modifier = Modifier.padding(top = 6.dp),
-            text = item.title,
-            style = PicTypography.headBold18,
-            color = Gray80,
-        )
-        Text(
-            modifier = Modifier.padding(top = 6.dp),
-            text = item.date,
-            style = PicTypography.captionNormal12,
-            color = Gray60,
-        )
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 private fun EventHistoryItemPreview() {
@@ -138,29 +162,6 @@ private fun EventHistoryItemPreview() {
             date = "2024.11.03",
         ),
     )
-}
-
-@Composable
-private fun EventHistoryEmptyContent(
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Spacer(modifier = Modifier.height(43.dp))
-        StableImage(
-            drawableResId = R.drawable.ic_empty_history,
-            contentDescription = "역대 이벤트 기본 이미지",
-        )
-        Text(
-            modifier = Modifier.padding(top = 16.dp, bottom = 45.dp),
-            text = "그룹 이벤트를 만들고\n우리끼리 PIC으로 인생 네컷을 모아보세요.",
-            style = PicTypography.textNormal14,
-            color = Gray60,
-            textAlign = TextAlign.Center,
-        )
-    }
 }
 
 @Composable
