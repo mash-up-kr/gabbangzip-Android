@@ -14,7 +14,7 @@ fun GroupStatusType.getActionButtonState(): GroupEventActionButtonState? {
     return when (this) {
         GroupStatusType.BEFORE_MY_UPLOAD -> {
             GroupEventActionButtonState(
-                iconResId = R.drawable.ic_gallery,
+                iconResId = R.drawable.ic_gallery_white,
                 text = "내 PIC 올리기",
                 informationText = "까지 내 PIC 등록을 완료해 주세요.",
             )
