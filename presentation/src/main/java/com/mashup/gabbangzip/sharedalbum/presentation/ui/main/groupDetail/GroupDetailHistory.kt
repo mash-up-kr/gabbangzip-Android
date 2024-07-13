@@ -48,7 +48,9 @@ fun EventHistoryContainer(
             )
         } else {
             EventHistoryGridContent(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, bottom = 40.dp),
                 history = history,
                 onClickHistoryItem = onClickHistoryItem,
             )
@@ -64,7 +66,7 @@ private fun EventHistoryEmptyContent(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Spacer(modifier = Modifier.height(43.dp))
+        Spacer(modifier = Modifier.height(35.dp))
         StableImage(
             drawableResId = R.drawable.ic_empty_history,
             contentDescription = "역대 이벤트 기본 이미지",
