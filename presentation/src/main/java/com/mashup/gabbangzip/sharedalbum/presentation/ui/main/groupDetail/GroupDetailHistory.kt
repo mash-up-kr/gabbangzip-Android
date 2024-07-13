@@ -27,11 +27,13 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.HistoryItem
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun EventHistoryContainer(
     modifier: Modifier = Modifier,
     history: ImmutableList<HistoryItem>,
+    onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -47,6 +49,7 @@ fun EventHistoryContainer(
             EventHistoryGridContent(
                 modifier = modifier,
                 history = history,
+                onClickHistoryItem = onClickHistoryItem,
             )
         }
     }
@@ -79,6 +82,7 @@ private fun EventHistoryEmptyContent(
 private fun EventHistoryGridContent(
     modifier: Modifier = Modifier,
     history: ImmutableList<HistoryItem>,
+    onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     LazyVerticalGrid(
         modifier = modifier,
@@ -89,6 +93,7 @@ private fun EventHistoryGridContent(
         items(history) { item ->
             EventHistoryItemContainer(
                 item = item,
+                onClickHistoryItem = onClickHistoryItem,
             )
         }
     }
@@ -99,8 +104,14 @@ private fun EventHistoryGridContent(
 private fun EventHistoryItemContainer(
     modifier: Modifier = Modifier,
     item: HistoryItem,
+    onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier
+            .noRippleClickable {
+                onClickHistoryItem(item)
+            },
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -150,6 +161,7 @@ private fun EventHistoryGridPreview() {
                 ),
             ),
         ),
+        onClickHistoryItem = {},
     )
 }
 
@@ -161,6 +173,7 @@ private fun EventHistoryItemPreview() {
             title = "가빵집 MT",
             date = "2024.11.03",
         ),
+        onClickHistoryItem = {},
     )
 }
 

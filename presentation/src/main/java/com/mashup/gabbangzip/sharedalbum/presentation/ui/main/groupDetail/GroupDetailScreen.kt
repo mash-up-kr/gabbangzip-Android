@@ -33,6 +33,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.GroupDetailUiState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.HistoryItem
 
 @Composable
 fun GroupDetailScreen(
@@ -48,6 +49,7 @@ fun GroupDetailScreen(
     state: GroupDetailUiState,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
+    onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -66,6 +68,7 @@ fun GroupDetailScreen(
     GroupDetailScreenContent(
         modifier = Modifier.fillMaxWidth(),
         state = state,
+        onClickHistoryItem = onClickHistoryItem,
     )
 }
 
@@ -73,6 +76,7 @@ fun GroupDetailScreen(
 private fun GroupDetailScreenContent(
     modifier: Modifier = Modifier,
     state: GroupDetailUiState,
+    onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     if (state.recentEvent != null) {
         val scrollState = rememberScrollState()
@@ -96,6 +100,7 @@ private fun GroupDetailScreenContent(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
                 history = state.history,
+                onClickHistoryItem = onClickHistoryItem,
             )
         }
     } else if (state.history.isEmpty()) {
