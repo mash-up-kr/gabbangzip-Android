@@ -99,7 +99,6 @@ private fun EventHistoryGridContent(
     }
 }
 
-
 @Composable
 private fun EventHistoryItemContainer(
     modifier: Modifier = Modifier,
