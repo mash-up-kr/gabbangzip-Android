@@ -59,11 +59,6 @@ class GroupCreationActivity : ComponentActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        photoPicker.unregister()
-    }
-
     companion object {
         fun openActivity(context: Activity) {
             context.startActivity(
