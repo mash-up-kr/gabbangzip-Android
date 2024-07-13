@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
@@ -123,13 +124,15 @@ private fun RecentEventBottomSection(
 
 @Composable
 @Preview(showBackground = true)
-private fun RecentEventPreview() {
+private fun RecentEventPreview(
+    @PreviewParameter(GroupStatusProvider::class) status: GroupStatusType,
+) {
     SharedAlbumTheme {
         RecentEventContainer(
             event = GroupEvent(
                 title = "가빵집 MT",
                 date = "2024.11.03",
-                status = GroupStatusType.AFTER_MY_UPLOAD,
+                status = status,
                 deadline = "6월 14일 월요일 PIC 종료",
             ),
         )
