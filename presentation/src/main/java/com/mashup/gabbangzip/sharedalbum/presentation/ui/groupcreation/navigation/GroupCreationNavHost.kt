@@ -28,7 +28,7 @@ fun GroupCreationNavHost(
     updateName: (name: String) -> Unit,
     updateKeyword: (keyword: GroupKeyword) -> Unit,
     onNextButtonClicked: () -> Unit,
-    onCopyLinkButton: () -> Unit,
+    showToastMessage: (message: String) -> Unit,
 ) {
     NavHost(
         modifier = modifier,
@@ -64,7 +64,7 @@ fun GroupCreationNavHost(
         )
         groupCreationCompleteNavGraph(
             onNextButtonClicked = onNextButtonClicked,
-            onCopyLinkButton = onCopyLinkButton,
+            showToastMessage = showToastMessage
         )
     }
 }

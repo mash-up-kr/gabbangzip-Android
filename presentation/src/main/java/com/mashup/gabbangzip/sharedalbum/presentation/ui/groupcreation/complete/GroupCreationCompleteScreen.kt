@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,8 +32,10 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextOnlyTopBa
 @Composable
 fun GroupCreationCompleteScreen(
     onNextButtonClicked: () -> Unit,
-    onCopyLinkButton: () -> Unit,
+    showToastMessage: (message: String) -> Unit,
 ) {
+    val clipboardManager = LocalClipboardManager.current
+    val copyLinkMessage = stringResource(id = R.string.button_copy_link_message)
     Column {
         PicTextOnlyTopBar(
             modifier = Modifier
@@ -85,7 +89,10 @@ fun GroupCreationCompleteScreen(
                 backgroundColor = Gray40,
                 contentColor = Gray80,
                 iconRes = R.drawable.ic_link,
-                onButtonClicked = onCopyLinkButton,
+                onButtonClicked = {
+                    showToastMessage(copyLinkMessage)
+                    clipboardManager.setText(AnnotatedString("임시 텍스트")) // Todo : API 연결 하면서 업데이트 예정
+                },
             )
         }
         PicButton(
@@ -104,6 +111,6 @@ fun GroupCreationCompleteScreen(
 private fun GroupCreationCompleteScreenPreview() {
     GroupCreationCompleteScreen(
         onNextButtonClicked = { },
-        onCopyLinkButton = { },
+        showToastMessage = { }
     )
 }
