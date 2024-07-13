@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,7 +37,7 @@ fun GroupCreationCompleteScreen(
             modifier = Modifier
                 .background(Gray0Alpha80)
                 .padding(top = 21.dp),
-            titleText = "완료",
+            titleText = stringResource(id = R.string.complete),
         )
         Column(
             modifier = Modifier
@@ -56,12 +57,13 @@ fun GroupCreationCompleteScreen(
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .padding(bottom = 16.dp),
-                text = "그룹에 친구들을 추가하고\n추억을 함께 PIC 해보세요",
+                text = stringResource(id = R.string.group_complete_title),
                 style = PicTypography.headBold18,
                 color = Gray80,
                 textAlign = TextAlign.Center,
             )
-            Box( // Todo : 프레임 카드 만들어넣기
+            Box(
+                // Todo : 프레임 카드 만들어넣기
                 modifier = Modifier
                     .size(310.dp, 420.dp)
                     .padding(bottom = 16.dp)
@@ -72,13 +74,13 @@ fun GroupCreationCompleteScreen(
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .padding(bottom = 8.dp),
-                text = "그룹원은 최대 6명까지 초대 가능해요.",
+                text = stringResource(id = R.string.group_complete_contents),
                 style = PicTypography.bodyMedium14,
                 color = Gray60,
                 textAlign = TextAlign.Center,
             )
             PicNormalButton(
-                text = "링크 복사",
+                text = stringResource(id = R.string.button_copy_link),
                 isRippleClickable = true,
                 backgroundColor = Gray40,
                 contentColor = Gray80,
@@ -90,7 +92,7 @@ fun GroupCreationCompleteScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 22.dp, end = 22.dp, bottom = 16.dp),
-            text = "완료",
+            text = stringResource(id = R.string.complete),
             isRippleClickable = true,
             onButtonClicked = onNextButtonClicked,
         )
