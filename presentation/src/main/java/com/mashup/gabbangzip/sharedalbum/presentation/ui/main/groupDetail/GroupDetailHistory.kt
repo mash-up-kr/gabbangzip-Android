@@ -18,21 +18,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.HistoryItem
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun EventHistoryContainer(
     modifier: Modifier = Modifier,
-    history: ImmutableList<HistoryItem>,
+    history: List<HistoryItem>,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     Column(
@@ -83,7 +82,7 @@ private fun EventHistoryEmptyContent(
 @Composable
 private fun EventHistoryGridContent(
     modifier: Modifier = Modifier,
-    history: ImmutableList<HistoryItem>,
+    history: List<HistoryItem>,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     LazyVerticalGrid(
@@ -136,32 +135,14 @@ private fun EventHistoryItemContainer(
 
 @Preview(showBackground = true)
 @Composable
-private fun EventHistoryGridPreview() {
-    EventHistoryGridContent(
-        history = ImmutableList(
-            listOf(
-                HistoryItem(
-                    title = "가빵집 MT",
-                    date = "2024.11.03",
-                ),
-                HistoryItem(
-                    title = "가빵집 MT",
-                    date = "2024.11.03",
-                ),
-                HistoryItem(
-                    title = "가빵집 MT",
-                    date = "2024.11.03",
-                ),
-                HistoryItem(
-                    title = "가빵집 MT",
-                    date = "2024.11.03",
-                ),
-                HistoryItem(
-                    title = "가빵집 MT",
-                    date = "2024.11.03",
-                ),
-            ),
-        ),
+private fun EventHistoryContainerPreview(
+    @PreviewParameter(EventHistoryProvider::class) history: List<HistoryItem>,
+) {
+    EventHistoryContainer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        history = history,
         onClickHistoryItem = {},
     )
 }
@@ -181,9 +162,7 @@ private fun EventHistoryItemPreview() {
 @Composable
 @Preview(showBackground = true)
 private fun EmptyHistoryPreview() {
-    SharedAlbumTheme {
-        EventHistoryEmptyContent(
-            modifier = Modifier.fillMaxWidth(),
-        )
-    }
+    EventHistoryEmptyContent(
+        modifier = Modifier.fillMaxWidth(),
+    )
 }
