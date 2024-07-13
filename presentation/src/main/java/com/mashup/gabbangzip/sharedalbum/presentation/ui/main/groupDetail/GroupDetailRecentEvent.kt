@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,6 +19,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
@@ -73,9 +77,13 @@ private fun CompletedEventContainer(
     modifier: Modifier = Modifier,
     onClickShareButton: () -> Unit,
 ) {
-    Box(modifier = modifier) {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottie_confetti))
+
+    Box(
+        modifier = modifier,
+    ) {
         Column(
-            modifier = modifier,
+            modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -99,6 +107,10 @@ private fun CompletedEventContainer(
                 onButtonClicked = { onClickShareButton() },
             )
         }
+        LottieAnimation(
+            alignment = Alignment.TopCenter,
+            composition = composition,
+        )
     }
 }
 
