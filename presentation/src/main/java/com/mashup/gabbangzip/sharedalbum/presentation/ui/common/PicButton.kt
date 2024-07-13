@@ -118,7 +118,7 @@ fun PicNormalButton(
             )
             .padding(
                 vertical = 16.dp,
-                horizontal = if (iconRes == null) 26.dp else 30.dp,
+                horizontal = if (text.isNotBlank()) 26.dp else 14.dp,
             ),
         contentAlignment = Alignment.Center,
     ) {
@@ -134,11 +134,13 @@ fun PicNormalButton(
                     colorFilter = ColorFilter.tint(contentColor),
                 )
             }
-            Text(
-                text = text,
-                style = PicTypography.bodyMedium16,
-                color = contentColor,
-            )
+            if (text.isNotBlank()) {
+                Text(
+                    text = text,
+                    style = PicTypography.bodyMedium16,
+                    color = contentColor,
+                )
+            }
         }
     }
 }
@@ -193,6 +195,10 @@ fun PicButtonPreview() {
             PicNormalButton(
                 text = "링크 복사",
                 iconRes = R.drawable.ic_kakao,
+            )
+            PicNormalButton(
+                text = "",
+                iconRes = R.drawable.ic_share,
             )
         }
     }
