@@ -97,7 +97,7 @@ fun PicDialogButton(
 @Composable
 fun PicNormalButton(
     modifier: Modifier = Modifier,
-    text: String,
+    text: String = "",
     enable: Boolean = true,
     isRippleClickable: Boolean = false,
     backgroundColor: Color = Gray80,

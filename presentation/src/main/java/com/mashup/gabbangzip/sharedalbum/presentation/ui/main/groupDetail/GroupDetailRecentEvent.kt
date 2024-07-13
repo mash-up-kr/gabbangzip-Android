@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -33,12 +34,49 @@ fun RecentEventContainer(
     modifier: Modifier = Modifier,
     event: GroupEvent,
     onClickActionButton: (GroupStatusType) -> Unit,
+    onClickShareButton: () -> Unit,
 ) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        if (event.status == GroupStatusType.EVENT_COMPLETED) {
+    if (event.status == GroupStatusType.EVENT_COMPLETED) {
+        CompletedEventContainer(
+            modifier = modifier,
+            onClickShareButton = onClickShareButton,
+        )
+    } else {
+        Column(
+            modifier = modifier,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            RecentEventSummary(event = event)
+            // TODO: 사진 프레임으로 교체 필요
+            Box(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .size(240.dp)
+                    .background(color = Gray60),
+            )
+            event.status.getActionButtonState()?.let { buttonState ->
+                RecentEventBottomSection(
+                    modifier = Modifier.padding(top = 32.dp),
+                    buttonState = buttonState,
+                    onClickActionButton = {
+                        onClickActionButton(event.status)
+                    },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun CompletedEventContainer(
+    modifier: Modifier = Modifier,
+    onClickShareButton: () -> Unit,
+) {
+    Box(modifier = modifier) {
+        Column(
+            modifier = modifier,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
             Text(
                 text = "네컷 사진이 만들어졌어요!",
                 fontFamily = pretendard,
@@ -47,26 +85,17 @@ fun RecentEventContainer(
                 lineHeight = 28.sp,
                 letterSpacing = (-0.02).em,
             )
-        } else {
-            RecentEventSummary(
-                modifier = modifier,
-                event = event,
+            // TODO: 사진 프레임으로 교체 필요
+            Box(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .size(240.dp)
+                    .background(color = Gray60),
             )
-        }
-        // TODO: 사진 프레임으로 교체 필요
-        Box(
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .size(240.dp)
-                .background(color = Gray60),
-        )
-        event.status.getActionButtonState()?.let { buttonState ->
-            RecentEventBottomSection(
+            PicNormalButton(
                 modifier = Modifier.padding(top = 32.dp),
-                buttonState = buttonState,
-                onClickActionButton = {
-                    onClickActionButton(event.status)
-                },
+                iconRes = R.drawable.ic_share,
+                onButtonClicked = { onClickShareButton() },
             )
         }
     }
@@ -142,6 +171,7 @@ private fun RecentEventPreview(
                 deadline = "6월 14일 월요일 PIC 종료",
             ),
             onClickActionButton = {},
+            onClickShareButton = {},
         )
     }
 }
