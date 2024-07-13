@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -33,8 +33,8 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTop
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.GroupDetailUiState
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.HistoryItem
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupDetailUiState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 
 @Composable

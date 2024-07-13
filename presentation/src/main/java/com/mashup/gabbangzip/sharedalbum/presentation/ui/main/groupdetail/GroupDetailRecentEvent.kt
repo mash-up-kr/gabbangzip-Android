@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -30,9 +30,9 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.pretendard
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.GroupEvent
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.GroupEventActionButtonState
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.getActionButtonState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEventActionButtonState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.getActionButtonState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 
 @Composable

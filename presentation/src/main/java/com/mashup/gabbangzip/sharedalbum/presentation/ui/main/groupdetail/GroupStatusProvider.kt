@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType

@@ -1,7 +1,7 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.HistoryItem
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
 
 class EventHistoryProvider : PreviewParameterProvider<List<HistoryItem>> {
     override val values: Sequence<List<HistoryItem>>

@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model
 
 import androidx.annotation.DrawableRes
 import com.mashup.gabbangzip.sharedalbum.presentation.R

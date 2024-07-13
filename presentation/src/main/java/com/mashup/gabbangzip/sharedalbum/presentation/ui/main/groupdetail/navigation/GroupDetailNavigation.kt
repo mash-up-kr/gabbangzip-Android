@@ -1,11 +1,11 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.navigation
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.GroupDetailScreen
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.GroupDetailScreen
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 
 private const val KEY_GROUP_ID = "groupId"
