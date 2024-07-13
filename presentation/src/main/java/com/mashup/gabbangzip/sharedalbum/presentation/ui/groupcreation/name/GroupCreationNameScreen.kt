@@ -32,11 +32,12 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.hideKeyboardOnOutsid
 
 @Composable
 fun GroupCreationNameScreen(
+    initialName: String,
     onBackButtonClicked: () -> Unit,
-    onNextButtonClicked: () -> Unit,
+    onNextButtonClicked: (name: String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
-    var name by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf(initialName) }
     val buttonEnabled by remember { derivedStateOf { name.isNotBlank() } }
 
     Column(
@@ -88,7 +89,7 @@ fun GroupCreationNameScreen(
             enable = buttonEnabled,
             onButtonClicked = {
                 focusManager.clearFocus()
-                onNextButtonClicked()
+                onNextButtonClicked(name)
             },
         )
     }
@@ -104,6 +105,7 @@ fun GroupCreationNameScreenPreview() {
                 .background(Gray0),
         ) {
             GroupCreationNameScreen(
+                initialName = "",
                 onBackButtonClicked = {},
                 onNextButtonClicked = {},
             )

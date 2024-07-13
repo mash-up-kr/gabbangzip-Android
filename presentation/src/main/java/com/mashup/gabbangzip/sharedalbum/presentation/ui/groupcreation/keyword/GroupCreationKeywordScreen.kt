@@ -31,10 +31,11 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 
 @Composable
 fun GroupCreationKeywordScreen(
+    initialKeyword: GroupKeyword,
     onBackButtonClicked: () -> Unit,
-    onNextButtonClicked: () -> Unit,
+    onNextButtonClicked: (keyword: GroupKeyword) -> Unit,
 ) {
-    val (selectedKeyword, setSelected) = remember { mutableStateOf(GroupKeyword.SCHOOL) }
+    val (selectedKeyword, setSelected) = remember { mutableStateOf(initialKeyword) }
 
     Column {
         PicBackButtonTopBar(
@@ -83,7 +84,7 @@ fun GroupCreationKeywordScreen(
             text = stringResource(id = R.string.group_creation_button_next),
             isRippleClickable = true,
             enable = true,
-            onButtonClicked = onNextButtonClicked,
+            onButtonClicked = { onNextButtonClicked(selectedKeyword) },
         )
     }
 }
@@ -98,6 +99,7 @@ fun GroupCreationKeywordScreenPreview() {
                 .background(Gray0),
         ) {
             GroupCreationKeywordScreen(
+                initialKeyword = GroupKeyword.SCHOOL,
                 onBackButtonClicked = {},
                 onNextButtonClicked = {},
             )

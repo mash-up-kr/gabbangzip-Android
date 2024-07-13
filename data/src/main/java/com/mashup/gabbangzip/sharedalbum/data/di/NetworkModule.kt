@@ -100,7 +100,9 @@ internal class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideGroupService(retrofit: Retrofit): GroupService = retrofit.create()
+    fun provideGroupService(
+        @DefaultRetrofit retrofit: Retrofit,
+    ): GroupService = retrofit.create()
 
     companion object {
         private const val BASE_URL = "http://ec2-43-203-14-157.ap-northeast-2.compute.amazonaws.com"
