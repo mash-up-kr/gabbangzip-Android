@@ -92,7 +92,9 @@ private fun GroupDetailScreenContent(
                     .background(Gray40),
             )
             EventHistoryContainer(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 history = state.history,
             )
         }
