@@ -51,6 +51,7 @@ fun GroupDetailScreen(
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
     onClickActionButton: (GroupStatusType) -> Unit,
+    onClickShareButton: () -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     Column(
@@ -71,6 +72,7 @@ fun GroupDetailScreen(
         modifier = Modifier.fillMaxWidth(),
         state = state,
         onClickActionButton = onClickActionButton,
+        onClickShareButton = onClickShareButton,
         onClickHistoryItem = onClickHistoryItem,
     )
 }
@@ -80,6 +82,7 @@ private fun GroupDetailScreenContent(
     modifier: Modifier = Modifier,
     state: GroupDetailUiState,
     onClickActionButton: (GroupStatusType) -> Unit,
+    onClickShareButton: () -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     if (state.recentEvent != null) {
@@ -93,6 +96,7 @@ private fun GroupDetailScreenContent(
                 modifier = Modifier.fillMaxWidth(),
                 event = state.recentEvent,
                 onClickActionButton = onClickActionButton,
+                onClickShareButton = onClickShareButton,
             )
             // TODO: 바텀시트면 Spacer 필요없음
             Spacer(
