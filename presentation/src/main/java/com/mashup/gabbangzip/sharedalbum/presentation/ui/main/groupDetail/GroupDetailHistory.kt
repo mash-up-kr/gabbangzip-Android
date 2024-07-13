@@ -44,10 +44,12 @@ fun EventHistoryContainer(
             color = Gray80,
         )
         if (history.isEmpty()) {
-            EventHistoryEmptyContent(modifier = modifier)
+            EventHistoryEmptyContent(
+                modifier = modifier.fillMaxWidth(),
+            )
         } else {
             EventHistoryGridContent(
-                modifier = modifier,
+                modifier = modifier.fillMaxWidth(),
                 history = history,
                 onClickHistoryItem = onClickHistoryItem,
             )
