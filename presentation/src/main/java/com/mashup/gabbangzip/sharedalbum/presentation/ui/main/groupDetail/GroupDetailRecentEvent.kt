@@ -170,7 +170,6 @@ private fun RecentEventBottomSection(
     }
 }
 
-
 @Composable
 @Preview(showBackground = true)
 private fun RecentEventPreview(

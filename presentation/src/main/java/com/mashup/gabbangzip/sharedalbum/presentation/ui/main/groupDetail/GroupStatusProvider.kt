@@ -3,7 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 
-class GroupStatusProvider: PreviewParameterProvider<GroupStatusType> {
+class GroupStatusProvider : PreviewParameterProvider<GroupStatusType> {
     override val values: Sequence<GroupStatusType>
         get() = sequenceOf(
             GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
