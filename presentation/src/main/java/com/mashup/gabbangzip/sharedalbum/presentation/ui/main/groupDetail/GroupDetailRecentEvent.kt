@@ -32,6 +32,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 fun RecentEventContainer(
     modifier: Modifier = Modifier,
     event: GroupEvent,
+    onClickActionButton: (GroupStatusType) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -63,6 +64,9 @@ fun RecentEventContainer(
             RecentEventBottomSection(
                 modifier = Modifier.padding(top = 32.dp),
                 buttonState = buttonState,
+                onClickActionButton = {
+                    onClickActionButton(event.status)
+                },
             )
         }
     }
@@ -101,6 +105,7 @@ private fun RecentEventSummary(
 private fun RecentEventBottomSection(
     modifier: Modifier = Modifier,
     buttonState: GroupEventActionButtonState,
+    onClickActionButton: () -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -117,6 +122,7 @@ private fun RecentEventBottomSection(
         PicNormalButton(
             text = buttonState.text,
             iconRes = buttonState.iconResId,
+            onButtonClicked = onClickActionButton,
         )
     }
 }
@@ -135,6 +141,7 @@ private fun RecentEventPreview(
                 status = status,
                 deadline = "6월 14일 월요일 PIC 종료",
             ),
+            onClickActionButton = {},
         )
     }
 }

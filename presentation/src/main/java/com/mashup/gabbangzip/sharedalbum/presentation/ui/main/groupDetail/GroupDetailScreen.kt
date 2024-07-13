@@ -34,6 +34,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAl
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.GroupDetailUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.model.HistoryItem
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 
 @Composable
 fun GroupDetailScreen(
@@ -49,6 +50,7 @@ fun GroupDetailScreen(
     state: GroupDetailUiState,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
+    onClickActionButton: (GroupStatusType) -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     Column(
@@ -68,6 +70,7 @@ fun GroupDetailScreen(
     GroupDetailScreenContent(
         modifier = Modifier.fillMaxWidth(),
         state = state,
+        onClickActionButton = onClickActionButton,
         onClickHistoryItem = onClickHistoryItem,
     )
 }
@@ -76,6 +79,7 @@ fun GroupDetailScreen(
 private fun GroupDetailScreenContent(
     modifier: Modifier = Modifier,
     state: GroupDetailUiState,
+    onClickActionButton: (GroupStatusType) -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     if (state.recentEvent != null) {
@@ -88,6 +92,7 @@ private fun GroupDetailScreenContent(
             RecentEventContainer(
                 modifier = Modifier.fillMaxWidth(),
                 event = state.recentEvent,
+                onClickActionButton = onClickActionButton,
             )
             // TODO: 바텀시트면 Spacer 필요없음
             Spacer(
