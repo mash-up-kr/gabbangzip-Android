@@ -101,7 +101,7 @@ fun GroupCreationCompleteScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun GroupCreationCompleteScreenPreview() {
+private fun GroupCreationCompleteScreenPreview() {
     GroupCreationCompleteScreen(
         onNextButtonClicked = { },
         onCopyLinkButton = { },
