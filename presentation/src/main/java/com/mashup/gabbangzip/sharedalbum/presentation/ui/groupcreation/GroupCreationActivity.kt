@@ -65,7 +65,7 @@ class GroupCreationActivity : ComponentActivity() {
                         updateName = viewModel::updateName,
                         updateKeyword = viewModel::updateKeyword,
                         onNextButtonClicked = { finish() },
-                        showToastMessage = { message -> viewModel.updateToastMessage(message) }
+                        showSnackbarMessage = { message -> viewModel.showSnackbarMessage(message) }
                     )
                 }
             }

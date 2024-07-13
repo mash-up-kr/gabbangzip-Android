@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.CreateGroupUseCase
-import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
@@ -49,7 +48,7 @@ class GroupCreationViewModel @Inject constructor(
         }
     }
 
-    fun updateToastMessage(toastMessage: String) {
+    fun showSnackbarMessage(toastMessage: String) {
         viewModelScope.launch {
             _effect.emit(Event.ShowToast(message = toastMessage))
         }

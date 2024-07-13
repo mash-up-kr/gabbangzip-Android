@@ -12,12 +12,12 @@ fun NavController.navigateToGroupCreationComplete() {
 
 fun NavGraphBuilder.groupCreationCompleteNavGraph(
     onNextButtonClicked: () -> Unit,
-    showToastMessage: (message: String) -> Unit,
+    showSnackbarMessage: (message: String) -> Unit,
 ) {
     composable(route = GroupCreationRoute.CompleteScreenRoute.route) {
         GroupCreationCompleteScreen(
             onNextButtonClicked = onNextButtonClicked,
-            showToastMessage = showToastMessage
+            showSnackbarMessage = showSnackbarMessage
         )
     }
 }

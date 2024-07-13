@@ -32,7 +32,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextOnlyTopBa
 @Composable
 fun GroupCreationCompleteScreen(
     onNextButtonClicked: () -> Unit,
-    showToastMessage: (message: String) -> Unit,
+    showSnackbarMessage: (message: String) -> Unit,
 ) {
     val clipboardManager = LocalClipboardManager.current
     val copyLinkMessage = stringResource(id = R.string.button_copy_link_message)
@@ -90,7 +90,7 @@ fun GroupCreationCompleteScreen(
                 contentColor = Gray80,
                 iconRes = R.drawable.ic_link,
                 onButtonClicked = {
-                    showToastMessage(copyLinkMessage)
+                    showSnackbarMessage(copyLinkMessage)
                     clipboardManager.setText(AnnotatedString("임시 텍스트")) // Todo : API 연결 하면서 업데이트 예정
                 },
             )
@@ -111,6 +111,6 @@ fun GroupCreationCompleteScreen(
 private fun GroupCreationCompleteScreenPreview() {
     GroupCreationCompleteScreen(
         onNextButtonClicked = { },
-        showToastMessage = { }
+        showSnackbarMessage = { }
     )
 }
