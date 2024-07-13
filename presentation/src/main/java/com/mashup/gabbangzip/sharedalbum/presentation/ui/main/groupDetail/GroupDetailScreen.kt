@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -133,7 +134,7 @@ private fun GroupDetailEmptyContent(
     ) {
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = "이벤트를 생성하고\n함께한 순간을 공유해요!",
+            text = stringResource(id = R.string.group_detail_empty_title),
             style = PicTypography.headBold20,
             textAlign = TextAlign.Center,
         )
@@ -145,7 +146,7 @@ private fun GroupDetailEmptyContent(
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = "공유한 사진을 함께 PIC하면 네컷사진을 만들 수 있어요.",
+            text = stringResource(id = R.string.group_detail_empty_subtitle),
             style = PicTypography.textNormal14,
             color = Gray60,
         )
@@ -154,7 +155,7 @@ private fun GroupDetailEmptyContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 30.dp),
-            text = "다음",
+            text = stringResource(id = R.string.group_creation_button_next),
             isRippleClickable = true,
         )
     }

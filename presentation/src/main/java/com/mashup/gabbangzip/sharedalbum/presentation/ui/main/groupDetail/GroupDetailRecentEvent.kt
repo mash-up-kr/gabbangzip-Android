@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -87,7 +88,7 @@ private fun CompletedEventContainer(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "네컷 사진이 만들어졌어요!",
+                text = stringResource(id = R.string.group_detail_event_complete),
                 fontFamily = pretendard,
                 fontWeight = FontWeight.Normal,
                 fontSize = 20.sp,

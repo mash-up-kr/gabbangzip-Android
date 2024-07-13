@@ -70,4 +70,11 @@
     <string name="group_add">이미지 추가</string>
     <string name="group_modify">이미지 수정</string>
     <string name="thumbnail_image">썸네일 이미지</string>
+
+    <string name="group_detail_empty_title">이벤트를 생성하고\n함께한 순간을 공유해요!</string>
+    <string name="group_detail_empty_subtitle">공유한 사진을 함께 PIC하면 네컷사진을 만들 수 있어요.</string>
+    <string name="group_detail_event_complete">네컷 사진이 만들어졌어요!</string>
+    <string name="group_detail_history_title">우리들의 인생네컷</string>
+    <string name="group_detail_empty_history_image_description">역대 이벤트 기본 이미지</string>
+    <string name="group_detail_empty_history_label">그룹 이벤트를 만들고\n우리끼리 PIC으로 인생 네컷을 모아보세요</string>
 </resources>
