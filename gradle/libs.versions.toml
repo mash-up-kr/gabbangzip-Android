@@ -36,6 +36,7 @@ room = "2.6.1"
 ktlint = "11.6.1"
 kakaoLogin = "2.20.1"
 securityCrypto = "1.0.0"
+material3Android = "1.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -80,6 +81,7 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 
 kakao-login = { module = "com.kakao.sdk:v2-user", version.ref = "kakaoLogin" }
 androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeKtx" }
+androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
