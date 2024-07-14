@@ -70,14 +70,14 @@ fun GroupDetailScreen(
             rightIcon1Clicked = { /* TODO */ },
             rightIcon2Clicked = onClickGroupMemberButton,
         )
+        GroupDetailScreenContent(
+            modifier = Modifier.fillMaxWidth(),
+            state = state,
+            onClickActionButton = onClickActionButton,
+            onClickShareButton = onClickShareButton,
+            onClickHistoryItem = onClickHistoryItem,
+        )
     }
-    GroupDetailScreenContent(
-        modifier = Modifier.fillMaxWidth(),
-        state = state,
-        onClickActionButton = onClickActionButton,
-        onClickShareButton = onClickShareButton,
-        onClickHistoryItem = onClickHistoryItem,
-    )
 }
 
 @Composable
