@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -42,6 +43,7 @@ fun GroupDetailScreen(
     groupId: Long,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
+    viewModel: GroupDetailViewModel = hiltViewModel(),
 ) {
     // TODO: viewModel state 연결
 }
@@ -60,7 +62,7 @@ fun GroupDetailScreen(
     ) {
         PicBackButtonTopBar(
             modifier = Modifier.fillMaxWidth(),
-            titleText = state.groupInfo.name,
+            titleText = state.groupInfo?.name.orEmpty(),
             titleAlign = PicTopBarTitleAlign.LEFT,
             backButtonClicked = onClickBackButton,
             rightIcon1 = PicTopBarIcon.PLUS,
