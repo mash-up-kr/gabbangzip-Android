@@ -7,8 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.GroupDetailScreen
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
-
-private const val KEY_GROUP_ID = "groupId"
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute.GroupDetailRoute.KEY_GROUP_ID
 
 fun NavController.navigateGroupDetail(groupId: Long) {
     navigate("${MainRoute.GroupDetailRoute.route}/$groupId")
