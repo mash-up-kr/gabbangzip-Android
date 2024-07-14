@@ -51,10 +51,11 @@ fun EventHistoryContainer(
             EventHistoryGridContent(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 16.dp, bottom = 40.dp),
+                    .padding(top = 16.dp),
                 history = history,
                 onClickHistoryItem = onClickHistoryItem,
             )
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }
