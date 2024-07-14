@@ -1,16 +1,15 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -18,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
@@ -26,7 +26,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
@@ -35,7 +35,10 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupDetailUiState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 
 @Composable
@@ -80,6 +83,7 @@ fun GroupDetailScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun GroupDetailScreenContent(
     modifier: Modifier = Modifier,
@@ -89,30 +93,32 @@ private fun GroupDetailScreenContent(
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     if (state.recentEvent != null) {
-        val scrollState = rememberScrollState()
+        val scaffoldState = rememberBottomSheetScaffoldState()
 
-        Column(
-            modifier = modifier
-                .verticalScroll(scrollState),
+        BottomSheetScaffold(
+            modifier = modifier,
+            scaffoldState = scaffoldState,
+            sheetShadowElevation = 10.dp,
+            sheetPeekHeight = 250.dp,
+            sheetContainerColor = Gray0,
+            sheetContentColor = Gray0,
+            sheetContent = {
+                EventHistoryContainer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    history = state.history,
+                    onClickHistoryItem = onClickHistoryItem,
+                )
+            },
         ) {
             RecentEventContainer(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp),
                 event = state.recentEvent,
                 onClickActionButton = onClickActionButton,
                 onClickShareButton = onClickShareButton,
-            )
-            // TODO: 바텀시트면 Spacer 필요없음
-            Spacer(
-                modifier = Modifier
-                    .height(10.dp)
-                    .background(Gray40),
-            )
-            EventHistoryContainer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                history = state.history,
-                onClickHistoryItem = onClickHistoryItem,
             )
         }
     } else if (state.history.isEmpty()) {
@@ -169,6 +175,41 @@ private fun EmptyScreenPreview() {
     SharedAlbumTheme {
         GroupDetailEmptyContent(
             modifier = Modifier.fillMaxSize(),
+        )
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+private fun GroupDetailScreenPreview(
+    @PreviewParameter(EventHistoryProvider::class) history: List<HistoryItem>,
+) {
+    SharedAlbumTheme {
+        GroupDetailScreen(
+            state = GroupDetailUiState(
+                groupInfo = GroupInfo(
+                    id = 0,
+                    cardBackImages = emptyList(),
+                    cardFrontImageUrl = "",
+                    keyword = GroupKeyword.SCHOOL,
+                    name = "가빵집가빵집",
+                    recentEventDate = "2024.11.01",
+                    status = GroupStatusType.AFTER_MY_VOTE,
+                    statusDescription = "몰라몰라",
+                ),
+                recentEvent = GroupEvent(
+                    title = "가빵집 MT",
+                    date = "2024.11.01",
+                    status = GroupStatusType.AFTER_MY_VOTE,
+                    deadline = "2024.11.01",
+                ),
+                history = history,
+            ),
+            onClickActionButton = {},
+            onClickShareButton = {},
+            onClickBackButton = {},
+            onClickHistoryItem = {},
+            onClickGroupMemberButton = {},
         )
     }
 }
