@@ -22,6 +22,10 @@ class EventHistoryProvider : PreviewParameterProvider<List<HistoryItem>> {
                 HistoryItem(title = "가빵집 MT4", date = "2024.11.03"),
                 HistoryItem(title = "가빵집 MT5", date = "2024.11.03"),
                 HistoryItem(title = "가빵집 MT6", date = "2024.11.03"),
+                HistoryItem(title = "가빵집 MT7", date = "2024.11.03"),
+                HistoryItem(title = "가빵집 MT8", date = "2024.11.03"),
+                HistoryItem(title = "가빵집 MT9", date = "2024.11.03"),
+                HistoryItem(title = "가빵집 MT0", date = "2024.11.03"),
             ),
         )
 }

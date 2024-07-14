@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -55,7 +56,6 @@ fun EventHistoryContainer(
                 history = history,
                 onClickHistoryItem = onClickHistoryItem,
             )
-            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }
@@ -91,6 +91,7 @@ private fun EventHistoryGridContent(
 ) {
     LazyVerticalGrid(
         modifier = modifier,
+        contentPadding = PaddingValues(bottom = 40.dp),
         columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(9.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
