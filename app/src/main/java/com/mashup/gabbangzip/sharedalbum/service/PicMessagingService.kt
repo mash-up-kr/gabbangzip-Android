@@ -40,7 +40,7 @@ class PicMessagingService : FirebaseMessagingService() {
             )
 
             val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-            val notificationBuilder = NotificationCompat.Builder(this, CHANEL_ID)
+            val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(body)
@@ -52,7 +52,7 @@ class PicMessagingService : FirebaseMessagingService() {
             val notificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val channel = NotificationChannel(
-                CHANEL_ID,
+                CHANNEL_ID,
                 CHANEL_NAME,
                 NotificationManager.IMPORTANCE_HIGH,
             )
@@ -71,7 +71,7 @@ class PicMessagingService : FirebaseMessagingService() {
     }
 
     companion object {
-        private const val CHANEL_ID = "PIC"
+        private const val CHANNEL_ID = "PIC"
         private const val CHANEL_NAME = "PIC 알람"
     }
 }
