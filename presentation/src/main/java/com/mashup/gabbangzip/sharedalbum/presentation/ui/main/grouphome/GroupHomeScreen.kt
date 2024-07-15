@@ -43,6 +43,7 @@ fun GroupHomeScreen(
         modifier = Modifier.fillMaxSize(),
     ) {
         PicTopBar(
+            modifier = Modifier.padding(top = 56.dp),
             rightIcon1 = PicTopBarIcon.PLUS,
             rightIcon2 = PicTopBarIcon.USER,
             rightIcon1Clicked = { /* TODO: plus버튼. 그룹 만들기 */ },
@@ -66,7 +67,7 @@ fun GroupHomeScreen(
                 if (state.groupList.size != index + 1) {
                     Spacer(
                         modifier = Modifier
-                            .padding(top = 40.dp, bottom = 24.dp)
+                            .padding(top = 46.dp, bottom = 24.dp)
                             .height(8.dp)
                             .fillMaxWidth()
                             .background(color = Gray20),
