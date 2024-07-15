@@ -38,11 +38,11 @@ enum class PicPhotoFrame(
     ;
 
     companion object {
-        fun getType(frameType: String): PicPhotoFrame {
-            return entries.associateBy { it.name }[frameType] ?: PLUS
+        fun getTypeByName(frameName: String): PicPhotoFrame {
+            return entries.associateBy { it.name }[frameName] ?: PLUS
         }
 
-        fun getFrontType(keyword: String): PicPhotoFrame {
+        fun getTypeByKeyword(keyword: String): PicPhotoFrame {
             return entries.associateBy { it.keyword }[keyword] ?: PLUS
         }
     }
