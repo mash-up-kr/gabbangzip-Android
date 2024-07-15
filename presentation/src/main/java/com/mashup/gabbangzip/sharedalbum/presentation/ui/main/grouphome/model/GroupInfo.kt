@@ -22,7 +22,7 @@ fun GroupDomainModel.toUiModel(): GroupInfo {
         cardBackImages = cardBackImages.toUiModel(),
         cardFrontImageUrl = cardFrontImageUrl,
         keyword = GroupKeyword.getKeyword(keyword),
-        frontImageFrame = PicPhotoFrame.getFrontType(keyword),
+        frontImageFrame = PicPhotoFrame.getTypeByKeyword(keyword),
         name = name,
         recentEventDate = recentEventDate,
         status = GroupStatusType.getType(status),

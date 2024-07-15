@@ -10,7 +10,7 @@ data class CardBackImage(
 
 fun CardBackImageDomainModel.toUiModel(): CardBackImage {
     return CardBackImage(
-        frameType = PicPhotoFrame.getType(frameType),
+        frameType = PicPhotoFrame.getTypeByName(frameType),
         imageUrl = imageUrl,
     )
 }
