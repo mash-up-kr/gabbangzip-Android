@@ -33,7 +33,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackba
 @Composable
 fun GroupCreationCompleteScreen(
     onNextButtonClicked: () -> Unit,
-    showSnackbarMessage: (type: PicSnackbarType, message: String) -> Unit,
+    showSnackBarMessage: (message: String) -> Unit,
 ) {
     val clipboardManager = LocalClipboardManager.current
     val copyLinkMessage = stringResource(id = R.string.button_copy_link_message)
@@ -91,7 +91,7 @@ fun GroupCreationCompleteScreen(
                 contentColor = Gray80,
                 iconRes = R.drawable.ic_link,
                 onButtonClicked = {
-                    showSnackbarMessage(PicSnackbarType.CHECK, copyLinkMessage)
+                    showSnackBarMessage(copyLinkMessage)
                     clipboardManager.setText(AnnotatedString("임시 텍스트")) // Todo : API 연결 하면서 업데이트 예정
                 },
             )
@@ -112,6 +112,6 @@ fun GroupCreationCompleteScreen(
 private fun GroupCreationCompleteScreenPreview() {
     GroupCreationCompleteScreen(
         onNextButtonClicked = { },
-        showSnackbarMessage = { _, _ -> },
+        showSnackBarMessage = { },
     )
 }

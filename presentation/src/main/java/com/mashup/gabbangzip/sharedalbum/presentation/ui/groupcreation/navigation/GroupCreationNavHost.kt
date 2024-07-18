@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.navigation.groupCreationCompleteNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.navigation.navigateToGroupCreationComplete
@@ -28,8 +27,9 @@ fun GroupCreationNavHost(
     onGetThumbnailButtonClicked: () -> Unit,
     updateName: (name: String) -> Unit,
     updateKeyword: (keyword: GroupKeyword) -> Unit,
+    createGroup: () -> Unit,
     finishGroupCreation: () -> Unit,
-    showSnackbarMessage: (type: PicSnackbarType, message: String) -> Unit,
+    showSnackBarMessage: (message: String) -> Unit,
 ) {
     NavHost(
         modifier = modifier,
@@ -65,7 +65,7 @@ fun GroupCreationNavHost(
         )
         groupCreationCompleteNavGraph(
             onNextButtonClicked = finishGroupCreation,
-            showSnackbarMessage = showSnackbarMessage,
+            showSnackBarMessage = showSnackBarMessage,
         )
     }
 }

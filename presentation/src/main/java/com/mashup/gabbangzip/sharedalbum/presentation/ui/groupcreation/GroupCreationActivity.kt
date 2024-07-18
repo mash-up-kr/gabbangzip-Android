@@ -13,22 +13,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GroupCreationActivity : ComponentActivity() {
@@ -64,16 +64,31 @@ class GroupCreationActivity : ComponentActivity() {
                         onGetThumbnailButtonClicked = photoPicker::open,
                         updateName = viewModel::updateName,
                         updateKeyword = viewModel::updateKeyword,
+                        createGroup = { viewModel.createGroup(this) },
                         finishGroupCreation = { finish() },
-                        showSnackbarMessage = { type, message ->
-                            lifecycleScope.launch {
-                                snackbarHostState.showPicSnackbar(
-                                    type = type,
-                                    message = message,
-                                )
-                            }
+                        showSnackBarMessage = { message ->
+                            viewModel.showSnackBar(message)
                         },
                     )
+                }
+            }
+
+            LaunchedEffect(true) {
+                viewModel.effect.collect {
+                    when (it) {
+                        is GroupCreationViewModel.Event.ShowCheckToast -> {
+                            snackbarHostState.showPicSnackbar(
+                                type = PicSnackbarType.CHECK,
+                                message = it.message,
+                            )
+                        }
+                        is GroupCreationViewModel.Event.ShowWarningToast -> {
+                            snackbarHostState.showPicSnackbar(
+                                type = PicSnackbarType.WARNING,
+                                message = it.message,
+                            )
+                        }
+                    }
                 }
             }
         }
