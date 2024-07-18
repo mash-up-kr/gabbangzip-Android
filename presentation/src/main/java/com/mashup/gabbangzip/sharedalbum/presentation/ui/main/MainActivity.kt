@@ -58,5 +58,12 @@ class MainActivity : ComponentActivity() {
                 Intent(context, MainActivity::class.java),
             )
         }
+        fun openActivity(context: Activity, flags: Int) {
+            context.startActivity(
+                Intent(context, MainActivity::class.java).apply {
+                    addFlags(flags)
+                },
+            )
+        }
     }
 }

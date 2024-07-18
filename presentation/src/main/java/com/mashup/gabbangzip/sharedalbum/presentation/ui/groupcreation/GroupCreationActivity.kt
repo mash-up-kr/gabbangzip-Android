@@ -27,6 +27,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackba
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -65,7 +66,13 @@ class GroupCreationActivity : ComponentActivity() {
                         updateName = viewModel::updateName,
                         updateKeyword = viewModel::updateKeyword,
                         createGroup = { viewModel.createGroup(this) },
-                        finishGroupCreation = { finish() },
+                        finishGroupCreation = {
+                            MainActivity.openActivity(
+                                context = this,
+                                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP,
+                            )
+                            finish()
+                        },
                         showSnackBarMessage = { message ->
                             viewModel.showSnackBar(message)
                         },
@@ -82,6 +89,7 @@ class GroupCreationActivity : ComponentActivity() {
                                 message = it.message,
                             )
                         }
+
                         is GroupCreationViewModel.Event.ShowWarningToast -> {
                             snackbarHostState.showPicSnackbar(
                                 type = PicSnackbarType.WARNING,
