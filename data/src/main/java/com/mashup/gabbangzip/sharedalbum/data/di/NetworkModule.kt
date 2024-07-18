@@ -7,6 +7,8 @@ import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.DefaultClient
 import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.DefaultRetrofit
 import com.mashup.gabbangzip.sharedalbum.data.interceptor.AuthInterceptor
 import com.mashup.gabbangzip.sharedalbum.data.interceptor.TokenAuthenticator
+import com.mashup.gabbangzip.sharedalbum.data.service.AwsService
+import com.mashup.gabbangzip.sharedalbum.data.service.FileService
 import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.data.service.LoginService
 import com.mashup.gabbangzip.sharedalbum.data.service.UserService
@@ -103,6 +105,18 @@ internal class NetworkModule {
     fun provideGroupService(
         @DefaultRetrofit retrofit: Retrofit,
     ): GroupService = retrofit.create()
+
+    @Singleton
+    @Provides
+    fun provideFileService(
+        @DefaultRetrofit retrofit: Retrofit,
+    ): FileService = retrofit.create()
+
+    @Singleton
+    @Provides
+    fun provideAwsService(
+        @AuthRetrofit retrofit: Retrofit,
+    ): AwsService = retrofit.create()
 
     companion object {
         private const val BASE_URL = "http://ec2-43-203-14-157.ap-northeast-2.compute.amazonaws.com"

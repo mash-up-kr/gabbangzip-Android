@@ -2,13 +2,37 @@ package com.mashup.gabbangzip.sharedalbum.domain.usecase
 
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupParam
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupInfoDomainModel
+import com.mashup.gabbangzip.sharedalbum.domain.repository.FileRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.GroupRepository
+import java.io.File
 import javax.inject.Inject
 
 class CreateGroupUseCase @Inject constructor(
     private val groupRepository: GroupRepository,
+    private val fileRepository: FileRepository,
 ) {
-    suspend operator fun invoke(param: GroupParam): Result<GroupInfoDomainModel> {
-        return runCatching { groupRepository.createGroup(param) }
+    suspend operator fun invoke(
+        name: String,
+        keyword: String,
+        imageFile: File,
+    ): Result<GroupInfoDomainModel> {
+        return runCatching {
+            val fileUploadDomainModel = fileRepository.getUploadLink(imageFile.extension)
+            val response = fileRepository.uploadImage(
+                url = fileUploadDomainModel.uploadUrl,
+                imageFile = imageFile,
+            )
+            if (response.isSuccess) {
+                groupRepository.createGroup(
+                    GroupParam(
+                        name = name,
+                        keyword = keyword,
+                        imageUrl = fileUploadDomainModel.fileId,
+                    ),
+                )
+            } else {
+                throw Exception(response.errorMessage)
+            }
+        }
     }
 }

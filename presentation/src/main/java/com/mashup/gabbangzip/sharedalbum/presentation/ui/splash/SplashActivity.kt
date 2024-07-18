@@ -35,7 +35,7 @@ class SplashActivity : ComponentActivity() {
 
                 when (state.isUserLoggedIn) {
                     true -> {
-                        MainActivity.openActivity(this)
+                        LoginActivity.openActivity(this)
                         finish()
                     }
 
