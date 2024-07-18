@@ -28,7 +28,7 @@ fun GroupCreationNavHost(
     onGetThumbnailButtonClicked: () -> Unit,
     updateName: (name: String) -> Unit,
     updateKeyword: (keyword: GroupKeyword) -> Unit,
-    onNextButtonClicked: () -> Unit,
+    finishGroupCreation: () -> Unit,
     showSnackbarMessage: (type: PicSnackbarType, message: String) -> Unit,
 ) {
     NavHost(
@@ -64,7 +64,7 @@ fun GroupCreationNavHost(
             onGetThumbnailButtonClicked = onGetThumbnailButtonClicked,
         )
         groupCreationCompleteNavGraph(
-            onNextButtonClicked = onNextButtonClicked,
+            onNextButtonClicked = finishGroupCreation,
             showSnackbarMessage = showSnackbarMessage,
         )
     }
