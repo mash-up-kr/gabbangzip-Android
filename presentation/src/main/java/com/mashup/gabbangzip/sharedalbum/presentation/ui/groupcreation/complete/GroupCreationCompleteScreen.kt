@@ -29,9 +29,11 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicProgressBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextOnlyTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.model.GroupCreated
 
 @Composable
 fun GroupCreationCompleteScreen(
+    groupCreated: GroupCreated?,
     onNextButtonClicked: () -> Unit,
     showSnackBarMessage: (message: String) -> Unit,
 ) {
@@ -91,8 +93,10 @@ fun GroupCreationCompleteScreen(
                 contentColor = Gray80,
                 iconRes = R.drawable.ic_link,
                 onButtonClicked = {
-                    showSnackBarMessage(copyLinkMessage)
-                    clipboardManager.setText(AnnotatedString("임시 텍스트")) // Todo : API 연결 하면서 업데이트 예정
+                    groupCreated?.invitationUrl?.let { invitationUrl ->
+                        showSnackBarMessage(copyLinkMessage)
+                        clipboardManager.setText(AnnotatedString(invitationUrl))
+                    }
                 },
             )
         }
@@ -111,6 +115,7 @@ fun GroupCreationCompleteScreen(
 @Composable
 private fun GroupCreationCompleteScreenPreview() {
     GroupCreationCompleteScreen(
+        groupCreated = null,
         onNextButtonClicked = { },
         showSnackBarMessage = { },
     )

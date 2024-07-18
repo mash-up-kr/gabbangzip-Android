@@ -59,11 +59,14 @@ fun GroupCreationNavHost(
         )
         groupCreationThumbnailNavGraph(
             initialThumbnail = groupCreationState.thumbnail,
+            isGroupCreated = groupCreationState.groupCreated != null,
             onBackButtonClicked = { navController.popBackStack() },
-            onNextButtonClicked = { navController.navigateToGroupCreationComplete() },
+            onNextButtonClicked = createGroup,
             onGetThumbnailButtonClicked = onGetThumbnailButtonClicked,
+            navigateNextScreen = { navController.navigateToGroupCreationComplete() },
         )
         groupCreationCompleteNavGraph(
+            groupCreated = groupCreationState.groupCreated,
             onNextButtonClicked = finishGroupCreation,
             showSnackBarMessage = showSnackBarMessage,
         )
