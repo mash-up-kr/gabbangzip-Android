@@ -12,9 +12,9 @@ object FileUtil {
     fun getFileFromUri(context: Context, uri: Uri?): File? {
         if (uri == null) return null
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            getFileFromUriBelowSDK33(context, uri)
-        } else {
             getFileFromUriSDK33AndAbove(context, uri)
+        } else {
+            getFileFromUriBelowSDK33(context, uri)
         }
     }
 
