@@ -71,7 +71,7 @@ class LoginActivity : ComponentActivity() {
 
         fun openActivity(context: Activity) {
             context.startActivity(
-                Intent(context, GroupCreationActivity::class.java),
+                Intent(context, MainActivity::class.java),
             )
         }
     }
