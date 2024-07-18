@@ -70,7 +70,7 @@ class LoginActivity : ComponentActivity() {
 
         fun openActivity(context: Activity) {
             context.startActivity(
-                Intent(context, MainActivity::class.java),
+                Intent(context, LoginActivity::class.java),
             )
         }
     }
