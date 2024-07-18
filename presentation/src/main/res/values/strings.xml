@@ -65,9 +65,14 @@
     <string name="group_add_more_member">그룹원을 추가하고 싶으세요?</string>
     <string name="group_maximum_count">그룹 최대 인원은 6명이에요.</string>
     <string name="button_copy_link">링크 복사</string>
-    
+    <string name="button_copy_link_message">링크를 복사했어요.</string>
+
     <string name="group_add_description">그룹의 대표 사진을 추가해 주세요</string>
     <string name="group_add">이미지 추가</string>
     <string name="group_modify">이미지 수정</string>
     <string name="thumbnail_image">썸네일 이미지</string>
+
+    <string name="complete">완료</string>
+    <string name="group_complete_title">그룹에 친구들을 추가하고\n추억을 함께 PIC 해보세요</string>
+    <string name="group_complete_contents">그룹원은 최대 6명까지 초대 가능해요.</string>
 </resources>
