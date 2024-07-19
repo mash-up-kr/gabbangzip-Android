@@ -87,8 +87,8 @@ class GroupCreationViewModel @Inject constructor(
     }
 
     sealed interface Event {
-        class ShowWarningToast(val message: String) : Event
-        class ShowCheckToast(val message: String) : Event
+        data class ShowWarningToast(val message: String) : Event
+        data class ShowCheckToast(val message: String) : Event
     }
 
     companion object {
