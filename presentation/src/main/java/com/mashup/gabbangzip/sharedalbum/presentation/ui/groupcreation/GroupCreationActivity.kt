@@ -17,9 +17,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
@@ -28,6 +30,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -65,7 +68,20 @@ class GroupCreationActivity : ComponentActivity() {
                         onGetThumbnailButtonClicked = photoPicker::open,
                         updateName = viewModel::updateName,
                         updateKeyword = viewModel::updateKeyword,
-                        createGroup = { viewModel.createGroup(this) },
+                        createGroup = {
+                            FileUtil.getFileFromUri(this, groupCreationState.thumbnail)?.let { imageFile ->
+                                viewModel.createGroup(
+                                    name = groupCreationState.name,
+                                    keyword = groupCreationState.keyword.name,
+                                    file = imageFile,
+                                )
+                            } ?: run {
+                                viewModel.showSnackBar(
+                                    type = PicSnackbarType.WARNING,
+                                    message = R.string.image_retrieve_failed,
+                                )
+                            }
+                        },
                         finishGroupCreation = {
                             MainActivity.openActivity(
                                 context = this,
@@ -73,8 +89,8 @@ class GroupCreationActivity : ComponentActivity() {
                             )
                             finish()
                         },
-                        showSnackBarMessage = { message ->
-                            viewModel.showSnackBar(message)
+                        showSnackBarMessage = { type: PicSnackbarType, message: String ->
+                            viewModel.showSnackBar(type, message)
                         },
                     )
                 }
@@ -83,17 +99,16 @@ class GroupCreationActivity : ComponentActivity() {
             LaunchedEffect(true) {
                 viewModel.effect.collect {
                     when (it) {
-                        is GroupCreationViewModel.Event.ShowCheckToast -> {
+                        is GroupCreationViewModel.Event.ShowSnackBarMessage -> {
                             snackbarHostState.showPicSnackbar(
-                                type = PicSnackbarType.CHECK,
+                                type = it.type,
                                 message = it.message,
                             )
                         }
-
-                        is GroupCreationViewModel.Event.ShowWarningToast -> {
+                        is GroupCreationViewModel.Event.ShowSnackBarMessageRes -> {
                             snackbarHostState.showPicSnackbar(
-                                type = PicSnackbarType.WARNING,
-                                message = it.message,
+                                type = it.type,
+                                message = ContextCompat.getString(this@GroupCreationActivity, it.message),
                             )
                         }
                     }

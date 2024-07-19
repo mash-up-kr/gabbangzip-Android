@@ -1,14 +1,14 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation
 
-import android.content.Context
 import android.net.Uri
-import android.util.Log
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.CreateGroupUseCase
+import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.model.GroupCreated
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -52,43 +53,42 @@ class GroupCreationViewModel @Inject constructor(
         }
     }
 
-    fun createGroup(context: Context) {
+    fun createGroup(name: String, keyword: String, file: File) {
         viewModelScope.launch {
-            val currentState = uiState.value
-            FileUtil.getFileFromUri(context, currentState.thumbnail)?.let { file ->
-                createGroupUseCase(
-                    name = currentState.name,
-                    keyword = currentState.keyword.name,
-                    imageFile = file,
-                ).onSuccess {
-                    _uiState.emit(
-                        uiState.value.copy(
-                            groupCreated = GroupCreated(
-                                imageUrl = it.imageUrl,
-                                invitationUrl = it.invitationUrl,
-                            ),
+            createGroupUseCase(
+                name = name,
+                keyword = keyword,
+                imageFile = file,
+            ).onSuccess {
+                _uiState.emit(
+                    uiState.value.copy(
+                        groupCreated = GroupCreated(
+                            imageUrl = it.imageUrl,
+                            invitationUrl = it.invitationUrl,
                         ),
-                    )
-                }.onFailure {
-                    _effect.emit(Event.ShowWarningToast(message = "이미지 업로드 실패 ($it)"))
-                    Log.d(TAG, "이미지 업로드 실패 ($it)")
-                }
-            } ?: run {
-                _effect.emit(Event.ShowWarningToast(message = "이미지 파일 조회 실패"))
-                Log.d(TAG, "이미지 파일 조회 실패")
+                    ),
+                )
+            }.onFailure {
+                _effect.emit(Event.ShowSnackBarMessageRes(PicSnackbarType.WARNING, message = R.string.image_upload_failed))
             }
         }
     }
 
-    fun showSnackBar(message: String) {
+    fun showSnackBar(type: PicSnackbarType, message: String) {
         viewModelScope.launch {
-            _effect.emit(Event.ShowCheckToast(message = message))
+            _effect.emit(Event.ShowSnackBarMessage(type = type, message = message))
+        }
+    }
+
+    fun showSnackBar(type: PicSnackbarType, @StringRes message: Int) {
+        viewModelScope.launch {
+            _effect.emit(Event.ShowSnackBarMessageRes(type = type, message = message))
         }
     }
 
     sealed interface Event {
-        data class ShowWarningToast(val message: String) : Event
-        data class ShowCheckToast(val message: String) : Event
+        data class ShowSnackBarMessage(val type: PicSnackbarType, val message: String) : Event
+        data class ShowSnackBarMessageRes(val type: PicSnackbarType, @StringRes val message: Int) : Event
     }
 
     companion object {

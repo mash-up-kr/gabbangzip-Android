@@ -28,13 +28,14 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicProgressBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextOnlyTopBar
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.model.GroupCreated
 
 @Composable
 fun GroupCreationCompleteScreen(
     groupCreated: GroupCreated?,
     onNextButtonClicked: () -> Unit,
-    showSnackBarMessage: (message: String) -> Unit,
+    showSnackBarMessage: (type: PicSnackbarType, message: String) -> Unit,
 ) {
     val clipboardManager = LocalClipboardManager.current
     val copyLinkMessage = stringResource(id = R.string.button_copy_link_message)
@@ -93,7 +94,7 @@ fun GroupCreationCompleteScreen(
                 iconRes = R.drawable.ic_link,
                 onButtonClicked = {
                     groupCreated?.invitationUrl?.let { invitationUrl ->
-                        showSnackBarMessage(copyLinkMessage)
+                        showSnackBarMessage(PicSnackbarType.CHECK, copyLinkMessage)
                         clipboardManager.setText(AnnotatedString(invitationUrl))
                     }
                 },
@@ -116,6 +117,6 @@ private fun GroupCreationCompleteScreenPreview() {
     GroupCreationCompleteScreen(
         groupCreated = null,
         onNextButtonClicked = { },
-        showSnackBarMessage = { },
+        showSnackBarMessage = { _, _ -> },
     )
 }
