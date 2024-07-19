@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface FileService {
     @GET("api/v1/files/upload")
-    suspend fun getFileUpload(
+    suspend fun getFileUploadUrl(
         @Query("extension") extension: String,
     ): PicResponse<FileUploadResponse>
 }

@@ -18,7 +18,7 @@ class FileRepositoryImpl @Inject constructor(
 ) : FileRepository {
     override suspend fun getUploadLink(extension: String): FileUploadDomainModel {
         val response = callApi {
-            fileService.getFileUpload(extension = extension)
+            fileService.getFileUploadUrl(extension = extension)
         }
         return FileUploadDomainModel(
             uploadUrl = response.uploadUrl,
