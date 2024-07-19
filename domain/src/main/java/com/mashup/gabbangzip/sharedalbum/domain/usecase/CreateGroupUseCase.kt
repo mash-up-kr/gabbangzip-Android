@@ -5,6 +5,7 @@ import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupInfoDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.repository.FileRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.GroupRepository
 import java.io.File
+import java.io.IOException
 import javax.inject.Inject
 
 class CreateGroupUseCase @Inject constructor(
@@ -31,7 +32,7 @@ class CreateGroupUseCase @Inject constructor(
                     ),
                 )
             } else {
-                throw Exception(response.errorMessage)
+                throw IOException(response.errorMessage)
             }
         }
     }
