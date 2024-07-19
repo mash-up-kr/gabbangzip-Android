@@ -1,6 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.domain.model
 
-data class ResponseDomainModel(
+data class PicNetworkResponseDomainModel(
     val isSuccess: Boolean,
     val errorMessage: String,
 )
