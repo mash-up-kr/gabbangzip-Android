@@ -1,13 +1,14 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 
 class GroupEventActionButtonState(
     @DrawableRes val iconResId: Int,
-    val text: String = "",
-    val informationText: String = "",
+    @StringRes val textResId: Int? = null,
+    @StringRes val informationTextResId: Int? = null,
 )
 
 fun GroupStatusType.getActionButtonState(): GroupEventActionButtonState? {
@@ -15,32 +16,32 @@ fun GroupStatusType.getActionButtonState(): GroupEventActionButtonState? {
         GroupStatusType.BEFORE_MY_UPLOAD -> {
             GroupEventActionButtonState(
                 iconResId = R.drawable.ic_gallery_white,
-                text = "내 PIC 올리기",
-                informationText = "까지 내 PIC 등록을 완료해 주세요.",
+                textResId = R.string.button_text_state_before_my_upload,
+                informationTextResId = R.string.information_text_state_before_my_upload,
             )
         }
 
         GroupStatusType.AFTER_MY_UPLOAD -> {
             GroupEventActionButtonState(
                 iconResId = R.drawable.ic_group_notice,
-                text = "쿡 찌르기",
-                informationText = "아직 사진 추가를 하지 않은 친구가 있어요!",
+                textResId = R.string.button_text_state_after_my_upload,
+                informationTextResId = R.string.information_text_state_after_my_upload,
             )
         }
 
         GroupStatusType.BEFORE_MY_VOTE -> {
             GroupEventActionButtonState(
                 iconResId = R.drawable.ic_vote,
-                text = "투표하기",
-                informationText = "내 PIC을 고르고 네컷사진을 완성해 보세요.",
+                textResId = R.string.button_text_state_before_my_vote,
+                informationTextResId = R.string.information_text_state_before_my_vote,
             )
         }
 
         GroupStatusType.AFTER_MY_VOTE -> {
             GroupEventActionButtonState(
                 iconResId = R.drawable.ic_group_notice,
-                text = "쿡 찌르기",
-                informationText = "아직 PIC을 고르지 않은 친구가 있어요!",
+                textResId = R.string.button_text_state_after_my_vote,
+                informationTextResId = R.string.information_text_state_after_my_vote,
             )
         }
 

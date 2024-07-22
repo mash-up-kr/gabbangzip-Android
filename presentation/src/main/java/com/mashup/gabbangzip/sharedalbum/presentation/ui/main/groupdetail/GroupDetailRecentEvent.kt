@@ -155,16 +155,18 @@ private fun RecentEventBottomSection(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        if (buttonState.informationText.isNotBlank()) {
+        if (buttonState.informationTextResId != null) {
             Text(
-                text = buttonState.informationText,
+                text = stringResource(id = buttonState.informationTextResId),
                 style = PicTypography.bodyMedium14,
                 color = Gray60,
             )
             Spacer(modifier = Modifier.height(8.dp))
         }
         PicNormalButton(
-            text = buttonState.text,
+            text = buttonState.textResId?.let { resId ->
+                stringResource(id = resId)
+            }.orEmpty(),
             iconRes = buttonState.iconResId,
             onButtonClicked = onClickActionButton,
         )
