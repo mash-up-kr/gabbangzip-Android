@@ -8,6 +8,7 @@ import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -45,6 +46,10 @@ fun GroupDetailScreen(
     onClickShareButton: () -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
+    val isEnabledNewEvent = remember(state.status) {
+        state.status == GroupStatusType.EVENT_COMPLETED
+    }
+
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -53,7 +58,7 @@ fun GroupDetailScreen(
             titleText = state.groupInfo?.name.orEmpty(),
             titleAlign = PicTopBarTitleAlign.LEFT,
             backButtonClicked = onClickBackButton,
-            rightIcon1 = PicTopBarIcon.PLUS,
+            rightIcon1 = if (isEnabledNewEvent) PicTopBarIcon.PLUS else null,
             rightIcon2 = PicTopBarIcon.GROUP_MEMBER,
             rightIcon1Clicked = { /* TODO */ },
             rightIcon2Clicked = onClickGroupMemberButton,
