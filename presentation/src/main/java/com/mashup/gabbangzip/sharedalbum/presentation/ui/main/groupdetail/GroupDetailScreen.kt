@@ -1,37 +1,21 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
-import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupDetailUiState
@@ -121,61 +105,6 @@ private fun GroupDetailScreenContent(
                 onClickShareButton = onClickShareButton,
             )
         }
-    } else if (state.history.isEmpty()) {
-        GroupDetailEmptyContent(modifier = modifier.fillMaxSize())
-    }
-}
-
-@Composable
-private fun GroupDetailEmptyContent(
-    modifier: Modifier = Modifier,
-) {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.change_shape))
-    val progress by animateLottieCompositionAsState(
-        composition = composition,
-        iterations = LottieConstants.IterateForever,
-    )
-
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Spacer(modifier = Modifier.weight(1f))
-        Text(
-            text = stringResource(id = R.string.group_detail_empty_title),
-            style = PicTypography.headBold20,
-            textAlign = TextAlign.Center,
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        LottieAnimation(
-            modifier = Modifier.size(164.dp),
-            composition = composition,
-            progress = { progress },
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        Text(
-            text = stringResource(id = R.string.group_detail_empty_subtitle),
-            style = PicTypography.textNormal14,
-            color = Gray60,
-        )
-        Spacer(modifier = Modifier.weight(3.7f))
-        PicButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp, bottom = 30.dp),
-            text = stringResource(id = R.string.group_creation_button_next),
-            isRippleClickable = true,
-        )
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-private fun EmptyScreenPreview() {
-    SharedAlbumTheme {
-        GroupDetailEmptyContent(
-            modifier = Modifier.fillMaxSize(),
-        )
     }
 }
 
