@@ -30,6 +30,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.pretendard
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.preview.GroupStatusProvider
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEventActionButtonState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.getActionButtonState

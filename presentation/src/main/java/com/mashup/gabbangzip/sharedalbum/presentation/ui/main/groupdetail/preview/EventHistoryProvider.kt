@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
