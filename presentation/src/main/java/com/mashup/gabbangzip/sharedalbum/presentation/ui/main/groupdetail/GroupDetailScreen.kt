@@ -101,6 +101,7 @@ private fun GroupDetailScreenContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp),
+                status = state.status,
                 event = state.recentEvent,
                 onClickActionButton = onClickActionButton,
                 onClickShareButton = onClickShareButton,
@@ -127,10 +128,10 @@ private fun GroupDetailScreenPreview(
                     status = GroupStatusType.AFTER_MY_VOTE,
                     statusDescription = "몰라몰라",
                 ),
+                status = GroupStatusType.AFTER_MY_VOTE,
                 recentEvent = GroupEvent(
                     title = "가빵집 MT",
                     date = "2024.11.01",
-                    status = GroupStatusType.AFTER_MY_VOTE,
                     deadline = "2024.11.01",
                 ),
                 history = history,

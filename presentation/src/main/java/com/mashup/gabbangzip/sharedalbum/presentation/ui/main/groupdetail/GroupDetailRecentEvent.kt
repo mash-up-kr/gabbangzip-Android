@@ -39,11 +39,12 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 @Composable
 fun RecentEventContainer(
     modifier: Modifier = Modifier,
+    status: GroupStatusType,
     event: GroupEvent,
     onClickActionButton: (GroupStatusType) -> Unit,
     onClickShareButton: () -> Unit,
 ) {
-    if (event.status == GroupStatusType.EVENT_COMPLETED) {
+    if (status == GroupStatusType.EVENT_COMPLETED) {
         CompletedEventContainer(
             modifier = modifier,
             onClickShareButton = onClickShareButton,
@@ -61,12 +62,12 @@ fun RecentEventContainer(
                     .size(240.dp)
                     .background(color = Gray60),
             )
-            event.status.getActionButtonState()?.let { buttonState ->
+            status.getActionButtonState()?.let { buttonState ->
                 RecentEventBottomSection(
                     modifier = Modifier.padding(top = 32.dp),
                     buttonState = buttonState,
                     onClickActionButton = {
-                        onClickActionButton(event.status)
+                        onClickActionButton(status)
                     },
                 )
             }
@@ -180,10 +181,10 @@ private fun RecentEventPreview(
 ) {
     SharedAlbumTheme {
         RecentEventContainer(
+            status = status,
             event = GroupEvent(
                 title = "가빵집 MT",
                 date = "2024.11.03",
-                status = status,
                 deadline = "6월 14일 월요일 PIC 종료",
             ),
             onClickActionButton = {},
