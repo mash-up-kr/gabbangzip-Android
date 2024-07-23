@@ -26,6 +26,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.previe
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 
 @Composable
 fun GroupDetailScreen(
@@ -132,6 +133,7 @@ private fun GroupDetailScreenPreview(
                     recentEventDate = "2024.11.01",
                     status = GroupStatusType.AFTER_MY_VOTE,
                     statusDescription = "몰라몰라",
+                    frontImageFrame = PicPhotoFrame.PLUS,
                 ),
                 status = GroupStatusType.AFTER_MY_VOTE,
                 recentEvent = GroupEvent(
