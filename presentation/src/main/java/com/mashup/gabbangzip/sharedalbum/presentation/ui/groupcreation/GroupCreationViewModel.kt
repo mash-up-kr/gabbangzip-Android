@@ -38,7 +38,6 @@ class GroupCreationViewModel @Inject constructor(
             }
         }
     }
-
     fun createGroup() {
         viewModelScope.launch {
             val currentState = uiState.value

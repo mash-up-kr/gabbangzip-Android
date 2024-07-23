@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,6 +25,8 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicPhotoCard
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBar
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
@@ -37,24 +39,40 @@ fun GroupHomeScreen(
     onClickEventMake: () -> Unit,
     onClickMyPage: () -> Unit,
 ) {
-    LazyColumn(
+    Column(
         modifier = Modifier.fillMaxSize(),
     ) {
-        items(state.groupList) {
-            GroupContainer(
-                modifier = Modifier,
-                groupInfo = it,
-                onGroupDetailClick = onClickGroupDetail,
-            )
+        PicTopBar(
+            modifier = Modifier.padding(top = 56.dp),
+            rightIcon1 = PicTopBarIcon.PLUS,
+            rightIcon2 = PicTopBarIcon.USER,
+            rightIcon1Clicked = { /* TODO: plus버튼. 그룹 만들기 */ },
+            rightIcon2Clicked = { /*TODO: 마이페이지로 가기*/ },
+        )
 
-            if (state.groupList.last() != it) {
-                Spacer(
-                    modifier = Modifier
-                        .padding(top = 40.dp, bottom = 24.dp)
-                        .height(8.dp)
-                        .fillMaxWidth()
-                        .background(color = Gray20),
+        LazyColumn {
+            itemsIndexed(state.groupList) { index, groupInfo ->
+                GroupContainer(
+                    modifier = if (index == 0) {
+                        Modifier.padding(top = 16.dp)
+                    } else if (index == state.groupList.size - 1) {
+                        Modifier.padding(bottom = 16.dp)
+                    } else {
+                        Modifier
+                    },
+                    groupInfo = groupInfo,
+                    onGroupDetailClick = onClickGroupDetail,
                 )
+
+                if (state.groupList.size != index + 1) {
+                    Spacer(
+                        modifier = Modifier
+                            .padding(top = 46.dp, bottom = 24.dp)
+                            .height(8.dp)
+                            .fillMaxWidth()
+                            .background(color = Gray20),
+                    )
+                }
             }
         }
     }
@@ -76,7 +94,9 @@ private fun GroupContainer(
             groupName = groupInfo.name,
         )
         GroupTag(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp),
             keyword = groupInfo.keyword,
             statusDesc = groupInfo.statusDescription,
         )
@@ -120,7 +140,7 @@ private fun GroupTag(
 ) {
     Row(modifier = modifier) {
         PicTag(
-            modifier = modifier.padding(end = 6.dp),
+            modifier = Modifier.padding(end = 6.dp),
             text = keyword.name,
             iconRes = keyword.symbolResId,
         )

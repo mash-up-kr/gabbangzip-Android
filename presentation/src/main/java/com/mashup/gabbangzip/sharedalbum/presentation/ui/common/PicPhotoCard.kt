@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -28,12 +29,15 @@ fun PicPhotoCard(
 ) {
     Box(
         modifier = modifier
+            .background(
+                color = groupInfo.keyword.backgroundColor,
+                shape = RoundedCornerShape(20.dp),
+            )
             .border(
                 width = 2.dp,
                 color = Color.White,
                 shape = RoundedCornerShape(20.dp),
-            )
-            .background(color = groupInfo.keyword.backgroundColor),
+            ),
     ) {
         KeywordMiniSymbol(
             modifier = Modifier
@@ -106,12 +110,10 @@ private fun GroupImage(modifier: Modifier, groupInfo: GroupInfo) {
             contentDescription = stringResource(R.string.group_main_picture),
         )
 
-        AsyncImage(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = groupInfo.keyword.backgroundColor),
-            // TODO: 다음 이슈에서  이미지 타입 drawable추가 하여 해결
-            model = groupInfo,
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(id = groupInfo.frontImageFrame.frameResId),
+            colorFilter = ColorFilter.tint(groupInfo.keyword.backgroundColor),
             contentScale = ContentScale.FillBounds,
             contentDescription = null,
         )
