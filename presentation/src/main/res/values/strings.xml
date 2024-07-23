@@ -72,6 +72,22 @@
     <string name="group_modify">이미지 수정</string>
     <string name="thumbnail_image">썸네일 이미지</string>
 
+    <string name="group_detail_empty_title">이벤트를 생성하고\n함께한 순간을 공유해요!</string>
+    <string name="group_detail_empty_subtitle">공유한 사진을 함께 PIC하면 네컷사진을 만들 수 있어요.</string>
+    <string name="group_detail_event_complete">네컷 사진이 만들어졌어요!</string>
+    <string name="group_detail_history_title">우리들의 인생네컷</string>
+    <string name="group_detail_empty_history_image_description">역대 이벤트 기본 이미지</string>
+    <string name="group_detail_empty_history_label">그룹 이벤트를 만들고\n우리끼리 PIC으로 인생 네컷을 모아보세요</string>
+
+    <string name="button_text_state_before_my_upload">내 PIC 올리기</string>
+    <string name="information_text_state_before_my_upload">까지 내 PIC 등록을 완료해 주세요.</string>
+    <string name="button_text_state_after_my_upload">쿡 찌르기</string>
+    <string name="information_text_state_after_my_upload">아직 사진 추가를 하지 않은 친구가 있어요!</string>
+    <string name="button_text_state_before_my_vote">투표하기</string>
+    <string name="information_text_state_before_my_vote">내 PIC을 고르고 네컷사진을 완성해 보세요.</string>
+    <string name="button_text_state_after_my_vote">쿡 찌르기</string>
+    <string name="information_text_state_after_my_vote">아직 PIC을 고르지 않은 친구가 있어요!</string>
+
     <string name="complete">완료</string>
     <string name="group_complete_title">그룹에 친구들을 추가하고\n추억을 함께 PIC 해보세요</string>
     <string name="group_complete_contents">그룹원은 최대 6명까지 초대 가능해요.</string>

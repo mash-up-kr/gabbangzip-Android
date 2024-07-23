@@ -5,6 +5,8 @@ sealed interface MainRoute {
 
     data object GroupDetailRoute : MainRoute {
         override val route: String = "groupDetail"
+
+        const val KEY_GROUP_ID = "groupId"
     }
 
     data object GroupHomeRoute : MainRoute {
