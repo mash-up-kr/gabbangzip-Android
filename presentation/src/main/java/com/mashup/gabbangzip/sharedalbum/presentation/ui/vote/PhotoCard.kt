@@ -33,7 +33,7 @@ fun PhotoCard(
     onVoteClickSwiped: (result: PhotoVoteType, photo: Photo) -> Unit,
 ) {
     val swiped = remember { mutableStateOf(false) }
-    val isSwiped = remember { mutableStateOf(false) }
+    val swipeEnable = remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
     BoxWithConstraints(modifier = modifier) {
@@ -65,21 +65,21 @@ fun PhotoCard(
         LaunchedEffect(voteClickInfo.index == currentIndex) {
             when (voteClickInfo.type) {
                 PhotoVoteType.LIKE -> {
-                    isSwiped.value = true
+                    swipeEnable.value = true
                     onVoteClickSwiped(PhotoVoteType.LIKE, photo)
                     swipeState.liked(coroutineScope)
                     delay(VoteConstant.CARD_DELAY_TIME)
                     swiped.value = true
-                    isSwiped.value = false
+                    swipeEnable.value = false
                 }
 
                 PhotoVoteType.DISLIKE -> {
-                    isSwiped.value = true
+                    swipeEnable.value = true
                     onVoteClickSwiped(PhotoVoteType.DISLIKE, photo)
                     swipeState.disliked(coroutineScope)
                     delay(VoteConstant.CARD_DELAY_TIME)
                     swiped.value = true
-                    isSwiped.value = false
+                    swipeEnable.value = false
                 }
 
                 else -> Unit
@@ -87,20 +87,24 @@ fun PhotoCard(
         }
 
         // 버튼 클릭후 1초 딜레이 되는동안 카드 스와이프 막기 위함
-        if (isSwiped.value) {
-            Box(
-                modifier = modifier
-                    .fillMaxSize()
-                    .background(color = Color.Transparent)
-                    .pointerInput(Unit) {
-                        detectDragGestures(
-                            onDragStart = { },
-                            onDrag = { _, _ -> },
-                            onDragEnd = { },
-                            onDragCancel = { },
-                        )
-                    },
-            )
+        if (swipeEnable.value) {
+            DisableDrag(modifier = Modifier.fillMaxSize())
         }
     }
+}
+
+@Composable
+private fun DisableDrag(modifier: Modifier) {
+    Box(
+        modifier = modifier
+            .background(color = Color.Transparent)
+            .pointerInput(Unit) {
+                detectDragGestures(
+                    onDragStart = { },
+                    onDrag = { _, _ -> },
+                    onDragEnd = { },
+                    onDragCancel = { },
+                )
+            },
+    )
 }
