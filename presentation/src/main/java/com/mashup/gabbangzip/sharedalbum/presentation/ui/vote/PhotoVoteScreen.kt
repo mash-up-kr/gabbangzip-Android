@@ -1,71 +1,184 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.vote
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.UserInfo
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.contract.VoteConstant
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.Photo
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteResult
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.VoteClickInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
-fun VoteScreen(
-    state: PhotoVoteState,
-    onCancelVote: () -> Unit,
-    onSwiped: (result: PhotoVoteResult, photo: Photo) -> Unit,
-    onSwipeFinish: () -> Unit,
+fun PhotoVoteScreen(
+    onVoteFinish: () -> Unit,
+    viewModel: VoteViewModel = hiltViewModel(),
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp),
+    val voteUiState by viewModel.voteUiState.collectAsStateWithLifecycle()
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+        ) {
+            if (voteUiState.isVoteCancel) {
+                PicDialog(
+                    titleText = stringResource(R.string.vote_dialog_title),
+                    contentText = stringResource(R.string.vote_dialog_content),
+                    dismissText = stringResource(R.string.vote_dialog_exit),
+                    confirmText = stringResource(R.string.vote_dialog_keep_vote),
+                    onDismiss = { onVoteFinish() },
+                    onConfirm = { viewModel.updateVoteDialog(isVisible = false) },
+                )
+            }
+
+            CancelVoteButton(
+                modifier = Modifier
+                    .padding(top = 17.dp)
+                    .align(Alignment.End),
+                onCancelVote = { viewModel.updateVoteDialog(isVisible = true) },
+            )
+
+            UserProfile(
+                modifier = Modifier
+                    .padding(top = 17.dp)
+                    .align(Alignment.CenterHorizontally),
+                userInfo = voteUiState.userInfo,
+            )
+
+            PhotoCardContainer(
+                modifier = Modifier
+                    .padding(top = 24.dp, bottom = 206.dp)
+                    .align(Alignment.CenterHorizontally),
+                onVoteBySwiped = { voteType, photo ->
+                    viewModel.updateVoteEvent(voteType)
+                    viewModel.addVoteResult(voteType, photo)
+                },
+                photoList = voteUiState.photoList,
+                onSwipeFinish = { viewModel.finishVote() },
+                onVoteByClicked = { voteType, photo ->
+                    viewModel.addVoteResult(voteType, photo)
+                },
+                voteClickInfo = voteUiState.voteClickInfo,
+            )
+        }
+
+        PhotoVoteButtonContainer(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(top = 68.dp, bottom = 78.dp),
+            onVoteClick = { voteType ->
+                viewModel.updateVoteEvent(voteType)
+            },
+        )
+    }
+}
+
+@Composable
+private fun PhotoVoteButtonContainer(
+    modifier: Modifier,
+    onVoteClick: (voteType: PhotoVoteType) -> Unit,
+) {
+    val (selectedType, setSelectedType) = remember { mutableStateOf(PhotoVoteType.DEFAULT) }
+    val coroutineScope = rememberCoroutineScope()
+
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        CancelVoteButton(
-            modifier = Modifier
-                .padding(top = 17.dp)
-                .align(Alignment.End),
-            onCancelVote = onCancelVote,
-        )
+        PhotoVoteType.entries.filter { it != PhotoVoteType.DEFAULT }.forEach { buttonType ->
+            PhotoVoteButton(
+                modifier = Modifier,
+                voteType = buttonType,
+                selectedType = selectedType,
+                enabled = selectedType == PhotoVoteType.DEFAULT,
+                onVoteClick = {
+                    setSelectedType(buttonType)
+                    onVoteClick(buttonType)
+                    coroutineScope.launch {
+                        delay(VoteConstant.VOTE_CLICK_DELAY_TIME)
+                        setSelectedType(PhotoVoteType.DEFAULT)
+                    }
+                },
+            )
+        }
+    }
+}
 
-        UserProfile(
-            modifier = Modifier
-                .padding(top = 17.dp)
-                .align(Alignment.CenterHorizontally),
-            userInfo = state.userInfo,
-        )
-
-        PhotoCardContainer(
-            modifier = Modifier
-                .padding(vertical = 24.dp)
-                .align(Alignment.CenterHorizontally),
-            onSwiped = onSwiped,
-            photoList = state.photoList,
-            onSwipeFinish = onSwipeFinish,
+@Composable
+private fun PhotoVoteButton(
+    modifier: Modifier,
+    voteType: PhotoVoteType,
+    selectedType: PhotoVoteType,
+    enabled: Boolean,
+    onVoteClick: () -> Unit,
+) {
+    Box(
+        modifier = modifier
+            .clip(shape = RoundedCornerShape(10.dp))
+            .background(
+                color = if (selectedType == voteType) {
+                    voteType.alphaColor
+                } else {
+                    Gray40
+                },
+            )
+            .clickable(
+                onClick = onVoteClick,
+                enabled = enabled,
+            ),
+    ) {
+        StableImage(
+            modifier = Modifier.padding(17.dp),
+            drawableResId = voteType.imageResId,
+            contentDescription = stringResource(id = voteType.imageDescId),
+            colorFilter = ColorFilter.tint(
+                color = if (selectedType == PhotoVoteType.DEFAULT) {
+                    voteType.mainColor
+                } else if (selectedType != voteType) {
+                    Gray60
+                } else {
+                    voteType.mainColor
+                },
+            ),
         )
     }
 }
@@ -77,13 +190,8 @@ private fun CancelVoteButton(
 ) {
     Icon(
         modifier = modifier
-            .size(16.dp)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-                role = Role.Button,
-                onClick = onCancelVote,
-            ),
+            .size(24.dp)
+            .noRippleClickable { onCancelVote() },
         imageVector = Icons.Default.Close,
         contentDescription = stringResource(R.string.cancel_icon),
     )
@@ -99,15 +207,15 @@ private fun UserProfile(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        AsyncImage(
-            modifier = Modifier
-                .width(50.dp)
-                .height(50.dp),
-            model = userInfo.imageUrl,
-            contentScale = ContentScale.Crop,
-            contentDescription = stringResource(R.string.profile_image),
+        StableImage(
+            drawableResId = R.drawable.ic_vote,
+            contentDescription = stringResource(R.string.vote_icon),
         )
-        Text(text = stringResource(R.string.vote_user_name, userInfo.name))
+        Text(
+            modifier = Modifier.padding(top = 4.dp),
+            text = stringResource(R.string.vote_user_name, userInfo.name),
+            style = PicTypography.headBold18,
+        )
     }
 }
 
@@ -115,20 +223,21 @@ private fun UserProfile(
 private fun PhotoCardContainer(
     modifier: Modifier = Modifier,
     photoList: ImmutableList<Photo>,
-    onSwiped: (result: PhotoVoteResult, photo: Photo) -> Unit,
+    voteClickInfo: VoteClickInfo,
+    onVoteBySwiped: (voteType: PhotoVoteType, photo: Photo) -> Unit,
     onSwipeFinish: () -> Unit,
+    onVoteByClicked: (result: PhotoVoteType, photo: Photo) -> Unit,
 ) {
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center,
     ) {
-        photoList.forEach { photo ->
+        photoList.forEachIndexed { index, photo ->
             PhotoCard(
-                onSwiped = { result, info ->
-                    if (info.id == photoList.first().id) {
+                onVoteBySwiped = { voteType, photoInfo ->
+                    onVoteBySwiped(voteType, photoInfo)
+                    if (photoInfo.id == photoList.first().id) {
                         onSwipeFinish()
                     }
-                    onSwiped(result, info)
                 },
                 photo = photo,
                 content = {
@@ -137,6 +246,9 @@ private fun PhotoCardContainer(
                         photo = photo,
                     )
                 },
+                voteClickInfo = voteClickInfo.copy(index = index),
+                currentIndex = photoList.lastIndex - voteClickInfo.index,
+                onVoteByClicked = onVoteByClicked,
             )
         }
     }
@@ -147,24 +259,12 @@ private fun PhotoCardContent(
     modifier: Modifier = Modifier,
     photo: Photo,
 ) {
-    Box(
-        modifier = modifier,
-    ) {
-        AsyncImage(
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(RoundedCornerShape(12.dp)),
-            model = photo.imageUrl,
-            contentScale = ContentScale.Crop,
-            contentDescription = stringResource(R.string.vote_photo),
-        )
-
-        Text(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(5.dp),
-            text = photo.date,
-            color = Color.White,
-        )
-    }
+    AsyncImage(
+        modifier = modifier
+            .fillMaxSize()
+            .clip(RoundedCornerShape(12.dp)),
+        model = photo.imageUrl,
+        contentScale = ContentScale.Crop,
+        contentDescription = stringResource(R.string.vote_photo),
+    )
 }
