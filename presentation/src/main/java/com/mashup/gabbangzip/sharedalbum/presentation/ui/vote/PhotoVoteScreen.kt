@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.vote
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -26,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -43,6 +41,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.Photo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.VoteClickInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -167,9 +166,9 @@ private fun PhotoVoteButton(
                 enabled = enabled,
             ),
     ) {
-        Image(
+        StableImage(
             modifier = Modifier.padding(17.dp),
-            painter = painterResource(id = voteType.imageResId),
+            drawableResId = voteType.imageResId,
             contentDescription = stringResource(id = voteType.imageDescId),
             colorFilter = ColorFilter.tint(
                 color = if (selectedType == PhotoVoteType.DEFAULT) {
@@ -208,8 +207,8 @@ private fun UserProfile(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_vote),
+        StableImage(
+            drawableResId = R.drawable.ic_vote,
             contentDescription = stringResource(R.string.vote_icon),
         )
         Text(
@@ -229,8 +228,6 @@ private fun PhotoCardContainer(
     onSwipeFinish: () -> Unit,
     onVoteClickSwiped: (result: PhotoVoteType, photo: Photo) -> Unit,
 ) {
-    val lastIndex = photoList.size - 1
-
     Box(
         modifier = modifier,
     ) {
@@ -250,7 +247,7 @@ private fun PhotoCardContainer(
                     )
                 },
                 voteClickInfo = voteClickInfo.copy(index = index),
-                currentIndex = lastIndex - voteClickInfo.index,
+                currentIndex = photoList.lastIndex - voteClickInfo.index,
                 onVoteClickSwiped = onVoteClickSwiped,
             )
         }
