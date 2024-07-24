@@ -49,9 +49,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun PhotoVoteScreen(
     onVoteFinish: () -> Unit,
-    vieModel: VoteViewModel = hiltViewModel(),
+    viewModel: VoteViewModel = hiltViewModel(),
 ) {
-    val voteUiState by vieModel.voteUiState.collectAsStateWithLifecycle()
+    val voteUiState by viewModel.voteUiState.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -66,7 +66,7 @@ fun PhotoVoteScreen(
                     dismissText = stringResource(R.string.vote_dialog_exit),
                     confirmText = stringResource(R.string.vote_dialog_keep_vote),
                     onDismiss = { onVoteFinish() },
-                    onConfirm = { vieModel.updateVoteDialog(isVisible = false) },
+                    onConfirm = { viewModel.updateVoteDialog(isVisible = false) },
                 )
             }
 
@@ -74,7 +74,7 @@ fun PhotoVoteScreen(
                 modifier = Modifier
                     .padding(top = 17.dp)
                     .align(Alignment.End),
-                onCancelVote = { vieModel.updateVoteDialog(isVisible = true) },
+                onCancelVote = { viewModel.updateVoteDialog(isVisible = true) },
             )
 
             UserProfile(
@@ -89,13 +89,13 @@ fun PhotoVoteScreen(
                     .padding(top = 24.dp, bottom = 206.dp)
                     .align(Alignment.CenterHorizontally),
                 onSwiped = { voteType, photo ->
-                    vieModel.updateVoteEvent(voteType)
-                    vieModel.addVoteResult(voteType, photo)
+                    viewModel.updateVoteEvent(voteType)
+                    viewModel.addVoteResult(voteType, photo)
                 },
                 photoList = voteUiState.photoList,
-                onSwipeFinish = { vieModel.finishVote() },
+                onSwipeFinish = { viewModel.finishVote() },
                 onVoteClickSwiped = { voteType, photo ->
-                    vieModel.addVoteResult(voteType, photo)
+                    viewModel.addVoteResult(voteType, photo)
                 },
                 voteClickInfo = voteUiState.voteClickInfo,
             )
@@ -106,7 +106,7 @@ fun PhotoVoteScreen(
                 .align(Alignment.BottomCenter)
                 .padding(top = 68.dp, bottom = 78.dp),
             onVoteClick = { voteType ->
-                vieModel.updateVoteEvent(voteType)
+                viewModel.updateVoteEvent(voteType)
             },
         )
     }
