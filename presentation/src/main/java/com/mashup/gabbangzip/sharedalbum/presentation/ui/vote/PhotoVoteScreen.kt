@@ -88,13 +88,13 @@ fun PhotoVoteScreen(
                 modifier = Modifier
                     .padding(top = 24.dp, bottom = 206.dp)
                     .align(Alignment.CenterHorizontally),
-                onSwiped = { voteType, photo ->
+                onVoteBySwiped = { voteType, photo ->
                     viewModel.updateVoteEvent(voteType)
                     viewModel.addVoteResult(voteType, photo)
                 },
                 photoList = voteUiState.photoList,
                 onSwipeFinish = { viewModel.finishVote() },
-                onVoteClickSwiped = { voteType, photo ->
+                onVoteByClicked = { voteType, photo ->
                     viewModel.addVoteResult(voteType, photo)
                 },
                 voteClickInfo = voteUiState.voteClickInfo,
@@ -117,7 +117,7 @@ private fun PhotoVoteButtonContainer(
     modifier: Modifier,
     onVoteClick: (voteType: PhotoVoteType) -> Unit,
 ) {
-    val (selectedType, setValue) = remember { mutableStateOf(PhotoVoteType.DEFAULT) }
+    val (selectedType, setSelectedType) = remember { mutableStateOf(PhotoVoteType.DEFAULT) }
     val coroutineScope = rememberCoroutineScope()
 
     Row(
@@ -131,11 +131,11 @@ private fun PhotoVoteButtonContainer(
                 selectedType = selectedType,
                 enabled = selectedType == PhotoVoteType.DEFAULT,
                 onVoteClick = {
-                    setValue(buttonType)
+                    setSelectedType(buttonType)
                     onVoteClick(buttonType)
                     coroutineScope.launch {
                         delay(VoteConstant.VOTE_CLICK_DELAY_TIME)
-                        setValue(PhotoVoteType.DEFAULT)
+                        setSelectedType(PhotoVoteType.DEFAULT)
                     }
                 },
             )
@@ -224,17 +224,17 @@ private fun PhotoCardContainer(
     modifier: Modifier = Modifier,
     photoList: ImmutableList<Photo>,
     voteClickInfo: VoteClickInfo,
-    onSwiped: (voteType: PhotoVoteType, photo: Photo) -> Unit,
+    onVoteBySwiped: (voteType: PhotoVoteType, photo: Photo) -> Unit,
     onSwipeFinish: () -> Unit,
-    onVoteClickSwiped: (result: PhotoVoteType, photo: Photo) -> Unit,
+    onVoteByClicked: (result: PhotoVoteType, photo: Photo) -> Unit,
 ) {
     Box(
         modifier = modifier,
     ) {
         photoList.forEachIndexed { index, photo ->
             PhotoCard(
-                onSwiped = { voteType, photoInfo ->
-                    onSwiped(voteType, photoInfo)
+                onVoteBySwiped = { voteType, photoInfo ->
+                    onVoteBySwiped(voteType, photoInfo)
                     if (photoInfo.id == photoList.first().id) {
                         onSwipeFinish()
                     }
@@ -248,7 +248,7 @@ private fun PhotoCardContainer(
                 },
                 voteClickInfo = voteClickInfo.copy(index = index),
                 currentIndex = photoList.lastIndex - voteClickInfo.index,
-                onVoteClickSwiped = onVoteClickSwiped,
+                onVoteByClicked = onVoteByClicked,
             )
         }
     }

@@ -28,9 +28,9 @@ fun PhotoCard(
     photo: Photo,
     voteClickInfo: VoteClickInfo,
     currentIndex: Int,
-    onSwiped: (result: PhotoVoteType, photo: Photo) -> Unit,
+    onVoteBySwiped: (result: PhotoVoteType, photo: Photo) -> Unit,
     content: @Composable () -> Unit,
-    onVoteClickSwiped: (result: PhotoVoteType, photo: Photo) -> Unit,
+    onVoteByClicked: (result: PhotoVoteType, photo: Photo) -> Unit,
 ) {
     val swiped = remember { mutableStateOf(false) }
     val swipeEnable = remember { mutableStateOf(false) }
@@ -49,11 +49,11 @@ fun PhotoCard(
                         state = swipeState,
                         onDragLiked = {
                             swiped.value = true
-                            onSwiped(PhotoVoteType.LIKE, photo)
+                            onVoteBySwiped(PhotoVoteType.LIKE, photo)
                         },
                         onDragDisliked = {
                             swiped.value = true
-                            onSwiped(PhotoVoteType.DISLIKE, photo)
+                            onVoteBySwiped(PhotoVoteType.DISLIKE, photo)
                         },
                     ),
                 contentAlignment = Alignment.Center,
@@ -66,7 +66,7 @@ fun PhotoCard(
             when (voteClickInfo.type) {
                 PhotoVoteType.LIKE -> {
                     swipeEnable.value = true
-                    onVoteClickSwiped(PhotoVoteType.LIKE, photo)
+                    onVoteByClicked(PhotoVoteType.LIKE, photo)
                     swipeState.liked(coroutineScope)
                     delay(VoteConstant.CARD_DELAY_TIME)
                     swiped.value = true
@@ -75,7 +75,7 @@ fun PhotoCard(
 
                 PhotoVoteType.DISLIKE -> {
                     swipeEnable.value = true
-                    onVoteClickSwiped(PhotoVoteType.DISLIKE, photo)
+                    onVoteByClicked(PhotoVoteType.DISLIKE, photo)
                     swipeState.disliked(coroutineScope)
                     delay(VoteConstant.CARD_DELAY_TIME)
                     swiped.value = true
