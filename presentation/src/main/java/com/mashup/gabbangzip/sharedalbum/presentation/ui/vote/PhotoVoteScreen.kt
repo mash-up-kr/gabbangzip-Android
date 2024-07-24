@@ -49,7 +49,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun PhotoVoteScreen(
-    onVisibleScreen: (Boolean) -> Unit,
+    onVoteFinish: () -> Unit,
     vieModel: VoteViewModel = hiltViewModel(),
 ) {
     val voteUiState by vieModel.voteUiState.collectAsStateWithLifecycle()
@@ -66,10 +66,7 @@ fun PhotoVoteScreen(
                     contentText = stringResource(R.string.vote_dialog_content),
                     dismissText = stringResource(R.string.vote_dialog_exit),
                     confirmText = stringResource(R.string.vote_dialog_keep_vote),
-                    onDismiss = {
-                        onVisibleScreen(false)
-                        vieModel.updateVoteDialog(false)
-                    },
+                    onDismiss = { onVoteFinish() },
                     onConfirm = { vieModel.updateVoteDialog(isVisible = false) },
                 )
             }
