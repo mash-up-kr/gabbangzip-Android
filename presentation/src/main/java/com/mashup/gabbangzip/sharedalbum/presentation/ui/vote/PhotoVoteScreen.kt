@@ -68,9 +68,9 @@ fun PhotoVoteScreen(
                     confirmText = stringResource(R.string.vote_dialog_keep_vote),
                     onDismiss = {
                         onVisibleScreen(false)
-                        vieModel.updateVoteDialog()
+                        vieModel.updateVoteDialog(false)
                     },
-                    onConfirm = { vieModel.updateVoteDialog() },
+                    onConfirm = { vieModel.updateVoteDialog(isVisible = false) },
                 )
             }
 
@@ -78,7 +78,7 @@ fun PhotoVoteScreen(
                 modifier = Modifier
                     .padding(top = 17.dp)
                     .align(Alignment.End),
-                onCancelVote = { vieModel.updateVoteDialog() },
+                onCancelVote = { vieModel.updateVoteDialog(isVisible = true) },
             )
 
             UserProfile(
@@ -94,6 +94,7 @@ fun PhotoVoteScreen(
                     .align(Alignment.CenterHorizontally),
                 onSwiped = { voteType, photo ->
                     vieModel.updateVoteEvent(voteType)
+                    vieModel.addVoteResult(voteType, photo)
                 },
                 photoList = voteUiState.photoList,
                 onSwipeFinish = { vieModel.finishVote() },
@@ -121,6 +122,7 @@ private fun PhotoVoteButtonContainer(
     onVoteClick: (voteType: PhotoVoteType) -> Unit,
 ) {
     val (selectedType, setValue) = remember { mutableStateOf(PhotoVoteType.DEFAULT) }
+    val coroutineScope = rememberCoroutineScope()
 
     Row(
         modifier = modifier,
@@ -131,8 +133,15 @@ private fun PhotoVoteButtonContainer(
                 modifier = Modifier,
                 voteType = buttonType,
                 selectedType = selectedType,
-                setValue = setValue,
-                onVoteClick = onVoteClick,
+                enabled = selectedType == PhotoVoteType.DEFAULT,
+                onVoteClick = {
+                    setValue(buttonType)
+                    onVoteClick(buttonType)
+                    coroutineScope.launch {
+                        delay(VoteConstant.VOTE_CLICK_DELAY_TIME)
+                        setValue(PhotoVoteType.DEFAULT)
+                    }
+                },
             )
         }
     }
@@ -142,12 +151,10 @@ private fun PhotoVoteButtonContainer(
 private fun PhotoVoteButton(
     modifier: Modifier,
     voteType: PhotoVoteType,
-    onVoteClick: (result: PhotoVoteType) -> Unit,
     selectedType: PhotoVoteType,
-    setValue: (PhotoVoteType) -> Unit,
+    enabled: Boolean,
+    onVoteClick: () -> Unit,
 ) {
-    val coroutineScope = rememberCoroutineScope()
-
     Box(
         modifier = modifier
             .clip(shape = RoundedCornerShape(10.dp))
@@ -159,15 +166,8 @@ private fun PhotoVoteButton(
                 },
             )
             .clickable(
-                onClick = {
-                    setValue(voteType)
-                    onVoteClick(voteType)
-                    coroutineScope.launch {
-                        delay(VoteConstant.VOTE_CLICK_DELAY_TIME)
-                        setValue(PhotoVoteType.DEFAULT)
-                    }
-                },
-                enabled = selectedType == PhotoVoteType.DEFAULT,
+                onClick = onVoteClick,
+                enabled = enabled,
             ),
     ) {
         Image(
@@ -239,11 +239,11 @@ private fun PhotoCardContainer(
     ) {
         photoList.forEachIndexed { index, photo ->
             PhotoCard(
-                onSwiped = { result, info ->
-                    if (info.id == photoList.first().id) {
+                onSwiped = { voteType, photoInfo ->
+                    onSwiped(voteType, photoInfo)
+                    if (photoInfo.id == photoList.first().id) {
                         onSwipeFinish()
                     }
-                    onSwiped(result, info)
                 },
                 photo = photo,
                 content = {
