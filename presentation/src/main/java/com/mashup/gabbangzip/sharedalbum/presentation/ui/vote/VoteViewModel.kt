@@ -30,9 +30,9 @@ class VoteViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun updateVoteDialog() {
+    fun updateVoteDialog(isVisible: Boolean) {
         _voteUiState.update { state ->
-            state.copy(isVoteCancel = !state.isVoteCancel)
+            state.copy(isVoteCancel = isVisible)
         }
     }
 
