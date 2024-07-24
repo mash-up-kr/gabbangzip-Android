@@ -2,6 +2,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model
 
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupDomainModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 
 data class GroupInfo(
