@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,9 +45,11 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 @Composable
 fun GroupCreationThumbnailScreen(
     initialThumbnail: Uri?,
+    isGroupCreated: Boolean,
     onBackButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
     onGetThumbnailButtonClicked: () -> Unit,
+    navigateNextScreen: () -> Unit,
 ) {
     val buttonEnabled by rememberUpdatedState(newValue = initialThumbnail != null)
     var modifyButtonEnabled by remember { mutableStateOf(false) }
@@ -104,6 +107,10 @@ fun GroupCreationThumbnailScreen(
             enable = buttonEnabled,
             onButtonClicked = onNextButtonClicked,
         )
+    }
+
+    LaunchedEffect(isGroupCreated) {
+        if (isGroupCreated) { navigateNextScreen() }
     }
 }
 
@@ -178,8 +185,10 @@ private fun CardCoverIcon(
 private fun GroupCreationThumbnailScreenPreview() {
     GroupCreationThumbnailScreen(
         initialThumbnail = null,
+        isGroupCreated = false,
         onBackButtonClicked = {},
         onNextButtonClicked = {},
         onGetThumbnailButtonClicked = {},
+        navigateNextScreen = {},
     )
 }

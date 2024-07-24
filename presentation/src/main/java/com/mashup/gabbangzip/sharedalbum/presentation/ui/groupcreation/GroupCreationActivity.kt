@@ -13,22 +13,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GroupCreationActivity : ComponentActivity() {
@@ -64,16 +68,50 @@ class GroupCreationActivity : ComponentActivity() {
                         onGetThumbnailButtonClicked = photoPicker::open,
                         updateName = viewModel::updateName,
                         updateKeyword = viewModel::updateKeyword,
-                        onNextButtonClicked = { finish() },
-                        showSnackbarMessage = { type, message ->
-                            lifecycleScope.launch {
-                                snackbarHostState.showPicSnackbar(
-                                    type = type,
-                                    message = message,
+                        createGroup = {
+                            FileUtil.getFileFromUri(this, groupCreationState.thumbnail)?.let { imageFile ->
+                                viewModel.createGroup(
+                                    name = groupCreationState.name,
+                                    keyword = groupCreationState.keyword.name,
+                                    file = imageFile,
+                                )
+                            } ?: run {
+                                viewModel.showSnackBar(
+                                    type = PicSnackbarType.WARNING,
+                                    message = R.string.image_retrieve_failed,
                                 )
                             }
                         },
+                        finishGroupCreation = {
+                            MainActivity.openActivity(
+                                context = this,
+                                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP,
+                            )
+                            finish()
+                        },
+                        showSnackBarMessage = { type: PicSnackbarType, message: String ->
+                            viewModel.showSnackBar(type, message)
+                        },
                     )
+                }
+            }
+
+            LaunchedEffect(true) {
+                viewModel.effect.collect {
+                    when (it) {
+                        is GroupCreationViewModel.Event.ShowSnackBarMessage -> {
+                            snackbarHostState.showPicSnackbar(
+                                type = it.type,
+                                message = it.message,
+                            )
+                        }
+                        is GroupCreationViewModel.Event.ShowSnackBarMessageRes -> {
+                            snackbarHostState.showPicSnackbar(
+                                type = it.type,
+                                message = ContextCompat.getString(this@GroupCreationActivity, it.message),
+                            )
+                        }
+                    }
                 }
             }
         }

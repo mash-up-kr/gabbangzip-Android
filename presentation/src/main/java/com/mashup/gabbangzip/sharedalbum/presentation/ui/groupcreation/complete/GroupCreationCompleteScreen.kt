@@ -29,11 +29,13 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicProgressBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextOnlyTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.model.GroupCreated
 
 @Composable
 fun GroupCreationCompleteScreen(
+    groupCreated: GroupCreated?,
     onNextButtonClicked: () -> Unit,
-    showSnackbarMessage: (type: PicSnackbarType, message: String) -> Unit,
+    showSnackBarMessage: (type: PicSnackbarType, message: String) -> Unit,
 ) {
     val clipboardManager = LocalClipboardManager.current
     val copyLinkMessage = stringResource(id = R.string.button_copy_link_message)
@@ -91,8 +93,10 @@ fun GroupCreationCompleteScreen(
                 contentColor = Gray80,
                 iconRes = R.drawable.ic_link,
                 onButtonClicked = {
-                    showSnackbarMessage(PicSnackbarType.CHECK, copyLinkMessage)
-                    clipboardManager.setText(AnnotatedString("임시 텍스트")) // Todo : API 연결 하면서 업데이트 예정
+                    groupCreated?.invitationUrl?.let { invitationUrl ->
+                        showSnackBarMessage(PicSnackbarType.CHECK, copyLinkMessage)
+                        clipboardManager.setText(AnnotatedString(invitationUrl))
+                    }
                 },
             )
         }
@@ -111,7 +115,8 @@ fun GroupCreationCompleteScreen(
 @Composable
 private fun GroupCreationCompleteScreenPreview() {
     GroupCreationCompleteScreen(
+        groupCreated = null,
         onNextButtonClicked = { },
-        showSnackbarMessage = { _, _ -> },
+        showSnackBarMessage = { _, _ -> },
     )
 }

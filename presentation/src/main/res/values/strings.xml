@@ -98,4 +98,7 @@
     <string name="complete">완료</string>
     <string name="group_complete_title">그룹에 친구들을 추가하고\n추억을 함께 PIC 해보세요</string>
     <string name="group_complete_contents">그룹원은 최대 6명까지 초대 가능해요.</string>
+
+    <string name="image_upload_failed">이미지 업로드 실패</string>
+    <string name="image_retrieve_failed">이미지 파일 조회 실패</string>
 </resources>
