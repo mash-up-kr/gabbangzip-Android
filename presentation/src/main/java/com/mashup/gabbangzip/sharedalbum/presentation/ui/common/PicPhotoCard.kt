@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,7 +24,6 @@ import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 
 @Composable
@@ -33,7 +33,8 @@ fun PicPhotoCard(
 ) {
     PicPhotoCardFrame(
         modifier = modifier,
-        groupInfo = groupInfo
+        keywordType = groupInfo.keyword,
+        frameResId = groupInfo.frontImageFrame.frameResId
     ) {
         AsyncImage(
             modifier = Modifier.matchParentSize(),
@@ -47,13 +48,14 @@ fun PicPhotoCard(
 @Composable
 fun PicPhotoCardFrame(
     modifier: Modifier,
-    groupInfo: GroupInfo,
+    keywordType: GroupKeyword,
+    @DrawableRes frameResId: Int,
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
         modifier = modifier
             .background(
-                color = groupInfo.keyword.backgroundColor,
+                color = keywordType.backgroundColor,
                 shape = RoundedCornerShape(20.dp),
             )
             .border(
@@ -69,7 +71,7 @@ fun PicPhotoCardFrame(
                     top = 24.dp,
                     start = 22.dp,
                 ),
-            keyword = groupInfo.keyword,
+            keyword = keywordType,
         )
 
         KeywordMiniSymbol(
@@ -79,7 +81,7 @@ fun PicPhotoCardFrame(
                     top = 24.dp,
                     end = 22.dp,
                 ),
-            keyword = groupInfo.keyword,
+            keyword = keywordType,
         )
 
         KeywordMiniSymbol(
@@ -89,7 +91,7 @@ fun PicPhotoCardFrame(
                     bottom = 24.dp,
                     start = 22.dp,
                 ),
-            keyword = groupInfo.keyword,
+            keyword = keywordType,
         )
 
         KeywordMiniSymbol(
@@ -99,7 +101,7 @@ fun PicPhotoCardFrame(
                     bottom = 24.dp,
                     end = 22.dp,
                 ),
-            keyword = groupInfo.keyword,
+            keyword = keywordType,
         )
 
         GroupImage(
@@ -107,7 +109,8 @@ fun PicPhotoCardFrame(
                 .fillMaxSize()
                 .padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp)
                 .align(Alignment.Center),
-            groupInfo = groupInfo,
+            frameResId = frameResId,
+            backgroundColor = keywordType.backgroundColor,
             content = content,
         )
     }
@@ -125,7 +128,8 @@ private fun KeywordMiniSymbol(modifier: Modifier, keyword: GroupKeyword) {
 @Composable
 private fun GroupImage(
     modifier: Modifier,
-    groupInfo: GroupInfo,
+    @DrawableRes frameResId: Int,
+    backgroundColor: Color,
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
@@ -134,8 +138,8 @@ private fun GroupImage(
         content()
         Image(
             modifier = Modifier.fillMaxSize(),
-            painter = painterResource(id = groupInfo.frontImageFrame.frameResId),
-            colorFilter = ColorFilter.tint(groupInfo.keyword.backgroundColor),
+            painter = painterResource(frameResId),
+            colorFilter = ColorFilter.tint(backgroundColor),
             contentScale = ContentScale.FillBounds,
             contentDescription = null,
         )
@@ -147,17 +151,8 @@ private fun GroupImage(
 fun PicPhotoCardFramePreview() {
     PicPhotoCardFrame(
         modifier = Modifier.fillMaxSize(),
-        groupInfo = GroupInfo(
-            id = 0L,
-            cardBackImages = listOf(),
-            cardFrontImageUrl = "cardFrontImageUrl",
-            frontImageFrame = PicPhotoFrame.HAMBURGER,
-            keyword = GroupKeyword.SCHOOL,
-            name = "name",
-            recentEventDate = "recentEventDate",
-            status = GroupStatusType.AFTER_MY_UPLOAD,
-            statusDescription = "statusDescription",
-        )
+        keywordType = GroupKeyword.CREW,
+        frameResId = PicPhotoFrame.HAMBURGER.frameResId,
     ) {
         Box(modifier = Modifier.fillMaxSize().background(Color.Green))
     }
