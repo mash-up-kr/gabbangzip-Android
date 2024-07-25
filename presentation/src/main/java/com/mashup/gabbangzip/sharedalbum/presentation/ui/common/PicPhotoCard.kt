@@ -1,7 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -16,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,6 +23,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 
 @Composable
 fun PicPhotoCard(
@@ -118,9 +117,9 @@ fun PicPhotoCardFrame(
 
 @Composable
 private fun KeywordMiniSymbol(modifier: Modifier, keyword: GroupKeyword) {
-    Image(
+    StableImage(
         modifier = modifier.size(10.dp),
-        painter = painterResource(id = keyword.symbolResId),
+        drawableResId = keyword.symbolResId,
         contentDescription = stringResource(R.string.group_symbol),
     )
 }
@@ -136,9 +135,9 @@ private fun GroupImage(
         modifier = modifier,
     ) {
         content()
-        Image(
+        StableImage(
             modifier = Modifier.fillMaxSize(),
-            painter = painterResource(frameResId),
+            drawableResId = frameResId,
             colorFilter = ColorFilter.tint(backgroundColor),
             contentScale = ContentScale.FillBounds,
             contentDescription = null,
