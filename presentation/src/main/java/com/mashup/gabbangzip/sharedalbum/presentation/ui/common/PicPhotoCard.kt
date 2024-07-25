@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,16 +17,38 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 
 @Composable
 fun PicPhotoCard(
     modifier: Modifier,
     groupInfo: GroupInfo,
+) {
+    PicPhotoCardFrame(
+        modifier = modifier,
+        groupInfo = groupInfo
+    ) {
+        AsyncImage(
+            modifier = Modifier.matchParentSize(),
+            model = groupInfo.cardFrontImageUrl,
+            contentScale = ContentScale.Crop,
+            contentDescription = stringResource(R.string.group_main_picture),
+        )
+    }
+}
+
+@Composable
+fun PicPhotoCardFrame(
+    modifier: Modifier,
+    groupInfo: GroupInfo,
+    content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -85,6 +108,7 @@ fun PicPhotoCard(
                 .padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp)
                 .align(Alignment.Center),
             groupInfo = groupInfo,
+            content = content,
         )
     }
 }
@@ -99,17 +123,15 @@ private fun KeywordMiniSymbol(modifier: Modifier, keyword: GroupKeyword) {
 }
 
 @Composable
-private fun GroupImage(modifier: Modifier, groupInfo: GroupInfo) {
+private fun GroupImage(
+    modifier: Modifier,
+    groupInfo: GroupInfo,
+    content: @Composable BoxScope.() -> Unit,
+) {
     Box(
         modifier = modifier,
     ) {
-        AsyncImage(
-            modifier = Modifier.matchParentSize(),
-            model = groupInfo.cardFrontImageUrl,
-            contentScale = ContentScale.Crop,
-            contentDescription = stringResource(R.string.group_main_picture),
-        )
-
+        content()
         Image(
             modifier = Modifier.fillMaxSize(),
             painter = painterResource(id = groupInfo.frontImageFrame.frameResId),
@@ -117,5 +139,26 @@ private fun GroupImage(modifier: Modifier, groupInfo: GroupInfo) {
             contentScale = ContentScale.FillBounds,
             contentDescription = null,
         )
+    }
+}
+
+@Preview
+@Composable
+fun PicPhotoCardFramePreview() {
+    PicPhotoCardFrame(
+        modifier = Modifier.fillMaxSize(),
+        groupInfo = GroupInfo(
+            id = 0L,
+            cardBackImages = listOf(),
+            cardFrontImageUrl = "cardFrontImageUrl",
+            frontImageFrame = PicPhotoFrame.HAMBURGER,
+            keyword = GroupKeyword.SCHOOL,
+            name = "name",
+            recentEventDate = "recentEventDate",
+            status = GroupStatusType.AFTER_MY_UPLOAD,
+            statusDescription = "statusDescription",
+        )
+    ) {
+        Box(modifier = Modifier.fillMaxSize().background(Color.Green))
     }
 }
