@@ -1,6 +1,8 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation
 
+import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,13 +31,14 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.hideKeyboardOnOutsid
 
 @Composable
 fun EventCreationScreen(
-    onCompleteButtonClicked: () -> Unit,
+    pictures: List<Uri?>,
+    onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
     onBackButtonClicked: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
-    var description by remember { mutableStateOf("") }
-    val buttonEnabled by remember { derivedStateOf { description.isNotBlank() } }
+    var summary by remember { mutableStateOf("") }
+    val buttonEnabled by remember { derivedStateOf { summary.isNotBlank() && pictures.size == 4 } }
 
     Column(
         modifier = Modifier.hideKeyboardOnOutsideClicked(),
@@ -60,8 +63,8 @@ fun EventCreationScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp, bottom = 24.dp),
-                value = description,
-                onValueChange = { description = it },
+                value = summary,
+                onValueChange = { summary = it },
                 hint = "이벤트를 한줄로 요약해주세요.",
                 maxLength = 10,
             )
@@ -74,8 +77,10 @@ fun EventCreationScreen(
             )
             EventCreationTitle(text = "사진 선택")
             PicGallery(
-                modifier = Modifier.padding(top = 16.dp),
-                currentCount = 0,
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .clickable { onGalleryButtonClicked() },
+                currentCount = pictures.size,
                 totalCount = 4,
             )
         }
@@ -88,7 +93,7 @@ fun EventCreationScreen(
             enable = buttonEnabled,
             onButtonClicked = {
                 focusManager.clearFocus()
-                onCompleteButtonClicked()
+                onCompleteButtonClicked(summary)
             },
         )
     }
@@ -112,6 +117,7 @@ private fun EventCreationScreenPreview() {
             .background(Gray0),
     ) {
         EventCreationScreen(
+            pictures = emptyList(),
             onCompleteButtonClicked = {},
             onGalleryButtonClicked = {},
             onBackButtonClicked = {},
