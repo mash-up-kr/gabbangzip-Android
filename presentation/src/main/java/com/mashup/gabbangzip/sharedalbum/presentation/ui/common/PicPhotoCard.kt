@@ -33,7 +33,7 @@ fun PicPhotoCard(
     PicPhotoCardFrame(
         modifier = modifier,
         keywordType = groupInfo.keyword,
-        frameResId = groupInfo.frontImageFrame.frameResId
+        frameResId = groupInfo.frontImageFrame.frameResId,
     ) {
         AsyncImage(
             modifier = Modifier.matchParentSize(),
@@ -153,6 +153,10 @@ fun PicPhotoCardFramePreview() {
         keywordType = GroupKeyword.CREW,
         frameResId = PicPhotoFrame.HAMBURGER.frameResId,
     ) {
-        Box(modifier = Modifier.fillMaxSize().background(Color.Green))
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Green),
+        )
     }
 }
