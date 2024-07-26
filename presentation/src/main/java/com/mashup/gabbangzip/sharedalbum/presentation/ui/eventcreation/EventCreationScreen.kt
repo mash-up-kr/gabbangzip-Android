@@ -1,15 +1,17 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation
 
+import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -40,13 +43,16 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicGallery
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextField
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity.Companion.PICTURES_MAX_COUNT
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.hideKeyboardOnOutsideClicked
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun EventCreationScreen(
     state: EventCreationState,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
+    onPictureDeleteButtonClicked: (Int) -> Unit,
     onDismissButtonClicked: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
@@ -110,24 +116,21 @@ fun EventCreationScreen(
             )
             EventCreationTitle(stringResource(id = R.string.event_creation_detail_pictures))
             LazyRow(
-                modifier = Modifier.padding(top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.padding(top = 9.dp),
+                horizontalArrangement = Arrangement.spacedBy(1.dp),
             ) {
                 item(1) {
                     PicGallery(
+                        modifier = Modifier.padding(top = 7.dp, end = 7.dp),
                         currentCount = state.pictures.size,
                         totalCount = PICTURES_MAX_COUNT,
                         onClicked = { onGalleryButtonClicked() },
                     )
                 }
-                items(state.pictures) { uri ->
-                    AsyncImage(
-                        modifier = Modifier
-                            .size(100.dp)
-                            .clip(RoundedCornerShape(10.dp)),
-                        model = uri,
-                        contentDescription = stringResource(id = R.string.event_creation_detail_pictures),
-                        contentScale = ContentScale.Crop,
+                itemsIndexed(state.pictures) { idx, uri ->
+                    PictureWithDeleteButton(
+                        uri = uri,
+                        onButtonClicked = { onPictureDeleteButtonClicked(idx) },
                     )
                 }
             }
@@ -163,6 +166,34 @@ private fun EventCreationTitle(text: String) {
     )
 }
 
+@Composable
+private fun PictureWithDeleteButton(
+    modifier: Modifier = Modifier,
+    uri: Uri?,
+    onButtonClicked: () -> Unit,
+) {
+    Box(
+        modifier = modifier.size(107.dp),
+    ) {
+        AsyncImage(
+            modifier = Modifier
+                .size(100.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .align(Alignment.BottomStart),
+            model = uri,
+            contentDescription = stringResource(id = R.string.event_creation_detail_pictures),
+            contentScale = ContentScale.Crop,
+        )
+        StableImage(
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .noRippleClickable { onButtonClicked() },
+            drawableResId = R.drawable.ic_delete,
+            contentDescription = "",
+        )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun EventCreationScreenPreview() {
@@ -175,6 +206,7 @@ private fun EventCreationScreenPreview() {
             state = EventCreationState(),
             onCompleteButtonClicked = {},
             onGalleryButtonClicked = {},
+            onPictureDeleteButtonClicked = {},
             onDismissButtonClicked = {},
         )
     }

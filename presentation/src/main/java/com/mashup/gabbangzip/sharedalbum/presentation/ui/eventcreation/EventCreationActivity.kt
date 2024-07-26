@@ -56,6 +56,7 @@ class EventCreationActivity : ComponentActivity() {
                         clearEventCreationState = eventCreationViewModel::clearEventCreationState,
                         onCompleteButtonClicked = eventCreationViewModel::createEvent,
                         onGalleryButtonClicked = photoPicker::open,
+                        onPictureDeleteButtonClicked = eventCreationViewModel::deletePicture,
                     )
                 }
             }

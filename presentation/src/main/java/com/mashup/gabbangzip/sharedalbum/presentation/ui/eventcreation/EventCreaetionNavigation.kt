@@ -13,6 +13,7 @@ fun NavGraphBuilder.eventCreationNavGraph(
     eventCreationState: EventCreationState,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
+    onPictureDeleteButtonClicked: (Int) -> Unit,
     onDismissButtonClicked: () -> Unit,
 ) {
     composable(route = EventCreationRoute.EventCreationScreenRoute.route) {
@@ -20,6 +21,7 @@ fun NavGraphBuilder.eventCreationNavGraph(
             state = eventCreationState,
             onCompleteButtonClicked = onCompleteButtonClicked,
             onGalleryButtonClicked = onGalleryButtonClicked,
+            onPictureDeleteButtonClicked = onPictureDeleteButtonClicked,
             onDismissButtonClicked = onDismissButtonClicked,
         )
     }

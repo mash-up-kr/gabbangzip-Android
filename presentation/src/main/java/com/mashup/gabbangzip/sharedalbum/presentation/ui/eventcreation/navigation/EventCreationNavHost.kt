@@ -18,6 +18,7 @@ fun EventCreationNavHost(
     clearEventCreationState: () -> Unit,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
+    onPictureDeleteButtonClicked: (Int) -> Unit,
 ) {
     NavHost(
         modifier = modifier,
@@ -32,6 +33,7 @@ fun EventCreationNavHost(
             eventCreationState = eventCreationState,
             onCompleteButtonClicked = onCompleteButtonClicked,
             onGalleryButtonClicked = onGalleryButtonClicked,
+            onPictureDeleteButtonClicked = onPictureDeleteButtonClicked,
             onDismissButtonClicked = {
                 clearEventCreationState()
                 navController.popBackStack()

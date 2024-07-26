@@ -23,6 +23,14 @@ class EventCreationViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    fun deletePicture(idx: Int) {
+        viewModelScope.launch {
+            val pictureList = _uiState.value.pictures.toMutableList()
+            pictureList.removeAt(idx)
+            _uiState.update { it.copy(pictures = pictureList) }
+        }
+    }
+
     fun clearEventCreationState() {
         viewModelScope.launch {
             _uiState.update { EventCreationState() }
