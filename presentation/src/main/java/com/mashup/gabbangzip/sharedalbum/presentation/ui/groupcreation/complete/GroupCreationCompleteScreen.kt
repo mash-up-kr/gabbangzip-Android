@@ -11,13 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0Alpha80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
@@ -29,6 +30,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicProgressBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextOnlyTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.common.ThumbnailCardFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.model.GroupCreated
 
 @Composable
@@ -69,13 +71,14 @@ fun GroupCreationCompleteScreen(
                 color = Gray80,
                 textAlign = TextAlign.Center,
             )
-            Box(
-                // Todo : 프레임 카드 만들어넣기
-                modifier = Modifier
-                    .size(310.dp, 420.dp)
-                    .padding(bottom = 16.dp)
-                    .background(Color.Cyan),
-            )
+            if (groupCreated != null) {
+                ThumbnailCard(
+                    modifier = Modifier.size(310.dp, 420.dp),
+                    groupCreated = groupCreated,
+                )
+            } else {
+                EmptyThumbnailCard()
+            }
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -109,6 +112,30 @@ fun GroupCreationCompleteScreen(
             onButtonClicked = onNextButtonClicked,
         )
     }
+}
+
+@Composable
+private fun ThumbnailCard(
+    modifier: Modifier,
+    groupCreated: GroupCreated,
+) {
+    ThumbnailCardFrame(
+        modifier = modifier,
+        groupName = groupCreated.name,
+        keyword = groupCreated.keyword,
+    ) {
+        AsyncImage(
+            modifier = Modifier.matchParentSize(),
+            model = groupCreated.imageUrl,
+            contentDescription = stringResource(id = R.string.thumbnail_image),
+            contentScale = ContentScale.Crop,
+        )
+    }
+}
+
+@Composable
+private fun EmptyThumbnailCard() {
+    Box(modifier = Modifier.size(310.dp, 420.dp))
 }
 
 @Preview(showBackground = true)

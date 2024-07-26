@@ -25,7 +25,7 @@ class GroupRepositoryImpl @Inject constructor(
                 id = id,
                 name = groupName,
                 keyword = keyword,
-                imageUrl = groupImageUrl,
+                imageUrl = "https://pic-api-bucket.s3.ap-northeast-2.amazonaws.com/$groupImageUrl",
                 invitationUrl = groupInvitationUrl ?: "", // Todo : 초대코드 대응하기
             )
         }

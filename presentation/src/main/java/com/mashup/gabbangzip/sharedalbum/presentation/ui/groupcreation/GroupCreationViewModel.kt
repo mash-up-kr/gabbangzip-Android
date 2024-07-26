@@ -63,6 +63,8 @@ class GroupCreationViewModel @Inject constructor(
                 _uiState.emit(
                     uiState.value.copy(
                         groupCreated = GroupCreated(
+                            name = it.name,
+                            keyword = GroupKeyword.getKeyword(it.keyword),
                             imageUrl = it.imageUrl,
                             invitationUrl = it.invitationUrl,
                         ),
