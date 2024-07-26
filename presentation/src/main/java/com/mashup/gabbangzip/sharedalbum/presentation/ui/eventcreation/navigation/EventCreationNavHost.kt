@@ -28,6 +28,7 @@ fun EventCreationNavHost(
             onBackButtonClicked = {},
         )
         eventCreationNavGraph(
+            date = eventCreationState.date,
             pictures = eventCreationState.pictures,
             onCompleteButtonClicked = onCompleteButtonClicked,
             onGalleryButtonClicked = onGalleryButtonClicked,

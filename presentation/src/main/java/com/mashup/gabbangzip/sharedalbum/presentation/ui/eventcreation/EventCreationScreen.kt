@@ -38,6 +38,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.hideKeyboardOnOutsid
 
 @Composable
 fun EventCreationScreen(
+    date: String,
     pictures: List<Uri?>,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
@@ -80,7 +81,7 @@ fun EventCreationScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp, bottom = 24.dp),
-                date = "24/10/26",
+                date = date,
             )
             EventCreationTitle(text = "사진 선택")
             LazyRow(
@@ -139,6 +140,7 @@ private fun EventCreationScreenPreview() {
             .background(Gray0),
     ) {
         EventCreationScreen(
+            date = "24/10/26",
             pictures = emptyList(),
             onCompleteButtonClicked = {},
             onGalleryButtonClicked = {},

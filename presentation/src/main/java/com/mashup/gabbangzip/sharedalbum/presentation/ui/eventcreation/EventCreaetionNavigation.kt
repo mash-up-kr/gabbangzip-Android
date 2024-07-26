@@ -11,6 +11,7 @@ fun NavController.navigateToEventCreation() {
 }
 
 fun NavGraphBuilder.eventCreationNavGraph(
+    date: String,
     pictures: List<Uri?>,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
@@ -18,6 +19,7 @@ fun NavGraphBuilder.eventCreationNavGraph(
 ) {
     composable(route = EventCreationRoute.EventCreationScreenRoute.route) {
         EventCreationScreen(
+            date = date,
             pictures = pictures,
             onCompleteButtonClicked = onCompleteButtonClicked,
             onGalleryButtonClicked = onGalleryButtonClicked,

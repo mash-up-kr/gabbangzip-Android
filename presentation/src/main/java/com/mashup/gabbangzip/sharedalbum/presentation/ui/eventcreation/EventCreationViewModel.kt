@@ -3,6 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.LocalDateUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,6 +32,6 @@ class EventCreationViewModel @Inject constructor() : ViewModel() {
 
 data class EventCreationState(
     val summary: String = "",
-    val date: String = "",
+    val date: String = LocalDateUtil.getNowDate(),
     val pictures: List<Uri?> = emptyList(),
 )
