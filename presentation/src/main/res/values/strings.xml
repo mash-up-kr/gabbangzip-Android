@@ -51,6 +51,7 @@
     <string name="event_creation_dialog_desc">페이지를 나가면\n작성중인 내용이 삭제돼요.</string>
     <string name="event_creation_dialog_dismiss">나가기</string>
     <string name="event_creation_dialog_confirm">계속 작성하기</string>
+    <string name="event_creation_picture_delete">사진 삭제</string>
 
     <string name="pic_tag">%s 태그 이미지</string>
     <string name="pic_keyword_button">%s 키워드 버튼 이미지</string>

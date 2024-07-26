@@ -190,7 +190,7 @@ private fun PictureWithDeleteButton(
                 .align(Alignment.TopEnd)
                 .noRippleClickable { onButtonClicked() },
             drawableResId = R.drawable.ic_delete,
-            contentDescription = "",
+            contentDescription = stringResource(id = R.string.event_creation_picture_delete),
         )
     }
 }
