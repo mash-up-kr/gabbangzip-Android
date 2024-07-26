@@ -83,7 +83,7 @@ fun GroupCreationCompleteScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .padding(bottom = 8.dp),
+                    .padding(top = 16.dp, bottom = 8.dp),
                 text = stringResource(id = R.string.group_complete_contents),
                 style = PicTypography.bodyMedium14,
                 color = Gray60,
