@@ -59,8 +59,7 @@ fun GroupCreationNavHost(
             },
         )
         groupCreationThumbnailNavGraph(
-            initialThumbnail = groupCreationState.thumbnail,
-            isGroupCreated = groupCreationState.groupCreated != null,
+            initialState = groupCreationState,
             onBackButtonClicked = { navController.popBackStack() },
             onNextButtonClicked = createGroup,
             onGetThumbnailButtonClicked = onGetThumbnailButtonClicked,

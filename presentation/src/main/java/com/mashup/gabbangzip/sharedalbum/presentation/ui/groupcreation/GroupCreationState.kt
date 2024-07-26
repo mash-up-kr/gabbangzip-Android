@@ -9,4 +9,6 @@ data class GroupCreationState(
     val keyword: GroupKeyword = GroupKeyword.SCHOOL,
     val thumbnail: Uri? = null,
     val groupCreated: GroupCreated? = null,
-)
+) {
+    val isGroupCreated get() = groupCreated != null
+}

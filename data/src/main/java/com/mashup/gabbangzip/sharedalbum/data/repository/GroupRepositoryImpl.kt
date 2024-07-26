@@ -26,7 +26,7 @@ class GroupRepositoryImpl @Inject constructor(
                 name = groupName,
                 keyword = keyword,
                 imageUrl = groupImageUrl,
-                invitationUrl = groupInvitationUrl,
+                invitationUrl = groupInvitationUrl ?: "", // Todo : 초대코드 대응하기
             )
         }
     }
