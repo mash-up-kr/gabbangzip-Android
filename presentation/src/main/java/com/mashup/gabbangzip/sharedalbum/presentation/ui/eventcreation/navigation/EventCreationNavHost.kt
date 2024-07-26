@@ -16,7 +16,6 @@ fun EventCreationNavHost(
     startDestination: String,
     eventCreationState: EventCreationState,
     clearEventCreationState: () -> Unit,
-    updateDialogState: (Boolean) -> Unit,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
 ) {
@@ -31,7 +30,6 @@ fun EventCreationNavHost(
         )
         eventCreationNavGraph(
             eventCreationState = eventCreationState,
-            updateDialogState = updateDialogState,
             onCompleteButtonClicked = onCompleteButtonClicked,
             onGalleryButtonClicked = onGalleryButtonClicked,
             onDismissButtonClicked = {

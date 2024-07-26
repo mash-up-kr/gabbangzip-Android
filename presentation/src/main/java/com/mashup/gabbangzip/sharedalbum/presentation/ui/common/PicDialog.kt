@@ -33,8 +33,9 @@ fun PicDialog(
     confirmText: String,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit,
+    onDismissRequest: () -> Unit = onDismiss,
 ) {
-    Dialog(onDismissRequest = onDismiss) {
+    Dialog(onDismissRequest = onDismissRequest) {
         Column(
             modifier = modifier
                 .width(330.dp)
@@ -52,7 +53,9 @@ fun PicDialog(
             )
             if (contentText.isNotEmpty()) {
                 Text(
-                    modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp),
                     text = contentText,
                     textAlign = TextAlign.Center,
                     style = PicTypography.bodyMedium14,
@@ -60,7 +63,9 @@ fun PicDialog(
                 )
             }
             Row(
-                modifier = Modifier.fillMaxWidth().padding(top = 26.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 26.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 PicDialogButton(

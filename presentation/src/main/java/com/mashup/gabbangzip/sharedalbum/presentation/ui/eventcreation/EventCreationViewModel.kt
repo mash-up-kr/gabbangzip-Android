@@ -24,12 +24,6 @@ class EventCreationViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun updateDialogState(state: Boolean) {
-        viewModelScope.launch {
-            _uiState.update { it.copy(dialogState = state) }
-        }
-    }
-
     fun clearEventCreationState() {
         viewModelScope.launch {
             _uiState.update { EventCreationState() }
@@ -46,5 +40,4 @@ class EventCreationViewModel @Inject constructor() : ViewModel() {
 data class EventCreationState(
     val date: String = LocalDateUtil.getNowDate(),
     val pictures: List<Uri?> = emptyList(),
-    val dialogState: Boolean = false,
 )

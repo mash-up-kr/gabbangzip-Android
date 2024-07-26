@@ -54,7 +54,6 @@ class EventCreationActivity : ComponentActivity() {
                         startDestination = EventCreationRoute.initRoute,
                         eventCreationState = eventCreationState,
                         clearEventCreationState = eventCreationViewModel::clearEventCreationState,
-                        updateDialogState = eventCreationViewModel::updateDialogState,
                         onCompleteButtonClicked = eventCreationViewModel::createEvent,
                         onGalleryButtonClicked = photoPicker::open,
                     )

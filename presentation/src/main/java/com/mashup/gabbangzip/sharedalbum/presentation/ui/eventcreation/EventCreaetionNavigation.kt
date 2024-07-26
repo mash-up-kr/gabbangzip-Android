@@ -11,7 +11,6 @@ fun NavController.navigateToEventCreation() {
 
 fun NavGraphBuilder.eventCreationNavGraph(
     eventCreationState: EventCreationState,
-    updateDialogState: (Boolean) -> Unit,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
     onDismissButtonClicked: () -> Unit,
@@ -19,7 +18,6 @@ fun NavGraphBuilder.eventCreationNavGraph(
     composable(route = EventCreationRoute.EventCreationScreenRoute.route) {
         EventCreationScreen(
             state = eventCreationState,
-            updateDialogState = updateDialogState,
             onCompleteButtonClicked = onCompleteButtonClicked,
             onGalleryButtonClicked = onGalleryButtonClicked,
             onDismissButtonClicked = onDismissButtonClicked,

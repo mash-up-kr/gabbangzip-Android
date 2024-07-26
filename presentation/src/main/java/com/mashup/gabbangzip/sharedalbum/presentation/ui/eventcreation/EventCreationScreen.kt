@@ -45,31 +45,32 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.hideKeyboardOnOutsid
 @Composable
 fun EventCreationScreen(
     state: EventCreationState,
-    updateDialogState: (Boolean) -> Unit,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
     onDismissButtonClicked: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
+    var showDialog by remember { mutableStateOf(false) }
     var summary by remember { mutableStateOf("") }
     val buttonEnabled by rememberUpdatedState(summary.isNotBlank() && state.pictures.size >= PICTURES_MAX_COUNT)
 
-    if (state.dialogState) {
+    if (showDialog) {
         PicDialog(
             titleText = stringResource(R.string.event_creation_dialog_title),
             contentText = stringResource(R.string.event_creation_dialog_desc),
             dismissText = stringResource(R.string.event_creation_dialog_dismiss),
             confirmText = stringResource(R.string.event_creation_dialog_confirm),
             onDismiss = {
-                updateDialogState(false)
+                showDialog = false
                 onDismissButtonClicked()
             },
-            onConfirm = { updateDialogState(false) },
+            onConfirm = { showDialog = false },
+            onDismissRequest = {},
         )
     }
 
     BackHandler(true) {
-        updateDialogState(true)
+        showDialog = true
     }
 
     Column(
@@ -82,7 +83,7 @@ fun EventCreationScreen(
             titleText = stringResource(id = R.string.event_creation),
             backButtonClicked = {
                 focusManager.clearFocus()
-                updateDialogState(true)
+                showDialog = true
             },
         )
         Column(
@@ -172,7 +173,6 @@ private fun EventCreationScreenPreview() {
     ) {
         EventCreationScreen(
             state = EventCreationState(),
-            updateDialogState = {},
             onCompleteButtonClicked = {},
             onGalleryButtonClicked = {},
             onDismissButtonClicked = {},
