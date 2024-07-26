@@ -23,7 +23,7 @@ class EventCreationViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun createEvent() {
+    fun createEvent(summary: String) {
         viewModelScope.launch {
             // TODO: create event api 연결
         }
@@ -31,7 +31,6 @@ class EventCreationViewModel @Inject constructor() : ViewModel() {
 }
 
 data class EventCreationState(
-    val summary: String = "",
     val date: String = LocalDateUtil.getNowDate(),
     val pictures: List<Uri?> = emptyList(),
 )

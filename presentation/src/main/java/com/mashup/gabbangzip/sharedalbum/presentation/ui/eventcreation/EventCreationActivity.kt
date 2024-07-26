@@ -53,10 +53,7 @@ class EventCreationActivity : ComponentActivity() {
                         navController = rememberNavController(),
                         startDestination = EventCreationRoute.initRoute,
                         eventCreationState = eventCreationState,
-                        onCompleteButtonClicked = {
-                            //TODO: summary 어떻게할까 고민
-                            eventCreationViewModel::createEvent
-                        },
+                        onCompleteButtonClicked = eventCreationViewModel::createEvent,
                         onGalleryButtonClicked = photoPicker::open,
                     )
                 }
