@@ -7,8 +7,8 @@ sealed interface EventCreationRoute {
         override val route: String = "eventIntroScreenRoute"
     }
 
-    data object EventCreationScreenRoute : EventCreationRoute {
-        override val route: String = "eventCreationScreenRoute"
+    data object DetailScreenRoute : EventCreationRoute {
+        override val route: String = "eventDetailScreenRoute"
     }
 
     companion object {

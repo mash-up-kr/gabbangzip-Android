@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.detail
 
 import android.net.Uri
 import androidx.activity.compose.BackHandler
@@ -43,12 +43,13 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicGallery
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextField
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity.Companion.PICTURES_MAX_COUNT
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationState
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.hideKeyboardOnOutsideClicked
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
-fun EventCreationScreen(
+fun EventCreationDetailScreen(
     state: EventCreationState,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
@@ -202,7 +203,7 @@ private fun EventCreationScreenPreview() {
             .fillMaxSize()
             .background(Gray0),
     ) {
-        EventCreationScreen(
+        EventCreationDetailScreen(
             state = EventCreationState(),
             onCompleteButtonClicked = {},
             onGalleryButtonClicked = {},
