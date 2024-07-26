@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation
 
-import android.net.Uri
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -11,19 +10,19 @@ fun NavController.navigateToEventCreation() {
 }
 
 fun NavGraphBuilder.eventCreationNavGraph(
-    date: String,
-    pictures: List<Uri?>,
+    eventCreationState: EventCreationState,
+    updateDialogState: (Boolean) -> Unit,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
-    onBackButtonClicked: () -> Unit,
+    onDismissButtonClicked: () -> Unit,
 ) {
     composable(route = EventCreationRoute.EventCreationScreenRoute.route) {
         EventCreationScreen(
-            date = date,
-            pictures = pictures,
+            state = eventCreationState,
+            updateDialogState = updateDialogState,
             onCompleteButtonClicked = onCompleteButtonClicked,
             onGalleryButtonClicked = onGalleryButtonClicked,
-            onBackButtonClicked = onBackButtonClicked,
+            onDismissButtonClicked = onDismissButtonClicked,
         )
     }
 }

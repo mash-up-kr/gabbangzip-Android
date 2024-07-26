@@ -15,6 +15,8 @@ fun EventCreationNavHost(
     navController: NavHostController,
     startDestination: String,
     eventCreationState: EventCreationState,
+    clearEventCreationState: () -> Unit,
+    updateDialogState: (Boolean) -> Unit,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
 ) {
@@ -28,11 +30,14 @@ fun EventCreationNavHost(
             onBackButtonClicked = {},
         )
         eventCreationNavGraph(
-            date = eventCreationState.date,
-            pictures = eventCreationState.pictures,
+            eventCreationState = eventCreationState,
+            updateDialogState = updateDialogState,
             onCompleteButtonClicked = onCompleteButtonClicked,
             onGalleryButtonClicked = onGalleryButtonClicked,
-            onBackButtonClicked = navController::popBackStack,
+            onDismissButtonClicked = {
+                clearEventCreationState()
+                navController.popBackStack()
+            },
         )
     }
 }

@@ -1,6 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation
 
-import android.net.Uri
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,9 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0Alpha80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
@@ -32,21 +34,41 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDatePickerField
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicGallery
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextField
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity.Companion.PICTURES_MAX_COUNT
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.hideKeyboardOnOutsideClicked
 
 @Composable
 fun EventCreationScreen(
-    date: String,
-    pictures: List<Uri?>,
+    state: EventCreationState,
+    updateDialogState: (Boolean) -> Unit,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
-    onBackButtonClicked: () -> Unit,
+    onDismissButtonClicked: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     var summary by remember { mutableStateOf("") }
-    val buttonEnabled by rememberUpdatedState(summary.isNotBlank() && pictures.size >= 4)
+    val buttonEnabled by rememberUpdatedState(summary.isNotBlank() && state.pictures.size >= PICTURES_MAX_COUNT)
+
+    if (state.dialogState) {
+        PicDialog(
+            titleText = stringResource(R.string.vote_dialog_title),
+            contentText = stringResource(R.string.vote_dialog_content),
+            dismissText = stringResource(R.string.vote_dialog_exit),
+            confirmText = stringResource(R.string.vote_dialog_keep_vote),
+            onDismiss = {
+                updateDialogState(false)
+                onDismissButtonClicked()
+            },
+            onConfirm = { updateDialogState(false) },
+        )
+    }
+
+    BackHandler(true) {
+        updateDialogState(true)
+    }
 
     Column(
         modifier = Modifier.hideKeyboardOnOutsideClicked(),
@@ -58,7 +80,7 @@ fun EventCreationScreen(
             titleText = "이벤트 만들기",
             backButtonClicked = {
                 focusManager.clearFocus()
-                onBackButtonClicked()
+                updateDialogState(true)
             },
         )
         Column(
@@ -81,7 +103,7 @@ fun EventCreationScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp, bottom = 24.dp),
-                date = date,
+                date = state.date,
             )
             EventCreationTitle(text = "사진 선택")
             LazyRow(
@@ -90,12 +112,12 @@ fun EventCreationScreen(
             ) {
                 item(1) {
                     PicGallery(
-                        currentCount = pictures.size,
-                        totalCount = 4,
+                        currentCount = state.pictures.size,
+                        totalCount = PICTURES_MAX_COUNT,
                         onClicked = { onGalleryButtonClicked() },
                     )
                 }
-                items(pictures) { uri ->
+                items(state.pictures) { uri ->
                     AsyncImage(
                         modifier = Modifier
                             .size(100.dp)
@@ -140,11 +162,11 @@ private fun EventCreationScreenPreview() {
             .background(Gray0),
     ) {
         EventCreationScreen(
-            date = "24/10/26",
-            pictures = emptyList(),
+            state = EventCreationState(),
+            updateDialogState = {},
             onCompleteButtonClicked = {},
             onGalleryButtonClicked = {},
-            onBackButtonClicked = {},
+            onDismissButtonClicked = {},
         )
     }
 }

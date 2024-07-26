@@ -34,7 +34,7 @@ class EventCreationActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         photoPicker = PicPhotoPicker.create(
             activity = this@EventCreationActivity,
-            max = 4,
+            max = PICTURES_MAX_COUNT,
             onImagePicked = { uriList ->
                 eventCreationViewModel.updatePictures(uriList)
             },
@@ -53,6 +53,8 @@ class EventCreationActivity : ComponentActivity() {
                         navController = rememberNavController(),
                         startDestination = EventCreationRoute.initRoute,
                         eventCreationState = eventCreationState,
+                        clearEventCreationState = eventCreationViewModel::clearEventCreationState,
+                        updateDialogState = eventCreationViewModel::updateDialogState,
                         onCompleteButtonClicked = eventCreationViewModel::createEvent,
                         onGalleryButtonClicked = photoPicker::open,
                     )
@@ -62,6 +64,8 @@ class EventCreationActivity : ComponentActivity() {
     }
 
     companion object {
+        const val PICTURES_MAX_COUNT = 4
+
         fun open(context: Activity) {
             context.startActivity(
                 Intent(context, EventCreationActivity::class.java),
