@@ -19,8 +19,7 @@ class EventCreationViewModel @Inject constructor() : ViewModel() {
 
     fun updatePictures(uriList: List<Uri?>) {
         viewModelScope.launch {
-            // TODO: null 일때는 어떻게?
-            _uiState.update { it.copy(pictures = uriList) }
+            _uiState.update { it.copy(pictures = uriList.filterNotNull()) }
         }
     }
 
