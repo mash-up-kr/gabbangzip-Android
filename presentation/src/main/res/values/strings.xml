@@ -42,6 +42,15 @@
     <string name="event_creation">이벤트 만들기</string>
     <string name="event_creation_title">이벤트를 생성하고\n함께한 순간을 공유해요!</string>
     <string name="event_creation_description">공유한 사진을 함께 PIC하면 네컷사진을 만들 수 있어요.</string>
+    <string name="event_creation_detail_summary">이벤트 한줄 요약</string>
+    <string name="event_creation_detail_summary_hint">이벤트를 한줄로 요약해주세요.</string>
+    <string name="event_creation_detail_date">날짜</string>
+    <string name="event_creation_detail_pictures">사진 선택</string>
+    <string name="event_creation_detail_timeout">이벤트 PIC은 2시간 후에 종료돼요.</string>
+    <string name="event_creation_dialog_title">나가실건가요?</string>
+    <string name="event_creation_dialog_desc">페이지를 나가면\n작성중인 내용이 삭제돼요.</string>
+    <string name="event_creation_dialog_dismiss">나가기</string>
+    <string name="event_creation_dialog_confirm">계속 작성하기</string>
 
     <string name="pic_tag">%s 태그 이미지</string>
     <string name="pic_keyword_button">%s 키워드 버튼 이미지</string>

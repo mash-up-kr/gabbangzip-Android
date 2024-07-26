@@ -23,12 +23,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0Alpha80
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
@@ -54,10 +56,10 @@ fun EventCreationScreen(
 
     if (state.dialogState) {
         PicDialog(
-            titleText = stringResource(R.string.vote_dialog_title),
-            contentText = stringResource(R.string.vote_dialog_content),
-            dismissText = stringResource(R.string.vote_dialog_exit),
-            confirmText = stringResource(R.string.vote_dialog_keep_vote),
+            titleText = stringResource(R.string.event_creation_dialog_title),
+            contentText = stringResource(R.string.event_creation_dialog_desc),
+            dismissText = stringResource(R.string.event_creation_dialog_dismiss),
+            confirmText = stringResource(R.string.event_creation_dialog_confirm),
             onDismiss = {
                 updateDialogState(false)
                 onDismissButtonClicked()
@@ -77,7 +79,7 @@ fun EventCreationScreen(
             modifier = Modifier
                 .background(Gray0Alpha80)
                 .padding(top = 16.dp),
-            titleText = "이벤트 만들기",
+            titleText = stringResource(id = R.string.event_creation),
             backButtonClicked = {
                 focusManager.clearFocus()
                 updateDialogState(true)
@@ -88,24 +90,24 @@ fun EventCreationScreen(
                 .padding(16.dp)
                 .weight(1f),
         ) {
-            EventCreationTitle(text = "이벤트 한줄 요약")
+            EventCreationTitle(stringResource(id = R.string.event_creation_detail_summary))
             PicTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp, bottom = 24.dp),
                 value = summary,
                 onValueChange = { summary = it },
-                hint = "이벤트를 한줄로 요약해주세요.",
+                hint = stringResource(id = R.string.event_creation_detail_summary_hint),
                 maxLength = 10,
             )
-            EventCreationTitle(text = "날짜")
+            EventCreationTitle(stringResource(id = R.string.event_creation_detail_date))
             PicDatePickerField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp, bottom = 24.dp),
                 date = state.date,
             )
-            EventCreationTitle(text = "사진 선택")
+            EventCreationTitle(stringResource(id = R.string.event_creation_detail_pictures))
             LazyRow(
                 modifier = Modifier.padding(top = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -123,17 +125,24 @@ fun EventCreationScreen(
                             .size(100.dp)
                             .clip(RoundedCornerShape(10.dp)),
                         model = uri,
-                        contentDescription = "사진 선택 이미지",
+                        contentDescription = stringResource(id = R.string.event_creation_detail_pictures),
                         contentScale = ContentScale.Crop,
                     )
                 }
             }
         }
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(id = R.string.event_creation_detail_timeout),
+            style = PicTypography.bodyMedium14,
+            color = Gray60,
+            textAlign = TextAlign.Center,
+        )
         PicButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 22.dp, end = 22.dp, bottom = 16.dp),
-            text = "완료",
+                .padding(horizontal = 22.dp, vertical = 16.dp),
+            text = stringResource(id = R.string.complete),
             isRippleClickable = true,
             enable = buttonEnabled,
             onButtonClicked = {
