@@ -12,12 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 
@@ -25,6 +27,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 fun PicDatePickerField(
     modifier: Modifier = Modifier,
     date: String = "",
+    textColor: Color = Gray80,
 ) {
     Row(
         modifier = modifier
@@ -46,7 +49,7 @@ fun PicDatePickerField(
         Text(
             text = date.ifEmpty { stringResource(id = R.string.pic_date_default) },
             style = PicTypography.bodyMedium16,
-            color = Gray60,
+            color = if (date.isEmpty()) Gray60 else textColor,
         )
     }
 }

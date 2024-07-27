@@ -114,6 +114,7 @@ fun EventCreationDetailScreen(
                     .fillMaxWidth()
                     .padding(top = 16.dp, bottom = 24.dp),
                 date = state.date,
+                textColor = Gray60,
             )
             EventCreationTitle(stringResource(id = R.string.event_creation_detail_pictures))
             LazyRow(
