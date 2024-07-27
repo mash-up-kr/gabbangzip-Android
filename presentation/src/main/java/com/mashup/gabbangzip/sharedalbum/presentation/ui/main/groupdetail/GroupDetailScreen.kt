@@ -109,6 +109,8 @@ private fun GroupDetailScreenContent(
                     .padding(top = 10.dp),
                 status = state.status,
                 event = state.recentEvent,
+                keyword = state.groupInfo?.keyword ?: GroupKeyword.SCHOOL,
+                cardFrontImageUrl = state.groupInfo?.cardFrontImageUrl.orEmpty(),
                 onClickActionButton = onClickActionButton,
                 onClickShareButton = onClickShareButton,
             )
