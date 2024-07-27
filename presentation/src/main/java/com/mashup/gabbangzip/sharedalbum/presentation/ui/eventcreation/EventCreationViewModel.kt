@@ -3,6 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +19,7 @@ class EventCreationViewModel @Inject constructor() : ViewModel() {
 
     fun updatePictures(uriList: List<Uri?>) {
         viewModelScope.launch {
-            _uiState.update { it.copy(pictures = uriList.filterNotNull()) }
+            _uiState.update { it.copy(pictures = ImmutableList(uriList.filterNotNull())) }
         }
     }
 
@@ -26,7 +27,7 @@ class EventCreationViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             val pictureList = _uiState.value.pictures.toMutableList()
             pictureList.removeAt(idx)
-            _uiState.update { it.copy(pictures = pictureList) }
+            _uiState.update { it.copy(pictures = ImmutableList(pictureList)) }
         }
     }
 
