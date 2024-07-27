@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -52,7 +53,9 @@ fun GroupDetailScreen(
     }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Gray0),
     ) {
         PicBackButtonTopBar(
             modifier = Modifier.fillMaxWidth(),
@@ -106,6 +109,7 @@ private fun GroupDetailScreenContent(
             RecentEventContainer(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .background(Gray0)
                     .padding(top = 10.dp),
                 status = state.status,
                 event = state.recentEvent,
@@ -129,7 +133,7 @@ private fun GroupDetailScreenPreview(
                 groupInfo = GroupInfo(
                     id = 0,
                     cardBackImages = emptyList(),
-                    cardFrontImageUrl = "",
+                    cardFrontImageUrl = "https://picsum.photos/200/300",
                     keyword = GroupKeyword.SCHOOL,
                     name = "가빵집가빵집",
                     recentEventDate = "2024.11.01",
