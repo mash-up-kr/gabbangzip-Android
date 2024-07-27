@@ -66,7 +66,7 @@ fun GroupCreationNavHost(
             navigateNextScreen = { navController.navigateToGroupCreationComplete() },
         )
         groupCreationCompleteNavGraph(
-            groupCreated = groupCreationState.groupCreated,
+            groupCreationResult = groupCreationState.groupCreationResult,
             onNextButtonClicked = finishGroupCreation,
             showSnackBarMessage = showSnackBarMessage,
         )

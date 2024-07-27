@@ -31,11 +31,11 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicProgressBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextOnlyTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.common.ThumbnailCardFrame
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.model.GroupCreated
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.model.GroupCreationResult
 
 @Composable
 fun GroupCreationCompleteScreen(
-    groupCreated: GroupCreated?,
+    groupCreationResult: GroupCreationResult?,
     onNextButtonClicked: () -> Unit,
     showSnackBarMessage: (type: PicSnackbarType, message: String) -> Unit,
 ) {
@@ -71,10 +71,10 @@ fun GroupCreationCompleteScreen(
                 color = Gray80,
                 textAlign = TextAlign.Center,
             )
-            if (groupCreated != null) {
+            if (groupCreationResult != null) {
                 ThumbnailCard(
                     modifier = Modifier.size(310.dp, 420.dp),
-                    groupCreated = groupCreated,
+                    groupCreationResult = groupCreationResult,
                 )
             } else {
                 EmptyThumbnailCard()
@@ -96,7 +96,7 @@ fun GroupCreationCompleteScreen(
                 contentColor = Gray80,
                 iconRes = R.drawable.ic_link,
                 onButtonClicked = {
-                    groupCreated?.invitationUrl?.let { invitationUrl ->
+                    groupCreationResult?.invitationUrl?.let { invitationUrl ->
                         showSnackBarMessage(PicSnackbarType.CHECK, copyLinkMessage)
                         clipboardManager.setText(AnnotatedString(invitationUrl))
                     }
@@ -117,16 +117,16 @@ fun GroupCreationCompleteScreen(
 @Composable
 private fun ThumbnailCard(
     modifier: Modifier,
-    groupCreated: GroupCreated,
+    groupCreationResult: GroupCreationResult,
 ) {
     ThumbnailCardFrame(
         modifier = modifier,
-        groupName = groupCreated.name,
-        keyword = groupCreated.keyword,
+        groupName = groupCreationResult.name,
+        keyword = groupCreationResult.keyword,
     ) {
         AsyncImage(
             modifier = Modifier.matchParentSize(),
-            model = groupCreated.imageUrl,
+            model = groupCreationResult.imageUrl,
             contentDescription = stringResource(id = R.string.thumbnail_image),
             contentScale = ContentScale.Crop,
         )
@@ -142,7 +142,7 @@ private fun EmptyThumbnailCard() {
 @Composable
 private fun GroupCreationCompleteScreenPreview() {
     GroupCreationCompleteScreen(
-        groupCreated = null,
+        groupCreationResult = null,
         onNextButtonClicked = { },
         showSnackBarMessage = { _, _ -> },
     )

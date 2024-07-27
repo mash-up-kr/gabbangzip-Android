@@ -197,7 +197,7 @@ private fun GroupCreationThumbnailScreenPreview() {
             name = "가빵집",
             keyword = GroupKeyword.EXERCISE,
             thumbnail = null,
-            groupCreated = null,
+            groupCreationResult = null,
         ),
         isGroupCreated = false,
         onBackButtonClicked = {},

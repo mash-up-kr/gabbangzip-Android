@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.CreateGroupUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.model.GroupCreated
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.model.GroupCreationResult
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
@@ -62,7 +62,7 @@ class GroupCreationViewModel @Inject constructor(
             ).onSuccess {
                 _uiState.emit(
                     uiState.value.copy(
-                        groupCreated = GroupCreated(
+                        groupCreationResult = GroupCreationResult(
                             name = it.name,
                             keyword = GroupKeyword.getKeyword(it.keyword),
                             imageUrl = it.imageUrl,
