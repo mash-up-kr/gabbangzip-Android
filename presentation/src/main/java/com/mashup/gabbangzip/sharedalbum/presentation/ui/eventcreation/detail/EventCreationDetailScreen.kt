@@ -108,7 +108,7 @@ fun EventCreationDetailScreen(
                 hint = stringResource(id = R.string.event_creation_detail_summary_hint),
                 maxLength = 10,
             )
-            EventCreationTitle(stringResource(id = R.string.event_creation_detail_date))
+            EventCreationTitle(stringResource(id = R.string.date))
             PicDatePickerField(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -116,7 +116,7 @@ fun EventCreationDetailScreen(
                 date = state.date,
                 textColor = Gray60,
             )
-            EventCreationTitle(stringResource(id = R.string.event_creation_detail_pictures))
+            EventCreationTitle(stringResource(id = R.string.picture_select))
             LazyRow(
                 modifier = Modifier.padding(top = 9.dp),
                 horizontalArrangement = Arrangement.spacedBy(1.dp),
@@ -183,7 +183,7 @@ private fun PictureWithDeleteButton(
                 .clip(RoundedCornerShape(10.dp))
                 .align(Alignment.BottomStart),
             model = uri,
-            contentDescription = stringResource(id = R.string.event_creation_detail_pictures),
+            contentDescription = stringResource(id = R.string.picture_select),
             contentScale = ContentScale.Crop,
         )
         StableImage(
