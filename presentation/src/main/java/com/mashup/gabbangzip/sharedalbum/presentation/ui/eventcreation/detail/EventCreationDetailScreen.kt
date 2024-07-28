@@ -2,6 +2,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.detail
 
 import android.net.Uri
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -48,6 +49,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.hideKeyboardOnOutsideClicked
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EventCreationDetailScreen(
     state: EventCreationState,
@@ -121,7 +123,7 @@ fun EventCreationDetailScreen(
                 modifier = Modifier.padding(top = 9.dp),
                 horizontalArrangement = Arrangement.spacedBy(1.dp),
             ) {
-                item(1) {
+                item {
                     PicGallery(
                         modifier = Modifier.padding(top = 7.dp, end = 7.dp),
                         currentCount = state.pictures.size,
@@ -131,6 +133,7 @@ fun EventCreationDetailScreen(
                 }
                 itemsIndexed(state.pictures) { idx, uri ->
                     PictureWithDeleteButton(
+                        modifier = Modifier.animateItemPlacement(),
                         uri = uri,
                         onButtonClicked = { onPictureDeleteButtonClicked(idx) },
                     )
