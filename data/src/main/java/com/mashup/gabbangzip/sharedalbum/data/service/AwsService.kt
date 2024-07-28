@@ -14,4 +14,8 @@ interface AwsService {
         @Url uploadUrl: String,
         @Part file: MultipartBody.Part,
     ): Response<Unit>
+
+    companion object {
+        const val BASE_URL = "https://pic-api-bucket.s3.ap-northeast-2.amazonaws.com/"
+    }
 }

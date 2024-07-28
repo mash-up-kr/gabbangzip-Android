@@ -14,5 +14,5 @@ data class CreateGroupResponse(
     @Json(name = "group_image_url")
     val groupImageUrl: String,
     @Json(name = "group_invitation_url")
-    val groupInvitationUrl: String,
+    val groupInvitationUrl: String? = null, // Todo : 초대코드 대응하기
 )

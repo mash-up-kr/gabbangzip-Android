@@ -22,6 +22,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
@@ -36,11 +37,13 @@ fun PicTag(
     textStyle: TextStyle = PicTypography.bodyMedium12,
     @DrawableRes iconRes: Int? = null,
     iconColor: Color = Gray50,
+    backgroundColor: Color = Gray40,
+    textColor: Color = Gray80,
 ) {
     Box(
         modifier = modifier
             .background(
-                color = Gray40,
+                color = backgroundColor,
                 shape = RoundedCornerShape(20.dp),
             )
             .padding(horizontal = 10.dp, vertical = 6.dp),
@@ -60,7 +63,7 @@ fun PicTag(
             Text(
                 text = text,
                 style = textStyle,
-                color = Gray80,
+                color = textColor,
             )
         }
     }
@@ -80,6 +83,13 @@ fun PicTagPreview() {
                 text = "학교",
                 iconRes = R.drawable.ic_kakao,
                 iconColor = Malibu,
+            )
+            PicTag(
+                text = "학교",
+                iconRes = R.drawable.ic_kakao,
+                iconColor = Malibu,
+                backgroundColor = Gray80,
+                textColor = Gray0,
             )
         }
     }
