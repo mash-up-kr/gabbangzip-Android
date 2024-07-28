@@ -14,8 +14,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -38,7 +40,7 @@ fun InvitationCodeScreen(
             .background(color = Gray0),
     ) {
         PicBackButtonTopBar(
-            titleText = "그룹 들어가기",
+            titleText = stringResource(id = R.string.enter_group_by_code_title),
             backButtonClicked = onBackButtonClicked,
         )
         Column(
@@ -48,7 +50,7 @@ fun InvitationCodeScreen(
         ) {
             Text(
                 modifier = Modifier.padding(top = 32.dp, bottom = 16.dp),
-                text = "초대코드를 입력해주세요",
+                text = stringResource(id = R.string.enter_group_by_code_input_title),
                 style = PicTypography.headBold18,
                 color = Gray80,
             )
@@ -56,7 +58,7 @@ fun InvitationCodeScreen(
                 modifier = Modifier.fillMaxWidth(),
                 value = input,
                 onValueChange = { input = it },
-                hint = "예) A12B0EHQ",
+                hint = stringResource(id = R.string.enter_group_by_code_input_hint),
                 maxLength = 10,
             )
         }
