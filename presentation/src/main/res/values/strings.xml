@@ -101,4 +101,7 @@
 
     <string name="image_upload_failed">이미지 업로드 실패</string>
     <string name="image_retrieve_failed">이미지 파일 조회 실패</string>
+
+    <string name="vote_complete_title">내 PIC을 골랐어요!</string>
+    <string name="vote_complete_subtitle">모든 사람이 PIC을 완료하면\n네컷 사진이 만들어져요</string>
 </resources>

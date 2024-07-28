@@ -53,13 +53,13 @@ private fun VoteCompleteContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = "내 PIC을 골랐어요!",
+            text = stringResource(id = R.string.vote_complete_title),
             style = PicTypography.headBold20,
             color = Gray80,
         )
         Text(
             modifier = Modifier.padding(top = 16.dp),
-            text = "모든 사람이 PIC을 완료하면\n네컷 사진이 만들어져요",
+            text = stringResource(id = R.string.vote_complete_subtitle),
             style = PicTypography.bodyMedium14,
             color = Gray60,
             textAlign = TextAlign.Center,
