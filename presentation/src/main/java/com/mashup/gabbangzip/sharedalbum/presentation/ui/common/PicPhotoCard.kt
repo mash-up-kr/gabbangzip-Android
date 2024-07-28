@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
@@ -103,7 +104,7 @@ fun PicPhotoCardFrame(
             keyword = keywordType,
         )
 
-        GroupImage(
+        PicCroppedImageContainer(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp)
@@ -125,7 +126,7 @@ private fun KeywordMiniSymbol(modifier: Modifier, keyword: GroupKeyword) {
 }
 
 @Composable
-private fun GroupImage(
+private fun PicCroppedImageContainer(
     modifier: Modifier,
     @DrawableRes frameResId: Int,
     backgroundColor: Color,
@@ -143,6 +144,37 @@ private fun GroupImage(
             contentDescription = null,
         )
     }
+}
+
+@Composable
+fun PicCroppedPhoto(
+    modifier: Modifier,
+    imageUrl: String,
+    @DrawableRes frameResId: Int,
+    backgroundColor: Color = Gray0,
+) {
+    PicCroppedImageContainer(
+        modifier = modifier,
+        frameResId = frameResId,
+        backgroundColor = backgroundColor,
+    ) {
+        AsyncImage(
+            modifier = Modifier.matchParentSize(),
+            model = imageUrl,
+            contentScale = ContentScale.Crop,
+            contentDescription = stringResource(R.string.group_main_picture),
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PicCroppedPhotoPreview() {
+    PicCroppedPhoto(
+        modifier = Modifier.fillMaxSize(),
+        frameResId = PicPhotoFrame.PLUS.frameResId,
+        imageUrl = "https://picsum.photos/200/300",
+    )
 }
 
 @Preview

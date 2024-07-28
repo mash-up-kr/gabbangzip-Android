@@ -29,18 +29,23 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.pretendard
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicCroppedPhoto
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.preview.GroupStatusProvider
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEventActionButtonState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.getActionButtonState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 
 @Composable
 fun RecentEventContainer(
     modifier: Modifier = Modifier,
     status: GroupStatusType,
     event: GroupEvent,
+    keyword: GroupKeyword,
+    cardFrontImageUrl: String,
     onClickActionButton: (GroupStatusType) -> Unit,
     onClickShareButton: () -> Unit,
 ) {
@@ -55,12 +60,12 @@ fun RecentEventContainer(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             RecentEventSummary(event = event)
-            // TODO: 사진 프레임으로 교체 필요
-            Box(
+            PicCroppedPhoto(
                 modifier = Modifier
                     .padding(top = 16.dp)
-                    .size(240.dp)
-                    .background(color = Gray60),
+                    .size(240.dp),
+                frameResId = PicPhotoFrame.getTypeByKeyword(keyword.name).frameResId,
+                imageUrl = cardFrontImageUrl,
             )
             status.getActionButtonState()?.let { buttonState ->
                 RecentEventBottomSection(
@@ -187,6 +192,8 @@ private fun RecentEventPreview(
                 date = "2024.11.03",
                 deadline = "6월 14일 월요일 PIC 종료",
             ),
+            keyword = GroupKeyword.SCHOOL,
+            cardFrontImageUrl = "https://picsum.photos/200/300",
             onClickActionButton = {},
             onClickShareButton = {},
         )
