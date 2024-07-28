@@ -102,7 +102,7 @@ fun GroupCreationThumbnailScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 22.dp, end = 22.dp, bottom = 16.dp),
-            text = stringResource(id = R.string.group_creation_button_next),
+            text = stringResource(id = R.string.next),
             isRippleClickable = true,
             enable = buttonEnabled,
             onButtonClicked = onNextButtonClicked,
