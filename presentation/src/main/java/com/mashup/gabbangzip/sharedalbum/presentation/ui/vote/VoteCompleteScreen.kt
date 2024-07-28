@@ -31,6 +31,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 fun VoteCompleteScreen(
     @DrawableRes frameResId: Int,
     thumbnailUrl: String,
+    onCompleteButtonClicked: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -50,6 +51,7 @@ fun VoteCompleteScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 22.dp, vertical = 40.dp),
             text = stringResource(id = R.string.complete),
+            onButtonClicked = onCompleteButtonClicked,
         )
     }
 }
@@ -92,5 +94,6 @@ private fun VoteCompleteScreenPreview() {
     VoteCompleteScreen(
         frameResId = PicPhotoFrame.PLUS.frameResId,
         thumbnailUrl = "",
+        onCompleteButtonClicked = {},
     )
 }
