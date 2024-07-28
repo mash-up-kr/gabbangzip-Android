@@ -1,7 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.vote
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,21 +19,31 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicCroppedPhoto
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 
 @Composable
-fun VoteCompleteScreen() {
+fun VoteCompleteScreen(
+    @DrawableRes frameResId: Int,
+    thumbnailUrl: String,
+) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Gray0),
     ) {
         VoteCompleteContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .weight(1f),
+            frameResId = frameResId,
+            thumbnailUrl = thumbnailUrl,
         )
         PicButton(
             modifier = Modifier
@@ -47,6 +57,8 @@ fun VoteCompleteScreen() {
 @Composable
 private fun VoteCompleteContent(
     modifier: Modifier = Modifier,
+    @DrawableRes frameResId: Int,
+    thumbnailUrl: String,
 ) {
     Column(
         modifier = modifier,
@@ -65,10 +77,11 @@ private fun VoteCompleteContent(
             textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(24.dp))
-        Box(
+        PicCroppedPhoto(
             modifier = Modifier
-                .size(240.dp)
-                .background(color = Gray60),
+                .size(240.dp),
+            frameResId = frameResId,
+            imageUrl = thumbnailUrl,
         )
     }
 }
@@ -76,5 +89,8 @@ private fun VoteCompleteContent(
 @Composable
 @Preview(showBackground = true)
 private fun VoteCompleteScreenPreview() {
-    VoteCompleteScreen()
+    VoteCompleteScreen(
+        frameResId = PicPhotoFrame.PLUS.frameResId,
+        thumbnailUrl = "",
+    )
 }
