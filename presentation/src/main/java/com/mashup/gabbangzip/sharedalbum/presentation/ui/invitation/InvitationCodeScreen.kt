@@ -66,7 +66,7 @@ fun InvitationCodeScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 22.dp, end = 22.dp, bottom = 16.dp),
-            text = "다음",
+            text = stringResource(id = R.string.next),
             enable = isButtonEnabled,
             onButtonClicked = {
                 focusManager.clearFocus()
