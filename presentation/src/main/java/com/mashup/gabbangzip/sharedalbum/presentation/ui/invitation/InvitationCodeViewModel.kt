@@ -35,12 +35,12 @@ class InvitationCodeViewModel @Inject constructor(
                         )
                     }
                 }
-                .onFailure {
+                .onFailure { e ->
                     _uiState.update { state ->
                         state.copy(
                             isLoading = false,
                             isInvitationSuccessful = false,
-                            errorMessage = "존재하지 않는 초대코드에요.",
+                            errorMessage = e.message,
                         )
                     }
                 }
