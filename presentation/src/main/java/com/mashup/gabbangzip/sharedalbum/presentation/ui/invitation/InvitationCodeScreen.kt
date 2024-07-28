@@ -26,7 +26,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextField
 @Composable
 fun InvitationCodeScreen(
     onBackButtonClicked: () -> Unit,
-    onNextButtonClicked: () -> Unit,
+    onNextButtonClicked: (String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     var input by remember { mutableStateOf("") }
@@ -68,7 +68,7 @@ fun InvitationCodeScreen(
             enable = isButtonEnabled,
             onButtonClicked = {
                 focusManager.clearFocus()
-                onNextButtonClicked()
+                onNextButtonClicked(input)
             },
         )
     }

@@ -3,25 +3,74 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.invitation
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class InvitationCodeActivity : ComponentActivity() {
+    private val viewModel by viewModels<InvitationCodeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val state by viewModel.uiState.collectAsStateWithLifecycle()
+            val snackbarHostState = remember { SnackbarHostState() }
 
             SharedAlbumTheme {
-                InvitationCodeScreen(
-                    onBackButtonClicked = { finish() },
-                    onNextButtonClicked = { /* TODO */ },
-                )
+                Scaffold(
+                    snackbarHost = {
+                        PicSnackbarHost(state = snackbarHostState)
+                    },
+                ) { contentPadding ->
+                    Box(modifier = Modifier.padding(contentPadding)) {
+                        InvitationCodeScreen(
+                            onBackButtonClicked = { finish() },
+                            onNextButtonClicked = viewModel::enterGroupByCode,
+                        )
+                    }
+                }
+
+                if (state.isInvitationSuccessful) {
+                    navigateToMainActivity()
+                }
+
+                if (state.errorMessage != null) {
+                    Log.d(TAG, "${state.errorMessage}")
+                    LaunchedEffect(snackbarHostState) {
+                        snackbarHostState.showPicSnackbar(
+                            type = PicSnackbarType.WARNING,
+                            message = getString(R.string.enter_group_by_code_failure_message),
+                        )
+                    }
+                }
             }
         }
+    }
+
+    private fun navigateToMainActivity() {
+        MainActivity.openActivity(
+            context = this,
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP,
+        )
+        finish()
     }
 
     companion object {

@@ -101,4 +101,6 @@
 
     <string name="image_upload_failed">이미지 업로드 실패</string>
     <string name="image_retrieve_failed">이미지 파일 조회 실패</string>
+
+    <string name="enter_group_by_code_failure_message">존재하지 않는 초대코드에요.</string>
 </resources>
