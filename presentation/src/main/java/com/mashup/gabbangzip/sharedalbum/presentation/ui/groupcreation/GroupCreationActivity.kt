@@ -64,7 +64,7 @@ class GroupCreationActivity : ComponentActivity() {
                             .systemBarsPadding(),
                         navController = rememberNavController(),
                         startDestination = GroupCreationRoute.initRoute,
-                        groupCreationState = groupCreationState,
+                        groupCreationUiState = groupCreationState,
                         onGetThumbnailButtonClicked = photoPicker::open,
                         updateName = viewModel::updateName,
                         updateKeyword = viewModel::updateKeyword,

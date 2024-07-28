@@ -24,8 +24,8 @@ import javax.inject.Inject
 class GroupCreationViewModel @Inject constructor(
     private val createGroupUseCase: CreateGroupUseCase,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(GroupCreationState())
-    val uiState: StateFlow<GroupCreationState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(GroupCreationUiState())
+    val uiState: StateFlow<GroupCreationUiState> = _uiState.asStateFlow()
 
     private val _effect = MutableSharedFlow<Event>(
         extraBufferCapacity = 1,

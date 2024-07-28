@@ -3,7 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.thumbnai
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.thumbnail.GroupCreationThumbnailScreen
 
@@ -12,7 +12,7 @@ fun NavController.navigateToGroupCreationThumbnail() {
 }
 
 fun NavGraphBuilder.groupCreationThumbnailNavGraph(
-    state: GroupCreationState,
+    state: GroupCreationUiState,
     onBackButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
     onGetThumbnailButtonClicked: () -> Unit,

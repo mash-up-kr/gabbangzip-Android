@@ -37,7 +37,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicProgressBar
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.common.ThumbnailCardFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
@@ -46,7 +46,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 
 @Composable
 fun GroupCreationThumbnailScreen(
-    state: GroupCreationState,
+    state: GroupCreationUiState,
     isGroupCreated: Boolean,
     onBackButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
@@ -193,7 +193,7 @@ private fun CardCoverIcon(
 @Composable
 private fun GroupCreationThumbnailScreenPreview() {
     GroupCreationThumbnailScreen(
-        state = GroupCreationState(
+        state = GroupCreationUiState(
             name = "가빵집",
             keyword = GroupKeyword.EXERCISE,
             thumbnail = null,
