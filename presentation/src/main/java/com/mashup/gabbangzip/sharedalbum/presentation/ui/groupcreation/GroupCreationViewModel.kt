@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.CreateGroupUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.model.GroupCreated
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.model.GroupCreationResult
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
@@ -24,8 +24,8 @@ import javax.inject.Inject
 class GroupCreationViewModel @Inject constructor(
     private val createGroupUseCase: CreateGroupUseCase,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(GroupCreationState())
-    val uiState: StateFlow<GroupCreationState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(GroupCreationUiState())
+    val uiState: StateFlow<GroupCreationUiState> = _uiState.asStateFlow()
 
     private val _effect = MutableSharedFlow<Event>(
         extraBufferCapacity = 1,
@@ -62,7 +62,9 @@ class GroupCreationViewModel @Inject constructor(
             ).onSuccess {
                 _uiState.emit(
                     uiState.value.copy(
-                        groupCreated = GroupCreated(
+                        groupCreationResult = GroupCreationResult(
+                            name = it.name,
+                            keyword = GroupKeyword.getKeyword(it.keyword),
                             imageUrl = it.imageUrl,
                             invitationUrl = it.invitationUrl,
                         ),

@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,27 +32,28 @@ import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.BlackAlpha50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0Alpha80
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicProgressBar
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationUiState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.common.ThumbnailCardFrame
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 
 @Composable
 fun GroupCreationThumbnailScreen(
-    initialThumbnail: Uri?,
+    state: GroupCreationUiState,
     isGroupCreated: Boolean,
     onBackButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
     onGetThumbnailButtonClicked: () -> Unit,
     navigateNextScreen: () -> Unit,
 ) {
-    val buttonEnabled by rememberUpdatedState(newValue = initialThumbnail != null)
+    val buttonEnabled by rememberUpdatedState(newValue = state.thumbnail != null)
     var modifyButtonEnabled by remember { mutableStateOf(false) }
 
     Column(
@@ -92,7 +94,10 @@ fun GroupCreationThumbnailScreen(
                 textAlign = TextAlign.Center,
             )
             ThumbnailCard(
-                thumbnailUri = initialThumbnail,
+                modifier = Modifier.size(310.dp, 420.dp),
+                thumbnailUri = state.thumbnail,
+                groupName = state.name,
+                keyword = state.keyword,
                 modifyButtonEnabled = modifyButtonEnabled,
                 onThumbnailButtonClick = { modifyButtonEnabled = true },
                 openPhotoPicker = onGetThumbnailButtonClicked,
@@ -110,29 +115,32 @@ fun GroupCreationThumbnailScreen(
     }
 
     LaunchedEffect(isGroupCreated) {
-        if (isGroupCreated) { navigateNextScreen() }
+        if (isGroupCreated) {
+            navigateNextScreen()
+        }
     }
 }
 
 @Composable
 private fun ThumbnailCard(
+    modifier: Modifier,
     thumbnailUri: Uri?,
+    groupName: String,
+    keyword: GroupKeyword,
     modifyButtonEnabled: Boolean,
     onThumbnailButtonClick: () -> Unit,
     openPhotoPicker: () -> Unit,
 ) {
-    Box(
-        modifier = Modifier
-            .size(310.dp, 420.dp)
-            .background(Gray50),
-        contentAlignment = Alignment.Center,
+    ThumbnailCardFrame(
+        modifier = modifier,
+        groupName = groupName,
+        keyword = keyword,
     ) {
-        // Todo : 이미지 관련 Box 개발은 홈 완성 시 추가 예정
         if (thumbnailUri == null) {
             CardCoverIcon(
                 modifier = Modifier
                     .matchParentSize()
-                    .background(Gray20)
+                    .background(keyword.frameInnerColor)
                     .rippleClickable(onClick = openPhotoPicker),
                 iconRes = R.drawable.ic_image_add,
                 iconContentDescription = R.string.group_add,
@@ -145,6 +153,7 @@ private fun ThumbnailCard(
                     .rippleClickable(onClick = onThumbnailButtonClick),
                 model = thumbnailUri,
                 contentDescription = stringResource(id = R.string.thumbnail_image),
+                contentScale = ContentScale.Crop,
             )
             if (modifyButtonEnabled) {
                 CardCoverIcon(
@@ -184,7 +193,12 @@ private fun CardCoverIcon(
 @Composable
 private fun GroupCreationThumbnailScreenPreview() {
     GroupCreationThumbnailScreen(
-        initialThumbnail = null,
+        state = GroupCreationUiState(
+            name = "가빵집",
+            keyword = GroupKeyword.EXERCISE,
+            thumbnail = null,
+            groupCreationResult = null,
+        ),
         isGroupCreated = false,
         onBackButtonClicked = {},
         onNextButtonClicked = {},

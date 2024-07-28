@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.navigation.groupCreationCompleteNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.navigation.navigateToGroupCreationComplete
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.intro.navigation.groupCreationIntroNavGraph
@@ -24,7 +24,7 @@ fun GroupCreationNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
     startDestination: String,
-    groupCreationState: GroupCreationState,
+    groupCreationUiState: GroupCreationUiState,
     onGetThumbnailButtonClicked: () -> Unit,
     updateName: (name: String) -> Unit,
     updateKeyword: (keyword: GroupKeyword) -> Unit,
@@ -43,7 +43,7 @@ fun GroupCreationNavHost(
             onClickNextButton = { navController.navigateToGroupCreationName() },
         )
         groupCreationNameNavGraph(
-            initialName = groupCreationState.name,
+            initialName = groupCreationUiState.name,
             onBackButtonClicked = { navController.popBackStack() },
             onNextButtonClicked = { name ->
                 navController.navigateToGroupCreationKeyword()
@@ -51,7 +51,7 @@ fun GroupCreationNavHost(
             },
         )
         groupCreationKeywordNavGraph(
-            initialKeyword = groupCreationState.keyword,
+            initialKeyword = groupCreationUiState.keyword,
             onBackButtonClicked = { navController.popBackStack() },
             onNextButtonClicked = { keyword ->
                 navController.navigateToGroupCreationThumbnail()
@@ -59,15 +59,14 @@ fun GroupCreationNavHost(
             },
         )
         groupCreationThumbnailNavGraph(
-            initialThumbnail = groupCreationState.thumbnail,
-            isGroupCreated = groupCreationState.groupCreated != null,
+            state = groupCreationUiState,
             onBackButtonClicked = { navController.popBackStack() },
             onNextButtonClicked = createGroup,
             onGetThumbnailButtonClicked = onGetThumbnailButtonClicked,
             navigateNextScreen = { navController.navigateToGroupCreationComplete() },
         )
         groupCreationCompleteNavGraph(
-            groupCreated = groupCreationState.groupCreated,
+            groupCreationResult = groupCreationUiState.groupCreationResult,
             onNextButtonClicked = finishGroupCreation,
             showSnackBarMessage = showSnackBarMessage,
         )
