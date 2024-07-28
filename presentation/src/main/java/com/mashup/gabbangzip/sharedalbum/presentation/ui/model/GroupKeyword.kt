@@ -85,16 +85,6 @@ enum class GroupKeyword(
     ;
 
     companion object {
-        fun GroupKeyword.getFrame() = when (this) {
-            SCHOOL -> PicPhotoFrame.SNOWMAN
-            CREW -> PicPhotoFrame.HAMBURGER
-            COMPANY -> PicPhotoFrame.GHOST
-            LITTLE_MOIM -> PicPhotoFrame.CLOVER
-            NETWORK -> PicPhotoFrame.PLUS
-            EXERCISE -> PicPhotoFrame.SEXY
-            HOBBY -> PicPhotoFrame.FLOWER
-        }
-
         fun getKeyword(keyword: String): GroupKeyword {
             return entries.associateBy { it.name }[keyword] ?: SCHOOL
         }

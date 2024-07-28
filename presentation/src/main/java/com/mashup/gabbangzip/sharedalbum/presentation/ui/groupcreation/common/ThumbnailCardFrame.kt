@@ -17,7 +17,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicPhotoCardFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword.Companion.getFrame
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 
 @Composable
 fun ThumbnailCardFrame(
@@ -33,7 +33,7 @@ fun ThumbnailCardFrame(
         PicPhotoCardFrame(
             modifier = Modifier.fillMaxSize(),
             keywordType = keyword,
-            frameResId = keyword.getFrame().frameResId,
+            frameResId = PicPhotoFrame.getTypeByKeyword(keyword.name).frameResId,
         ) {
             content()
         }
