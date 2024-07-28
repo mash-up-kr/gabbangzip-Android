@@ -23,6 +23,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicFrontCardImage
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicPhotoCard
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBar
@@ -109,6 +110,17 @@ private fun GroupContainer(
                     end = 46.dp,
                 ),
             groupInfo = groupInfo,
+            content = {
+                PicFrontCardImage(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp)
+                        .align(Alignment.Center),
+                    frameResId = groupInfo.frontImageFrame.frameResId,
+                    frontImageUrl = groupInfo.cardFrontImageUrl,
+                    backgroundColor = groupInfo.keyword.backgroundColor,
+                )
+            },
         )
     }
 }

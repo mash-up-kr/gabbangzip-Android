@@ -29,7 +29,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.pretendard
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicCroppedPhoto
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicFrontCardImage
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.preview.GroupStatusProvider
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
@@ -60,12 +60,12 @@ fun RecentEventContainer(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             RecentEventSummary(event = event)
-            PicCroppedPhoto(
+            PicFrontCardImage(
                 modifier = Modifier
                     .padding(top = 16.dp)
                     .size(240.dp),
                 frameResId = PicPhotoFrame.getTypeByKeyword(keyword.name).frameResId,
-                imageUrl = cardFrontImageUrl,
+                frontImageUrl = cardFrontImageUrl,
             )
             status.getActionButtonState()?.let { buttonState ->
                 RecentEventBottomSection(
