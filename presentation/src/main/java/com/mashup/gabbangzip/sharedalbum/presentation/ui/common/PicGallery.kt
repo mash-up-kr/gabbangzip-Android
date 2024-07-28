@@ -25,12 +25,14 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun PicGallery(
     modifier: Modifier = Modifier,
     currentCount: Int = 0,
     totalCount: Int = 4,
+    onClicked: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -42,6 +44,7 @@ fun PicGallery(
                 color = Gray50,
                 shape = RoundedCornerShape(10.dp),
             )
+            .noRippleClickable { onClicked() }
             .padding(horizontal = 36.dp, vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
