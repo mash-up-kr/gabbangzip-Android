@@ -21,7 +21,7 @@ class InvitationCodeViewModel @Inject constructor(
         _uiState.update { state ->
             state.copy(
                 isLoading = true,
-                errorMessage = null,
+                isInvitationSuccessful = null,
             )
         }
         viewModelScope.launch {
@@ -31,7 +31,6 @@ class InvitationCodeViewModel @Inject constructor(
                         state.copy(
                             isLoading = false,
                             isInvitationSuccessful = true,
-                            errorMessage = null,
                         )
                     }
                 }
@@ -40,7 +39,6 @@ class InvitationCodeViewModel @Inject constructor(
                         state.copy(
                             isLoading = false,
                             isInvitationSuccessful = false,
-                            errorMessage = e.message,
                         )
                     }
                 }

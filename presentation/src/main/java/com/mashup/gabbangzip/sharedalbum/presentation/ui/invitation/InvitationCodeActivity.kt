@@ -3,7 +3,6 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.invitation
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -48,18 +47,18 @@ class InvitationCodeActivity : ComponentActivity() {
                     }
                 }
 
-                if (state.isInvitationSuccessful) {
-                    navigateToMainActivity()
-                }
-
-                if (state.errorMessage != null) {
-                    Log.d(TAG, "${state.errorMessage}")
-                    LaunchedEffect(snackbarHostState) {
-                        snackbarHostState.showPicSnackbar(
-                            type = PicSnackbarType.WARNING,
-                            message = getString(R.string.enter_group_by_code_failure_message),
-                        )
+                when (state.isInvitationSuccessful) {
+                    true -> navigateToMainActivity()
+                    false -> {
+                        LaunchedEffect(snackbarHostState) {
+                            snackbarHostState.showPicSnackbar(
+                                type = PicSnackbarType.WARNING,
+                                message = getString(R.string.enter_group_by_code_failure_message),
+                            )
+                        }
                     }
+
+                    null -> {}
                 }
             }
         }
