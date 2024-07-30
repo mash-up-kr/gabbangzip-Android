@@ -30,6 +30,8 @@ fun MainNavHost(
             onClickGroupDetail = { id -> navController.navigateGroupDetail(id) },
             onClickMyPage = { navController.navigateMyPage() },
             onClickEventMake = { onClickEventMakeButton() },
+            onClickGroupMake = { /* TODO : 그룹 생성 화면으로 이동 */ },
+            onClickGroupEnter = { /* TODO : 초대 코드 입력 화면으로 이동 */ },
         )
         groupDetailNavGraph(
             onClickGroupMemberButton = { navController.navigateGroupMember() },
