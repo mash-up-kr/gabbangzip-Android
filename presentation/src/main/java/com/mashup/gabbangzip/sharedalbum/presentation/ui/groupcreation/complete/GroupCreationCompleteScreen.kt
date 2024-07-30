@@ -103,8 +103,8 @@ fun GroupCreationCompleteScreen(
                         showSnackBarMessage(PicSnackbarType.CHECK, copyLinkMessage)
                         clipboardManager.setText(
                             AnnotatedString(
-                                invitationMessage.format(playStoreUrl, appStoreUrl, invitationCode)
-                            )
+                                invitationMessage.format(playStoreUrl, appStoreUrl, invitationCode),
+                            ),
                         )
                     }
                 },
