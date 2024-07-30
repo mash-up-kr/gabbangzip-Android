@@ -3,6 +3,10 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,10 +37,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -69,14 +75,17 @@ fun GroupHomeScreen(
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        PicTopBar(
-            modifier = Modifier.padding(top = 56.dp),
-            rightIcon = PicTopBarIcon.USER,
-            rightIconClicked = { /*TODO: 마이페이지로 가기*/ },
-        )
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.TopCenter),
+        ) {
+            PicTopBar(
+                modifier = Modifier.padding(top = 56.dp),
+                rightIcon = PicTopBarIcon.USER,
+                rightIconClicked = { /*TODO: 마이페이지로 가기*/ },
+            )
 
         LazyColumn {
             itemsIndexed(state.groupList) { index, groupInfo ->
@@ -425,17 +434,22 @@ private fun GroupFloatingButton(
     onClickGroupEnter: () -> Unit,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
+    val rotationAngle by animateFloatAsState(
+        targetValue = if (isExpanded) 45f else 0f,
+        animationSpec = tween(durationMillis = 200, easing = LinearEasing),
+        label = stringResource(R.string.floating_animate),
+    )
 
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.End,
     ) {
-        if (isExpanded) {
+        AnimatedVisibility(visible = isExpanded) {
             FloatingButtonContent(
                 modifier = Modifier
                     .background(
                         color = Color.White,
-                        shape = RoundedCornerShape(10.dp),
+                        shape = RoundedCornerShape(16.dp),
                     )
                     .padding(16.dp),
                 onClickGroupMake = onClickGroupMake,
@@ -451,12 +465,11 @@ private fun GroupFloatingButton(
             elevation = FloatingActionButtonDefaults.elevation(0.dp),
         ) {
             StableImage(
-                modifier = Modifier.padding(16.dp),
-                drawableResId = if (isExpanded) {
-                    R.drawable.ic_floating_close
-                } else {
-                    R.drawable.ic_floating_plus
-                },
+                modifier = Modifier
+                    .rotate(rotationAngle)
+                    .padding(16.dp),
+                drawableResId = R.drawable.ic_floating_plus,
+                colorFilter = ColorFilter.tint(if (isExpanded) Color.Black else Color.White),
                 contentDescription = stringResource(R.string.floating_btn),
             )
         }
