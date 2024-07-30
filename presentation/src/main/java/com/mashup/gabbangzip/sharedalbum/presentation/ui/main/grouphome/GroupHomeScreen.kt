@@ -144,7 +144,7 @@ private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo) {
                 modifier = Modifier,
                 groupInfo = groupInfo,
                 contentMaxHeight = contentMaxHeight,
-                backgroundColor = groupInfo.keyword.backgroundColor,
+                backgroundColor = groupInfo.keyword.frontCardBackgroundColor,
                 content = {
                     FrontCardImage(
                         modifier = Modifier
@@ -153,7 +153,7 @@ private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo) {
                             .align(Alignment.Center),
                         frameResId = groupInfo.frontImageFrame.frameResId,
                         imageUrl = groupInfo.cardFrontImageUrl,
-                        backgroundColor = groupInfo.keyword.backgroundColor,
+                        backgroundColor = groupInfo.keyword.frontCardBackgroundColor,
                     )
                 },
             )
@@ -163,7 +163,7 @@ private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo) {
                 modifier = Modifier,
                 groupInfo = groupInfo,
                 contentMaxHeight = contentMaxHeight,
-                backgroundColor = groupInfo.keyword.backBackGroundColor,
+                backgroundColor = groupInfo.keyword.behindCardBackGroundColor,
                 content = {
                     BackCardImage(
                         modifier = Modifier
@@ -171,7 +171,7 @@ private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo) {
                             .padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp)
                             .align(Alignment.Center),
                         cardBackImageList = groupInfo.cardBackImages,
-                        backgroundColor = groupInfo.keyword.backBackGroundColor,
+                        backgroundColor = groupInfo.keyword.behindCardBackGroundColor,
                     )
                 },
             )

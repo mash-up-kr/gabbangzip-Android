@@ -55,7 +55,7 @@ fun PicPhotoCardFrame(
     Box(
         modifier = modifier
             .background(
-                color = keywordType.backgroundColor,
+                color = keywordType.frontCardBackgroundColor,
                 shape = RoundedCornerShape(20.dp),
             )
             .border(
@@ -110,7 +110,7 @@ fun PicPhotoCardFrame(
                 .padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp)
                 .align(Alignment.Center),
             frameResId = frameResId,
-            backgroundColor = keywordType.backgroundColor,
+            backgroundColor = keywordType.frontCardBackgroundColor,
             content = content,
         )
     }

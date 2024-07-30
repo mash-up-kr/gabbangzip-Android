@@ -39,7 +39,7 @@ fun PicKeywordButton(
         modifier = modifier
             .noRippleClickable { onButtonClicked(keyword) }
             .background(
-                color = if (selected) keyword.backgroundColor else Gray40,
+                color = if (selected) keyword.frontCardBackgroundColor else Gray40,
                 shape = RoundedCornerShape(20.dp),
             )
             .padding(horizontal = 28.dp, vertical = 18.dp),
