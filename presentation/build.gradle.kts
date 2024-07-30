@@ -82,4 +82,7 @@ dependencies {
 
     // compose coil
     implementation(libs.coil.compose)
+
+    // firebase messaging
+    implementation(libs.firebase.messaging)
 }
