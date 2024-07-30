@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -20,8 +21,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val viewModel by viewModels<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.registerFcmToken()
+
         setContent {
             SharedAlbumTheme {
                 Surface(
@@ -58,6 +63,7 @@ class MainActivity : ComponentActivity() {
                 Intent(context, MainActivity::class.java),
             )
         }
+
         fun openActivity(context: Activity, flags: Int) {
             context.startActivity(
                 Intent(context, MainActivity::class.java).apply {
