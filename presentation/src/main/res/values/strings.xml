@@ -38,6 +38,9 @@
     <string name="group_creation_name_title">그룹의 이름은 무엇인가요?</string>
     <string name="group_creation_name_hint">최대 10자 까지 입력 가능해요.</string>
     <string name="group_creation_keyword_title">그룹의 키워드를 선택해 주세요</string>
+    <string name="invitation_message">PIC 앱 다운받기\n- PlayStore: %s\n- AppStore: %s\n초대코드: %s</string>
+    <string name="play_store_url">https://play.google.com/store/apps/details?id=com.ebay.kr.gmarket</string>
+    <string name="app_store_url">https://apps.apple.com/kr/app/g%EB%A7%88%EC%BC%93/id11111111</string>
 
     <string name="event_creation">이벤트 만들기</string>
     <string name="event_creation_title">이벤트를 생성하고\n함께한 순간을 공유해요!</string>
