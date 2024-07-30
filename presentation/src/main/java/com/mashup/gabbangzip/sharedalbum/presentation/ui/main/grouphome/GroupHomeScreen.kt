@@ -396,6 +396,6 @@ private fun GroupHomeScreenPreview() {
             ),
         ),
         onClickGroupDetail = {},
-        onClickEventMake = { /*TODO*/ },
+        onClickEventMake = {},
     ) {}
 }
