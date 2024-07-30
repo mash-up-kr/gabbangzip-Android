@@ -21,8 +21,16 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -58,6 +66,8 @@ fun GroupHomeScreen(
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: () -> Unit,
     onClickMyPage: () -> Unit,
+    onClickGroupEnter: () -> Unit,
+    onClickGroupMake: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -93,6 +103,14 @@ fun GroupHomeScreen(
                 }
             }
         }
+
+        GroupFloatingButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 45.dp, end = 16.dp),
+            onClickGroupMake = onClickGroupMake,
+            onClickGroupEnter = onClickGroupEnter,
+        )
     }
 }
 
@@ -398,4 +416,227 @@ private fun GroupHomeScreenPreview() {
         onClickGroupDetail = {},
         onClickEventMake = {},
     ) {}
+}
+
+@Composable
+private fun GroupFloatingButton(
+    modifier: Modifier,
+    onClickGroupMake: () -> Unit,
+    onClickGroupEnter: () -> Unit,
+) {
+    var isExpanded by remember { mutableStateOf(false) }
+
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.End,
+    ) {
+        if (isExpanded) {
+            FloatingButtonContent(
+                modifier = Modifier
+                    .background(
+                        color = Color.White,
+                        shape = RoundedCornerShape(10.dp),
+                    )
+                    .padding(16.dp),
+                onClickGroupMake = onClickGroupMake,
+                onClickGroupEnter = onClickGroupEnter,
+            )
+        }
+
+        FloatingActionButton(
+            modifier = Modifier.padding(top = 8.dp),
+            onClick = { isExpanded = !isExpanded },
+            shape = CircleShape,
+            containerColor = if (isExpanded) Color.White else Gray80,
+            elevation = FloatingActionButtonDefaults.elevation(0.dp),
+        ) {
+            StableImage(
+                modifier = Modifier.padding(16.dp),
+                drawableResId = if (isExpanded) {
+                    R.drawable.ic_floating_close
+                } else {
+                    R.drawable.ic_floating_plus
+                },
+                contentDescription = stringResource(R.string.floating_btn),
+            )
+        }
+    }
+}
+
+@Composable
+private fun FloatingButtonContent(
+    modifier: Modifier,
+    onClickGroupMake: () -> Unit,
+    onClickGroupEnter: () -> Unit,
+) {
+    Column(
+        modifier = modifier,
+    ) {
+        FloatingItem(
+            modifier = Modifier,
+            textResId = R.string.floationg_group_enter,
+            imageResId = R.drawable.ic_group_enter,
+            onClicked = { onClickGroupEnter() },
+        )
+        FloatingItem(
+            modifier = Modifier.padding(top = 16.dp),
+            textResId = R.string.floating_group_creation,
+            imageResId = R.drawable.ic_group_add,
+            onClicked = { onClickGroupMake() },
+        )
+    }
+}
+
+@Composable
+private fun FloatingItem(
+    modifier: Modifier,
+    textResId: Int,
+    @DrawableRes imageResId: Int,
+    onClicked: () -> Unit,
+) {
+    Row(
+        modifier = modifier.noRippleClickable { onClicked() },
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        StableImage(
+            modifier = Modifier.padding(end = 8.dp),
+            drawableResId = imageResId,
+            contentDescription = stringResource(R.string.floating_btn_desc),
+        )
+        Text(
+            text = stringResource(id = textResId),
+            color = Gray80,
+            style = PicTypography.bodyMedium16,
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun GroupHomeScreenPreview() {
+    GroupHomeScreen(
+        state = GroupHomeUiState(
+            groupList = ImmutableList(
+                listOf(
+                    GroupInfo(
+                        id = 0,
+                        name = "그룹 이름",
+                        keyword = GroupKeyword.LITTLE_MOIM,
+                        statusDescription = "상태 설명",
+                        frontImageFrame = PicPhotoFrame.GHOST,
+                        cardFrontImageUrl = "https://picsum.photos/200/300",
+                        cardBackImages = listOf(
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.HAMBURGER,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.PLUS,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.GHOST,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.SEXY,
+                            ),
+                        ),
+                        recentEventDate = "2021.10.10",
+                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                    ),
+                    GroupInfo(
+                        id = 0,
+                        name = "그룹 이름",
+                        keyword = GroupKeyword.LITTLE_MOIM,
+                        statusDescription = "상태 설명",
+                        frontImageFrame = PicPhotoFrame.SEXY,
+                        cardFrontImageUrl = "https://picsum.photos/200/300",
+                        cardBackImages = listOf(
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.HAMBURGER,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.PLUS,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.GHOST,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.SEXY,
+                            ),
+                        ),
+                        recentEventDate = "2021.10.10",
+                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                    ),
+                    GroupInfo(
+                        id = 0,
+                        name = "그룹 이름",
+                        keyword = GroupKeyword.SCHOOL,
+                        statusDescription = "상태 설명",
+                        frontImageFrame = PicPhotoFrame.PLUS,
+                        cardFrontImageUrl = "https://picsum.photos/200/300",
+                        cardBackImages = listOf(
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.HAMBURGER,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.PLUS,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.GHOST,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.SEXY,
+                            ),
+                        ),
+                        recentEventDate = "2021.10.10",
+                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                    ),
+                    GroupInfo(
+                        id = 0,
+                        name = "그룹 이름",
+                        keyword = GroupKeyword.HOBBY,
+                        statusDescription = "상태 설명",
+                        frontImageFrame = PicPhotoFrame.SNOWMAN,
+                        cardFrontImageUrl = "https://picsum.photos/200/300",
+                        cardBackImages = listOf(
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.HAMBURGER,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.PLUS,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.GHOST,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.SEXY,
+                            ),
+                        ),
+                        recentEventDate = "2021.10.10",
+                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                    ),
+                ),
+            ),
+        ),
+        onClickGroupDetail = {},
+        onClickEventMake = {},
+        onClickMyPage = {},
+        onClickGroupMake = {},
+        onClickGroupEnter = {},
+    )
 }
