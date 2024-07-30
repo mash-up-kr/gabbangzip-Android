@@ -15,31 +15,38 @@
 
         <activity
             android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity"
-            android:exported="true"/>
+            android:exported="true" />
 
         <activity
             android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity"
-            android:exported="true"/>
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.invitation.InvitationCodeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity"
-            android:exported="true"/>
+            android:exported="true" />
 
-        <activity      
+        <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
-                <data android:host="oauth"
+                <data
+                    android:host="oauth"
                     android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" />
             </intent-filter>
         </activity>

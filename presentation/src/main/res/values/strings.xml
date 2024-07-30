@@ -34,7 +34,7 @@
     <string name="group_creation_title">내 친구들과\n그룹을 만들어\nPIC과 함께해 볼까요?</string>
     <string name="group_creation_button_name">그룹 만들기</string>
     <string name="group_creation_button_description">초대 링크를 받으셨나요?\n링크를 눌러 바로 그룹에 들어갈 수 있어요.</string>
-    <string name="group_creation_button_next">다음</string>
+    <string name="next">다음</string>
     <string name="group_creation_name_title">그룹의 이름은 무엇인가요?</string>
     <string name="group_creation_name_hint">최대 10자 까지 입력 가능해요.</string>
     <string name="group_creation_keyword_title">그룹의 키워드를 선택해 주세요</string>
@@ -111,6 +111,11 @@
 
     <string name="image_upload_failed">이미지 업로드 실패</string>
     <string name="image_retrieve_failed">이미지 파일 조회 실패</string>
+
+    <string name="enter_group_by_code_title">그룹 들어가기</string>
+    <string name="enter_group_by_code_input_title">초대코드를 입력해주세요</string>
+    <string name="enter_group_by_code_input_hint">예) A12B0EHQ</string>
+    <string name="enter_group_by_code_failure_message">존재하지 않는 초대코드에요.</string>
 
     <string name="vote_complete_title">내 PIC을 골랐어요!</string>
     <string name="vote_complete_subtitle">모든 사람이 PIC을 완료하면\n네컷 사진이 만들어져요</string>
