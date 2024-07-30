@@ -128,4 +128,5 @@
     <string name="floationg_group_enter">그룹 들어가기</string>
     <string name="floating_btn_desc">플로팅 버튼 아이콘</string>
     <string name="floating_btn">플로팅 버튼</string>
+    <string name="floating_animate">FloatingRotationAngle</string>
 </resources>
