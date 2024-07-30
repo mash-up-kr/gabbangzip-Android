@@ -119,4 +119,6 @@
 
     <string name="vote_complete_title">내 PIC을 골랐어요!</string>
     <string name="vote_complete_subtitle">모든 사람이 PIC을 완료하면\n네컷 사진이 만들어져요</string>
+    <string name="intro_event_top_title">이벤트를 만들어보세요</string>
+    <string name="event_creation_btn_text">이벤트 생성하기</string>
 </resources>

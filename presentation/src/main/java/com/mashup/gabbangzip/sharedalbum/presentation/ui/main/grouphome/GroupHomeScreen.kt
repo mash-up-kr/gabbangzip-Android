@@ -1,35 +1,55 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome
 
+import androidx.annotation.DrawableRes
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicPhotoCard
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.FlippableBox
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
@@ -44,10 +64,8 @@ fun GroupHomeScreen(
     ) {
         PicTopBar(
             modifier = Modifier.padding(top = 56.dp),
-            rightIcon1 = PicTopBarIcon.PLUS,
-            rightIcon2 = PicTopBarIcon.USER,
-            rightIcon1Clicked = { /* TODO: plus버튼. 그룹 만들기 */ },
-            rightIcon2Clicked = { /*TODO: 마이페이지로 가기*/ },
+            rightIcon = PicTopBarIcon.USER,
+            rightIconClicked = { /*TODO: 마이페이지로 가기*/ },
         )
 
         LazyColumn {
@@ -55,7 +73,7 @@ fun GroupHomeScreen(
                 GroupContainer(
                     modifier = if (index == 0) {
                         Modifier.padding(top = 16.dp)
-                    } else if (index == state.groupList.size - 1) {
+                    } else if (index == state.groupList.lastIndex) {
                         Modifier.padding(bottom = 16.dp)
                     } else {
                         Modifier
@@ -64,7 +82,7 @@ fun GroupHomeScreen(
                     onGroupDetailClick = onClickGroupDetail,
                 )
 
-                if (state.groupList.size != index + 1) {
+                if (state.groupList.lastIndex != index) {
                     Spacer(
                         modifier = Modifier
                             .padding(top = 46.dp, bottom = 24.dp)
@@ -93,6 +111,7 @@ private fun GroupContainer(
                 .padding(horizontal = 16.dp),
             groupName = groupInfo.name,
         )
+
         GroupTag(
             modifier = Modifier
                 .fillMaxWidth()
@@ -100,7 +119,8 @@ private fun GroupContainer(
             keyword = groupInfo.keyword,
             statusDesc = groupInfo.statusDescription,
         )
-        PicPhotoCard(
+
+        GroupCard(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
@@ -111,6 +131,57 @@ private fun GroupContainer(
             groupInfo = groupInfo,
         )
     }
+}
+
+@Composable
+private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo) {
+    val contentMaxHeight = LocalConfiguration.current.screenHeightDp.dp.div(2)
+
+    FlippableBox(
+        modifier = modifier,
+        frontScreen = {
+            GroupHomePhotoCard(
+                modifier = Modifier,
+                groupInfo = groupInfo,
+                contentMaxHeight = contentMaxHeight,
+                backgroundColor = groupInfo.keyword.frontCardBackgroundColor,
+                content = {
+                    FrontCardImage(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp)
+                            .align(Alignment.Center),
+                        frameResId = groupInfo.frontImageFrame.frameResId,
+                        imageUrl = groupInfo.cardFrontImageUrl,
+                        backgroundColor = groupInfo.keyword.frontCardBackgroundColor,
+                    )
+                },
+            )
+        },
+        backScreen = {
+            GroupHomePhotoCard(
+                modifier = Modifier,
+                groupInfo = groupInfo,
+                contentMaxHeight = contentMaxHeight,
+                backgroundColor = groupInfo.keyword.behindCardBackGroundColor,
+                content = {
+                    BackCardImage(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp)
+                            .align(Alignment.Center),
+                        cardBackImageList = groupInfo.cardBackImages,
+                        backgroundColor = groupInfo.keyword.behindCardBackGroundColor,
+                    )
+                },
+            )
+        },
+        flipAnimationSpec = tween(
+            durationMillis = 700,
+            easing = LinearOutSlowInEasing,
+        ),
+        enableFlipByDrag = true,
+    )
 }
 
 @Composable
@@ -148,4 +219,183 @@ private fun GroupTag(
             text = statusDesc,
         )
     }
+}
+
+@Composable
+private fun FrontCardImage(
+    modifier: Modifier,
+    imageUrl: String,
+    @DrawableRes frameResId: Int,
+    backgroundColor: Color,
+) {
+    Box(
+        modifier = modifier.wrapContentSize(),
+    ) {
+        AsyncImage(
+            modifier = Modifier.matchParentSize(),
+            model = imageUrl,
+            contentScale = ContentScale.Crop,
+            contentDescription = stringResource(R.string.group_main_picture),
+        )
+        StableImage(
+            modifier = Modifier.fillMaxSize(),
+            drawableResId = frameResId,
+            colorFilter = ColorFilter.tint(backgroundColor),
+            contentScale = ContentScale.FillBounds,
+            contentDescription = null,
+        )
+    }
+}
+
+@Composable
+private fun BackCardImage(
+    modifier: Modifier,
+    cardBackImageList: List<CardBackImage>,
+    backgroundColor: Color,
+) {
+    LazyVerticalGrid(
+        modifier = modifier.wrapContentSize(),
+        verticalArrangement = Arrangement.spacedBy(7.46.dp),
+        horizontalArrangement = Arrangement.spacedBy(7.46.dp),
+        columns = GridCells.Fixed(2),
+        userScrollEnabled = false,
+    ) {
+        items(items = cardBackImageList) { cardBackImage ->
+            Box(modifier = Modifier.aspectRatio(1f)) {
+                FrontCardImage(
+                    modifier = Modifier,
+                    imageUrl = cardBackImage.imageUrl,
+                    frameResId = cardBackImage.frameType.frameResId,
+                    backgroundColor = backgroundColor,
+                )
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun GroupHomeScreenPreview() {
+    GroupHomeScreen(
+        state = GroupHomeUiState(
+            groupList = ImmutableList(
+                listOf(
+                    GroupInfo(
+                        id = 0,
+                        name = "그룹 이름",
+                        keyword = GroupKeyword.LITTLE_MOIM,
+                        statusDescription = "상태 설명",
+                        frontImageFrame = PicPhotoFrame.GHOST,
+                        cardFrontImageUrl = "https://picsum.photos/200/300",
+                        cardBackImages = listOf(
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.HAMBURGER,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.PLUS,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.GHOST,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.SEXY,
+                            ),
+                        ),
+                        recentEventDate = "2021.10.10",
+                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                    ),
+                    GroupInfo(
+                        id = 0,
+                        name = "그룹 이름",
+                        keyword = GroupKeyword.LITTLE_MOIM,
+                        statusDescription = "상태 설명",
+                        frontImageFrame = PicPhotoFrame.SEXY,
+                        cardFrontImageUrl = "https://picsum.photos/200/300",
+                        cardBackImages = listOf(
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.HAMBURGER,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.PLUS,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.GHOST,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.SEXY,
+                            ),
+                        ),
+                        recentEventDate = "2021.10.10",
+                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                    ),
+                    GroupInfo(
+                        id = 0,
+                        name = "그룹 이름",
+                        keyword = GroupKeyword.SCHOOL,
+                        statusDescription = "상태 설명",
+                        frontImageFrame = PicPhotoFrame.PLUS,
+                        cardFrontImageUrl = "https://picsum.photos/200/300",
+                        cardBackImages = listOf(
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.HAMBURGER,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.PLUS,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.GHOST,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.SEXY,
+                            ),
+                        ),
+                        recentEventDate = "2021.10.10",
+                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                    ),
+                    GroupInfo(
+                        id = 0,
+                        name = "그룹 이름",
+                        keyword = GroupKeyword.HOBBY,
+                        statusDescription = "상태 설명",
+                        frontImageFrame = PicPhotoFrame.SNOWMAN,
+                        cardFrontImageUrl = "https://picsum.photos/200/300",
+                        cardBackImages = listOf(
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.HAMBURGER,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.PLUS,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.GHOST,
+                            ),
+                            CardBackImage(
+                                imageUrl = "https://picsum.photos/200/300",
+                                frameType = PicPhotoFrame.SEXY,
+                            ),
+                        ),
+                        recentEventDate = "2021.10.10",
+                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                    ),
+                ),
+            ),
+        ),
+        onClickGroupDetail = {},
+        onClickEventMake = {},
+    ) {}
 }

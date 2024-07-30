@@ -20,6 +20,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupDetail.RecentEventContainer
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupDetailUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem

@@ -34,10 +34,8 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 @Composable
 fun PicTopBar(
     modifier: Modifier = Modifier,
-    rightIcon1: PicTopBarIcon,
-    rightIcon2: PicTopBarIcon,
-    rightIcon1Clicked: () -> Unit,
-    rightIcon2Clicked: () -> Unit,
+    rightIcon: PicTopBarIcon,
+    rightIconClicked: () -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -47,25 +45,19 @@ fun PicTopBar(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
-            modifier = Modifier.width(42.dp).height(26.dp),
+            modifier = Modifier
+                .width(42.dp)
+                .height(26.dp),
             painter = painterResource(id = PicTopBarIcon.PIC_LOGO.iconRes),
             contentDescription = stringResource(id = PicTopBarIcon.PIC_LOGO.desc),
         )
         Spacer(modifier = Modifier.weight(1f))
         Image(
             modifier = Modifier
-                .padding(end = 12.dp)
                 .size(26.dp)
-                .noRippleClickable { rightIcon1Clicked() },
-            painter = painterResource(id = rightIcon1.iconRes),
-            contentDescription = stringResource(id = rightIcon1.desc),
-        )
-        Image(
-            modifier = Modifier
-                .size(26.dp)
-                .noRippleClickable { rightIcon2Clicked() },
-            painter = painterResource(id = rightIcon2.iconRes),
-            contentDescription = stringResource(id = rightIcon2.desc),
+                .noRippleClickable { rightIconClicked() },
+            painter = painterResource(id = rightIcon.iconRes),
+            contentDescription = stringResource(id = rightIcon.desc),
         )
     }
 }
@@ -178,10 +170,8 @@ private fun PicTopBarPreview() {
                 modifier = Modifier
                     .background(Gray0.copy(alpha = 0.2f))
                     .padding(top = 56.dp),
-                rightIcon1 = PicTopBarIcon.PLUS,
-                rightIcon2 = PicTopBarIcon.USER,
-                rightIcon1Clicked = {},
-                rightIcon2Clicked = {},
+                rightIcon = PicTopBarIcon.USER,
+                rightIconClicked = {},
             )
             PicBackButtonTopBar(
                 modifier = Modifier
