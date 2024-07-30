@@ -5,5 +5,5 @@ data class GroupInfoDomainModel(
     val name: String,
     val keyword: String,
     val imageUrl: String,
-    val invitationUrl: String,
+    val invitationCode: String,
 )

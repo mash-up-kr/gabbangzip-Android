@@ -96,9 +96,9 @@ fun GroupCreationCompleteScreen(
                 contentColor = Gray80,
                 iconRes = R.drawable.ic_link,
                 onButtonClicked = {
-                    groupCreationResult?.invitationUrl?.let { invitationUrl ->
+                    groupCreationResult?.invitationCode?.let { invitationCode ->
                         showSnackBarMessage(PicSnackbarType.CHECK, copyLinkMessage)
-                        clipboardManager.setText(AnnotatedString(invitationUrl))
+                        clipboardManager.setText(AnnotatedString(invitationCode))
                     }
                 },
             )
