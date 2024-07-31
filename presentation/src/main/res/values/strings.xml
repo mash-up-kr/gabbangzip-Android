@@ -38,6 +38,9 @@
     <string name="group_creation_name_title">그룹의 이름은 무엇인가요?</string>
     <string name="group_creation_name_hint">최대 10자 까지 입력 가능해요.</string>
     <string name="group_creation_keyword_title">그룹의 키워드를 선택해 주세요</string>
+    <string name="invitation_message">PIC 앱 다운받기\n- PlayStore: %s\n- AppStore: %s\n초대코드: %s</string>
+    <string name="play_store_url">https://play.google.com/store/apps/details?id=com.mashup.gabbangzip.sharedalbum</string>
+    <string name="app_store_url">https://apps.apple.com/kr/app/pic/id11111111</string>
 
     <string name="event_creation">이벤트 만들기</string>
     <string name="event_creation_title">이벤트를 생성하고\n함께한 순간을 공유해요!</string>
@@ -74,7 +77,7 @@
     <string name="group_leader">그룹장</string>
     <string name="group_add_more_member">그룹원을 추가하고 싶으세요?</string>
     <string name="group_maximum_count">그룹 최대 인원은 6명이에요.</string>
-    <string name="button_copy_link">링크 복사</string>
+    <string name="button_copy_link">초대코드 복사</string>
     <string name="vote_icon">투표 아이콘</string>
     <string name="vote_dislike_desc">싫어요</string>
     <string name="vote_like_desc">좋아요</string>

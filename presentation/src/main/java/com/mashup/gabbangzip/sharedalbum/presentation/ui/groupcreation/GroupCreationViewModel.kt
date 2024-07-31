@@ -66,7 +66,7 @@ class GroupCreationViewModel @Inject constructor(
                             name = it.name,
                             keyword = GroupKeyword.getKeyword(it.keyword),
                             imageUrl = it.imageUrl,
-                            invitationUrl = it.invitationUrl,
+                            invitationCode = it.invitationCode,
                         ),
                     ),
                 )

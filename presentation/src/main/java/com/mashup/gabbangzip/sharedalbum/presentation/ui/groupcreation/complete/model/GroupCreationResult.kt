@@ -6,5 +6,5 @@ data class GroupCreationResult(
     val name: String,
     val keyword: GroupKeyword,
     val imageUrl: String,
-    val invitationUrl: String,
+    val invitationCode: String,
 )

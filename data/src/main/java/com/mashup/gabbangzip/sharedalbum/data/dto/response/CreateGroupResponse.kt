@@ -13,6 +13,6 @@ data class CreateGroupResponse(
     val keyword: String,
     @Json(name = "group_image_url")
     val groupImageUrl: String,
-    @Json(name = "group_invitation_url")
-    val groupInvitationUrl: String? = null, // Todo : 초대코드 대응하기
+    @Json(name = "invitation_code")
+    val invitationCode: String,
 )
