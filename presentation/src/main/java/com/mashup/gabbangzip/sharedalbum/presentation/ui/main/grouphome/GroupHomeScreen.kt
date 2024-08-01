@@ -51,6 +51,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.FlippableBox
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
@@ -73,6 +74,7 @@ fun GroupHomeScreen(
     onClickMyPage: () -> Unit,
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
+    onClickPicFcm: () -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -99,6 +101,7 @@ fun GroupHomeScreen(
                         groupInfo = groupInfo,
                         onGroupDetailClick = onClickGroupDetail,
                         onClickEventMake = onClickEventMake,
+                        onClickPicFcm = onClickPicFcm,
                     )
 
                     if (state.groupList.lastIndex != index) {
@@ -130,6 +133,7 @@ private fun GroupContainer(
     groupInfo: GroupInfo,
     onGroupDetailClick: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
+    onClickPicFcm: () -> Unit,
 ) {
     Column(
         modifier = modifier.noRippleClickable { onGroupDetailClick(groupInfo.id) },
@@ -160,6 +164,17 @@ private fun GroupContainer(
             groupInfo = groupInfo,
             onClickEventMake = onClickEventMake,
         )
+
+        if (groupInfo.status == GroupStatusType.AFTER_MY_VOTE) {
+            PicNormalButton(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .align(Alignment.CenterHorizontally),
+                iconRes = R.drawable.ic_group_notice,
+                text = stringResource(R.string.group_home_pic_fcm),
+                onButtonClicked = onClickPicFcm,
+            )
+        }
     }
 }
 
@@ -549,5 +564,6 @@ private fun GroupHomeScreenPreview() {
         onClickMyPage = {},
         onClickGroupMake = {},
         onClickGroupEnter = {},
+        onClickPicFcm = {},
     )
 }
