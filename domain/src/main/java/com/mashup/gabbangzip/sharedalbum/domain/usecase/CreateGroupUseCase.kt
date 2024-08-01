@@ -34,6 +34,8 @@ class CreateGroupUseCase @Inject constructor(
             } else {
                 throw IOException(response.errorMessage)
             }
+        }.onFailure {
+            throw IOException(it)
         }
     }
 }
