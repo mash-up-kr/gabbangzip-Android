@@ -17,7 +17,3 @@ annotation class DefaultRetrofit
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class AuthRetrofit
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class FirebaseRetrofit
