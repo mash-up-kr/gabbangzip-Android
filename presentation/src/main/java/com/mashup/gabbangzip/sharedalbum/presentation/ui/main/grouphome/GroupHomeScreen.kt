@@ -1,10 +1,9 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome
 
 import androidx.annotation.DrawableRes
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -40,15 +39,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicPhotoCard
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.FlippableBox
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
@@ -80,35 +82,36 @@ fun GroupHomeScreen(
             PicTopBar(
                 modifier = Modifier.padding(top = 56.dp),
                 rightIcon = PicTopBarIcon.USER,
-                rightIconClicked = { /*TODO: 마이페이지로 가기*/ },
+                rightIconClicked = onClickMyPage,
             )
 
-        LazyColumn {
-            itemsIndexed(state.groupList) { index, groupInfo ->
-                GroupContainer(
-                    modifier = if (index == 0) {
-                        Modifier.padding(top = 16.dp)
-                    } else if (index == state.groupList.lastIndex) {
-                        Modifier.padding(bottom = 16.dp)
-                    } else {
-                        Modifier
-                    },
-                    groupInfo = groupInfo,
-                    onGroupDetailClick = onClickGroupDetail,
-                )
-
-                if (state.groupList.lastIndex != index) {
-                    Spacer(
-                        modifier = Modifier
-                            .padding(top = 46.dp, bottom = 24.dp)
-                            .height(8.dp)
-                            .fillMaxWidth()
-                            .background(color = Gray20),
+            LazyColumn {
+                itemsIndexed(state.groupList) { index, groupInfo ->
+                    GroupContainer(
+                        modifier = if (index == 0) {
+                            Modifier.padding(top = 16.dp)
+                        } else if (index == state.groupList.lastIndex) {
+                            Modifier.padding(bottom = 16.dp)
+                        } else {
+                            Modifier
+                        },
+                        groupInfo = groupInfo,
+                        onGroupDetailClick = onClickGroupDetail,
                     )
+
+                    if (state.groupList.lastIndex != index) {
+                        Spacer(
+                            modifier = Modifier
+                                .padding(top = 46.dp, bottom = 24.dp)
+                                .height(8.dp)
+                                .fillMaxWidth()
+                                .background(color = Gray20),
+                        )
+                    }
                 }
             }
         }
-
+        
         GroupFloatingButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
@@ -294,133 +297,6 @@ private fun BackCardImage(
             }
         }
     }
-}
-
-@Preview
-@Composable
-private fun GroupHomeScreenPreview() {
-    GroupHomeScreen(
-        state = GroupHomeUiState(
-            groupList = ImmutableList(
-                listOf(
-                    GroupInfo(
-                        id = 0,
-                        name = "그룹 이름",
-                        keyword = GroupKeyword.LITTLE_MOIM,
-                        statusDescription = "상태 설명",
-                        frontImageFrame = PicPhotoFrame.GHOST,
-                        cardFrontImageUrl = "https://picsum.photos/200/300",
-                        cardBackImages = listOf(
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.HAMBURGER,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.PLUS,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.GHOST,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.SEXY,
-                            ),
-                        ),
-                        recentEventDate = "2021.10.10",
-                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
-                    ),
-                    GroupInfo(
-                        id = 0,
-                        name = "그룹 이름",
-                        keyword = GroupKeyword.LITTLE_MOIM,
-                        statusDescription = "상태 설명",
-                        frontImageFrame = PicPhotoFrame.SEXY,
-                        cardFrontImageUrl = "https://picsum.photos/200/300",
-                        cardBackImages = listOf(
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.HAMBURGER,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.PLUS,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.GHOST,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.SEXY,
-                            ),
-                        ),
-                        recentEventDate = "2021.10.10",
-                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
-                    ),
-                    GroupInfo(
-                        id = 0,
-                        name = "그룹 이름",
-                        keyword = GroupKeyword.SCHOOL,
-                        statusDescription = "상태 설명",
-                        frontImageFrame = PicPhotoFrame.PLUS,
-                        cardFrontImageUrl = "https://picsum.photos/200/300",
-                        cardBackImages = listOf(
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.HAMBURGER,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.PLUS,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.GHOST,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.SEXY,
-                            ),
-                        ),
-                        recentEventDate = "2021.10.10",
-                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
-                    ),
-                    GroupInfo(
-                        id = 0,
-                        name = "그룹 이름",
-                        keyword = GroupKeyword.HOBBY,
-                        statusDescription = "상태 설명",
-                        frontImageFrame = PicPhotoFrame.SNOWMAN,
-                        cardFrontImageUrl = "https://picsum.photos/200/300",
-                        cardBackImages = listOf(
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.HAMBURGER,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.PLUS,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.GHOST,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.SEXY,
-                            ),
-                        ),
-                        recentEventDate = "2021.10.10",
-                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
-                    ),
-                ),
-            ),
-        ),
-        onClickGroupDetail = {},
-        onClickEventMake = {},
-    ) {}
 }
 
 @Composable
