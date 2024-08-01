@@ -1,7 +1,10 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,10 +24,19 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -58,41 +70,55 @@ fun GroupHomeScreen(
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: () -> Unit,
     onClickMyPage: () -> Unit,
+    onClickGroupEnter: () -> Unit,
+    onClickGroupMake: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        PicTopBar(
-            modifier = Modifier.padding(top = 56.dp),
-            rightIcon = PicTopBarIcon.USER,
-            rightIconClicked = { /*TODO: 마이페이지로 가기*/ },
-        )
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.TopCenter),
+        ) {
+            PicTopBar(
+                modifier = Modifier.padding(top = 56.dp),
+                rightIcon = PicTopBarIcon.USER,
+                rightIconClicked = onClickMyPage,
+            )
 
-        LazyColumn {
-            itemsIndexed(state.groupList) { index, groupInfo ->
-                GroupContainer(
-                    modifier = if (index == 0) {
-                        Modifier.padding(top = 16.dp)
-                    } else if (index == state.groupList.lastIndex) {
-                        Modifier.padding(bottom = 16.dp)
-                    } else {
-                        Modifier
-                    },
-                    groupInfo = groupInfo,
-                    onGroupDetailClick = onClickGroupDetail,
-                )
-
-                if (state.groupList.lastIndex != index) {
-                    Spacer(
-                        modifier = Modifier
-                            .padding(top = 46.dp, bottom = 24.dp)
-                            .height(8.dp)
-                            .fillMaxWidth()
-                            .background(color = Gray20),
+            LazyColumn {
+                itemsIndexed(state.groupList) { index, groupInfo ->
+                    GroupContainer(
+                        modifier = if (index == 0) {
+                            Modifier.padding(top = 16.dp)
+                        } else if (index == state.groupList.lastIndex) {
+                            Modifier.padding(bottom = 16.dp)
+                        } else {
+                            Modifier
+                        },
+                        groupInfo = groupInfo,
+                        onGroupDetailClick = onClickGroupDetail,
                     )
+
+                    if (state.groupList.lastIndex != index) {
+                        Spacer(
+                            modifier = Modifier
+                                .padding(top = 46.dp, bottom = 24.dp)
+                                .height(8.dp)
+                                .fillMaxWidth()
+                                .background(color = Gray20),
+                        )
+                    }
                 }
             }
         }
+
+        GroupFloatingButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 45.dp, end = 16.dp),
+            onClickGroupMake = onClickGroupMake,
+            onClickGroupEnter = onClickGroupEnter,
+        )
     }
 }
 
@@ -273,6 +299,103 @@ private fun BackCardImage(
     }
 }
 
+@Composable
+private fun GroupFloatingButton(
+    modifier: Modifier,
+    onClickGroupMake: () -> Unit,
+    onClickGroupEnter: () -> Unit,
+) {
+    var isExpanded by remember { mutableStateOf(false) }
+    val rotationAngle by animateFloatAsState(
+        targetValue = if (isExpanded) 45f else 0f,
+        animationSpec = tween(durationMillis = 200, easing = LinearEasing),
+        label = stringResource(R.string.floating_animate),
+    )
+
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.End,
+    ) {
+        AnimatedVisibility(visible = isExpanded) {
+            FloatingButtonContent(
+                modifier = Modifier
+                    .background(
+                        color = Color.White,
+                        shape = RoundedCornerShape(16.dp),
+                    )
+                    .padding(16.dp),
+                onClickGroupMake = onClickGroupMake,
+                onClickGroupEnter = onClickGroupEnter,
+            )
+        }
+
+        FloatingActionButton(
+            modifier = Modifier.padding(top = 8.dp),
+            onClick = { isExpanded = !isExpanded },
+            shape = CircleShape,
+            containerColor = if (isExpanded) Color.White else Gray80,
+            elevation = FloatingActionButtonDefaults.elevation(0.dp),
+        ) {
+            StableImage(
+                modifier = Modifier
+                    .rotate(rotationAngle)
+                    .padding(16.dp),
+                drawableResId = R.drawable.ic_floating_plus,
+                colorFilter = ColorFilter.tint(if (isExpanded) Color.Black else Color.White),
+                contentDescription = stringResource(R.string.floating_btn),
+            )
+        }
+    }
+}
+
+@Composable
+private fun FloatingButtonContent(
+    modifier: Modifier,
+    onClickGroupMake: () -> Unit,
+    onClickGroupEnter: () -> Unit,
+) {
+    Column(
+        modifier = modifier,
+    ) {
+        FloatingItem(
+            modifier = Modifier,
+            textResId = R.string.floationg_group_enter,
+            imageResId = R.drawable.ic_group_enter,
+            onClicked = { onClickGroupEnter() },
+        )
+        FloatingItem(
+            modifier = Modifier.padding(top = 16.dp),
+            textResId = R.string.floating_group_creation,
+            imageResId = R.drawable.ic_group_add,
+            onClicked = { onClickGroupMake() },
+        )
+    }
+}
+
+@Composable
+private fun FloatingItem(
+    modifier: Modifier,
+    textResId: Int,
+    @DrawableRes imageResId: Int,
+    onClicked: () -> Unit,
+) {
+    Row(
+        modifier = modifier.noRippleClickable { onClicked() },
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        StableImage(
+            modifier = Modifier.padding(end = 8.dp),
+            drawableResId = imageResId,
+            contentDescription = stringResource(R.string.floating_btn_desc),
+        )
+        Text(
+            text = stringResource(id = textResId),
+            color = Gray80,
+            style = PicTypography.bodyMedium16,
+        )
+    }
+}
+
 @Preview
 @Composable
 private fun GroupHomeScreenPreview() {
@@ -397,5 +520,8 @@ private fun GroupHomeScreenPreview() {
         ),
         onClickGroupDetail = {},
         onClickEventMake = {},
-    ) {}
+        onClickMyPage = {},
+        onClickGroupMake = {},
+        onClickGroupEnter = {},
+    )
 }

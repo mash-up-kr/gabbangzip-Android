@@ -124,4 +124,9 @@
     <string name="vote_complete_subtitle">모든 사람이 PIC을 완료하면\n네컷 사진이 만들어져요</string>
     <string name="intro_event_top_title">이벤트를 만들어보세요</string>
     <string name="event_creation_btn_text">이벤트 생성하기</string>
+    <string name="floating_group_creation">그룹 만들기</string>
+    <string name="floationg_group_enter">그룹 들어가기</string>
+    <string name="floating_btn_desc">플로팅 버튼 아이콘</string>
+    <string name="floating_btn">플로팅 버튼</string>
+    <string name="floating_animate">FloatingRotationAngle</string>
 </resources>
