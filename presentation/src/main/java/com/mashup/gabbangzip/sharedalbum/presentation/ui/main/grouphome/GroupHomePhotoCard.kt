@@ -44,6 +44,7 @@ fun GroupHomePhotoCard(
         when (groupInfo.status) {
             GroupStatusType.NO_PAST_AND_CURRENT_EVENT -> context.getString(R.string.intro_event_top_title)
             GroupStatusType.NO_CURRENT_EVENT -> groupInfo.recentEvent.date
+            GroupStatusType.AFTER_MY_VOTE -> groupInfo.recentEventDate
             else -> ""
         }
     }
@@ -76,11 +77,11 @@ fun GroupHomePhotoCard(
 
         content()
 
-        if (groupInfo.status == GroupStatusType.NO_CURRENT_EVENT) {
+        if (groupInfo.status == GroupStatusType.NO_CURRENT_EVENT || groupInfo.status == GroupStatusType.AFTER_MY_VOTE) {
             EventTitle(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(top = 31.dp),
+                    .padding(top = 31.dp, bottom = 41.dp),
                 text = eventName,
             )
         }
