@@ -48,7 +48,7 @@ fun GroupCreationCompleteScreen(
         PicTextOnlyTopBar(
             modifier = Modifier
                 .background(Gray0Alpha80)
-                .padding(top = 21.dp),
+                .padding(top = 20.dp),
             titleText = stringResource(id = R.string.complete),
         )
         Column(
@@ -60,7 +60,7 @@ fun GroupCreationCompleteScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .padding(bottom = 32.dp, start = 16.dp, end = 16.dp),
+                    .padding(top = 3.dp, bottom = 32.dp, start = 16.dp, end = 16.dp),
                 level = 4,
                 total = 4f,
             )
