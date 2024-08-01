@@ -5,14 +5,13 @@ import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.AuthClient
 import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.AuthRetrofit
 import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.DefaultClient
 import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.DefaultRetrofit
-import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.FirebaseRetrofit
 import com.mashup.gabbangzip.sharedalbum.data.interceptor.AuthInterceptor
 import com.mashup.gabbangzip.sharedalbum.data.interceptor.TokenAuthenticator
 import com.mashup.gabbangzip.sharedalbum.data.service.AwsService
 import com.mashup.gabbangzip.sharedalbum.data.service.FileService
-import com.mashup.gabbangzip.sharedalbum.data.service.FirebaseService
 import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.data.service.LoginService
+import com.mashup.gabbangzip.sharedalbum.data.service.NotificationService
 import com.mashup.gabbangzip.sharedalbum.data.service.UserService
 import dagger.Module
 import dagger.Provides
@@ -90,17 +89,6 @@ internal class NetworkModule {
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
 
-    @FirebaseRetrofit
-    @Singleton
-    @Provides
-    fun provideFirebaseRetrofit(
-        @DefaultClient okHttpClient: OkHttpClient,
-    ): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .client(okHttpClient)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build()
-
     @Singleton
     @Provides
     fun provideLoginService(
@@ -134,8 +122,8 @@ internal class NetworkModule {
     @Singleton
     @Provides
     fun provideFirebaseService(
-        @FirebaseRetrofit retrofit: Retrofit,
-    ): FirebaseService = retrofit.create()
+        @DefaultRetrofit retrofit: Retrofit,
+    ): NotificationService = retrofit.create()
 
     companion object {
         private const val BASE_URL = "http://ec2-43-203-14-157.ap-northeast-2.compute.amazonaws.com"
