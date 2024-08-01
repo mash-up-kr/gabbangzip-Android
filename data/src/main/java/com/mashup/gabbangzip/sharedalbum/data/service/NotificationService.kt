@@ -6,7 +6,7 @@ import com.mashup.gabbangzip.sharedalbum.data.dto.response.FcmTokenResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface FirebaseService {
+interface NotificationService {
     @POST("api/v1/alarm/token")
     suspend fun registerToken(
         @Body token: FcmTokenRequest,
