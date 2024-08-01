@@ -32,7 +32,7 @@ class FileRepositoryImpl @Inject constructor(
             filename = imageFile.name,
             body = imageFile.asRequestBody("image/${imageFile.extension}".toMediaTypeOrNull()),
         )
-        return awsService.uploadFile(url, multipart).let { response ->
+        return awsService.uploadFile("image/${imageFile.extension}", url, multipart).let { response ->
             PicNetworkResponseDomainModel(
                 isSuccess = response.isSuccessful,
                 errorMessage = response.errorBody()?.string().toString(),
