@@ -121,7 +121,7 @@ internal class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideFirebaseService(
+    fun provideNotificationService(
         @DefaultRetrofit retrofit: Retrofit,
     ): NotificationService = retrofit.create()
 
