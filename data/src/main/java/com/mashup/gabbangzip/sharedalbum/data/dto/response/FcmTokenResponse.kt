@@ -1,6 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.data.dto.response
 
-import com.mashup.gabbangzip.sharedalbum.domain.model.firebase.FcmTokenDomainModel
+import com.mashup.gabbangzip.sharedalbum.domain.model.notification.FcmTokenDomainModel
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
