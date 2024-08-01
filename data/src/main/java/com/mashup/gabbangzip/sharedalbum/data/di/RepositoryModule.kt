@@ -1,14 +1,14 @@
 package com.mashup.gabbangzip.sharedalbum.data.di
 
 import com.mashup.gabbangzip.sharedalbum.data.repository.FileRepositoryImpl
-import com.mashup.gabbangzip.sharedalbum.data.repository.FirebaseRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.GroupRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.LoginRepositoryImpl
+import com.mashup.gabbangzip.sharedalbum.data.repository.NotificationRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.UserRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.domain.repository.FileRepository
-import com.mashup.gabbangzip.sharedalbum.domain.repository.FirebaseRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.GroupRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.LoginRepository
+import com.mashup.gabbangzip.sharedalbum.domain.repository.NotificationRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -37,5 +37,5 @@ interface RepositoryModule {
 
     @Singleton
     @Binds
-    fun bindFirebaseRepository(firebaseRepositoryImpl: FirebaseRepositoryImpl): FirebaseRepository
+    fun bindNotificationRepository(notificationRepositoryImpl: NotificationRepositoryImpl): NotificationRepository
 }
