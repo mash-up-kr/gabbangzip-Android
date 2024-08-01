@@ -111,7 +111,7 @@ fun GroupHomeScreen(
                 }
             }
         }
-        
+
         GroupFloatingButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
