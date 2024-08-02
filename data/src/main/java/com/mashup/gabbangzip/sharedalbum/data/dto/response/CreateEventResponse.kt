@@ -1,16 +1,14 @@
 package com.mashup.gabbangzip.sharedalbum.data.dto.response
 
+import com.mashup.gabbangzip.sharedalbum.domain.model.eventcreation.EventCreationDomainModel
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class CreateEventResponse(
-    @Json(name = "event_date")
-    val eventDate: String,
-    @Json(name = "image_url")
-    val imageUrl: String,
-    @Json(name = "summary")
-    val summary: String,
-    @Json(name = "upload_due_date")
-    val uploadDueDate: String,
+    @Json(name = "id") val eventId: Long,
 )
+
+fun CreateEventResponse.toDomainModel(): EventCreationDomainModel {
+    return EventCreationDomainModel(eventId = eventId)
+}
