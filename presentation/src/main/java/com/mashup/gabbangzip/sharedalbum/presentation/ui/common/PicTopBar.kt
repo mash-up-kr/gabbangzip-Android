@@ -99,7 +99,7 @@ fun PicBackButtonTopBar(
                         .padding(start = 6.dp)
                         .weight(1.0f),
                     text = titleText,
-                    style = PicTypography.bodyMedium17,
+                    style = PicTypography.bodyMedium16,
                     color = Gray80,
                 )
             }
