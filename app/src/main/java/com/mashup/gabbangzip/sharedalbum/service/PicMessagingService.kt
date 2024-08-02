@@ -66,7 +66,6 @@ class PicMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        // TODO : 서버한테 토큰 주기 로직. API 들어오면 작성.
         Log.d("PicMessagingService", "newToken: $token")
     }
 
