@@ -74,7 +74,7 @@ fun GroupHomeScreen(
     onClickMyPage: () -> Unit,
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
-    onClickPicFcm: () -> Unit,
+    onClickSendFcm: () -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -100,8 +100,8 @@ fun GroupHomeScreen(
                         },
                         groupInfo = groupInfo,
                         onGroupDetailClick = onClickGroupDetail,
+                        onClickSendFcm = onClickSendFcm,
                         onClickEventMake = onClickEventMake,
-                        onClickPicFcm = onClickPicFcm,
                     )
 
                     if (state.groupList.lastIndex != index) {
@@ -132,8 +132,8 @@ private fun GroupContainer(
     modifier: Modifier,
     groupInfo: GroupInfo,
     onGroupDetailClick: (id: Long) -> Unit,
+    onClickSendFcm: () -> Unit,
     onClickEventMake: (Long) -> Unit,
-    onClickPicFcm: () -> Unit,
 ) {
     Column(
         modifier = modifier.noRippleClickable { onGroupDetailClick(groupInfo.id) },
@@ -172,7 +172,7 @@ private fun GroupContainer(
                     .align(Alignment.CenterHorizontally),
                 iconRes = R.drawable.ic_group_notice,
                 text = stringResource(R.string.group_home_pic_fcm),
-                onButtonClicked = onClickPicFcm,
+                onButtonClicked = onClickSendFcm,
             )
         }
     }
@@ -564,6 +564,6 @@ private fun GroupHomeScreenPreview() {
         onClickMyPage = {},
         onClickGroupMake = {},
         onClickGroupEnter = {},
-        onClickPicFcm = {},
+        onClickSendFcm = {},
     )
 }

@@ -27,7 +27,7 @@ fun NavGraphBuilder.groupHomeNavGraph(
             onClickMyPage = onClickMyPage,
             onClickGroupMake = onClickGroupMake,
             onClickGroupEnter = onClickGroupEnter,
-            onClickPicFcm = onClickPicFcm,
+            onClickSendFcm = onClickPicFcm,
         )
     }
 }
