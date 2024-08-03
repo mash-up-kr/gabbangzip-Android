@@ -3,6 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.data.repository
 import com.mashup.gabbangzip.sharedalbum.data.base.callApi
 import com.mashup.gabbangzip.sharedalbum.data.common.Constants
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.CreateGroupRequest
+import com.mashup.gabbangzip.sharedalbum.data.dto.request.EnterGroupRequest
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.toDomainModel
 import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupParam
@@ -30,6 +31,11 @@ class GroupRepositoryImpl @Inject constructor(
                 invitationCode = invitationCode,
             )
         }
+    }
+
+    override suspend fun enterGroupByCode(code: String): Long {
+        val request = EnterGroupRequest(code)
+        return callApi { groupService.enterGroupByCode(request) }.groupId
     }
 
     override suspend fun getGroupList(): List<GroupDomainModel> {
