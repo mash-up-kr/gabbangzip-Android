@@ -9,12 +9,14 @@ import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
@@ -36,7 +38,16 @@ fun GroupDetailScreen(
     onClickBackButton: () -> Unit,
     viewModel: GroupDetailViewModel = hiltViewModel(),
 ) {
-    // TODO: viewModel state 연결
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    GroupDetailScreen(
+        state = state,
+        onClickGroupMemberButton = onClickGroupMemberButton,
+        onClickBackButton = onClickBackButton,
+        onClickActionButton = { /*TODO*/ },
+        onClickShareButton = { /*TODO*/ },
+        onClickHistoryItem = { /*TODO*/ },
+    )
 }
 
 @Composable
