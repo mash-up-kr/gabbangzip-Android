@@ -134,7 +134,11 @@ private fun GroupDetailScreenPreview(
                     cardFrontImageUrl = "https://picsum.photos/200/300",
                     keyword = GroupKeyword.SCHOOL,
                     name = "가빵집가빵집",
-                    recentEventDate = "2024.11.01",
+                    recentEvent = GroupEvent(
+                        title = "가빵집 MT",
+                        date = "2024.11.01",
+                        deadline = "2024.11.01",
+                    ),
                     status = GroupStatusType.AFTER_MY_VOTE,
                     statusDescription = "몰라몰라",
                     frontImageFrame = PicPhotoFrame.PLUS,

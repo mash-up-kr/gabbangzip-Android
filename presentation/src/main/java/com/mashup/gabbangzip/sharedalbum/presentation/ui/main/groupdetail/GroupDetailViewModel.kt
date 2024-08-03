@@ -7,6 +7,7 @@ import com.mashup.gabbangzip.sharedalbum.domain.usecase.PokeOtherMemberUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.UploadMyPicUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupDetailUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupDetailUiState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -49,6 +50,7 @@ class GroupDetailViewModel @Inject constructor(
                         state.copy(
                             isLoading = false,
                             groupInfo = groupDetail.toUiModel(),
+                            recentEvent = groupDetail.recentEvent.toUiModel(),
                             error = null,
                         )
                     }

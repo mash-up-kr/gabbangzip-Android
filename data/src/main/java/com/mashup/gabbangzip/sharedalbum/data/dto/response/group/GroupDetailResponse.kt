@@ -16,8 +16,8 @@ data class GroupDetailResponse(
     val keyword: String,
     @Json(name = "name")
     val name: String,
-    @Json(name = "recent_event_date")
-    val recentEventDate: String,
+    @Json(name = "recent_event")
+    val recentEvent: RecentEventResponse,
     @Json(name = "status")
     val status: String,
     @Json(name = "status_description")
@@ -33,7 +33,7 @@ fun GroupDetailResponse.toDomainModel(): GroupDomainModel {
         cardFrontImageUrl = cardFrontImageUrl,
         keyword = keyword,
         name = name,
-        recentEventDate = recentEventDate,
+        recentEvent = recentEvent.toDomainModel(),
         status = status,
         statusDescription = statusDescription,
     )
