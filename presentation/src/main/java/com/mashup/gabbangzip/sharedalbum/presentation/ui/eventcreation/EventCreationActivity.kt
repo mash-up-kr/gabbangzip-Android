@@ -11,14 +11,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.navigation.EventCreationNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.navigation.EventCreationRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,8 +47,13 @@ class EventCreationActivity : ComponentActivity() {
         )
         setContent {
             val eventCreationState by eventCreationViewModel.uiState.collectAsStateWithLifecycle()
+            val snackbarHostState = remember { SnackbarHostState() }
             SharedAlbumTheme {
-                Scaffold { contentPadding ->
+                Scaffold(
+                    snackbarHost = {
+                        PicSnackbarHost(state = snackbarHostState)
+                    },
+                ) { contentPadding ->
                     EventCreationNavHost(
                         modifier = Modifier
                             .fillMaxSize()
@@ -51,10 +64,37 @@ class EventCreationActivity : ComponentActivity() {
                         startDestination = EventCreationRoute.initRoute,
                         eventCreationState = eventCreationState,
                         clearEventCreationState = eventCreationViewModel::clearEventCreationState,
-                        onCompleteButtonClicked = eventCreationViewModel::createEvent,
+                        onCompleteButtonClicked = { summary ->
+                            with(eventCreationViewModel) {
+                                eventCreationState.pictures.forEach { uri ->
+                                    val file =
+                                        FileUtil.getFileFromUri(this@EventCreationActivity, uri)
+                                    addPictureFile(file)
+                                }
+                                if (checkValidState()) {
+                                    createEvent(summary)
+                                } else {
+                                    showSnackBar()
+                                    clearPictures()
+                                }
+                            }
+                        },
                         onGalleryButtonClicked = photoPicker::open,
                         onPictureDeleteButtonClicked = eventCreationViewModel::deletePicture,
                     )
+                }
+
+                LaunchedEffect(true) {
+                    eventCreationViewModel.eventFlow.collect {
+                        when (it) {
+                            is EventCreationEvent.Error -> {
+                                snackbarHostState.showPicSnackbar(
+                                    type = PicSnackbarType.WARNING,
+                                    message = getString(R.string.image_retrieve_failed),
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
