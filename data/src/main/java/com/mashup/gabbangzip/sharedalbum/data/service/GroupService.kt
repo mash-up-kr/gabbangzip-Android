@@ -2,7 +2,9 @@ package com.mashup.gabbangzip.sharedalbum.data.service
 
 import com.mashup.gabbangzip.sharedalbum.data.base.PicResponse
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.CreateGroupRequest
+import com.mashup.gabbangzip.sharedalbum.data.dto.request.EnterGroupRequest
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.CreateGroupResponse
+import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.EnterGroupResponse
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.GroupDataResponse
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.GroupDetailResponse
 import retrofit2.http.Body
@@ -23,4 +25,9 @@ interface GroupService {
     suspend fun getGroupDetail(
         @Path(value = "id") groupId: Long,
     ): PicResponse<GroupDetailResponse>
+
+    @GET("api/v1/groups/join")
+    suspend fun enterGroupByCode(
+        @Body enterGroupRequest: EnterGroupRequest,
+    ): PicResponse<EnterGroupResponse>
 }
