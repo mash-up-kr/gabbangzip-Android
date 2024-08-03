@@ -5,8 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-@JvmInline
-value class FcmTokenRequest(
+data class FcmTokenRequest(
     @Json(name = "token")
     val fcmToken: String,
 )
