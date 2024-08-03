@@ -20,6 +20,7 @@ private val DarkColorScheme =
         primary = Conifer,
         secondary = MagentaPink,
         tertiary = Malibu,
+        background = Gray0,
     )
 
 private val LightColorScheme =
@@ -27,22 +28,14 @@ private val LightColorScheme =
         primary = Conifer,
         secondary = MagentaPink,
         tertiary = Malibu,
-        /* Other default colors to override
-        background = Color(0xFFFFFBFE),
-        surface = Color(0xFFFFFBFE),
-        onPrimary = Color.White,
-        onSecondary = Color.White,
-        onTertiary = Color.White,
-        onBackground = Color(0xFF1C1B1F),
-        onSurface = Color(0xFF1C1B1F),
-         */
+        background = Gray0,
     )
 
 @Composable
 fun SharedAlbumTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit,
 ) {
     val colorScheme =

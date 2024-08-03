@@ -137,9 +137,7 @@ fun MyPageScreen(
     showWithdrawalDialog: () -> Unit,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Gray0),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TopBar(

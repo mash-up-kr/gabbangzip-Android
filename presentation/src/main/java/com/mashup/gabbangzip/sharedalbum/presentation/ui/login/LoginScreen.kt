@@ -33,7 +33,6 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.KakaoOnPrimaryColor
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.KakaoPrimaryColor
@@ -46,7 +45,6 @@ fun LoginScreen(onClickLoginButton: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Gray0)
             .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -119,7 +117,7 @@ fun KakaoLoginButton(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
     SharedAlbumTheme {

@@ -2,7 +2,6 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.name
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
@@ -19,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0Alpha80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -99,16 +97,10 @@ fun GroupCreationNameScreen(
 @Composable
 fun GroupCreationNameScreenPreview() {
     SharedAlbumTheme {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Gray0),
-        ) {
-            GroupCreationNameScreen(
-                initialName = "",
-                onBackButtonClicked = {},
-                onNextButtonClicked = {},
-            )
-        }
+        GroupCreationNameScreen(
+            initialName = "",
+            onBackButtonClicked = {},
+            onNextButtonClicked = {},
+        )
     }
 }

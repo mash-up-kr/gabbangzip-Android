@@ -1,7 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.vote
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,10 +18,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicCroppedPhoto
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
@@ -34,9 +33,7 @@ fun VoteCompleteScreen(
     onCompleteButtonClicked: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Gray0),
+        modifier = Modifier.fillMaxSize(),
     ) {
         VoteCompleteContent(
             modifier = Modifier
@@ -91,9 +88,11 @@ private fun VoteCompleteContent(
 @Composable
 @Preview(showBackground = true)
 private fun VoteCompleteScreenPreview() {
-    VoteCompleteScreen(
-        frameResId = PicPhotoFrame.PLUS.frameResId,
-        thumbnailUrl = "",
-        onCompleteButtonClicked = {},
-    )
+    SharedAlbumTheme {
+        VoteCompleteScreen(
+            frameResId = PicPhotoFrame.PLUS.frameResId,
+            thumbnailUrl = "",
+            onCompleteButtonClicked = {},
+        )
+    }
 }

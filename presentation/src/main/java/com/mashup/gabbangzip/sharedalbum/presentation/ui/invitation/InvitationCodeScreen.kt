@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.invitation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
@@ -35,9 +33,7 @@ fun InvitationCodeScreen(
     val isButtonEnabled by remember { derivedStateOf { input.isNotBlank() } }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Gray0),
+        modifier = Modifier.fillMaxSize(),
     ) {
         PicBackButtonTopBar(
             titleText = stringResource(id = R.string.enter_group_by_code_title),
