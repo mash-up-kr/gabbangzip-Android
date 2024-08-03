@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -22,7 +21,6 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
@@ -58,7 +56,6 @@ class GroupCreationActivity : ComponentActivity() {
                     GroupCreationNavHost(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(Gray0)
                             .padding(contentPadding)
                             .consumeWindowInsets(contentPadding)
                             .systemBarsPadding(),
@@ -69,13 +66,14 @@ class GroupCreationActivity : ComponentActivity() {
                         updateName = viewModel::updateName,
                         updateKeyword = viewModel::updateKeyword,
                         createGroup = {
-                            FileUtil.getFileFromUri(this, groupCreationState.thumbnail)?.let { imageFile ->
-                                viewModel.createGroup(
-                                    name = groupCreationState.name,
-                                    keyword = groupCreationState.keyword.name,
-                                    file = imageFile,
-                                )
-                            } ?: run {
+                            FileUtil.getFileFromUri(this, groupCreationState.thumbnail)
+                                ?.let { imageFile ->
+                                    viewModel.createGroup(
+                                        name = groupCreationState.name,
+                                        keyword = groupCreationState.keyword.name,
+                                        file = imageFile,
+                                    )
+                                } ?: run {
                                 viewModel.showSnackBar(
                                     type = PicSnackbarType.WARNING,
                                     message = R.string.image_retrieve_failed,
@@ -105,10 +103,14 @@ class GroupCreationActivity : ComponentActivity() {
                                 message = it.message,
                             )
                         }
+
                         is GroupCreationViewModel.Event.ShowSnackBarMessageRes -> {
                             snackbarHostState.showPicSnackbar(
                                 type = it.type,
-                                message = ContextCompat.getString(this@GroupCreationActivity, it.message),
+                                message = ContextCompat.getString(
+                                    this@GroupCreationActivity,
+                                    it.message,
+                                ),
                             )
                         }
                     }
