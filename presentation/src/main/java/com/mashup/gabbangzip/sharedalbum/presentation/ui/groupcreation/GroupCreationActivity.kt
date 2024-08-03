@@ -1,6 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -69,13 +69,14 @@ class GroupCreationActivity : ComponentActivity() {
                         updateName = viewModel::updateName,
                         updateKeyword = viewModel::updateKeyword,
                         createGroup = {
-                            FileUtil.getFileFromUri(this, groupCreationState.thumbnail)?.let { imageFile ->
-                                viewModel.createGroup(
-                                    name = groupCreationState.name,
-                                    keyword = groupCreationState.keyword.name,
-                                    file = imageFile,
-                                )
-                            } ?: run {
+                            FileUtil.getFileFromUri(this, groupCreationState.thumbnail)
+                                ?.let { imageFile ->
+                                    viewModel.createGroup(
+                                        name = groupCreationState.name,
+                                        keyword = groupCreationState.keyword.name,
+                                        file = imageFile,
+                                    )
+                                } ?: run {
                                 viewModel.showSnackBar(
                                     type = PicSnackbarType.WARNING,
                                     message = R.string.image_retrieve_failed,
@@ -105,10 +106,14 @@ class GroupCreationActivity : ComponentActivity() {
                                 message = it.message,
                             )
                         }
+
                         is GroupCreationViewModel.Event.ShowSnackBarMessageRes -> {
                             snackbarHostState.showPicSnackbar(
                                 type = it.type,
-                                message = ContextCompat.getString(this@GroupCreationActivity, it.message),
+                                message = ContextCompat.getString(
+                                    this@GroupCreationActivity,
+                                    it.message,
+                                ),
                             )
                         }
                     }
@@ -118,7 +123,7 @@ class GroupCreationActivity : ComponentActivity() {
     }
 
     companion object {
-        fun openActivity(context: Activity) {
+        fun openActivity(context: Context) {
             context.startActivity(
                 Intent(context, GroupCreationActivity::class.java),
             )
