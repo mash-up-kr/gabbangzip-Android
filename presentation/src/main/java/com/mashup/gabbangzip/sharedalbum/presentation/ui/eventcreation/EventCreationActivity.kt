@@ -1,6 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -66,7 +66,7 @@ class EventCreationActivity : ComponentActivity() {
     companion object {
         const val PICTURES_MAX_COUNT = 4
 
-        fun open(context: Activity) {
+        fun openActivity(context: Context) {
             context.startActivity(
                 Intent(context, EventCreationActivity::class.java),
             )

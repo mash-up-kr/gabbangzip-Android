@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.invitation.InvitationCodeActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation.groupDetailNavGraph
@@ -20,7 +21,6 @@ fun MainNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
     startDestination: String,
-    onClickEventMakeButton: () -> Unit,
     onClickNotificationSetting: () -> Unit,
     navigateLoginAndFinish: () -> Unit,
 ) {
@@ -34,7 +34,7 @@ fun MainNavHost(
         groupHomeNavGraph(
             onClickGroupDetail = { id -> navController.navigateGroupDetail(id) },
             onClickMyPage = { navController.navigateMyPage() },
-            onClickEventMake = { onClickEventMakeButton() },
+            onClickEventMake = { EventCreationActivity.openActivity(context) },
             onClickGroupMake = { GroupCreationActivity.openActivity(context) },
             onClickGroupEnter = { InvitationCodeActivity.openActivity(context) },
         )

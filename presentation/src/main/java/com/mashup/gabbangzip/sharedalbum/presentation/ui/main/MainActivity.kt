@@ -37,9 +37,6 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         navController = rememberNavController(),
                         startDestination = MainRoute.initRoute,
-                        onClickEventMakeButton = {
-                            EventCreationActivity.open(this@MainActivity)
-                        },
                         onClickNotificationSetting = {
                             startActivity(
                                 Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
