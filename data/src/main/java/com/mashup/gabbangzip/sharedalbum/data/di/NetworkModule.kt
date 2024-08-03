@@ -8,6 +8,7 @@ import com.mashup.gabbangzip.sharedalbum.data.di.qualifier.DefaultRetrofit
 import com.mashup.gabbangzip.sharedalbum.data.interceptor.AuthInterceptor
 import com.mashup.gabbangzip.sharedalbum.data.interceptor.TokenAuthenticator
 import com.mashup.gabbangzip.sharedalbum.data.service.AwsService
+import com.mashup.gabbangzip.sharedalbum.data.service.EventService
 import com.mashup.gabbangzip.sharedalbum.data.service.FileService
 import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.data.service.LoginService
@@ -124,6 +125,12 @@ internal class NetworkModule {
     fun provideNotificationService(
         @DefaultRetrofit retrofit: Retrofit,
     ): NotificationService = retrofit.create()
+
+    @Singleton
+    @Provides
+    fun provideEventService(
+        @DefaultRetrofit retrofit: Retrofit,
+    ): EventService = retrofit.create()
 
     companion object {
         private const val BASE_URL = "http://ec2-43-203-14-157.ap-northeast-2.compute.amazonaws.com"
