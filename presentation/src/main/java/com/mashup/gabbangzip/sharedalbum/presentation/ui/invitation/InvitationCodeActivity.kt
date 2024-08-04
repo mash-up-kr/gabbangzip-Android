@@ -1,6 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.invitation
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -75,7 +75,7 @@ class InvitationCodeActivity : ComponentActivity() {
     companion object {
         private const val TAG = "InvitationCodeActivity"
 
-        fun openActivity(context: Activity) {
+        fun openActivity(context: Context) {
             context.startActivity(
                 Intent(context, InvitationCodeActivity::class.java),
             )

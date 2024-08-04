@@ -1,6 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -120,7 +120,7 @@ class GroupCreationActivity : ComponentActivity() {
     }
 
     companion object {
-        fun openActivity(context: Activity) {
+        fun openActivity(context: Context) {
             context.startActivity(
                 Intent(context, GroupCreationActivity::class.java),
             )
