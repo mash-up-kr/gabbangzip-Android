@@ -35,7 +35,6 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.VoteActivity
 
 @Composable
 fun GroupDetailScreen(
-    groupId: Long,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
     viewModel: GroupDetailViewModel = hiltViewModel(),

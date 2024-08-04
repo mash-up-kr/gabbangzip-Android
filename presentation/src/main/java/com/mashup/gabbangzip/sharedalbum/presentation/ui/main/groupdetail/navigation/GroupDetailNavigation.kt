@@ -23,9 +23,8 @@ fun NavGraphBuilder.groupDetailNavGraph(
             navArgument(KEY_GROUP_ID) { type = NavType.LongType },
         ),
     ) { backStackEntry ->
-        backStackEntry.arguments?.getLong(KEY_GROUP_ID)?.let { groupId ->
+        backStackEntry.arguments?.getLong(KEY_GROUP_ID)?.let {
             GroupDetailScreen(
-                groupId = groupId,
                 onClickGroupMemberButton = onClickGroupMemberButton,
                 onClickBackButton = onClickBackButton,
             )
