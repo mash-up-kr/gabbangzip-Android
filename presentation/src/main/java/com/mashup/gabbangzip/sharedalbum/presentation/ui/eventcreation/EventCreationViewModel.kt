@@ -1,8 +1,10 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.CreateEventUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -13,10 +15,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.File
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
-class EventCreationViewModel @Inject constructor() : ViewModel() {
+class EventCreationViewModel @Inject constructor(
+    private val createEventUseCase: CreateEventUseCase,
+) : ViewModel() {
     private val _uiState = MutableStateFlow(EventCreationState())
     val uiState: StateFlow<EventCreationState> = _uiState.asStateFlow()
 
@@ -62,11 +67,25 @@ class EventCreationViewModel @Inject constructor() : ViewModel() {
 
     fun createEvent(summary: String) {
         viewModelScope.launch {
-            // TODO: create event api 연결
+            createEventUseCase(
+                summary = summary,
+                date = LocalDate.now().toString(), // ??
+                fileList = fileList,
+            ).onSuccess {
+                Log.d(TAG, "이벤트 생성 성공")
+            }.onFailure {
+                Log.d(TAG, "이벤트 생성 실패")
+                showSnackBar() // 이벤트 생성 실패 스낵바여야 함
+                // clear 해야하나?
+            }
         }
     }
 
     fun showSnackBar() {
         viewModelScope.launch { _eventFlow.emit(EventCreationEvent.Error) }
+    }
+
+    companion object {
+        private const val TAG = "EventCreationViewModel"
     }
 }
