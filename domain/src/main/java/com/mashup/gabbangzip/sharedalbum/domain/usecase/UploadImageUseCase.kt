@@ -1,10 +1,12 @@
 package com.mashup.gabbangzip.sharedalbum.domain.usecase
 
 import com.mashup.gabbangzip.sharedalbum.domain.repository.FileRepository
+import dagger.Reusable
 import java.io.File
 import java.io.IOException
 import javax.inject.Inject
 
+@Reusable
 class UploadImageUseCase @Inject constructor(
     private val fileRepository: FileRepository,
 ) {

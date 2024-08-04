@@ -2,6 +2,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation
 
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.CreateEventUseCase
@@ -15,13 +16,17 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.File
-import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class EventCreationViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val createEventUseCase: CreateEventUseCase,
 ) : ViewModel() {
+    private val groupId =
+        savedStateHandle.get<Long>(EventCreationActivity.INTENT_EXTRA_GROUP_ID) ?: -1
+
     private val _uiState = MutableStateFlow(EventCreationState())
     val uiState: StateFlow<EventCreationState> = _uiState.asStateFlow()
 
@@ -65,18 +70,20 @@ class EventCreationViewModel @Inject constructor(
         return fileList.size == uiState.value.pictures.size
     }
 
-    fun createEvent(summary: String) {
+    fun createEvent(description: String) {
         viewModelScope.launch {
             createEventUseCase(
-                summary = summary,
-                date = LocalDate.now().toString(), // ??
+                groupId = groupId,
+                description = description,
+                date = LocalDateTime.now().toString(),
                 fileList = fileList,
             ).onSuccess {
                 Log.d(TAG, "이벤트 생성 성공")
+                // 그룹 상세 화면으로 이동
             }.onFailure {
                 Log.d(TAG, "이벤트 생성 실패")
-                showSnackBar() // 이벤트 생성 실패 스낵바여야 함
-                // clear 해야하나?
+                showSnackBar()
+                fileList.clear()
             }
         }
     }

@@ -14,8 +14,8 @@ class EventRepositoryImpl @Inject constructor(
 ) : EventRepository {
     override suspend fun createEvent(param: EventCreationParam): EventCreationDomainModel {
         val request = CreateEventRequest(
-            groupId = 0, // 변경 필요
-            description = param.summary,
+            groupId = param.groupId,
+            description = param.description,
             date = param.date,
             pictures = param.pictures,
         )

@@ -102,10 +102,13 @@ class EventCreationActivity : ComponentActivity() {
 
     companion object {
         const val PICTURES_MAX_COUNT = 4
+        const val INTENT_EXTRA_GROUP_ID = "groupId"
 
-        fun openActivity(context: Context) {
+        fun openActivity(context: Context, groupId: Long?) {
             context.startActivity(
-                Intent(context, EventCreationActivity::class.java),
+                Intent(context, EventCreationActivity::class.java).apply {
+                    putExtra(INTENT_EXTRA_GROUP_ID, groupId)
+                },
             )
         }
     }

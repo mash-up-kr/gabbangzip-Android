@@ -3,16 +3,19 @@ package com.mashup.gabbangzip.sharedalbum.domain.usecase
 import com.mashup.gabbangzip.sharedalbum.domain.model.eventcreation.EventCreationDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.model.eventcreation.EventCreationParam
 import com.mashup.gabbangzip.sharedalbum.domain.repository.EventRepository
+import dagger.Reusable
 import java.io.File
 import java.io.IOException
 import javax.inject.Inject
 
+@Reusable
 class CreateEventUseCase @Inject constructor(
     private val uploadImageUseCase: UploadImageUseCase,
     private val eventRepository: EventRepository,
 ) {
     suspend operator fun invoke(
-        summary: String,
+        groupId: Long,
+        description: String,
         date: String,
         fileList: List<File>,
     ): Result<EventCreationDomainModel> {
@@ -20,18 +23,20 @@ class CreateEventUseCase @Inject constructor(
             val pictureList = mutableListOf<String>()
             fileList.forEach { file ->
                 uploadImageUseCase(file)
-                    .onSuccess { fileId ->
-                        pictureList.add(fileId)
-                    }
-                    .onFailure {
-                        throw IOException(it.message)
-                    }
+                    .onSuccess { fileId -> pictureList.add(fileId) }
+                    .onFailure { throw IOException(it.message) }
             }
             if (pictureList.size == fileList.size) {
-                eventRepository.createEvent(EventCreationParam(summary, date, pictureList))
+                eventRepository.createEvent(
+                    EventCreationParam(groupId, description, date, pictureList),
+                )
             } else {
-                throw IOException("error!!!!!!!")
+                throw IOException(ERROR_MESSAGE)
             }
         }
+    }
+
+    companion object {
+        private const val ERROR_MESSAGE = "이미지 조회 실패"
     }
 }
