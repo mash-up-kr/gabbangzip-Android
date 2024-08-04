@@ -68,7 +68,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 fun GroupHomeScreen(
     state: GroupHomeUiState,
     onClickGroupDetail: (id: Long) -> Unit,
-    onClickEventMake: () -> Unit,
+    onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
@@ -97,6 +97,7 @@ fun GroupHomeScreen(
                         },
                         groupInfo = groupInfo,
                         onGroupDetailClick = onClickGroupDetail,
+                        onClickEventMake = onClickEventMake,
                     )
 
                     if (state.groupList.lastIndex != index) {
@@ -127,6 +128,7 @@ private fun GroupContainer(
     modifier: Modifier,
     groupInfo: GroupInfo,
     onGroupDetailClick: (id: Long) -> Unit,
+    onClickEventMake: (Long) -> Unit,
 ) {
     Column(
         modifier = modifier.noRippleClickable { onGroupDetailClick(groupInfo.id) },
@@ -155,12 +157,13 @@ private fun GroupContainer(
                     end = 46.dp,
                 ),
             groupInfo = groupInfo,
+            onClickEventMake = onClickEventMake,
         )
     }
 }
 
 @Composable
-private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo) {
+private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo, onClickEventMake: (Long) -> Unit) {
     val contentMaxHeight = LocalConfiguration.current.screenHeightDp.dp.div(2)
 
     FlippableBox(
@@ -182,6 +185,7 @@ private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo) {
                         backgroundColor = groupInfo.keyword.frontCardBackgroundColor,
                     )
                 },
+                onClickEventMake = onClickEventMake,
             )
         },
         backScreen = {
@@ -200,6 +204,7 @@ private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo) {
                         backgroundColor = groupInfo.keyword.behindCardBackGroundColor,
                     )
                 },
+                onClickEventMake = onClickEventMake,
             )
         },
         flipAnimationSpec = tween(

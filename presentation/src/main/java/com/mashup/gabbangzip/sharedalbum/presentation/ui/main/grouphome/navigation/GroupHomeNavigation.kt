@@ -13,7 +13,7 @@ fun NavController.navigateGroupHome() {
 
 fun NavGraphBuilder.groupHomeNavGraph(
     onClickGroupDetail: (id: Long) -> Unit,
-    onClickEventMake: () -> Unit,
+    onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
     onClickGroupMake: () -> Unit,
     onClickGroupEnter: () -> Unit,
