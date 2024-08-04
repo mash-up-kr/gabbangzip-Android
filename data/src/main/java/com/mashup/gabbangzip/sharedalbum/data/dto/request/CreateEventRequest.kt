@@ -5,10 +5,12 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class CreateEventRequest(
-    @Json(name = "event_date")
-    val eventDate: String,
+    @Json(name = "group_id")
+    val groupId: Long,
+    @Json(name = "date")
+    val date: String,
     @Json(name = "pictures")
     val pictures: List<String>,
-    @Json(name = "summary")
-    val summary: String,
+    @Json(name = "description")
+    val description: String,
 )
