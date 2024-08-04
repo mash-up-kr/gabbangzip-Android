@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -30,6 +31,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.Gr
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.VoteActivity
 
 @Composable
 fun GroupDetailScreen(
@@ -38,13 +40,30 @@ fun GroupDetailScreen(
     onClickBackButton: () -> Unit,
     viewModel: GroupDetailViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     GroupDetailScreen(
         state = state,
         onClickGroupMemberButton = onClickGroupMemberButton,
         onClickBackButton = onClickBackButton,
-        onClickActionButton = { /*TODO*/ },
+        onClickActionButton = { status ->
+            when (status) {
+                GroupStatusType.BEFORE_MY_UPLOAD -> {
+                    // TODO: photo picker
+                }
+
+                GroupStatusType.AFTER_MY_UPLOAD, GroupStatusType.AFTER_MY_VOTE -> {
+                    viewModel.pokeOtherUser()
+                }
+
+                GroupStatusType.BEFORE_MY_VOTE -> {
+                    VoteActivity.openActivity(context)
+                }
+
+                else -> {}
+            }
+        },
         onClickShareButton = { /*TODO*/ },
         onClickHistoryItem = { /*TODO*/ },
     )

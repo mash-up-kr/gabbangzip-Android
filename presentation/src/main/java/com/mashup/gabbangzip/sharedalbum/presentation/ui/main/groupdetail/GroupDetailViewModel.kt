@@ -64,4 +64,15 @@ class GroupDetailViewModel @Inject constructor(
                 }
         }
     }
+
+    fun pokeOtherUser() {
+        viewModelScope.launch {
+            pokeOtherMemberUseCase()
+                .onSuccess {
+
+                }.onFailure {
+
+                }
+        }
+    }
 }

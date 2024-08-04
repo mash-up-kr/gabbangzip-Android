@@ -5,7 +5,9 @@ import javax.inject.Inject
 
 @Reusable
 class PokeOtherMemberUseCase @Inject constructor() {
-    suspend operator fun invoke() {
-        // todo
+    suspend operator fun invoke(): Result<Unit> {
+        return runCatching {
+            // todo
+        }
     }
 }
