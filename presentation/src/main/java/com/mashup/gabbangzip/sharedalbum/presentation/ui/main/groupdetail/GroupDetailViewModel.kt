@@ -3,8 +3,6 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mashup.gabbangzip.sharedalbum.domain.usecase.PokeOtherMemberUseCase
-import com.mashup.gabbangzip.sharedalbum.domain.usecase.UploadMyPicUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupDetailUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupDetailUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.toUiModel
@@ -21,8 +19,6 @@ import javax.inject.Inject
 class GroupDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getGroupDetailUseCase: GetGroupDetailUseCase,
-    private val uploadMyPicUseCase: UploadMyPicUseCase,
-    private val pokeOtherMemberUseCase: PokeOtherMemberUseCase,
 ) : ViewModel() {
     private val groupId = savedStateHandle.get<Long>(MainRoute.GroupDetailRoute.KEY_GROUP_ID)
 
@@ -61,17 +57,6 @@ class GroupDetailViewModel @Inject constructor(
                             error = e.message,
                         )
                     }
-                }
-        }
-    }
-
-    fun pokeOtherUser() {
-        viewModelScope.launch {
-            pokeOtherMemberUseCase()
-                .onSuccess {
-
-                }.onFailure {
-
                 }
         }
     }

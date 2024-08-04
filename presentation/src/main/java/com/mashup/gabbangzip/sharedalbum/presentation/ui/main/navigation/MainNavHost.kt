@@ -22,6 +22,7 @@ fun MainNavHost(
     onClickEventMakeButton: () -> Unit,
     onClickNotificationSetting: () -> Unit,
     navigateLoginAndFinish: () -> Unit,
+    onClickOpenPhotoPickerButton: () -> Unit,
 ) {
     NavHost(
         modifier = modifier,
@@ -39,6 +40,7 @@ fun MainNavHost(
             sharedViewModel = sharedViewModel,
             onClickGroupMemberButton = { navController.navigateGroupMember() },
             onClickBackButton = { navController.popBackStack() },
+            onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
         )
         groupMemberNavGraph(
             onClickBackButton = { navController.popBackStack() },

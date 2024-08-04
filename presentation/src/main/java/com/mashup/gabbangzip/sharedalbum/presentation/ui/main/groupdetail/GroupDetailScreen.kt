@@ -39,6 +39,7 @@ fun GroupDetailScreen(
     sharedViewModel: MainViewModel,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
+    onClickOpenPhotoPickerButton: () -> Unit,
     viewModel: GroupDetailViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -51,11 +52,11 @@ fun GroupDetailScreen(
         onClickActionButton = { status ->
             when (status) {
                 GroupStatusType.BEFORE_MY_UPLOAD -> {
-                    // TODO: photo picker
+                    onClickOpenPhotoPickerButton()
                 }
 
                 GroupStatusType.AFTER_MY_UPLOAD, GroupStatusType.AFTER_MY_VOTE -> {
-                    viewModel.pokeOtherUser()
+                    sharedViewModel.pokeOtherUser()
                 }
 
                 GroupStatusType.BEFORE_MY_VOTE -> {

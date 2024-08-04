@@ -18,6 +18,7 @@ fun NavGraphBuilder.groupDetailNavGraph(
     sharedViewModel: MainViewModel,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
+    onClickOpenPhotoPickerButton: () -> Unit,
 ) {
     composable(
         route = "${MainRoute.GroupDetailRoute.route}/{$KEY_GROUP_ID}",
@@ -30,6 +31,7 @@ fun NavGraphBuilder.groupDetailNavGraph(
                 sharedViewModel = sharedViewModel,
                 onClickGroupMemberButton = onClickGroupMemberButton,
                 onClickBackButton = onClickBackButton,
+                onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
             )
         }
     }
