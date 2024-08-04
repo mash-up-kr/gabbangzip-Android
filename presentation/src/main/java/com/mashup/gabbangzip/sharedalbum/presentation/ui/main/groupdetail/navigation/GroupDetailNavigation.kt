@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainViewModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.GroupDetailScreen
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute.GroupDetailRoute.KEY_GROUP_ID
@@ -14,6 +15,7 @@ fun NavController.navigateGroupDetail(groupId: Long) {
 }
 
 fun NavGraphBuilder.groupDetailNavGraph(
+    sharedViewModel: MainViewModel,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
 ) {
@@ -25,6 +27,7 @@ fun NavGraphBuilder.groupDetailNavGraph(
     ) { backStackEntry ->
         backStackEntry.arguments?.getLong(KEY_GROUP_ID)?.let {
             GroupDetailScreen(
+                sharedViewModel = sharedViewModel,
                 onClickGroupMemberButton = onClickGroupMemberButton,
                 onClickBackButton = onClickBackButton,
             )

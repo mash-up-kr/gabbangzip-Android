@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainViewModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation.groupDetailNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation.navigateGroupDetail
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.navigation.groupHomeNavGraph
@@ -15,6 +16,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.navigation.
 @Composable
 fun MainNavHost(
     modifier: Modifier = Modifier,
+    sharedViewModel: MainViewModel,
     navController: NavHostController,
     startDestination: String,
     onClickEventMakeButton: () -> Unit,
@@ -34,6 +36,7 @@ fun MainNavHost(
             onClickGroupEnter = { /* TODO : 초대 코드 입력 화면으로 이동 */ },
         )
         groupDetailNavGraph(
+            sharedViewModel = sharedViewModel,
             onClickGroupMemberButton = { navController.navigateGroupMember() },
             onClickBackButton = { navController.popBackStack() },
         )

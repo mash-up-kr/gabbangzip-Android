@@ -33,6 +33,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     MainNavHost(
                         modifier = Modifier.fillMaxSize(),
+                        sharedViewModel = viewModel,
                         navController = rememberNavController(),
                         startDestination = MainRoute.initRoute,
                         onClickEventMakeButton = {
