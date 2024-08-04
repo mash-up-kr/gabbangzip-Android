@@ -22,6 +22,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupDetailUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
@@ -65,7 +66,7 @@ fun GroupDetailScreen(
             backButtonClicked = onClickBackButton,
             rightIcon1 = if (isEnabledNewEvent) PicTopBarIcon.PLUS else null,
             rightIcon2 = PicTopBarIcon.GROUP_MEMBER,
-            rightIcon1Clicked = { /* TODO */ },
+            rightIcon1Clicked = { EventCreationActivity.openActivity(context) },
             rightIcon2Clicked = onClickGroupMemberButton,
         )
         GroupDetailScreenContent(
