@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -28,6 +30,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.Gr
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
 
 @Composable
 fun GroupDetailScreen(
@@ -45,9 +48,9 @@ fun GroupDetailScreen(
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
     onClickActionButton: (GroupStatusType) -> Unit,
-    onClickShareButton: () -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
+    val context = LocalContext.current
     val isEnabledNewEvent = remember(state.status) {
         state.status == GroupStatusType.EVENT_COMPLETED
     }
@@ -69,7 +72,9 @@ fun GroupDetailScreen(
             modifier = Modifier.fillMaxWidth(),
             state = state,
             onClickActionButton = onClickActionButton,
-            onClickShareButton = onClickShareButton,
+            onClickShareButton = { bitmap ->
+                context.shareBitmap(bitmap)
+            },
             onClickHistoryItem = onClickHistoryItem,
         )
     }
@@ -81,7 +86,7 @@ private fun GroupDetailScreenContent(
     modifier: Modifier = Modifier,
     state: GroupDetailUiState,
     onClickActionButton: (GroupStatusType) -> Unit,
-    onClickShareButton: () -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     if (state.recentEvent != null) {
@@ -148,7 +153,6 @@ private fun GroupDetailScreenPreview(
                 history = history,
             ),
             onClickActionButton = {},
-            onClickShareButton = {},
             onClickBackButton = {},
             onClickHistoryItem = {},
             onClickGroupMemberButton = {},
