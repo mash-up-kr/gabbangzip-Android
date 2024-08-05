@@ -159,6 +159,7 @@ private fun GroupDetailScreenPreview(
                     keyword = GroupKeyword.SCHOOL,
                     name = "가빵집가빵집",
                     recentEvent = GroupEvent(
+                        id = 0,
                         title = "가빵집 MT",
                         date = "2024.11.01",
                         deadline = "2024.11.01",
@@ -169,6 +170,7 @@ private fun GroupDetailScreenPreview(
                 ),
                 status = GroupStatusType.AFTER_MY_VOTE,
                 recentEvent = GroupEvent(
+                    id = 0,
                     title = "가빵집 MT",
                     date = "2024.11.01",
                     deadline = "2024.11.01",

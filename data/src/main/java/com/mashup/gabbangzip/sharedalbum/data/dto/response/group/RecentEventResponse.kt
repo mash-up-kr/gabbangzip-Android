@@ -7,6 +7,8 @@ import java.time.LocalDateTime
 
 @JsonClass(generateAdapter = true)
 data class RecentEventResponse(
+    @Json(name = "id")
+    val id: Long,
     @Json(name = "name")
     val name: String,
     @Json(name = "date")
@@ -16,6 +18,7 @@ data class RecentEventResponse(
 ) {
     fun toDomainModel(): RecentEventDomainModel {
         return RecentEventDomainModel(
+            id = id,
             title = name,
             date = date,
             deadline = deadline,

@@ -430,6 +430,7 @@ private fun GroupHomeScreenPreview() {
                             ),
                         ),
                         recentEvent = GroupEvent(
+                            id = 0,
                             title = "가빵집 MT",
                             date = "2024.11.01",
                             deadline = "2024.11.01",
@@ -462,6 +463,7 @@ private fun GroupHomeScreenPreview() {
                             ),
                         ),
                         recentEvent = GroupEvent(
+                            id = 0,
                             title = "가빵집 MT",
                             date = "2024.11.01",
                             deadline = "2024.11.01",
@@ -494,6 +496,7 @@ private fun GroupHomeScreenPreview() {
                             ),
                         ),
                         recentEvent = GroupEvent(
+                            id = 0,
                             title = "가빵집 MT",
                             date = "2024.11.01",
                             deadline = "2024.11.01",
@@ -526,6 +529,7 @@ private fun GroupHomeScreenPreview() {
                             ),
                         ),
                         recentEvent = GroupEvent(
+                            id = 0,
                             title = "가빵집 MT",
                             date = "2024.11.01",
                             deadline = "2024.11.01",

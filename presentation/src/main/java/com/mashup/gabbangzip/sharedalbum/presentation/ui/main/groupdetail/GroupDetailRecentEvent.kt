@@ -188,6 +188,7 @@ private fun RecentEventPreview(
         RecentEventContainer(
             status = status,
             event = GroupEvent(
+                id = 0,
                 title = "가빵집 MT",
                 date = "2024.11.03",
                 deadline = "6월 14일 월요일 PIC 종료",
