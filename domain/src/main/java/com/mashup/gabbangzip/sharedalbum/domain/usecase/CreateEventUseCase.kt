@@ -26,17 +26,9 @@ class CreateEventUseCase @Inject constructor(
                     .onSuccess { fileId -> pictureList.add(fileId) }
                     .onFailure { throw IOException(it.message) }
             }
-            if (pictureList.size == fileList.size) {
-                eventRepository.createEvent(
-                    EventCreationParam(groupId, description, date, pictureList),
-                )
-            } else {
-                throw IOException(ERROR_MESSAGE)
-            }
+            eventRepository.createEvent(
+                EventCreationParam(groupId, description, date, pictureList),
+            )
         }
-    }
-
-    companion object {
-        private const val ERROR_MESSAGE = "이미지 조회 실패"
     }
 }
