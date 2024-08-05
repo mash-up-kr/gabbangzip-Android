@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.core.content.FileProvider
 import java.io.File
 import java.io.FileOutputStream
+import androidx.compose.ui.graphics.Canvas as ComposeCanvas
 
 fun Modifier.captureIntoCanvas(
     picture: Picture,
@@ -23,13 +24,12 @@ fun Modifier.captureIntoCanvas(
         val width = this.size.width.toInt()
         val height = this.size.height.toInt()
         onDrawWithContent {
-            val pictureCanvas =
-                androidx.compose.ui.graphics.Canvas(
-                    picture.beginRecording(
-                        width,
-                        height,
-                    ),
-                )
+            val pictureCanvas = ComposeCanvas(
+                picture.beginRecording(
+                    width,
+                    height,
+                ),
+            )
             draw(this, this.layoutDirection, pictureCanvas, this.size) {
                 this@onDrawWithContent.drawContent()
             }
