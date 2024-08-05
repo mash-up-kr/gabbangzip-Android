@@ -1,6 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.provider.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,6 +25,7 @@ fun MainNavHost(
     navController: NavHostController,
     startDestination: String,
     navigateLoginAndFinish: () -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -42,6 +44,7 @@ fun MainNavHost(
         groupDetailNavGraph(
             onClickGroupMemberButton = { navController.navigateGroupMember() },
             onClickBackButton = { navController.popBackStack() },
+            onClickShareButton = onClickShareButton,
         )
         groupMemberNavGraph(
             onClickBackButton = { navController.popBackStack() },

@@ -31,13 +31,13 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.Gr
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
 
 @Composable
 fun GroupDetailScreen(
     groupId: Long,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
     viewModel: GroupDetailViewModel = hiltViewModel(),
 ) {
     // TODO: viewModel state 연결
@@ -49,6 +49,7 @@ fun GroupDetailScreen(
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
     onClickActionButton: (GroupStatusType) -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     val context = LocalContext.current
@@ -73,9 +74,7 @@ fun GroupDetailScreen(
             modifier = Modifier.fillMaxWidth(),
             state = state,
             onClickActionButton = onClickActionButton,
-            onClickShareButton = { bitmap ->
-                context.shareBitmap(bitmap)
-            },
+            onClickShareButton = onClickShareButton,
             onClickHistoryItem = onClickHistoryItem,
         )
     }
@@ -154,6 +153,7 @@ private fun GroupDetailScreenPreview(
                 history = history,
             ),
             onClickActionButton = {},
+            onClickShareButton = {},
             onClickBackButton = {},
             onClickHistoryItem = {},
             onClickGroupMemberButton = {},
