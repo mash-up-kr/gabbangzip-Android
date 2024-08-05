@@ -104,7 +104,7 @@ class EventCreationActivity : ComponentActivity() {
         const val PICTURES_MAX_COUNT = 4
         const val INTENT_EXTRA_GROUP_ID = "groupId"
 
-        fun openActivity(context: Context, groupId: Long?) {
+        fun openActivity(context: Context, groupId: Long) {
             context.startActivity(
                 Intent(context, EventCreationActivity::class.java).apply {
                     putExtra(INTENT_EXTRA_GROUP_ID, groupId)
