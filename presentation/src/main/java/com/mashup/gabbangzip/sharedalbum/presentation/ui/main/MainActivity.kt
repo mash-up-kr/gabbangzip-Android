@@ -34,7 +34,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     MainNavHost(
                         modifier = Modifier.fillMaxSize(),
-                        sharedViewModel = viewModel,
                         navController = rememberNavController(),
                         startDestination = MainRoute.initRoute,
                         navigateLoginAndFinish = {
@@ -44,6 +43,8 @@ class MainActivity : ComponentActivity() {
                         onClickOpenPhotoPickerButton = {
                             photoPicker.open()
                         },
+                        onClickPokeButton = viewModel::pokeOtherUser,
+                        onClickShareButton = {},
                     )
                 }
             }

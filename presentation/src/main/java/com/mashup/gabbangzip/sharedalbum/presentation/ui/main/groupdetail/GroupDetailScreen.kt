@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -23,7 +22,6 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainViewModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupDetailUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
@@ -32,17 +30,18 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.Gr
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.VoteActivity
 
 @Composable
 fun GroupDetailScreen(
-    sharedViewModel: MainViewModel,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
+    onClickPokeButton: () -> Unit,
+    onClickVoteButton: () -> Unit,
+    onClickShareButton: () -> Unit,
+    onClickHistoryItem: (HistoryItem) -> Unit,
     viewModel: GroupDetailViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     GroupDetailScreen(
@@ -51,23 +50,16 @@ fun GroupDetailScreen(
         onClickBackButton = onClickBackButton,
         onClickActionButton = { status ->
             when (status) {
-                GroupStatusType.BEFORE_MY_UPLOAD -> {
-                    onClickOpenPhotoPickerButton()
-                }
+                GroupStatusType.BEFORE_MY_UPLOAD -> onClickOpenPhotoPickerButton()
+                GroupStatusType.AFTER_MY_UPLOAD, GroupStatusType.AFTER_MY_VOTE,
+                -> onClickPokeButton()
 
-                GroupStatusType.AFTER_MY_UPLOAD, GroupStatusType.AFTER_MY_VOTE -> {
-                    sharedViewModel.pokeOtherUser()
-                }
-
-                GroupStatusType.BEFORE_MY_VOTE -> {
-                    VoteActivity.openActivity(context)
-                }
-
+                GroupStatusType.BEFORE_MY_VOTE -> onClickVoteButton()
                 else -> {}
             }
         },
-        onClickShareButton = { /*TODO*/ },
-        onClickHistoryItem = { /*TODO*/ },
+        onClickShareButton = onClickShareButton,
+        onClickHistoryItem = onClickHistoryItem,
     )
 }
 

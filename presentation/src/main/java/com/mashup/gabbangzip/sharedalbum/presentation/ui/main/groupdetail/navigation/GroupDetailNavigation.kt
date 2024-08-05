@@ -5,8 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainViewModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.GroupDetailScreen
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute.GroupDetailRoute.KEY_GROUP_ID
 
@@ -15,10 +15,13 @@ fun NavController.navigateGroupDetail(groupId: Long) {
 }
 
 fun NavGraphBuilder.groupDetailNavGraph(
-    sharedViewModel: MainViewModel,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
+    onClickPokeButton: () -> Unit,
+    onClickVoteButton: () -> Unit,
+    onClickShareButton: () -> Unit,
+    onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     composable(
         route = "${MainRoute.GroupDetailRoute.route}/{$KEY_GROUP_ID}",
@@ -28,10 +31,13 @@ fun NavGraphBuilder.groupDetailNavGraph(
     ) { backStackEntry ->
         backStackEntry.arguments?.getLong(KEY_GROUP_ID)?.let {
             GroupDetailScreen(
-                sharedViewModel = sharedViewModel,
                 onClickGroupMemberButton = onClickGroupMemberButton,
                 onClickBackButton = onClickBackButton,
                 onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
+                onClickPokeButton = onClickPokeButton,
+                onClickVoteButton = onClickVoteButton,
+                onClickShareButton = onClickShareButton,
+                onClickHistoryItem = onClickHistoryItem,
             )
         }
     }

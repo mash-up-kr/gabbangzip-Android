@@ -10,7 +10,6 @@ import androidx.navigation.compose.NavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.invitation.InvitationCodeActivity
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainViewModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation.groupDetailNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation.navigateGroupDetail
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.navigation.groupHomeNavGraph
@@ -18,15 +17,17 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.naviga
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.navigation.navigateGroupMember
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.navigation.myPageNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.navigation.navigateMyPage
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.VoteActivity
 
 @Composable
 fun MainNavHost(
     modifier: Modifier = Modifier,
-    sharedViewModel: MainViewModel,
     navController: NavHostController,
     startDestination: String,
     navigateLoginAndFinish: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
+    onClickPokeButton: () -> Unit,
+    onClickShareButton: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -43,10 +44,13 @@ fun MainNavHost(
             onClickGroupEnter = { InvitationCodeActivity.openActivity(context) },
         )
         groupDetailNavGraph(
-            sharedViewModel = sharedViewModel,
             onClickGroupMemberButton = { navController.navigateGroupMember() },
             onClickBackButton = { navController.popBackStack() },
             onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
+            onClickPokeButton = onClickPokeButton,
+            onClickVoteButton = { VoteActivity.openActivity(context) },
+            onClickShareButton = onClickShareButton,
+            onClickHistoryItem = { /* TODO */ },
         )
         groupMemberNavGraph(
             onClickBackButton = { navController.popBackStack() },
