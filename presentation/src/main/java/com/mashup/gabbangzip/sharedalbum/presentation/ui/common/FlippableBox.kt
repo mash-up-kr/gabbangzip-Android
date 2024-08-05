@@ -82,7 +82,7 @@ fun FlippableBox(
             }
             .graphicsLayer {
                 rotationY = nativeAnimatedRotationAngle + if (isFront) 0f else 180f
-                cameraDistance = 18f * density
+                cameraDistance = 18.dp.toPx()
             },
         content = if (isFront) frontScreen else backScreen,
     )
