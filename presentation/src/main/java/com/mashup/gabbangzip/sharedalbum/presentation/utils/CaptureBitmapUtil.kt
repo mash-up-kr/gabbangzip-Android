@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.core.content.FileProvider
 import java.io.File
 import java.io.FileOutputStream
+import java.util.UUID
 import androidx.compose.ui.graphics.Canvas as ComposeCanvas
 
 fun Modifier.captureIntoCanvas(
@@ -52,11 +53,17 @@ fun Picture.createBitmap(): Bitmap {
     return bitmap
 }
 
+private const val IMAGE_CACHE_DIR = "images"
+private const val IMAGE_FILE_NAME_PREFIX = "shared_image"
+private const val FILE_PROVIDER_AUTHORITY = "provider"
+private const val IMAGE_MIME_TYPE = "image/png"
+private const val SHARE_IMAGE_CHOOSER_TITLE = "Share Image"
+
 fun Context.shareBitmap(bitmap: Bitmap) {
-    val cachePath = File(applicationContext.cacheDir, "images")
+    val cachePath = File(applicationContext.cacheDir, IMAGE_CACHE_DIR)
     cachePath.mkdirs()
 
-    val file = File(cachePath, "shared_image.png")
+    val file = File(cachePath, "${IMAGE_FILE_NAME_PREFIX}_${UUID.randomUUID()}.png")
     FileOutputStream(file).use { outputStream ->
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
     }
@@ -64,16 +71,16 @@ fun Context.shareBitmap(bitmap: Bitmap) {
     // Grant URI permission
     val contentUri = FileProvider.getUriForFile(
         applicationContext,
-        "${applicationContext.packageName}.provider",
+        "${applicationContext.packageName}.$FILE_PROVIDER_AUTHORITY",
         file,
     )
 
     val shareIntent = Intent().apply {
         action = Intent.ACTION_SEND
         putExtra(Intent.EXTRA_STREAM, contentUri)
-        type = "image/png"
+        type = IMAGE_MIME_TYPE
         // Grant temporary read permission
         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     }
-    startActivity(Intent.createChooser(shareIntent, "Share Image"))
+    startActivity(Intent.createChooser(shareIntent, SHARE_IMAGE_CHOOSER_TITLE))
 }
