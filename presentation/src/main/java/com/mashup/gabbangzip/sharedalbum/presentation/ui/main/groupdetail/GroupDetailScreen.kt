@@ -12,7 +12,6 @@ import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -22,7 +21,6 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupDetailUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
@@ -38,6 +36,7 @@ fun GroupDetailScreen(
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
+    onClickEventMake: () -> Unit,
     viewModel: GroupDetailViewModel = hiltViewModel(),
 ) {
     // TODO: viewModel state 연결
@@ -50,9 +49,9 @@ fun GroupDetailScreen(
     onClickBackButton: () -> Unit,
     onClickActionButton: (GroupStatusType) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
+    onClickEventMake: () -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
-    val context = LocalContext.current
     val isEnabledNewEvent = remember(state.status) {
         state.status == GroupStatusType.EVENT_COMPLETED
     }
@@ -67,7 +66,7 @@ fun GroupDetailScreen(
             backButtonClicked = onClickBackButton,
             rightIcon1 = if (isEnabledNewEvent) PicTopBarIcon.PLUS else null,
             rightIcon2 = PicTopBarIcon.GROUP_MEMBER,
-            rightIcon1Clicked = { EventCreationActivity.openActivity(context) },
+            rightIcon1Clicked = onClickEventMake,
             rightIcon2Clicked = onClickGroupMemberButton,
         )
         GroupDetailScreenContent(
@@ -157,6 +156,7 @@ private fun GroupDetailScreenPreview(
             onClickBackButton = {},
             onClickHistoryItem = {},
             onClickGroupMemberButton = {},
+            onClickEventMake = {},
         )
     }
 }

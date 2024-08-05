@@ -17,6 +17,7 @@ fun NavController.navigateGroupDetail(groupId: Long) {
 fun NavGraphBuilder.groupDetailNavGraph(
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
+    onClickEventMake: (Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
     composable(
@@ -31,6 +32,7 @@ fun NavGraphBuilder.groupDetailNavGraph(
                 onClickGroupMemberButton = onClickGroupMemberButton,
                 onClickBackButton = onClickBackButton,
                 onClickShareButton = onClickShareButton,
+                onClickEventMake = { onClickEventMake(groupId) },
             )
         }
     }
