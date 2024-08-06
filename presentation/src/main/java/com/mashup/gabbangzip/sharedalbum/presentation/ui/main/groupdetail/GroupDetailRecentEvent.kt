@@ -1,5 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
+import android.graphics.Bitmap
+import android.graphics.Picture
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -38,6 +41,8 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.captureIntoCanvas
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.createBitmap
 
 @Composable
 fun RecentEventContainer(
@@ -47,7 +52,7 @@ fun RecentEventContainer(
     keyword: GroupKeyword,
     cardFrontImageUrl: String,
     onClickActionButton: (GroupStatusType) -> Unit,
-    onClickShareButton: () -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
 ) {
     if (status == GroupStatusType.EVENT_COMPLETED) {
         CompletedEventContainer(
@@ -83,7 +88,7 @@ fun RecentEventContainer(
 @Composable
 private fun CompletedEventContainer(
     modifier: Modifier = Modifier,
-    onClickShareButton: () -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottie_confetti))
 
@@ -94,6 +99,7 @@ private fun CompletedEventContainer(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            val picture = remember { Picture() }
             Text(
                 text = stringResource(id = R.string.group_detail_event_complete),
                 fontFamily = pretendard,
@@ -102,17 +108,16 @@ private fun CompletedEventContainer(
                 lineHeight = 28.sp,
                 letterSpacing = (-0.02).em,
             )
-            // TODO: 사진 프레임으로 교체 필요
-            Box(
-                modifier = Modifier
-                    .padding(top = 16.dp)
-                    .size(240.dp)
-                    .background(color = Gray60),
+            PhotoCard(
+                modifier = Modifier.captureIntoCanvas(picture),
             )
             PicNormalButton(
                 modifier = Modifier.padding(top = 32.dp),
                 iconRes = R.drawable.ic_share,
-                onButtonClicked = { onClickShareButton() },
+                onButtonClicked = {
+                    val bitmap = picture.createBitmap()
+                    onClickShareButton(bitmap)
+                },
             )
         }
         LottieAnimation(
@@ -120,6 +125,19 @@ private fun CompletedEventContainer(
             composition = composition,
         )
     }
+}
+
+@Composable
+private fun PhotoCard(
+    modifier: Modifier = Modifier,
+) {
+    // todo
+    Box(
+        modifier = modifier
+            .padding(top = 16.dp)
+            .size(240.dp)
+            .background(color = Gray60),
+    )
 }
 
 @Composable

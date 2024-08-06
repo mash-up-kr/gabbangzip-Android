@@ -14,6 +14,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,6 +37,9 @@ class MainActivity : ComponentActivity() {
                         navigateLoginAndFinish = {
                             LoginActivity.openActivity(this@MainActivity)
                             finish()
+                        },
+                        onClickShareButton = { bitmap ->
+                            shareBitmap(bitmap)
                         },
                     )
                 }
