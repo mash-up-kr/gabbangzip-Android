@@ -45,7 +45,7 @@ fun MainNavHost(
             onClickGroupMemberButton = { navController.navigateGroupMember() },
             onClickBackButton = { navController.popBackStack() },
             onClickShareButton = onClickShareButton,
-            onClickEventMake = { EventCreationActivity.openActivity(context) },
+            onClickEventMake = { id -> EventCreationActivity.openActivity(context, id) },
         )
         groupMemberNavGraph(
             onClickBackButton = { navController.popBackStack() },
