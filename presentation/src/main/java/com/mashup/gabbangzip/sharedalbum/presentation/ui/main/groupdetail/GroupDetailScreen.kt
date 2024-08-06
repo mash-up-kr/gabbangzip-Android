@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,7 +39,8 @@ fun GroupDetailScreen(
     onClickOpenPhotoPickerButton: () -> Unit,
     onClickPokeButton: () -> Unit,
     onClickVoteButton: () -> Unit,
-    onClickShareButton: () -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
+    onClickEventMake: () -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
     viewModel: GroupDetailViewModel = hiltViewModel(),
 ) {
@@ -69,7 +71,8 @@ fun GroupDetailScreen(
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
     onClickActionButton: (GroupStatusType) -> Unit,
-    onClickShareButton: () -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
+    onClickEventMake: () -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     val isEnabledNewEvent = remember(state.status) {
@@ -86,7 +89,7 @@ fun GroupDetailScreen(
             backButtonClicked = onClickBackButton,
             rightIcon1 = if (isEnabledNewEvent) PicTopBarIcon.PLUS else null,
             rightIcon2 = PicTopBarIcon.GROUP_MEMBER,
-            rightIcon1Clicked = { /* TODO */ },
+            rightIcon1Clicked = onClickEventMake,
             rightIcon2Clicked = onClickGroupMemberButton,
         )
         GroupDetailScreenContent(
@@ -105,7 +108,7 @@ private fun GroupDetailScreenContent(
     modifier: Modifier = Modifier,
     state: GroupDetailUiState,
     onClickActionButton: (GroupStatusType) -> Unit,
-    onClickShareButton: () -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     if (state.recentEvent != null) {
@@ -182,6 +185,7 @@ private fun GroupDetailScreenPreview(
             onClickBackButton = {},
             onClickHistoryItem = {},
             onClickGroupMemberButton = {},
+            onClickEventMake = {},
         )
     }
 }

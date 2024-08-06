@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation
 
+import android.graphics.Bitmap
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -20,7 +21,8 @@ fun NavGraphBuilder.groupDetailNavGraph(
     onClickOpenPhotoPickerButton: () -> Unit,
     onClickPokeButton: () -> Unit,
     onClickVoteButton: () -> Unit,
-    onClickShareButton: () -> Unit,
+    onClickEventMake: (Long) -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
     composable(
@@ -38,6 +40,8 @@ fun NavGraphBuilder.groupDetailNavGraph(
                 onClickVoteButton = onClickVoteButton,
                 onClickShareButton = onClickShareButton,
                 onClickHistoryItem = onClickHistoryItem,
+                onClickShareButton = onClickShareButton,
+                onClickEventMake = { onClickEventMake(groupId) },
             )
         }
     }

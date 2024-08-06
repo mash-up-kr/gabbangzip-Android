@@ -15,6 +15,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,7 +45,9 @@ class MainActivity : ComponentActivity() {
                             photoPicker.open()
                         },
                         onClickPokeButton = viewModel::pokeOtherUser,
-                        onClickShareButton = {},
+                        onClickShareButton = { bitmap ->
+                            shareBitmap(bitmap)
+                        },
                     )
                 }
             }

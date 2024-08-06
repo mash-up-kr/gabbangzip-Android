@@ -1,6 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.provider.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,6 +29,7 @@ fun MainNavHost(
     onClickOpenPhotoPickerButton: () -> Unit,
     onClickPokeButton: () -> Unit,
     onClickShareButton: () -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -49,6 +51,7 @@ fun MainNavHost(
             onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
             onClickPokeButton = onClickPokeButton,
             onClickVoteButton = { VoteActivity.openActivity(context) },
+            onClickEventMake = { EventCreationActivity.openActivity(context) },
             onClickShareButton = onClickShareButton,
             onClickHistoryItem = { /* TODO */ },
         )
