@@ -33,8 +33,6 @@ class EventCreationViewModel @Inject constructor(
     private val _eventFlow: MutableSharedFlow<EventCreationEvent> = MutableSharedFlow()
     val eventFlow = _eventFlow.asSharedFlow()
 
-    private val fileList = mutableListOf<File>()
-
     fun updatePictures(uriList: List<Uri?>) {
         viewModelScope.launch {
             _uiState.update { it.copy(pictures = ImmutableList(uriList.filterNotNull())) }
@@ -49,10 +47,9 @@ class EventCreationViewModel @Inject constructor(
         }
     }
 
-    fun clearPictures() {
+    private fun clearPictures() {
         viewModelScope.launch {
             _uiState.update { it.copy(pictures = ImmutableList(emptyList())) }
-            fileList.clear()
         }
     }
 
@@ -62,15 +59,16 @@ class EventCreationViewModel @Inject constructor(
         }
     }
 
-    fun addPictureFile(file: File?) {
-        file?.let { fileList.add(it) }
+    fun checkEventCreation(description: String, fileList: List<File>) {
+        if (fileList.size == uiState.value.pictures.size) {
+            createEvent(description, fileList)
+        } else {
+            showSnackBar()
+            clearPictures()
+        }
     }
 
-    fun checkValidState(): Boolean {
-        return fileList.size == uiState.value.pictures.size
-    }
-
-    fun createEvent(description: String) {
+    private fun createEvent(description: String, fileList: List<File>) {
         viewModelScope.launch {
             createEventUseCase(
                 groupId = groupId,
@@ -83,12 +81,11 @@ class EventCreationViewModel @Inject constructor(
             }.onFailure {
                 Log.d(TAG, "이벤트 생성 실패")
                 showSnackBar()
-                fileList.clear()
             }
         }
     }
 
-    fun showSnackBar() {
+    private fun showSnackBar() {
         viewModelScope.launch { _eventFlow.emit(EventCreationEvent.Error) }
     }
 

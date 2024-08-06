@@ -64,20 +64,17 @@ class EventCreationActivity : ComponentActivity() {
                         startDestination = EventCreationRoute.initRoute,
                         eventCreationState = eventCreationState,
                         clearEventCreationState = eventCreationViewModel::clearEventCreationState,
-                        onCompleteButtonClicked = { summary ->
-                            with(eventCreationViewModel) {
-                                eventCreationState.pictures.forEach { uri ->
-                                    val file =
-                                        FileUtil.getFileFromUri(this@EventCreationActivity, uri)
-                                    addPictureFile(file)
+                        onCompleteButtonClicked = { description ->
+                            eventCreationState.pictures
+                                .map { uri ->
+                                    FileUtil.getFileFromUri(this@EventCreationActivity, uri)
                                 }
-                                if (checkValidState()) {
-                                    createEvent(summary)
-                                } else {
-                                    showSnackBar()
-                                    clearPictures()
+                                .also {
+                                    eventCreationViewModel.checkEventCreation(
+                                        description,
+                                        it.filterNotNull(),
+                                    )
                                 }
-                            }
                         },
                         onGalleryButtonClicked = photoPicker::open,
                         onPictureDeleteButtonClicked = eventCreationViewModel::deletePicture,
