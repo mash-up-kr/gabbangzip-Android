@@ -6,7 +6,7 @@ data class GroupDomainModel(
     val cardFrontImageUrl: String,
     val keyword: String,
     val name: String,
-    val recentEventDate: String,
+    val recentEvent: RecentEventDomainModel,
     val status: String,
     val statusDescription: String,
     val history: List<HistoryDomainModel> = listOf(),

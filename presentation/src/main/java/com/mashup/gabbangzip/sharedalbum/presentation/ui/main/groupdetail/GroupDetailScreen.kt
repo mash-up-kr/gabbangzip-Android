@@ -10,12 +10,14 @@ import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
@@ -32,14 +34,36 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 
 @Composable
 fun GroupDetailScreen(
-    groupId: Long,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
+    onClickOpenPhotoPickerButton: () -> Unit,
+    onClickPokeButton: () -> Unit,
+    onClickVoteButton: () -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onClickEventMake: () -> Unit,
+    onClickHistoryItem: (HistoryItem) -> Unit,
     viewModel: GroupDetailViewModel = hiltViewModel(),
 ) {
-    // TODO: viewModel state 연결
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    GroupDetailScreen(
+        state = state,
+        onClickGroupMemberButton = onClickGroupMemberButton,
+        onClickBackButton = onClickBackButton,
+        onClickActionButton = { status ->
+            when (status) {
+                GroupStatusType.BEFORE_MY_UPLOAD -> onClickOpenPhotoPickerButton()
+                GroupStatusType.AFTER_MY_UPLOAD, GroupStatusType.AFTER_MY_VOTE,
+                -> onClickPokeButton()
+
+                GroupStatusType.BEFORE_MY_VOTE -> onClickVoteButton()
+                else -> {}
+            }
+        },
+        onClickEventMake = onClickEventMake,
+        onClickShareButton = onClickShareButton,
+        onClickHistoryItem = onClickHistoryItem,
+    )
 }
 
 @Composable
@@ -138,13 +162,19 @@ private fun GroupDetailScreenPreview(
                     cardFrontImageUrl = "https://picsum.photos/200/300",
                     keyword = GroupKeyword.SCHOOL,
                     name = "가빵집가빵집",
-                    recentEventDate = "2024.11.01",
+                    recentEvent = GroupEvent(
+                        id = 0,
+                        title = "가빵집 MT",
+                        date = "2024.11.01",
+                        deadline = "2024.11.01",
+                    ),
                     status = GroupStatusType.AFTER_MY_VOTE,
                     statusDescription = "몰라몰라",
                     frontImageFrame = PicPhotoFrame.PLUS,
                 ),
                 status = GroupStatusType.AFTER_MY_VOTE,
                 recentEvent = GroupEvent(
+                    id = 0,
                     title = "가빵집 MT",
                     date = "2024.11.01",
                     deadline = "2024.11.01",

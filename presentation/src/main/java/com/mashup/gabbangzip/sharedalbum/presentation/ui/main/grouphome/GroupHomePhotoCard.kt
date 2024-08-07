@@ -43,7 +43,7 @@ fun GroupHomePhotoCard(
     val topTitleText = remember(groupInfo.status) {
         when (groupInfo.status) {
             GroupStatusType.NO_PAST_AND_CURRENT_EVENT -> context.getString(R.string.intro_event_top_title)
-            GroupStatusType.NO_CURRENT_EVENT -> groupInfo.recentEventDate
+            GroupStatusType.NO_CURRENT_EVENT -> groupInfo.recentEvent.date
             else -> ""
         }
     }

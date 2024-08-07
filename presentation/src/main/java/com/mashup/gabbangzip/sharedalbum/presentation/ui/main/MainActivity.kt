@@ -14,16 +14,19 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel by viewModels<MainViewModel>()
+    private lateinit var photoPicker: PicPhotoPicker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.registerFcmToken()
+        initPhotoPicker()
 
         setContent {
             SharedAlbumTheme {
@@ -38,11 +41,23 @@ class MainActivity : ComponentActivity() {
                             LoginActivity.openActivity(this@MainActivity)
                             finish()
                         },
+                        onClickOpenPhotoPickerButton = {
+                            photoPicker.open()
+                        },
+                        onClickPokeButton = viewModel::pokeOtherUser,
                         onClickShareButton = { bitmap ->
                             shareBitmap(bitmap)
                         },
                     )
                 }
+            }
+        }
+    }
+
+    private fun initPhotoPicker() {
+        photoPicker = PicPhotoPicker.create(this) { uri ->
+            if (uri != null) {
+                viewModel.uploadMyPic(uri)
             }
         }
     }

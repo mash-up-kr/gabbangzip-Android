@@ -54,6 +54,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.FlippableBox
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
@@ -433,7 +434,12 @@ private fun GroupHomeScreenPreview() {
                                 frameType = PicPhotoFrame.SEXY,
                             ),
                         ),
-                        recentEventDate = "2021.10.10",
+                        recentEvent = GroupEvent(
+                            id = 0,
+                            title = "가빵집 MT",
+                            date = "2024.11.01",
+                            deadline = "2024.11.01",
+                        ),
                         status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
                     ),
                     GroupInfo(
@@ -461,7 +467,12 @@ private fun GroupHomeScreenPreview() {
                                 frameType = PicPhotoFrame.SEXY,
                             ),
                         ),
-                        recentEventDate = "2021.10.10",
+                        recentEvent = GroupEvent(
+                            id = 0,
+                            title = "가빵집 MT",
+                            date = "2024.11.01",
+                            deadline = "2024.11.01",
+                        ),
                         status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
                     ),
                     GroupInfo(
@@ -489,7 +500,12 @@ private fun GroupHomeScreenPreview() {
                                 frameType = PicPhotoFrame.SEXY,
                             ),
                         ),
-                        recentEventDate = "2021.10.10",
+                        recentEvent = GroupEvent(
+                            id = 0,
+                            title = "가빵집 MT",
+                            date = "2024.11.01",
+                            deadline = "2024.11.01",
+                        ),
                         status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
                     ),
                     GroupInfo(
@@ -517,7 +533,12 @@ private fun GroupHomeScreenPreview() {
                                 frameType = PicPhotoFrame.SEXY,
                             ),
                         ),
-                        recentEventDate = "2021.10.10",
+                        recentEvent = GroupEvent(
+                            id = 0,
+                            title = "가빵집 MT",
+                            date = "2024.11.01",
+                            deadline = "2024.11.01",
+                        ),
                         status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
                     ),
                 ),

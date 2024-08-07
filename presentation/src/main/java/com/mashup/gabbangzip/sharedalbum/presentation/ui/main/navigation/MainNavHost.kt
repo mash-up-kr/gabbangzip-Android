@@ -18,6 +18,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.naviga
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.navigation.navigateGroupMember
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.navigation.myPageNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.navigation.navigateMyPage
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.VoteActivity
 
 @Composable
 fun MainNavHost(
@@ -25,6 +26,8 @@ fun MainNavHost(
     navController: NavHostController,
     startDestination: String,
     navigateLoginAndFinish: () -> Unit,
+    onClickOpenPhotoPickerButton: () -> Unit,
+    onClickPokeButton: () -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
     val context = LocalContext.current
@@ -44,8 +47,12 @@ fun MainNavHost(
         groupDetailNavGraph(
             onClickGroupMemberButton = { navController.navigateGroupMember() },
             onClickBackButton = { navController.popBackStack() },
-            onClickShareButton = onClickShareButton,
+            onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
+            onClickPokeButton = onClickPokeButton,
+            onClickVoteButton = { VoteActivity.openActivity(context) },
             onClickEventMake = { id -> EventCreationActivity.openActivity(context, id) },
+            onClickShareButton = onClickShareButton,
+            onClickHistoryItem = { /* TODO */ },
         )
         groupMemberNavGraph(
             onClickBackButton = { navController.popBackStack() },
