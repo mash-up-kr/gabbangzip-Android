@@ -41,7 +41,7 @@ fun MainNavHost(
         groupHomeNavGraph(
             onClickGroupDetail = { id -> navController.navigateGroupDetail(id) },
             onClickMyPage = { navController.navigateMyPage() },
-            onClickEventMake = { EventCreationActivity.openActivity(context) },
+            onClickEventMake = { id -> EventCreationActivity.openActivity(context, id) },
             onClickGroupMake = { GroupCreationActivity.openActivity(context) },
             onClickGroupEnter = { InvitationCodeActivity.openActivity(context) },
         )
@@ -51,7 +51,7 @@ fun MainNavHost(
             onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
             onClickPokeButton = onClickPokeButton,
             onClickVoteButton = { VoteActivity.openActivity(context) },
-            onClickEventMake = { EventCreationActivity.openActivity(context) },
+            onClickEventMake = { id -> EventCreationActivity.openActivity(context, id) },
             onClickShareButton = onClickShareButton,
             onClickHistoryItem = { /* TODO */ },
         )

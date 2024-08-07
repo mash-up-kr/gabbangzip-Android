@@ -11,14 +11,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.navigation.EventCreationNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.navigation.EventCreationRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,8 +47,13 @@ class EventCreationActivity : ComponentActivity() {
         )
         setContent {
             val eventCreationState by eventCreationViewModel.uiState.collectAsStateWithLifecycle()
+            val snackbarHostState = remember { SnackbarHostState() }
             SharedAlbumTheme {
-                Scaffold { contentPadding ->
+                Scaffold(
+                    snackbarHost = {
+                        PicSnackbarHost(state = snackbarHostState)
+                    },
+                ) { contentPadding ->
                     EventCreationNavHost(
                         modifier = Modifier
                             .fillMaxSize()
@@ -51,10 +64,31 @@ class EventCreationActivity : ComponentActivity() {
                         startDestination = EventCreationRoute.initRoute,
                         eventCreationState = eventCreationState,
                         clearEventCreationState = eventCreationViewModel::clearEventCreationState,
-                        onCompleteButtonClicked = eventCreationViewModel::createEvent,
+                        onCompleteButtonClicked = { description ->
+                            eventCreationState.pictures
+                                .mapNotNull { uri ->
+                                    FileUtil.getFileFromUri(this@EventCreationActivity, uri)
+                                }
+                                .also {
+                                    eventCreationViewModel.checkEventCreation(description, it)
+                                }
+                        },
                         onGalleryButtonClicked = photoPicker::open,
                         onPictureDeleteButtonClicked = eventCreationViewModel::deletePicture,
                     )
+                }
+
+                LaunchedEffect(true) {
+                    eventCreationViewModel.eventFlow.collect {
+                        when (it) {
+                            is EventCreationEvent.Error -> {
+                                snackbarHostState.showPicSnackbar(
+                                    type = PicSnackbarType.WARNING,
+                                    message = getString(R.string.image_retrieve_failed),
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -62,10 +96,13 @@ class EventCreationActivity : ComponentActivity() {
 
     companion object {
         const val PICTURES_MAX_COUNT = 4
+        const val INTENT_EXTRA_GROUP_ID = "groupId"
 
-        fun openActivity(context: Context) {
+        fun openActivity(context: Context, groupId: Long) {
             context.startActivity(
-                Intent(context, EventCreationActivity::class.java),
+                Intent(context, EventCreationActivity::class.java).apply {
+                    putExtra(INTENT_EXTRA_GROUP_ID, groupId)
+                },
             )
         }
     }

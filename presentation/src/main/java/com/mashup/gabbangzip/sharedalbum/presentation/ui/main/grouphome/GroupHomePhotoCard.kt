@@ -37,7 +37,7 @@ fun GroupHomePhotoCard(
     backgroundColor: Color,
     content: @Composable BoxScope.() -> Unit,
     eventName: String = "",
-    onCreateEvent: () -> Unit = {},
+    onClickEventMake: (Long) -> Unit,
 ) {
     val context = LocalContext.current
     val topTitleText = remember(groupInfo.status) {
@@ -69,7 +69,7 @@ fun GroupHomePhotoCard(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(top = 19.dp, bottom = 34.dp)
-                    .rippleClickable { onCreateEvent() },
+                    .rippleClickable { onClickEventMake(groupInfo.id) },
                 text = stringResource(R.string.event_creation_btn_text),
             )
         }
