@@ -60,6 +60,7 @@ fun GroupDetailScreen(
                 else -> {}
             }
         },
+        onClickEventMake = onClickEventMake,
         onClickShareButton = onClickShareButton,
         onClickHistoryItem = onClickHistoryItem,
     )

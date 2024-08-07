@@ -28,7 +28,6 @@ fun MainNavHost(
     navigateLoginAndFinish: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
     onClickPokeButton: () -> Unit,
-    onClickShareButton: () -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
     val context = LocalContext.current
