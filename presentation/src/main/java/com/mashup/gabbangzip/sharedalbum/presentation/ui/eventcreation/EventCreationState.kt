@@ -8,3 +8,7 @@ data class EventCreationState(
     val date: String = LocalDateUtil.getNowDate(),
     val pictures: ImmutableList<Uri?> = ImmutableList(emptyList()),
 )
+
+sealed interface EventCreationEvent {
+    data object Error : EventCreationEvent
+}
