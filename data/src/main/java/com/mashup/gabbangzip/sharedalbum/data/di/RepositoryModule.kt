@@ -7,11 +7,13 @@ import com.mashup.gabbangzip.sharedalbum.data.repository.LoginRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.NotificationRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.UserRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.domain.repository.EventRepository
+import com.mashup.gabbangzip.sharedalbum.data.repository.VoteRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.domain.repository.FileRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.GroupRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.LoginRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.NotificationRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.UserRepository
+import com.mashup.gabbangzip.sharedalbum.domain.repository.VoteRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -40,6 +42,10 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun bindNotificationRepository(notificationRepositoryImpl: NotificationRepositoryImpl): NotificationRepository
+
+    @Singleton
+    @Binds
+    fun bindVoteRepository(voteRepositoryImpl: VoteRepositoryImpl): VoteRepository
 
     @Singleton
     @Binds
