@@ -66,14 +66,11 @@ class EventCreationActivity : ComponentActivity() {
                         clearEventCreationState = eventCreationViewModel::clearEventCreationState,
                         onCompleteButtonClicked = { description ->
                             eventCreationState.pictures
-                                .map { uri ->
+                                .mapNotNull { uri ->
                                     FileUtil.getFileFromUri(this@EventCreationActivity, uri)
                                 }
                                 .also {
-                                    eventCreationViewModel.checkEventCreation(
-                                        description,
-                                        it.filterNotNull(),
-                                    )
+                                    eventCreationViewModel.checkEventCreation(description, it)
                                 }
                         },
                         onGalleryButtonClicked = photoPicker::open,
