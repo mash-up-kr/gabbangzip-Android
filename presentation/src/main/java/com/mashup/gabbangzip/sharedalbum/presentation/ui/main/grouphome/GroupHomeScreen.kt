@@ -165,16 +165,18 @@ private fun GroupContainer(
             onClickEventMake = onClickEventMake,
         )
 
-        if (groupInfo.status == GroupStatusType.AFTER_MY_VOTE) {
-            PicNormalButton(
-                modifier = Modifier
-                    .padding(top = 16.dp)
-                    .align(Alignment.CenterHorizontally),
-                iconRes = R.drawable.ic_group_notice,
-                text = stringResource(R.string.group_home_pic_fcm),
-                onButtonClicked = onClickSendFcm,
-            )
-        }
+        GroupStatusType
+            .getButtonRes(groupInfo.status)
+            ?.let { (iconResId, textResId) ->
+                PicNormalButton(
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                        .align(Alignment.CenterHorizontally),
+                    iconRes = iconResId,
+                    text = stringResource(textResId),
+                    onButtonClicked = onClickSendFcm,
+                )
+            }
     }
 }
 
