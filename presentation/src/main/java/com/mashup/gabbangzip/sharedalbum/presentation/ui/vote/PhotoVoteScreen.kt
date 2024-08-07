@@ -16,7 +16,6 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -27,8 +26,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
@@ -38,6 +35,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.UserInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.contract.VoteConstant
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.Photo
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.VoteClickInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
@@ -48,25 +46,29 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun PhotoVoteScreen(
-    onVoteFinish: () -> Unit,
-    viewModel: VoteViewModel = hiltViewModel(),
+    state: PhotoVoteState,
+    onDialogConfirm: () -> Unit,
+    onCancelVote: () -> Unit,
+    onVoteExit: () -> Unit,
+    onVoteBySwiped: (voteType: PhotoVoteType, photo: Photo) -> Unit,
+    onVoteByClicked: (result: PhotoVoteType, photo: Photo) -> Unit,
+    onVoteClick: (voteType: PhotoVoteType) -> Unit,
+    onSwipeFinish: () -> Unit,
 ) {
-    val voteUiState by viewModel.voteUiState.collectAsStateWithLifecycle()
-
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
         ) {
-            if (voteUiState.isVoteCancel) {
+            if (state.isVoteCancel) {
                 PicDialog(
                     titleText = stringResource(R.string.vote_dialog_title),
                     contentText = stringResource(R.string.vote_dialog_content),
                     dismissText = stringResource(R.string.vote_dialog_exit),
                     confirmText = stringResource(R.string.vote_dialog_keep_vote),
-                    onDismiss = { onVoteFinish() },
-                    onConfirm = { viewModel.updateVoteDialog(isVisible = false) },
+                    onDismiss = onVoteExit,
+                    onConfirm = onDialogConfirm,
                 )
             }
 
@@ -74,30 +76,25 @@ fun PhotoVoteScreen(
                 modifier = Modifier
                     .padding(top = 17.dp)
                     .align(Alignment.End),
-                onCancelVote = { viewModel.updateVoteDialog(isVisible = true) },
+                onCancelVote = onCancelVote,
             )
 
             UserProfile(
                 modifier = Modifier
                     .padding(top = 17.dp)
                     .align(Alignment.CenterHorizontally),
-                userInfo = voteUiState.userInfo,
+                userInfo = state.userInfo,
             )
 
             PhotoCardContainer(
                 modifier = Modifier
                     .padding(top = 24.dp, bottom = 206.dp)
                     .align(Alignment.CenterHorizontally),
-                onVoteBySwiped = { voteType, photo ->
-                    viewModel.updateVoteEvent(voteType)
-                    viewModel.addVoteResult(voteType, photo)
-                },
-                photoList = voteUiState.photoList,
-                onSwipeFinish = { viewModel.finishVote() },
-                onVoteByClicked = { voteType, photo ->
-                    viewModel.addVoteResult(voteType, photo)
-                },
-                voteClickInfo = voteUiState.voteClickInfo,
+                onVoteBySwiped = onVoteBySwiped,
+                photoList = state.photoList,
+                onSwipeFinish = onSwipeFinish,
+                onVoteByClicked = onVoteByClicked,
+                voteClickInfo = state.voteClickInfo,
             )
         }
 
@@ -105,9 +102,7 @@ fun PhotoVoteScreen(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(top = 68.dp, bottom = 78.dp),
-            onVoteClick = { voteType ->
-                viewModel.updateVoteEvent(voteType)
-            },
+            onVoteClick = onVoteClick,
         )
     }
 }
