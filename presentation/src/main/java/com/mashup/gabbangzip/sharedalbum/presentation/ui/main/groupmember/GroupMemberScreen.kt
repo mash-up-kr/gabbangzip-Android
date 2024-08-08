@@ -154,24 +154,12 @@ private fun GroupMemberItem(
             contentDescription = type.name,
         )
         Spacer(modifier = Modifier.width(16.dp))
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = member.name,
-                style = PicTypography.bodyMedium16,
-                color = Gray80,
-            )
-            if (member.isLeader) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 6.dp),
-                    text = stringResource(id = R.string.group_leader),
-                    style = PicTypography.textNormal14,
-                    color = Gray80,
-                )
-            }
-        }
+        Text(
+            modifier = Modifier.weight(1f),
+            text = member.name,
+            style = PicTypography.bodyMedium16,
+            color = Gray80,
+        )
     }
 }
 
