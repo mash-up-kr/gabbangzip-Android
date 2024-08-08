@@ -7,6 +7,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 data class GroupMemberUiState(
     val keyWord: GroupKeyword = GroupKeyword.SCHOOL,
     val members: ImmutableList<Member> = ImmutableList(emptyList()),
+    val invitationCode: String = ""
 ) {
     val isFull: Boolean = members.size == 6
 }
