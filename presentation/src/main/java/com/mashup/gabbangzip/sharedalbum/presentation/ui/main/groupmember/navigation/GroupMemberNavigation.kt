@@ -23,7 +23,7 @@ fun NavGraphBuilder.groupMemberNavGraph(
     onSnackbarRequired: (PicSnackbarType, String) -> Unit,
 ) {
     composable(
-        route = "${MainRoute.GroupDetailRoute.route}/${KEY_GROUP_ID}/${KEY_GROUP_KEYWORD}",
+        route = "${MainRoute.GroupDetailRoute.route}/$KEY_GROUP_ID/$KEY_GROUP_KEYWORD",
         arguments = listOf(
             navArgument(KEY_GROUP_ID) { type = NavType.LongType },
             navArgument(KEY_GROUP_KEYWORD) { type = NavType.StringType },
