@@ -45,7 +45,9 @@ fun MainNavHost(
             onClickGroupEnter = { InvitationCodeActivity.openActivity(context) },
         )
         groupDetailNavGraph(
-            onClickGroupMemberButton = { navController.navigateGroupMember() },
+            onClickGroupMemberButton = { id, keyword ->
+                navController.navigateGroupMember(id, keyword)
+            },
             onClickBackButton = { navController.popBackStack() },
             onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
             onClickPokeButton = onClickPokeButton,
