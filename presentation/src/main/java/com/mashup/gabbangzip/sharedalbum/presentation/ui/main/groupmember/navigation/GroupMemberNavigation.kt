@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.GroupMemberScreen
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute.GroupDetailRoute.KEY_GROUP_ID
@@ -17,7 +18,10 @@ fun NavController.navigateGroupMember(
     navigate("${MainRoute.GroupDetailRoute.route}/$groupId/$keyword")
 }
 
-fun NavGraphBuilder.groupMemberNavGraph(onClickBackButton: () -> Unit) {
+fun NavGraphBuilder.groupMemberNavGraph(
+    onClickBackButton: () -> Unit,
+    onSnackbarRequired: (PicSnackbarType, String) -> Unit,
+) {
     composable(
         route = "${MainRoute.GroupDetailRoute.route}/${KEY_GROUP_ID}/${KEY_GROUP_KEYWORD}",
         arguments = listOf(
@@ -25,6 +29,9 @@ fun NavGraphBuilder.groupMemberNavGraph(onClickBackButton: () -> Unit) {
             navArgument(KEY_GROUP_KEYWORD) { type = NavType.StringType },
         ),
     ) {
-        GroupMemberScreen(onClickBackButton)
+        GroupMemberScreen(
+            onClickBackButton = onClickBackButton,
+            onSnackbarRequired = onSnackbarRequired,
+        )
     }
 }

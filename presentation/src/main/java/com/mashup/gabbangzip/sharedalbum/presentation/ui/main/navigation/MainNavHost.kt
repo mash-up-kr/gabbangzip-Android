@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.invitation.InvitationCodeActivity
@@ -29,6 +30,7 @@ fun MainNavHost(
     onClickOpenPhotoPickerButton: () -> Unit,
     onClickPokeButton: () -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
+    onSnackbarRequired: (PicSnackbarType, String) -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -58,6 +60,7 @@ fun MainNavHost(
         )
         groupMemberNavGraph(
             onClickBackButton = { navController.popBackStack() },
+            onSnackbarRequired = onSnackbarRequired,
         )
         myPageNavGraph(
             onClickBack = { navController.popBackStack() },
