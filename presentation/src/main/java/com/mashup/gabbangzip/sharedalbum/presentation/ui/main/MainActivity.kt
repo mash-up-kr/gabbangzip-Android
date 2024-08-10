@@ -17,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
@@ -50,7 +51,11 @@ class MainActivity : ComponentActivity() {
                         navController = rememberNavController(),
                         startDestination = MainRoute.initRoute,
                         navigateLoginAndFinish = {
-                            LoginActivity.openActivity(this@MainActivity)
+                            LoginActivity.openActivity(this)
+                            finish()
+                        },
+                        onRequireGroupCreation = {
+                            GroupCreationActivity.openActivity(this)
                             finish()
                         },
                         onClickOpenPhotoPickerButton = {

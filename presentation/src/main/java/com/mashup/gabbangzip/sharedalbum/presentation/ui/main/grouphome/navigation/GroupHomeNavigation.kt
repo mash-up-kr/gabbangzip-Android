@@ -11,6 +11,7 @@ fun NavController.navigateGroupHome() {
 }
 
 fun NavGraphBuilder.groupHomeNavGraph(
+    onRequireGroupCreation: () -> Unit,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
@@ -19,6 +20,7 @@ fun NavGraphBuilder.groupHomeNavGraph(
 ) {
     composable(route = MainRoute.GroupHomeRoute.route) {
         GroupHomeScreen(
+            onRequireGroupCreation = onRequireGroupCreation,
             onClickGroupDetail = onClickGroupDetail,
             onClickEventMake = onClickEventMake,
             onClickMyPage = onClickMyPage,

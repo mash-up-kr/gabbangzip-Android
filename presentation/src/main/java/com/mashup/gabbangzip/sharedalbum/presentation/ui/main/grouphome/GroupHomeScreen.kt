@@ -74,18 +74,23 @@ fun GroupHomeScreen(
     onClickMyPage: () -> Unit,
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
+    onRequireGroupCreation: () -> Unit,
     viewModel: GroupHomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    GroupHomeScreen(
-        state = state,
-        onClickGroupDetail = onClickGroupDetail,
-        onClickEventMake = onClickEventMake,
-        onClickMyPage = onClickMyPage,
-        onClickGroupEnter = onClickGroupEnter,
-        onClickGroupMake = onClickGroupMake,
-    )
+    if (state.groupList.isEmpty()) {
+        onRequireGroupCreation()
+    } else {
+        GroupHomeScreen(
+            state = state,
+            onClickGroupDetail = onClickGroupDetail,
+            onClickEventMake = onClickEventMake,
+            onClickMyPage = onClickMyPage,
+            onClickGroupEnter = onClickGroupEnter,
+            onClickGroupMake = onClickGroupMake,
+        )
+    }
 }
 
 @Composable
