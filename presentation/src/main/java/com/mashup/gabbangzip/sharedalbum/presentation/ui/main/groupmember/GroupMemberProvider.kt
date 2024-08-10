@@ -12,12 +12,12 @@ class GroupMemberProvider : PreviewParameterProvider<GroupMemberUiState> {
                 keyWord = GroupKeyword.EXERCISE,
                 members = ImmutableList(
                     listOf(
-                        Member(id = 0, name = "연규", isLeader = true),
-                        Member(id = 1, name = "윤서", isLeader = false),
-                        Member(id = 1, name = "윤서", isLeader = false),
-                        Member(id = 1, name = "윤서", isLeader = false),
-                        Member(id = 1, name = "윤서", isLeader = false),
-                        Member(id = 1, name = "윤서", isLeader = false),
+                        Member(id = 0, name = "연규"),
+                        Member(id = 1, name = "윤서"),
+                        Member(id = 1, name = "윤서"),
+                        Member(id = 1, name = "윤서"),
+                        Member(id = 1, name = "윤서"),
+                        Member(id = 1, name = "윤서"),
                     ),
                 ),
             ),
@@ -25,7 +25,7 @@ class GroupMemberProvider : PreviewParameterProvider<GroupMemberUiState> {
                 keyWord = GroupKeyword.SCHOOL,
                 members = ImmutableList(
                     listOf(
-                        Member(id = 0, name = "연규", isLeader = true),
+                        Member(id = 0, name = "연규"),
                     ),
                 ),
             ),

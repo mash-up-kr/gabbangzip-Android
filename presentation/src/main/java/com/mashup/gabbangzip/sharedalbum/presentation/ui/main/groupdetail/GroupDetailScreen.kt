@@ -34,7 +34,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 
 @Composable
 fun GroupDetailScreen(
-    onClickGroupMemberButton: () -> Unit,
+    onClickGroupMemberButton: (GroupKeyword) -> Unit,
     onClickBackButton: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
     onClickPokeButton: () -> Unit,
@@ -48,7 +48,11 @@ fun GroupDetailScreen(
 
     GroupDetailScreen(
         state = state,
-        onClickGroupMemberButton = onClickGroupMemberButton,
+        onClickGroupMemberButton = {
+            state.groupInfo?.let {
+                onClickGroupMemberButton(it.keyword)
+            }
+        },
         onClickBackButton = onClickBackButton,
         onClickActionButton = { status ->
             when (status) {

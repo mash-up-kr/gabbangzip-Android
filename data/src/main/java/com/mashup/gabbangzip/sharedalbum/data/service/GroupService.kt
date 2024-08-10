@@ -7,6 +7,7 @@ import com.mashup.gabbangzip.sharedalbum.data.dto.response.CreateGroupResponse
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.EnterGroupResponse
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.GroupDataResponse
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.GroupDetailResponse
+import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.GroupMemberResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -25,6 +26,11 @@ interface GroupService {
     suspend fun getGroupDetail(
         @Path(value = "id") groupId: Long,
     ): PicResponse<GroupDetailResponse>
+
+    @GET("api/v1/groups/{id}/members")
+    suspend fun getGroupMembers(
+        @Path(value = "id") groupId: Long,
+    ): PicResponse<GroupMemberResponse>
 
     @GET("api/v1/groups/join")
     suspend fun enterGroupByCode(

@@ -74,7 +74,6 @@
     <string name="tag_somoim">소모임</string>
 
     <string name="group_member_list_title">그룹원</string>
-    <string name="group_leader">그룹장</string>
     <string name="group_add_more_member">그룹원을 추가하고 싶으세요?</string>
     <string name="group_maximum_count">그룹 최대 인원은 6명이에요.</string>
     <string name="button_copy_link">초대코드 복사</string>

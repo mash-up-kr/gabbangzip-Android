@@ -7,16 +7,23 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -29,12 +36,17 @@ class MainActivity : ComponentActivity() {
         initPhotoPicker()
 
         setContent {
+            val snackbarHostState = remember { SnackbarHostState() }
+            val coroutineScope = rememberCoroutineScope()
             SharedAlbumTheme {
-                Surface(
+                Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                ) {
+                    snackbarHost = { PicSnackbarHost(state = snackbarHostState) },
+                ) { innerPadding ->
                     MainNavHost(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding),
                         navController = rememberNavController(),
                         startDestination = MainRoute.initRoute,
                         navigateLoginAndFinish = {
@@ -47,6 +59,11 @@ class MainActivity : ComponentActivity() {
                         onClickPokeButton = viewModel::pokeOtherUser,
                         onClickShareButton = { bitmap ->
                             shareBitmap(bitmap)
+                        },
+                        onSnackbarRequired = { type, message ->
+                            coroutineScope.launch {
+                                snackbarHostState.showPicSnackbar(type, message)
+                            }
                         },
                     )
                 }

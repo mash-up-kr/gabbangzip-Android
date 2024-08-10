@@ -7,6 +7,7 @@ sealed interface MainRoute {
         override val route: String = "groupDetail"
 
         const val KEY_GROUP_ID = "groupId"
+        const val KEY_GROUP_KEYWORD = "groupKeyword"
     }
 
     data object GroupHomeRoute : MainRoute {

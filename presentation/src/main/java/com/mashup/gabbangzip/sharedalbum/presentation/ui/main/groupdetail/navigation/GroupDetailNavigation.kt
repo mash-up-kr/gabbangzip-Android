@@ -16,7 +16,7 @@ fun NavController.navigateGroupDetail(groupId: Long) {
 }
 
 fun NavGraphBuilder.groupDetailNavGraph(
-    onClickGroupMemberButton: () -> Unit,
+    onClickGroupMemberButton: (groupId: Long, keyword: String) -> Unit,
     onClickBackButton: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
     onClickPokeButton: () -> Unit,
@@ -33,7 +33,9 @@ fun NavGraphBuilder.groupDetailNavGraph(
     ) { backStackEntry ->
         backStackEntry.arguments?.getLong(KEY_GROUP_ID)?.let { groupId ->
             GroupDetailScreen(
-                onClickGroupMemberButton = onClickGroupMemberButton,
+                onClickGroupMemberButton = { keyword ->
+                    onClickGroupMemberButton(groupId, keyword.name)
+                },
                 onClickBackButton = onClickBackButton,
                 onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
                 onClickPokeButton = onClickPokeButton,

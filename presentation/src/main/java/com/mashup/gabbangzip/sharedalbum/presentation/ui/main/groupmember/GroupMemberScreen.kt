@@ -20,8 +20,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -36,6 +38,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.model.Member
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
@@ -43,14 +46,27 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 @Composable
 fun GroupMemberScreen(
     onClickBackButton: () -> Unit,
+    onSnackbarRequired: (type: PicSnackbarType, message: String) -> Unit,
     viewModel: GroupMemberViewModel = hiltViewModel(),
 ) {
+    val clipboardManager = LocalClipboardManager.current
+    val copyLinkMessage = stringResource(id = R.string.button_copy_link_message)
+    val invitationMessage = stringResource(id = R.string.invitation_message)
+    val playStoreUrl = stringResource(id = R.string.play_store_url)
+    val appStoreUrl = stringResource(id = R.string.app_store_url)
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     GroupMemberScreen(
         state = state,
         onClickBackButton = onClickBackButton,
-        onClickCopyButton = { /* TODO */ },
+        onClickCopyButton = {
+            clipboardManager.setText(
+                AnnotatedString(
+                    invitationMessage.format(playStoreUrl, appStoreUrl, state.invitationCode),
+                ),
+            )
+            onSnackbarRequired(PicSnackbarType.CHECK, copyLinkMessage)
+        },
     )
 }
 
@@ -154,24 +170,12 @@ private fun GroupMemberItem(
             contentDescription = type.name,
         )
         Spacer(modifier = Modifier.width(16.dp))
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = member.name,
-                style = PicTypography.bodyMedium16,
-                color = Gray80,
-            )
-            if (member.isLeader) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 6.dp),
-                    text = stringResource(id = R.string.group_leader),
-                    style = PicTypography.textNormal14,
-                    color = Gray80,
-                )
-            }
-        }
+        Text(
+            modifier = Modifier.weight(1f),
+            text = member.name,
+            style = PicTypography.bodyMedium16,
+            color = Gray80,
+        )
     }
 }
 
