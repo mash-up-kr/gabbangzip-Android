@@ -45,6 +45,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
@@ -64,6 +66,27 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
+
+@Composable
+fun GroupHomeScreen(
+    onClickGroupDetail: (id: Long) -> Unit,
+    onClickEventMake: (Long) -> Unit,
+    onClickMyPage: () -> Unit,
+    onClickGroupEnter: () -> Unit,
+    onClickGroupMake: () -> Unit,
+    viewModel: GroupHomeViewModel = hiltViewModel(),
+) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    GroupHomeScreen(
+        state = state,
+        onClickGroupDetail = onClickGroupDetail,
+        onClickEventMake = onClickEventMake,
+        onClickMyPage = onClickMyPage,
+        onClickGroupEnter = onClickGroupEnter,
+        onClickGroupMake = onClickGroupMake,
+    )
+}
 
 @Composable
 fun GroupHomeScreen(
