@@ -20,7 +20,7 @@ fun NavController.navigateGroupMember(
 
 fun NavGraphBuilder.groupMemberNavGraph(
     onClickBackButton: () -> Unit,
-    onSnackbarRequired: (PicSnackbarType, String) -> Unit,
+    onShowSnackbar: (PicSnackbarType, String) -> Unit,
 ) {
     composable(
         route = "${MainRoute.GroupDetailRoute.route}/$KEY_GROUP_ID/$KEY_GROUP_KEYWORD",
@@ -31,7 +31,7 @@ fun NavGraphBuilder.groupMemberNavGraph(
     ) {
         GroupMemberScreen(
             onClickBackButton = onClickBackButton,
-            onSnackbarRequired = onSnackbarRequired,
+            onSnackbarRequired = onShowSnackbar,
         )
     }
 }

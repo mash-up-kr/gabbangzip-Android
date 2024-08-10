@@ -60,7 +60,7 @@ fun MainNavHost(
         )
         groupMemberNavGraph(
             onClickBackButton = { navController.popBackStack() },
-            onSnackbarRequired = onSnackbarRequired,
+            onShowSnackbar = onSnackbarRequired,
         )
         myPageNavGraph(
             onClickBack = { navController.popBackStack() },
