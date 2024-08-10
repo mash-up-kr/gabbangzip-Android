@@ -55,6 +55,7 @@ fun GroupCreationIntroScreen(
             textAlign = TextAlign.Center,
             color = Gray80,
             letterSpacing = (0.02).em,
+            lineHeight = (28.8).sp,
             fontSize = 24.sp,
             fontFamily = pretendard,
             fontWeight = FontWeight.Bold,
@@ -79,6 +80,8 @@ fun GroupCreationIntroScreen(
             text = stringResource(id = R.string.group_creation_button_description),
             textAlign = TextAlign.Center,
             color = Gray60,
+            letterSpacing = (0.02).em,
+            lineHeight = (16.8).sp,
             style = PicTypography.bodyMedium14,
         )
         PicButton(
