@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.vote
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -54,7 +55,16 @@ fun PhotoVoteScreen(
     onVoteByClicked: (result: PhotoVoteType, photo: Photo) -> Unit,
     onVoteClick: (voteType: PhotoVoteType) -> Unit,
     onSwipeFinish: () -> Unit,
+    onUploadPicture: (Boolean) -> Unit,
 ) {
+    BackHandler {
+        onCancelVote()
+    }
+
+    state.isVoteUploadFinish?.let { isUploadSuccess ->
+        onUploadPicture(isUploadSuccess)
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
