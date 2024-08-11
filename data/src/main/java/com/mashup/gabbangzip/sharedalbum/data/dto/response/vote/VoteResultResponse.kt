@@ -8,7 +8,15 @@ import com.squareup.moshi.JsonClass
 data class VoteResultResponse(
     @Json(name = "event_id")
     val eventId: Long,
+    @Json(name = "random_image_url")
+    val randomImageUrl: String,
+    @Json(name = "group_keyword")
+    val groupKeyword: String,
 )
 
 fun VoteResultResponse.toDomainModel(): VoteResultDomainModel =
-    VoteResultDomainModel(eventId = eventId)
+    VoteResultDomainModel(
+        eventId = eventId,
+        randomImageUrl = randomImageUrl,
+        groupKeyword = groupKeyword,
+    )

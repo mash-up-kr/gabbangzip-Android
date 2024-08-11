@@ -1,6 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.domain.model.vote
 
-@JvmInline
-value class VoteResultDomainModel(
+data class VoteResultDomainModel(
     val eventId: Long,
+    val randomImageUrl: String,
+    val groupKeyword: String,
 )
