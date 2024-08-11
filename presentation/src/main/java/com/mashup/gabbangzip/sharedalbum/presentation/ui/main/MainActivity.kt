@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                             LoginActivity.openActivity(this)
                             finish()
                         },
-                        onRequireGroupCreation = {
+                        navigateToGroupCreationAndFinish = {
                             GroupCreationActivity.openActivity(this)
                             finish()
                         },

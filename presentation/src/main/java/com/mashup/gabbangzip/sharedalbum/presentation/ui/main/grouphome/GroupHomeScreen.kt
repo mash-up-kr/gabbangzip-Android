@@ -74,13 +74,13 @@ fun GroupHomeScreen(
     onClickMyPage: () -> Unit,
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
-    onRequireGroupCreation: () -> Unit,
+    navigateToGroupCreationAndFinish: () -> Unit,
     viewModel: GroupHomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (state.groupList.isEmpty()) {
-        onRequireGroupCreation()
+        navigateToGroupCreationAndFinish()
     } else {
         GroupHomeScreen(
             state = state,
