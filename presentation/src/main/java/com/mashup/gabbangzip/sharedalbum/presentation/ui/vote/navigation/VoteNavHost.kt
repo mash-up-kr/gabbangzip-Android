@@ -14,6 +14,8 @@ fun VoteNavHost(
     navController: NavHostController,
     startDestination: String,
     state: PhotoVoteState,
+    frameResId: Int,
+    thumbnailUrl: String,
     onDialogConfirm: () -> Unit,
     onCancelVote: () -> Unit,
     onVoteExit: () -> Unit,
@@ -24,8 +26,6 @@ fun VoteNavHost(
     onCompleteButtonClicked: () -> Unit,
     onClickNavigationBack: () -> Unit,
     onUploadPicture: (Boolean) -> Unit,
-    frameResId: Int,
-    thumbnailUrl: String,
 ) {
     NavHost(
         modifier = modifier,
