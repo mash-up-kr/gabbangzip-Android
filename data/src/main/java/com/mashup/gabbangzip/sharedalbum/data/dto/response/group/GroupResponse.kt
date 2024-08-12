@@ -8,26 +8,26 @@ import com.squareup.moshi.JsonClass
 data class GroupResponse(
     @Json(name = "id")
     val id: Long,
-    @Json(name = "card_back_images")
-    val cardBackImages: List<CardBackImageResponse>,
-    @Json(name = "card_front_image_url")
-    val cardFrontImageUrl: String,
-    @Json(name = "keyword")
-    val keyword: String,
     @Json(name = "name")
     val name: String,
-    @Json(name = "recent_event")
-    val recentEvent: RecentEventResponse,
+    @Json(name = "keyword")
+    val keyword: String,
     @Json(name = "status")
     val status: String,
     @Json(name = "status_description")
     val statusDescription: String,
+    @Json(name = "recent_event")
+    val recentEvent: RecentEventResponse,
+    @Json(name = "card_back_images")
+    val cardBackImages: List<CardBackImageResponse>?,
+    @Json(name = "card_front_image_url")
+    val cardFrontImageUrl: String,
 )
 
 fun GroupResponse.toDomainModel(): GroupDomainModel {
     return GroupDomainModel(
         id = id,
-        cardBackImages = cardBackImages.map { it.toDomainModel() },
+        cardBackImages = cardBackImages?.map { it.toDomainModel() } ?: emptyList(),
         cardFrontImageUrl = cardFrontImageUrl,
         keyword = keyword,
         name = name,

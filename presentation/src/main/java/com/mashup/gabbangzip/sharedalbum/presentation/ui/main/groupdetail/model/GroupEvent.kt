@@ -12,7 +12,7 @@ data class GroupEvent(
 fun RecentEventDomainModel.toUiModel(): GroupEvent {
     return GroupEvent(
         id = id,
-        title = title,
+        title = title.orEmpty(),
         date = date.toString(),
         deadline = deadline?.toString().orEmpty(),
     )
