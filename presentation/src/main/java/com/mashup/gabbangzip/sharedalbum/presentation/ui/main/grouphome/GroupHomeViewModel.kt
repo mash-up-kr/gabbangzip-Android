@@ -17,7 +17,7 @@ import javax.inject.Inject
 class GroupHomeViewModel @Inject constructor(
     private val getGroupListUseCase: GetGroupListUseCase,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(GroupHomeUiState())
+    private val _uiState = MutableStateFlow<GroupHomeUiState>(GroupHomeUiState.NotInitialized)
     val uiState = _uiState.asStateFlow()
 
     init {
@@ -25,19 +25,18 @@ class GroupHomeViewModel @Inject constructor(
     }
 
     private fun getGroupList() {
-        _uiState.update { state ->
-            state.copy(
-                isLoading = true,
-            )
-        }
+        _uiState.update { GroupHomeUiState.Loading }
         viewModelScope.launch {
             getGroupListUseCase()
-                .onSuccess {
-                    _uiState.update { state ->
-                        state.copy(
-                            groupList = ImmutableList(it.toUiModel()),
-                            isLoading = false,
-                        )
+                .onSuccess { response ->
+                    _uiState.update {
+                        if (response.isEmpty()) {
+                            GroupHomeUiState.NoGroup
+                        } else {
+                            GroupHomeUiState.GroupList(
+                                groupList = ImmutableList(response.toUiModel()),
+                            )
+                        }
                     }
                 }
         }

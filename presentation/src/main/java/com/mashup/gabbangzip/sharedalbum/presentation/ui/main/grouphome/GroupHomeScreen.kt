@@ -79,23 +79,29 @@ fun GroupHomeScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state.groupList.isEmpty()) {
-        navigateToGroupCreationAndFinish()
-    } else {
-        GroupHomeScreen(
-            state = state,
-            onClickGroupDetail = onClickGroupDetail,
-            onClickEventMake = onClickEventMake,
-            onClickMyPage = onClickMyPage,
-            onClickGroupEnter = onClickGroupEnter,
-            onClickGroupMake = onClickGroupMake,
-        )
+    when (state) {
+        is GroupHomeUiState.NoGroup -> {
+            navigateToGroupCreationAndFinish()
+        }
+
+        is GroupHomeUiState.GroupList -> {
+            GroupHomeScreen(
+                groupList = (state as GroupHomeUiState.GroupList).groupList,
+                onClickGroupDetail = onClickGroupDetail,
+                onClickEventMake = onClickEventMake,
+                onClickMyPage = onClickMyPage,
+                onClickGroupEnter = onClickGroupEnter,
+                onClickGroupMake = onClickGroupMake,
+            )
+        }
+
+        else -> {}
     }
 }
 
 @Composable
 fun GroupHomeScreen(
-    state: GroupHomeUiState,
+    groupList: ImmutableList<GroupInfo>,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
@@ -115,11 +121,11 @@ fun GroupHomeScreen(
             )
 
             LazyColumn {
-                itemsIndexed(state.groupList) { index, groupInfo ->
+                itemsIndexed(groupList) { index, groupInfo ->
                     GroupContainer(
                         modifier = if (index == 0) {
                             Modifier.padding(top = 16.dp)
-                        } else if (index == state.groupList.lastIndex) {
+                        } else if (index == groupList.lastIndex) {
                             Modifier.padding(bottom = 16.dp)
                         } else {
                             Modifier
@@ -129,7 +135,7 @@ fun GroupHomeScreen(
                         onClickEventMake = onClickEventMake,
                     )
 
-                    if (state.groupList.lastIndex != index) {
+                    if (groupList.lastIndex != index) {
                         Spacer(
                             modifier = Modifier
                                 .padding(top = 46.dp, bottom = 24.dp)
@@ -434,141 +440,139 @@ private fun FloatingItem(
 @Composable
 private fun GroupHomeScreenPreview() {
     GroupHomeScreen(
-        state = GroupHomeUiState(
-            groupList = ImmutableList(
-                listOf(
-                    GroupInfo(
-                        id = 0,
-                        name = "그룹 이름",
-                        keyword = GroupKeyword.LITTLE_MOIM,
-                        statusDescription = "상태 설명",
-                        frontImageFrame = PicPhotoFrame.GHOST,
-                        cardFrontImageUrl = "https://picsum.photos/200/300",
-                        cardBackImages = listOf(
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.HAMBURGER,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.PLUS,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.GHOST,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.SEXY,
-                            ),
+        groupList = ImmutableList(
+            listOf(
+                GroupInfo(
+                    id = 0,
+                    name = "그룹 이름",
+                    keyword = GroupKeyword.LITTLE_MOIM,
+                    statusDescription = "상태 설명",
+                    frontImageFrame = PicPhotoFrame.GHOST,
+                    cardFrontImageUrl = "https://picsum.photos/200/300",
+                    cardBackImages = listOf(
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.HAMBURGER,
                         ),
-                        recentEvent = GroupEvent(
-                            id = 0,
-                            title = "가빵집 MT",
-                            date = "2024.11.01",
-                            deadline = "2024.11.01",
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.PLUS,
                         ),
-                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.GHOST,
+                        ),
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.SEXY,
+                        ),
                     ),
-                    GroupInfo(
+                    recentEvent = GroupEvent(
                         id = 0,
-                        name = "그룹 이름",
-                        keyword = GroupKeyword.LITTLE_MOIM,
-                        statusDescription = "상태 설명",
-                        frontImageFrame = PicPhotoFrame.SEXY,
-                        cardFrontImageUrl = "https://picsum.photos/200/300",
-                        cardBackImages = listOf(
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.HAMBURGER,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.PLUS,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.GHOST,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.SEXY,
-                            ),
-                        ),
-                        recentEvent = GroupEvent(
-                            id = 0,
-                            title = "가빵집 MT",
-                            date = "2024.11.01",
-                            deadline = "2024.11.01",
-                        ),
-                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                        title = "가빵집 MT",
+                        date = "2024.11.01",
+                        deadline = "2024.11.01",
                     ),
-                    GroupInfo(
+                    status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                ),
+                GroupInfo(
+                    id = 0,
+                    name = "그룹 이름",
+                    keyword = GroupKeyword.LITTLE_MOIM,
+                    statusDescription = "상태 설명",
+                    frontImageFrame = PicPhotoFrame.SEXY,
+                    cardFrontImageUrl = "https://picsum.photos/200/300",
+                    cardBackImages = listOf(
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.HAMBURGER,
+                        ),
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.PLUS,
+                        ),
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.GHOST,
+                        ),
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.SEXY,
+                        ),
+                    ),
+                    recentEvent = GroupEvent(
                         id = 0,
-                        name = "그룹 이름",
-                        keyword = GroupKeyword.SCHOOL,
-                        statusDescription = "상태 설명",
-                        frontImageFrame = PicPhotoFrame.PLUS,
-                        cardFrontImageUrl = "https://picsum.photos/200/300",
-                        cardBackImages = listOf(
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.HAMBURGER,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.PLUS,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.GHOST,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.SEXY,
-                            ),
-                        ),
-                        recentEvent = GroupEvent(
-                            id = 0,
-                            title = "가빵집 MT",
-                            date = "2024.11.01",
-                            deadline = "2024.11.01",
-                        ),
-                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                        title = "가빵집 MT",
+                        date = "2024.11.01",
+                        deadline = "2024.11.01",
                     ),
-                    GroupInfo(
+                    status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                ),
+                GroupInfo(
+                    id = 0,
+                    name = "그룹 이름",
+                    keyword = GroupKeyword.SCHOOL,
+                    statusDescription = "상태 설명",
+                    frontImageFrame = PicPhotoFrame.PLUS,
+                    cardFrontImageUrl = "https://picsum.photos/200/300",
+                    cardBackImages = listOf(
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.HAMBURGER,
+                        ),
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.PLUS,
+                        ),
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.GHOST,
+                        ),
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.SEXY,
+                        ),
+                    ),
+                    recentEvent = GroupEvent(
                         id = 0,
-                        name = "그룹 이름",
-                        keyword = GroupKeyword.HOBBY,
-                        statusDescription = "상태 설명",
-                        frontImageFrame = PicPhotoFrame.SNOWMAN,
-                        cardFrontImageUrl = "https://picsum.photos/200/300",
-                        cardBackImages = listOf(
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.HAMBURGER,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.PLUS,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.GHOST,
-                            ),
-                            CardBackImage(
-                                imageUrl = "https://picsum.photos/200/300",
-                                frameType = PicPhotoFrame.SEXY,
-                            ),
-                        ),
-                        recentEvent = GroupEvent(
-                            id = 0,
-                            title = "가빵집 MT",
-                            date = "2024.11.01",
-                            deadline = "2024.11.01",
-                        ),
-                        status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                        title = "가빵집 MT",
+                        date = "2024.11.01",
+                        deadline = "2024.11.01",
                     ),
+                    status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                ),
+                GroupInfo(
+                    id = 0,
+                    name = "그룹 이름",
+                    keyword = GroupKeyword.HOBBY,
+                    statusDescription = "상태 설명",
+                    frontImageFrame = PicPhotoFrame.SNOWMAN,
+                    cardFrontImageUrl = "https://picsum.photos/200/300",
+                    cardBackImages = listOf(
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.HAMBURGER,
+                        ),
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.PLUS,
+                        ),
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.GHOST,
+                        ),
+                        CardBackImage(
+                            imageUrl = "https://picsum.photos/200/300",
+                            frameType = PicPhotoFrame.SEXY,
+                        ),
+                    ),
+                    recentEvent = GroupEvent(
+                        id = 0,
+                        title = "가빵집 MT",
+                        date = "2024.11.01",
+                        deadline = "2024.11.01",
+                    ),
+                    status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
                 ),
             ),
         ),
