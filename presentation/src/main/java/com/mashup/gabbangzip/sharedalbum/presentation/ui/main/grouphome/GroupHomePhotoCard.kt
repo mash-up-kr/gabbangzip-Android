@@ -37,16 +37,6 @@ fun GroupHomePhotoCard(
     eventName: String = "",
     onClickEventMake: (Long) -> Unit,
 ) {
-    val context = LocalContext.current
-    val topTitleText = remember(groupInfo.status) {
-        when (groupInfo.status) {
-            GroupStatusType.NO_PAST_AND_CURRENT_EVENT -> context.getString(R.string.intro_event_top_title)
-            GroupStatusType.NO_CURRENT_EVENT -> groupInfo.recentEvent.date
-            GroupStatusType.AFTER_MY_VOTE -> groupInfo.recentEventDate
-            else -> ""
-        }
-    }
-
     GroupPhotoCardContainer(
         modifier = modifier
             .heightIn(max = contentMaxHeight)
@@ -61,7 +51,7 @@ fun GroupHomePhotoCard(
             text = if (groupInfo.status == GroupStatusType.NO_PAST_AND_CURRENT_EVENT) {
                 stringResource(id = R.string.intro_event_top_title)
             } else {
-                groupInfo.recentEventDate
+                groupInfo.recentEvent.date
             },
         )
 

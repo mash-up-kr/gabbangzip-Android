@@ -55,6 +55,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
