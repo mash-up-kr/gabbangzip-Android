@@ -9,7 +9,7 @@ data class GroupDetailResponse(
     @Json(name = "id")
     val id: Long,
     @Json(name = "card_back_images")
-    val cardBackImages: List<CardBackImageResponse>,
+    val cardBackImages: List<CardBackImageResponse>?,
     @Json(name = "card_front_image_url")
     val cardFrontImageUrl: String,
     @Json(name = "keyword")
@@ -23,13 +23,13 @@ data class GroupDetailResponse(
     @Json(name = "status_description")
     val statusDescription: String,
     @Json(name = "history")
-    val history: String,
+    val history: List<HistoryResponse>,
 )
 
 fun GroupDetailResponse.toDomainModel(): GroupDomainModel {
     return GroupDomainModel(
         id = id,
-        cardBackImages = cardBackImages.map { it.toDomainModel() },
+        cardBackImages = cardBackImages?.map { it.toDomainModel() } ?: emptyList(),
         cardFrontImageUrl = cardFrontImageUrl,
         keyword = keyword,
         name = name,

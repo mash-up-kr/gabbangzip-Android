@@ -46,7 +46,7 @@ class GroupDetailViewModel @Inject constructor(
                         state.copy(
                             isLoading = false,
                             groupInfo = groupDetail.toUiModel(),
-                            recentEvent = groupDetail.recentEvent?.toUiModel(),
+                            recentEvent = groupDetail.recentEvent.toUiModel(),
                             error = null,
                         )
                     }
