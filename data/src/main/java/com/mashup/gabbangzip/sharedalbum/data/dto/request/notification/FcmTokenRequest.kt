@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.data.dto.request
+package com.mashup.gabbangzip.sharedalbum.data.dto.request.notification
 
 import com.mashup.gabbangzip.sharedalbum.domain.model.notification.FcmTokenParamDomainModel
 import com.squareup.moshi.Json
