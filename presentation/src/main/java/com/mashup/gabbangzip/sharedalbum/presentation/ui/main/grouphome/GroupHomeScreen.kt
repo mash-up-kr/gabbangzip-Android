@@ -75,6 +75,7 @@ fun GroupHomeScreen(
     onClickMyPage: () -> Unit,
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
+    onClickSendFcm: () -> Unit,
     navigateToGroupCreationAndFinish: () -> Unit,
     viewModel: GroupHomeViewModel = hiltViewModel(),
 ) {
@@ -93,6 +94,7 @@ fun GroupHomeScreen(
                 onClickMyPage = onClickMyPage,
                 onClickGroupEnter = onClickGroupEnter,
                 onClickGroupMake = onClickGroupMake,
+                onClickSendFcm = onClickSendFcm,
             )
         }
 
