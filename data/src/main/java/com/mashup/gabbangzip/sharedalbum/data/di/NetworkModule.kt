@@ -14,6 +14,7 @@ import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
 import com.mashup.gabbangzip.sharedalbum.data.service.LoginService
 import com.mashup.gabbangzip.sharedalbum.data.service.NotificationService
 import com.mashup.gabbangzip.sharedalbum.data.service.UserService
+import com.mashup.gabbangzip.sharedalbum.data.service.VoteService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -125,6 +126,12 @@ internal class NetworkModule {
     fun provideNotificationService(
         @DefaultRetrofit retrofit: Retrofit,
     ): NotificationService = retrofit.create()
+
+    @Singleton
+    @Provides
+    fun provideVoteService(
+        @DefaultRetrofit retrofit: Retrofit,
+    ): VoteService = retrofit.create()
 
     @Singleton
     @Provides

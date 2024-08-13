@@ -11,11 +11,9 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -39,15 +37,6 @@ fun GroupHomePhotoCard(
     eventName: String = "",
     onClickEventMake: (Long) -> Unit,
 ) {
-    val context = LocalContext.current
-    val topTitleText = remember(groupInfo.status) {
-        when (groupInfo.status) {
-            GroupStatusType.NO_PAST_AND_CURRENT_EVENT -> context.getString(R.string.intro_event_top_title)
-            GroupStatusType.NO_CURRENT_EVENT -> groupInfo.recentEvent.date
-            else -> ""
-        }
-    }
-
     GroupPhotoCardContainer(
         modifier = modifier
             .heightIn(max = contentMaxHeight)
@@ -55,14 +44,16 @@ fun GroupHomePhotoCard(
         keywordType = groupInfo.keyword,
         backgroundColor = backgroundColor,
     ) {
-        if (topTitleText.isNotBlank()) {
-            CardTopTitle(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .padding(top = 37.dp),
-                text = topTitleText,
-            )
-        }
+        CardTopTitle(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .padding(top = 37.dp),
+            text = if (groupInfo.status == GroupStatusType.NO_PAST_AND_CURRENT_EVENT) {
+                stringResource(id = R.string.intro_event_top_title)
+            } else {
+                groupInfo.recentEvent.date
+            },
+        )
 
         if (groupInfo.status == GroupStatusType.NO_PAST_AND_CURRENT_EVENT) {
             PicNormalButton(
@@ -76,11 +67,11 @@ fun GroupHomePhotoCard(
 
         content()
 
-        if (groupInfo.status == GroupStatusType.NO_CURRENT_EVENT) {
+        if (groupInfo.status != GroupStatusType.NO_PAST_AND_CURRENT_EVENT) {
             EventTitle(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(top = 31.dp),
+                    .padding(top = 31.dp, bottom = 41.dp),
                 text = eventName,
             )
         }

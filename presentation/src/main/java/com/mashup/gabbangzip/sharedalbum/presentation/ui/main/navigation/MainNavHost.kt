@@ -47,6 +47,7 @@ fun MainNavHost(
             onClickEventMake = { id -> EventCreationActivity.openActivity(context, id) },
             onClickGroupMake = { GroupCreationActivity.openActivity(context) },
             onClickGroupEnter = { InvitationCodeActivity.openActivity(context) },
+            onClickSendFcm = { /* TODO : 푸시 알림 */ },
         )
         groupDetailNavGraph(
             onClickGroupMemberButton = { id, keyword ->

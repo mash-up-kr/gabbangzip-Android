@@ -53,6 +53,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.FlippableBox
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
@@ -107,6 +108,7 @@ fun GroupHomeScreen(
     onClickMyPage: () -> Unit,
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
+    onClickSendFcm: () -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -132,6 +134,7 @@ fun GroupHomeScreen(
                         },
                         groupInfo = groupInfo,
                         onGroupDetailClick = onClickGroupDetail,
+                        onClickSendFcm = onClickSendFcm,
                         onClickEventMake = onClickEventMake,
                     )
 
@@ -163,6 +166,7 @@ private fun GroupContainer(
     modifier: Modifier,
     groupInfo: GroupInfo,
     onGroupDetailClick: (id: Long) -> Unit,
+    onClickSendFcm: () -> Unit,
     onClickEventMake: (Long) -> Unit,
 ) {
     Column(
@@ -194,6 +198,19 @@ private fun GroupContainer(
             groupInfo = groupInfo,
             onClickEventMake = onClickEventMake,
         )
+
+        GroupStatusType
+            .getButtonRes(groupInfo.status)
+            ?.let { (iconResId, textResId) ->
+                PicNormalButton(
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                        .align(Alignment.CenterHorizontally),
+                    iconRes = iconResId,
+                    text = stringResource(textResId),
+                    onButtonClicked = onClickSendFcm,
+                )
+            }
     }
 }
 
@@ -581,5 +598,6 @@ private fun GroupHomeScreenPreview() {
         onClickMyPage = {},
         onClickGroupMake = {},
         onClickGroupEnter = {},
+        onClickSendFcm = {},
     )
 }
