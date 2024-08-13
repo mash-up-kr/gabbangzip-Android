@@ -1,7 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model
 
 data class Photo(
-    val id: Int,
+    val id: Long,
     val imageUrl: String,
     val date: String,
 )

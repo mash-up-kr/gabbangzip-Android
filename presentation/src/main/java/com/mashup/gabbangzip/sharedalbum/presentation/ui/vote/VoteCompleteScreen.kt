@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.vote
 
+import androidx.activity.compose.BackHandler
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,7 +32,12 @@ fun VoteCompleteScreen(
     @DrawableRes frameResId: Int,
     thumbnailUrl: String,
     onCompleteButtonClicked: () -> Unit,
+    onClickNavigationBack: () -> Unit,
 ) {
+    BackHandler {
+        onClickNavigationBack()
+    }
+
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -93,6 +99,7 @@ private fun VoteCompleteScreenPreview() {
             frameResId = PicPhotoFrame.PLUS.frameResId,
             thumbnailUrl = "",
             onCompleteButtonClicked = {},
+            onClickNavigationBack = {},
         )
     }
 }
