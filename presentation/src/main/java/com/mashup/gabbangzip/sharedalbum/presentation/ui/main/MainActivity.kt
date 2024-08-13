@@ -80,6 +80,7 @@ class MainActivity : ComponentActivity() {
                                 snackbarHostState.showPicSnackbar(type, message)
                             }
                         },
+                        onErrorEvent = { showToast(R.string.error_retry) },
                     )
                 }
             }
