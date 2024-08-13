@@ -57,6 +57,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.ClickType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
@@ -74,7 +75,9 @@ fun GroupHomeScreen(
     onClickMyPage: () -> Unit,
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
-    onClickSendFcm: () -> Unit,
+    onClickSendFcm: (eventId: Long) -> Unit,
+    onNavigateGallery: () -> Unit,
+    onNavigateVote: () -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -102,6 +105,8 @@ fun GroupHomeScreen(
                         onGroupDetailClick = onClickGroupDetail,
                         onClickSendFcm = onClickSendFcm,
                         onClickEventMake = onClickEventMake,
+                        onNavigateVote = onNavigateVote,
+                        onNavigateGallery = onNavigateGallery,
                     )
 
                     if (state.groupList.lastIndex != index) {
@@ -132,8 +137,10 @@ private fun GroupContainer(
     modifier: Modifier,
     groupInfo: GroupInfo,
     onGroupDetailClick: (id: Long) -> Unit,
-    onClickSendFcm: () -> Unit,
+    onClickSendFcm: (eventId: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
+    onNavigateVote: () -> Unit,
+    onNavigateGallery: () -> Unit,
 ) {
     Column(
         modifier = modifier.noRippleClickable { onGroupDetailClick(groupInfo.id) },
@@ -167,14 +174,20 @@ private fun GroupContainer(
 
         GroupStatusType
             .getButtonRes(groupInfo.status)
-            ?.let { (iconResId, textResId) ->
+            ?.let { (iconResId, textResId, clickType) ->
                 PicNormalButton(
                     modifier = Modifier
                         .padding(top = 16.dp)
                         .align(Alignment.CenterHorizontally),
                     iconRes = iconResId,
                     text = stringResource(textResId),
-                    onButtonClicked = onClickSendFcm,
+                    onButtonClicked = {
+                        when (clickType) {
+                            ClickType.Fcm -> onClickSendFcm(groupInfo.recentEvent.id)
+                            ClickType.MyPick -> onNavigateVote()
+                            ClickType.Gallery -> onNavigateGallery()
+                        }
+                    },
                 )
             }
     }
@@ -567,5 +580,7 @@ private fun GroupHomeScreenPreview() {
         onClickGroupMake = {},
         onClickGroupEnter = {},
         onClickSendFcm = {},
+        onNavigateGallery = {},
+        onNavigateVote = {},
     )
 }

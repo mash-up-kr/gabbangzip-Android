@@ -19,7 +19,7 @@ fun NavGraphBuilder.groupDetailNavGraph(
     onClickGroupMemberButton: (groupId: Long, keyword: String) -> Unit,
     onClickBackButton: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
-    onClickPokeButton: () -> Unit,
+    onClickPokeButton: (eventId: Long) -> Unit,
     onClickVoteButton: () -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,

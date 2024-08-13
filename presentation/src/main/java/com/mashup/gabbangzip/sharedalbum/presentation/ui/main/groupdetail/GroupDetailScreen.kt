@@ -37,7 +37,7 @@ fun GroupDetailScreen(
     onClickGroupMemberButton: (GroupKeyword) -> Unit,
     onClickBackButton: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
-    onClickPokeButton: () -> Unit,
+    onClickPokeButton: (eventId: Long) -> Unit,
     onClickVoteButton: () -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onClickEventMake: () -> Unit,
@@ -58,7 +58,12 @@ fun GroupDetailScreen(
             when (status) {
                 GroupStatusType.BEFORE_MY_UPLOAD -> onClickOpenPhotoPickerButton()
                 GroupStatusType.AFTER_MY_UPLOAD, GroupStatusType.AFTER_MY_VOTE,
-                -> onClickPokeButton()
+                -> {
+                    state.recentEvent?.let {
+                        onClickPokeButton(it.id)
+                    }
+                    // TODO : #150 이슈 머지된 이후 errorEvent 로직 추가하기
+                }
 
                 GroupStatusType.BEFORE_MY_VOTE -> onClickVoteButton()
                 else -> {}
