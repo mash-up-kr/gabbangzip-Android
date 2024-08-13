@@ -4,10 +4,14 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.messaging.FirebaseMessaging
-import com.mashup.gabbangzip.sharedalbum.domain.usecase.PokeOtherMemberUseCase
+import com.mashup.gabbangzip.sharedalbum.domain.model.notification.KookNotificationParamDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.UploadMyPicUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.notification.RegisterFcmTokenUseCase
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.notification.SendKookNotificationUseCase
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.MainEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,8 +19,11 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val registerFcmTokenUseCase: RegisterFcmTokenUseCase,
     private val uploadMyPicUseCase: UploadMyPicUseCase,
-    private val pokeOtherMemberUseCase: PokeOtherMemberUseCase,
+    private val sendKookNotificationUseCase: SendKookNotificationUseCase,
 ) : ViewModel() {
+
+    private val _mainEvent = MutableSharedFlow<MainEvent>()
+    val mainEvent = _mainEvent.asSharedFlow()
 
     fun registerFcmToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
@@ -37,9 +44,17 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun pokeOtherUser() {
+    fun sendKookNotification(eventId: Long) {
         viewModelScope.launch {
-            pokeOtherMemberUseCase()
+            sendKookNotificationUseCase(
+                KookNotificationParamDomainModel(
+                    eventId = eventId,
+                ),
+            ).onSuccess {
+                _mainEvent.emit(MainEvent.Success)
+            }.onFailure {
+                _mainEvent.emit(MainEvent.Error)
+            }
         }
     }
 }
