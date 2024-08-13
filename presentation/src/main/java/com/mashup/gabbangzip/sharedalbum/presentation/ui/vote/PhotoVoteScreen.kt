@@ -35,10 +35,10 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.UserInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.contract.VoteConstant
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.Photo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.VoteClickInfo
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.VotePhoto
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
@@ -51,8 +51,8 @@ fun PhotoVoteScreen(
     onDialogConfirm: () -> Unit,
     onCancelVote: () -> Unit,
     onVoteExit: () -> Unit,
-    onVoteBySwiped: (voteType: PhotoVoteType, photo: Photo) -> Unit,
-    onVoteByClicked: (result: PhotoVoteType, photo: Photo) -> Unit,
+    onVoteBySwiped: (voteType: PhotoVoteType, photo: VotePhoto) -> Unit,
+    onVoteByClicked: (result: PhotoVoteType, photo: VotePhoto) -> Unit,
     onVoteClick: (voteType: PhotoVoteType) -> Unit,
     onSwipeFinish: () -> Unit,
     onUploadPicture: (Boolean) -> Unit,
@@ -227,11 +227,11 @@ private fun UserProfile(
 @Composable
 private fun PhotoCardContainer(
     modifier: Modifier = Modifier,
-    photoList: ImmutableList<Photo>,
+    photoList: ImmutableList<VotePhoto>,
     voteClickInfo: VoteClickInfo,
-    onVoteBySwiped: (voteType: PhotoVoteType, photo: Photo) -> Unit,
+    onVoteBySwiped: (voteType: PhotoVoteType, photo: VotePhoto) -> Unit,
     onSwipeFinish: () -> Unit,
-    onVoteByClicked: (result: PhotoVoteType, photo: Photo) -> Unit,
+    onVoteByClicked: (result: PhotoVoteType, photo: VotePhoto) -> Unit,
 ) {
     Box(
         modifier = modifier,
@@ -262,7 +262,7 @@ private fun PhotoCardContainer(
 @Composable
 private fun PhotoCardContent(
     modifier: Modifier = Modifier,
-    photo: Photo,
+    photo: VotePhoto,
 ) {
     AsyncImage(
         modifier = modifier
