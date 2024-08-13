@@ -1,9 +1,11 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -16,10 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicCroppedPhoto
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicPhotoCardFrame
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
@@ -28,9 +33,33 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 @Composable
 fun HistoryDetailScreen(
-
+    groupName: String,
+    keyword: GroupKeyword,
+    item: HistoryItem,
+    onClickBackButton: () -> Unit,
 ) {
-
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.Black),
+    ) {
+        PicBackButtonTopBar(
+            modifier = Modifier
+                .background(Gray0.copy(alpha = 0.1f))
+                .padding(top = 56.dp),
+            isLightMode = false,
+            titleText = groupName,
+            titleAlign = PicTopBarTitleAlign.LEFT,
+            backButtonClicked = onClickBackButton,
+        )
+        HistoryPhotoCard(
+            modifier = Modifier
+                .weight(1f)
+                .wrapContentSize(),
+            keyword = keyword,
+            item = item,
+        )
+    }
 }
 
 @Composable
@@ -96,9 +125,10 @@ private fun GridPhotoSection(
 
 @Composable
 @Preview(showBackground = true)
-private fun HistoryPhotoCardPreview() {
+private fun HistoryDetailScreenPreview() {
     SharedAlbumTheme {
-        HistoryPhotoCard(
+        HistoryDetailScreen(
+            groupName = "가빵집",
             keyword = GroupKeyword.CREW,
             item = HistoryItem(
                 id = 0,
@@ -125,14 +155,7 @@ private fun HistoryPhotoCardPreview() {
                     ),
                 ),
             ),
+            onClickBackButton = {},
         )
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-private fun HistoryDetailScreenPreview() {
-    SharedAlbumTheme {
-        HistoryDetailScreen()
     }
 }
