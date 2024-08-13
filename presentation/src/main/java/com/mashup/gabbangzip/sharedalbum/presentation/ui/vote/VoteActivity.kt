@@ -9,10 +9,12 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.navigation.VoteNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.navigation.VoteNavRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.navigation.navigateToVoteComplete
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,7 +54,7 @@ class VoteActivity : ComponentActivity() {
                     if (isUploadSuccess) {
                         navController.navigateToVoteComplete()
                     } else {
-                        // TODO: 향후 논의해서 업로드 실패시 에러토스트..? 스낵바..? 정하기.
+                        showToast(R.string.error_retry)
                     }
                 },
             )
