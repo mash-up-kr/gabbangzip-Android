@@ -34,6 +34,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicCroppedPhoto
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.preview.EventHistoryProvider
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
@@ -41,6 +42,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 @Composable
 fun EventHistoryContainer(
     modifier: Modifier = Modifier,
+    backgroundColor: Color,
     history: List<HistoryItem>,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
@@ -61,6 +63,7 @@ fun EventHistoryContainer(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
+                backgroundColor = backgroundColor,
                 history = history,
                 onClickHistoryItem = onClickHistoryItem,
             )
@@ -94,6 +97,7 @@ private fun EventHistoryEmptyContent(
 @Composable
 private fun EventHistoryGridContent(
     modifier: Modifier = Modifier,
+    backgroundColor: Color,
     history: List<HistoryItem>,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
@@ -106,6 +110,7 @@ private fun EventHistoryGridContent(
     ) {
         items(history) { item ->
             EventHistoryItemContainer(
+                backgroundColor = backgroundColor,
                 item = item,
                 onClickHistoryItem = onClickHistoryItem,
             )
@@ -116,6 +121,7 @@ private fun EventHistoryGridContent(
 @Composable
 private fun EventHistoryItemContainer(
     modifier: Modifier = Modifier,
+    backgroundColor: Color,
     item: HistoryItem,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
@@ -129,7 +135,7 @@ private fun EventHistoryItemContainer(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f),
-            backgroundColor = Gray60,
+            backgroundColor = backgroundColor,
             cardBackImageList = item.images,
         )
         Text(
@@ -187,6 +193,7 @@ private fun EventHistoryContainerPreview(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
+        backgroundColor = GroupKeyword.SCHOOL.behindCardBackGroundColor,
         history = history,
         onClickHistoryItem = {},
     )
@@ -196,6 +203,7 @@ private fun EventHistoryContainerPreview(
 @Composable
 private fun EventHistoryItemPreview() {
     EventHistoryItemContainer(
+        backgroundColor = GroupKeyword.SCHOOL.behindCardBackGroundColor,
         item = HistoryItem(
             title = "가빵집 MT",
             date = "2024.11.03",
