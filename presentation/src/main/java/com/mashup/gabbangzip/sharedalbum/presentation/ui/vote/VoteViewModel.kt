@@ -1,14 +1,16 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.vote
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.model.vote.VoteResultParam
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.LoadUserInfoUseCase
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.vote.GetVotePhotoListUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.vote.RequestVoteResultUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.toUiModel
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.Photo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.VotePhoto
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,19 +22,37 @@ import javax.inject.Inject
 
 @HiltViewModel
 class VoteViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val requestVoteResultUseCase: RequestVoteResultUseCase,
-    private val loadUserInfoUseCase: LoadUserInfoUseCase,
+    private val getVotePhotoListUseCase: GetVotePhotoListUseCase,
+    private val getLoadUserInfoUseCase: LoadUserInfoUseCase,
 ) : ViewModel() {
     private val _voteUiState = MutableStateFlow(PhotoVoteState())
     val voteUiState = _voteUiState.asStateFlow()
 
-    private val likedPhotoList = mutableListOf<Photo>()
+    private val likedPhotoList = mutableListOf<VotePhoto>()
 
-    fun fetchUserName() {
+    fun fetchVotePhotoList(eventIdKey: String) {
+        savedStateHandle.get<Long>(eventIdKey)?.let { eventId ->
+            viewModelScope.launch {
+                getVotePhotoListUseCase(eventId).onSuccess { votePhotoList ->
+                    _voteUiState.update {
+                        it.copy(
+                            photoList = ImmutableList(votePhotoList.toUiModel()),
+                        )
+                    }
+                }.onFailure {
+                    updateErrorState()
+                }
+            }
+        } ?: updateErrorState()
+    }
+
+    fun fetchUserInfo() {
         viewModelScope.launch {
-            val userInfo = loadUserInfoUseCase()
+            val userInfo = getLoadUserInfoUseCase().toUiModel()
             _voteUiState.update { state ->
-                state.copy(userInfo = userInfo.toUiModel())
+                state.copy(userInfo = userInfo)
             }
         }
     }
@@ -58,7 +78,7 @@ class VoteViewModel @Inject constructor(
         }
     }
 
-    fun addVoteResult(voteType: PhotoVoteType, photo: Photo) {
+    fun addVoteResult(voteType: PhotoVoteType, photo: VotePhoto) {
         if (voteType == PhotoVoteType.LIKE) {
             likedPhotoList.add(photo)
         }
@@ -85,6 +105,14 @@ class VoteViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    private fun updateErrorState() {
+        _voteUiState.update { state ->
+            state.copy(
+                isError = true,
+            )
         }
     }
 }
