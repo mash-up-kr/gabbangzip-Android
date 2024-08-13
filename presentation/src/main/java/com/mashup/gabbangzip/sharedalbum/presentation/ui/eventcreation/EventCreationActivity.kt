@@ -75,6 +75,7 @@ class EventCreationActivity : ComponentActivity() {
                         },
                         onGalleryButtonClicked = photoPicker::open,
                         onPictureDeleteButtonClicked = eventCreationViewModel::deletePicture,
+                        onBackButtonClicked = { finish() },
                     )
                 }
 
