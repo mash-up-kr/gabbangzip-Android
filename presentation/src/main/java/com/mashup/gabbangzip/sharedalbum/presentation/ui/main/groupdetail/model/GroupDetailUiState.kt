@@ -9,5 +9,5 @@ data class GroupDetailUiState(
     val status: GroupStatusType = GroupStatusType.NO_CURRENT_EVENT,
     val recentEvent: GroupEvent? = null,
     val history: List<HistoryItem> = emptyList(),
-    val error: String? = null,
+    val isError: Boolean = false,
 )
