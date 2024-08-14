@@ -27,6 +27,7 @@ fun MainNavHost(
     navController: NavHostController,
     startDestination: String,
     navigateLoginAndFinish: () -> Unit,
+    navigateToGroupCreationAndFinish: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
     onClickPokeButton: () -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
@@ -40,6 +41,7 @@ fun MainNavHost(
         startDestination = startDestination,
     ) {
         groupHomeNavGraph(
+            navigateToGroupCreationAndFinish = navigateToGroupCreationAndFinish,
             onClickGroupDetail = { id -> navController.navigateGroupDetail(id) },
             onClickMyPage = { navController.navigateMyPage() },
             onClickEventMake = { id -> EventCreationActivity.openActivity(context, id) },

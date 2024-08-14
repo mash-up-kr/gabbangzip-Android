@@ -15,7 +15,7 @@ fun NavController.navigateGroupMember(
     groupId: Long,
     keyword: String,
 ) {
-    navigate("${MainRoute.GroupDetailRoute.route}/$groupId/$keyword")
+    navigate("${MainRoute.GroupMemberRoute.route}/$groupId/$keyword")
 }
 
 fun NavGraphBuilder.groupMemberNavGraph(
@@ -23,7 +23,7 @@ fun NavGraphBuilder.groupMemberNavGraph(
     onShowSnackbar: (PicSnackbarType, String) -> Unit,
 ) {
     composable(
-        route = "${MainRoute.GroupDetailRoute.route}/$KEY_GROUP_ID/$KEY_GROUP_KEYWORD",
+        route = "${MainRoute.GroupMemberRoute.route}/{$KEY_GROUP_ID}/{$KEY_GROUP_KEYWORD}",
         arguments = listOf(
             navArgument(KEY_GROUP_ID) { type = NavType.LongType },
             navArgument(KEY_GROUP_KEYWORD) { type = NavType.StringType },

@@ -4,7 +4,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.GroupHomeScreen
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 
 fun NavController.navigateGroupHome() {
@@ -12,6 +11,7 @@ fun NavController.navigateGroupHome() {
 }
 
 fun NavGraphBuilder.groupHomeNavGraph(
+    navigateToGroupCreationAndFinish: () -> Unit,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
@@ -21,7 +21,7 @@ fun NavGraphBuilder.groupHomeNavGraph(
 ) {
     composable(route = MainRoute.GroupHomeRoute.route) {
         GroupHomeScreen(
-            state = GroupHomeUiState(),
+            navigateToGroupCreationAndFinish = navigateToGroupCreationAndFinish,
             onClickGroupDetail = onClickGroupDetail,
             onClickEventMake = onClickEventMake,
             onClickMyPage = onClickMyPage,
