@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class UploadImagesRequest(
+data class UploadMyPicRequest(
     @Json(name = "event_id")
     val eventId: Long,
     @Json(name = "image_urls")

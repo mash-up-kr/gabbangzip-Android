@@ -1,6 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.domain.model.event
 
-data class UploadImagesParam(
+data class UploadMyPicDomainModel(
     val eventId: Long,
-    val imageUrls: List<String>,
 )

@@ -1,7 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.domain.usecase
 
-import com.mashup.gabbangzip.sharedalbum.domain.model.event.UploadImagesDomainModel
-import com.mashup.gabbangzip.sharedalbum.domain.model.event.UploadImagesParam
+import com.mashup.gabbangzip.sharedalbum.domain.model.event.UploadMyPicDomainModel
+import com.mashup.gabbangzip.sharedalbum.domain.model.event.UploadMyPicParam
 import com.mashup.gabbangzip.sharedalbum.domain.repository.EventRepository
 import dagger.Reusable
 import java.io.File
@@ -16,7 +16,7 @@ class UploadMyPicUseCase @Inject constructor(
     suspend operator fun invoke(
         eventId: Long,
         fileList: List<File>,
-    ): Result<UploadImagesDomainModel> {
+    ): Result<UploadMyPicDomainModel> {
         return runCatching {
             val pictureList = mutableListOf<String>()
             fileList.forEach { file ->
@@ -24,8 +24,8 @@ class UploadMyPicUseCase @Inject constructor(
                     .onSuccess { fileId -> pictureList.add(fileId) }
                     .onFailure { throw IOException(it.message) }
             }
-            eventRepository.uploadImages(
-                UploadImagesParam(eventId, pictureList),
+            eventRepository.uploadMyPic(
+                UploadMyPicParam(eventId, pictureList),
             )
         }
     }
