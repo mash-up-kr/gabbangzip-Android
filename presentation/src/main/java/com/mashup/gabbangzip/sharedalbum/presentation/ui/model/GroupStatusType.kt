@@ -36,7 +36,7 @@ enum class GroupStatusType {
                     Triple(
                         R.drawable.ic_btn_vote,
                         R.string.group_home_select_pic,
-                        ClickType.MyPick,
+                        ClickType.Vote,
                     )
                 }
 

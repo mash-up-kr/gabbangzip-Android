@@ -184,7 +184,7 @@ private fun GroupContainer(
                     onButtonClicked = {
                         when (clickType) {
                             ClickType.Fcm -> onClickSendFcm(groupInfo.recentEvent.id)
-                            ClickType.MyPick -> onNavigateVote()
+                            ClickType.Vote -> onNavigateVote()
                             ClickType.Gallery -> onNavigateGallery()
                         }
                     },
