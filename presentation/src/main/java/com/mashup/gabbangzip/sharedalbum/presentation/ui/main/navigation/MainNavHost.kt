@@ -28,7 +28,7 @@ fun MainNavHost(
     startDestination: String,
     navigateLoginAndFinish: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
-    onClickPokeButton: (eventId: Long) -> Unit,
+    onClickSendFcmButton: (eventId: Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onSnackbarRequired: (PicSnackbarType, String) -> Unit,
 ) {
@@ -45,7 +45,7 @@ fun MainNavHost(
             onClickEventMake = { id -> EventCreationActivity.openActivity(context, id) },
             onClickGroupMake = { GroupCreationActivity.openActivity(context) },
             onClickGroupEnter = { InvitationCodeActivity.openActivity(context) },
-            onClickSendFcm = onClickPokeButton,
+            onClickSendFcmButton = onClickSendFcmButton,
             onNavigateGallery = onClickOpenPhotoPickerButton,
             onNavigateVote = { VoteActivity.openActivity(context) },
         )
@@ -55,7 +55,7 @@ fun MainNavHost(
             },
             onClickBackButton = { navController.popBackStack() },
             onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
-            onClickPokeButton = onClickPokeButton,
+            onClickSendFcmButton = onClickSendFcmButton,
             onClickVoteButton = { VoteActivity.openActivity(context) },
             onClickEventMake = { id -> EventCreationActivity.openActivity(context, id) },
             onClickShareButton = onClickShareButton,

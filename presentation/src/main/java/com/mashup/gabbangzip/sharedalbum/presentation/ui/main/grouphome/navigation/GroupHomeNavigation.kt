@@ -17,7 +17,7 @@ fun NavGraphBuilder.groupHomeNavGraph(
     onClickMyPage: () -> Unit,
     onClickGroupMake: () -> Unit,
     onClickGroupEnter: () -> Unit,
-    onClickSendFcm: (eventId: Long) -> Unit,
+    onClickSendFcmButton: (eventId: Long) -> Unit,
     onNavigateGallery: () -> Unit,
     onNavigateVote: () -> Unit,
 ) {
@@ -29,7 +29,7 @@ fun NavGraphBuilder.groupHomeNavGraph(
             onClickMyPage = onClickMyPage,
             onClickGroupMake = onClickGroupMake,
             onClickGroupEnter = onClickGroupEnter,
-            onClickSendFcm = onClickSendFcm,
+            onClickSendFcmButton = onClickSendFcmButton,
             onNavigateGallery = onNavigateGallery,
             onNavigateVote = onNavigateVote,
         )

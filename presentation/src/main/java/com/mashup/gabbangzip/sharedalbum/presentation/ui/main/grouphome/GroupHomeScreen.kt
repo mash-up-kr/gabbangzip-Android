@@ -75,7 +75,7 @@ fun GroupHomeScreen(
     onClickMyPage: () -> Unit,
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
-    onClickSendFcm: (eventId: Long) -> Unit,
+    onClickSendFcmButton: (eventId: Long) -> Unit,
     onNavigateGallery: () -> Unit,
     onNavigateVote: () -> Unit,
 ) {
@@ -103,7 +103,7 @@ fun GroupHomeScreen(
                         },
                         groupInfo = groupInfo,
                         onGroupDetailClick = onClickGroupDetail,
-                        onClickSendFcm = onClickSendFcm,
+                        onClickSendFcmButton = onClickSendFcmButton,
                         onClickEventMake = onClickEventMake,
                         onNavigateVote = onNavigateVote,
                         onNavigateGallery = onNavigateGallery,
@@ -137,7 +137,7 @@ private fun GroupContainer(
     modifier: Modifier,
     groupInfo: GroupInfo,
     onGroupDetailClick: (id: Long) -> Unit,
-    onClickSendFcm: (eventId: Long) -> Unit,
+    onClickSendFcmButton: (eventId: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onNavigateVote: () -> Unit,
     onNavigateGallery: () -> Unit,
@@ -183,7 +183,7 @@ private fun GroupContainer(
                     text = stringResource(textResId),
                     onButtonClicked = {
                         when (clickType) {
-                            ClickType.Fcm -> onClickSendFcm(groupInfo.recentEvent.id)
+                            ClickType.Fcm -> onClickSendFcmButton(groupInfo.recentEvent.id)
                             ClickType.Vote -> onNavigateVote()
                             ClickType.Gallery -> onNavigateGallery()
                         }
@@ -579,7 +579,7 @@ private fun GroupHomeScreenPreview() {
         onClickMyPage = {},
         onClickGroupMake = {},
         onClickGroupEnter = {},
-        onClickSendFcm = {},
+        onClickSendFcmButton = {},
         onNavigateGallery = {},
         onNavigateVote = {},
     )
