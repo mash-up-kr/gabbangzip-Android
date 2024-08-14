@@ -18,7 +18,7 @@ fun NavController.navigateGroupDetail(groupId: Long) {
 fun NavGraphBuilder.groupDetailNavGraph(
     onClickGroupMemberButton: (groupId: Long, keyword: String) -> Unit,
     onClickBackButton: () -> Unit,
-    onClickOpenPhotoPickerButton: () -> Unit,
+    onClickOpenPhotoPickerButton: (eventId: Long) -> Unit,
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onClickVoteButton: (eventId: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,

@@ -23,7 +23,6 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackba
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.model.MainEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.MainEvent
@@ -129,6 +128,7 @@ class MainActivity : ComponentActivity() {
 
     companion object {
         const val PICTURES_MAX_COUNT = 4
+
         fun openActivity(context: Activity) {
             context.startActivity(
                 Intent(context, MainActivity::class.java),

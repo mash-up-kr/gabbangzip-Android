@@ -8,7 +8,6 @@ import com.mashup.gabbangzip.sharedalbum.domain.model.notification.FcmNotificati
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.UploadMyPicUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.notification.RegisterFcmTokenUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.notification.SendFcmNotificationUseCase
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.model.MainEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.MainEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
