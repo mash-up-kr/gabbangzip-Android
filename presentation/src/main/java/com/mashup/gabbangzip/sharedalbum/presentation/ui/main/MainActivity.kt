@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
                         onClickOpenPhotoPickerButton = {
                             photoPicker.open()
                         },
-                        onClickPokeButton = { eventId ->
+                        onClickSendFcmButton = { eventId ->
                             viewModel.sendKookNotification(eventId)
                         },
                         onClickShareButton = { bitmap ->
@@ -94,17 +94,12 @@ class MainActivity : ComponentActivity() {
         LaunchedEffect(null) {
             viewModel.mainEvent.collect { event ->
                 when (event) {
-                    MainEvent.Empty -> { /* TODO : 스펙 논의 후 향후 구현 */
-                    }
-
-                    MainEvent.Success -> snackbarHostState.showPicSnackbar(
+                    MainEvent.SuccessNotification -> snackbarHostState.showPicSnackbar(
                         type = PicSnackbarType.NORMAL,
                         message = getString(R.string.kook_snackbar),
                     )
 
-                    MainEvent.Error -> showToast(R.string.error_retry)
-                    MainEvent.Loading -> { /* TODO : 스펙 논의 후 향후 구현 */
-                    }
+                    MainEvent.FailNotification -> showToast(R.string.error_retry)
                 }
             }
         }

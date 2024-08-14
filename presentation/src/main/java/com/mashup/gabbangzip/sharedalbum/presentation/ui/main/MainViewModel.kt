@@ -4,10 +4,10 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.messaging.FirebaseMessaging
-import com.mashup.gabbangzip.sharedalbum.domain.model.notification.KookNotificationParamDomainModel
+import com.mashup.gabbangzip.sharedalbum.domain.model.notification.FcmNotificationParamDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.UploadMyPicUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.notification.RegisterFcmTokenUseCase
-import com.mashup.gabbangzip.sharedalbum.domain.usecase.notification.SendKookNotificationUseCase
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.notification.SendFcmNotificationUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.MainEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val registerFcmTokenUseCase: RegisterFcmTokenUseCase,
     private val uploadMyPicUseCase: UploadMyPicUseCase,
-    private val sendKookNotificationUseCase: SendKookNotificationUseCase,
+    private val sendFcmNotificationUseCase: SendFcmNotificationUseCase,
 ) : ViewModel() {
 
     private val _mainEvent = MutableSharedFlow<MainEvent>()
@@ -46,14 +46,14 @@ class MainViewModel @Inject constructor(
 
     fun sendKookNotification(eventId: Long) {
         viewModelScope.launch {
-            sendKookNotificationUseCase(
-                KookNotificationParamDomainModel(
+            sendFcmNotificationUseCase(
+                FcmNotificationParamDomainModel(
                     eventId = eventId,
                 ),
             ).onSuccess {
-                _mainEvent.emit(MainEvent.Success)
+                _mainEvent.emit(MainEvent.SuccessNotification)
             }.onFailure {
-                _mainEvent.emit(MainEvent.Error)
+                _mainEvent.emit(MainEvent.FailNotification)
             }
         }
     }
