@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.data.dto.request
+package com.mashup.gabbangzip.sharedalbum.data.dto.request.event
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
