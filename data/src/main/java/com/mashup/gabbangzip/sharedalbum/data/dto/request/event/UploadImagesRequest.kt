@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class UploadImagesRequest(
     @Json(name = "event_id")
-    val eventId: Int,
+    val eventId: Long,
     @Json(name = "image_urls")
     val imageUrls: List<String>,
 )
