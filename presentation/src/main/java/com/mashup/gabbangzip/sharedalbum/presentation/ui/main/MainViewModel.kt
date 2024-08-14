@@ -1,6 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main
 
-import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.messaging.FirebaseMessaging
@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,9 +39,18 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun uploadMyPic(uri: Uri) {
+    fun uploadMyPic(eventId: Long, fileList: List<File>) {
         viewModelScope.launch {
-            uploadMyPicUseCase()
+            uploadMyPicUseCase(
+                eventId = eventId,
+                fileList = fileList,
+            ).onSuccess {
+                Log.d(TAG, "내 PIC 올리기 성공")
+                // 스낵바
+            }.onFailure {
+                Log.d(TAG, "내 PIC 올리기 실패")
+                // 스낵바
+            }
         }
     }
 
@@ -56,5 +66,9 @@ class MainViewModel @Inject constructor(
                 _mainEvent.emit(MainEvent.FailNotification)
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "MainViewModel"
     }
 }
