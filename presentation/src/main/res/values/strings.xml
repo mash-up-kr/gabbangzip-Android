@@ -131,6 +131,7 @@
     <string name="group_home_pic_fcm">쿡 찌르기</string>
     <string name="group_home_pic_upload">내 PIC 올리기</string>
     <string name="group_home_select_pic">픽 고르기</string>
+    <string name="my_pic_upload_complete">내 PIC 올리기 완료!</string>
     <string name="error_retry">다시 시도해주세요.</string>
     <string name="kook_snackbar">그룹원들을 쿡 찔렀어요!</string>
 </resources>

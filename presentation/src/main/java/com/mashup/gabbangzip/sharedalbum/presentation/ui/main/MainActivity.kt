@@ -23,6 +23,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackba
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.model.MainEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.MainEvent
@@ -112,6 +113,15 @@ class MainActivity : ComponentActivity() {
                     )
 
                     MainEvent.FailNotification -> showToast(R.string.error_retry)
+
+                    MainEvent.SuccessUploadMyPic -> {
+                        snackbarHostState.showPicSnackbar(
+                            type = PicSnackbarType.NORMAL,
+                            message = getString(R.string.my_pic_upload_complete),
+                        )
+                    }
+
+                    MainEvent.FailUploadMyPic -> showToast(R.string.error_retry)
                 }
             }
         }
