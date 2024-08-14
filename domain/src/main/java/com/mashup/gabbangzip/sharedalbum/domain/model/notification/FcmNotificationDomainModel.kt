@@ -1,5 +1,5 @@
 package com.mashup.gabbangzip.sharedalbum.domain.model.notification
 
-data class KookNotificationDomainModel(
+data class FcmNotificationDomainModel(
     val eventId: Long,
 )
