@@ -67,7 +67,8 @@ class MainActivity : ComponentActivity() {
                             GroupCreationActivity.openActivity(this)
                             finish()
                         },
-                        onClickOpenPhotoPickerButton = {
+                        onClickOpenPhotoPickerButton = { eventId ->
+                            viewModel.setCurrentEventId(eventId)
                             photoPicker.open()
                         },
                         onClickSendFcmButton = { eventId ->
@@ -95,9 +96,7 @@ class MainActivity : ComponentActivity() {
         ) { uriList ->
             uriList.mapNotNull { uri ->
                 FileUtil.getFileFromUri(this, uri)
-            }.also {
-                viewModel.uploadMyPic(0, it)
-            }
+            }.also { viewModel.uploadMyPic(it) }
         }
     }
 

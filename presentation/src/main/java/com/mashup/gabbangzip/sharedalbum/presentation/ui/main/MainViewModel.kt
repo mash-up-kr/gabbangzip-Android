@@ -22,6 +22,7 @@ class MainViewModel @Inject constructor(
     private val uploadMyPicUseCase: UploadMyPicUseCase,
     private val sendFcmNotificationUseCase: SendFcmNotificationUseCase,
 ) : ViewModel() {
+    private var currentEventId: Long = -1
 
     private val _mainEvent = MutableSharedFlow<MainEvent>()
     val mainEvent = _mainEvent.asSharedFlow()
@@ -39,10 +40,12 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun uploadMyPic(eventId: Long, fileList: List<File>) {
+    fun setCurrentEventId(eventId: Long) { currentEventId = eventId }
+
+    fun uploadMyPic(fileList: List<File>) {
         viewModelScope.launch {
             uploadMyPicUseCase(
-                eventId = eventId,
+                eventId = currentEventId,
                 fileList = fileList,
             ).onSuccess {
                 Log.d(TAG, "내 PIC 올리기 성공")
