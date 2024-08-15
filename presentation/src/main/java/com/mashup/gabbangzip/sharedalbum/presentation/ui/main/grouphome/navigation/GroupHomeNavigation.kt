@@ -19,7 +19,7 @@ fun NavGraphBuilder.groupHomeNavGraph(
     onClickGroupEnter: () -> Unit,
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onNavigateGallery: () -> Unit,
-    onNavigateVote: () -> Unit,
+    onNavigateVote: (eventId: Long) -> Unit,
 ) {
     composable(route = MainRoute.GroupHomeRoute.route) {
         GroupHomeScreen(

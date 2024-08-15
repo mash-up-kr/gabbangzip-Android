@@ -50,7 +50,7 @@ fun MainNavHost(
             onClickGroupEnter = { InvitationCodeActivity.openActivity(context) },
             onClickSendFcmButton = onClickSendFcmButton,
             onNavigateGallery = onClickOpenPhotoPickerButton,
-            onNavigateVote = { VoteActivity.openActivity(context) },
+            onNavigateVote = { id -> VoteActivity.openActivity(context, id) },
         )
         groupDetailNavGraph(
             onClickGroupMemberButton = { id, keyword ->
