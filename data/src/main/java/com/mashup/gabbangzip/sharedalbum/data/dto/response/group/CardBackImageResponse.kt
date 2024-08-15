@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.data.dto.response.group
 
+import com.mashup.gabbangzip.sharedalbum.data.common.toS3Url
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.CardBackImageDomainModel
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -15,6 +16,6 @@ data class CardBackImageResponse(
 fun CardBackImageResponse.toDomainModel(): CardBackImageDomainModel {
     return CardBackImageDomainModel(
         frameType = frameType,
-        imageUrl = imageUrl,
+        imageUrl = imageUrl.toS3Url(),
     )
 }
