@@ -1,8 +1,9 @@
-package com.mashup.gabbangzip.sharedalbum.domain.usecase
+package com.mashup.gabbangzip.sharedalbum.domain.usecase.event
 
 import com.mashup.gabbangzip.sharedalbum.domain.model.event.EventCreationDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.model.event.EventCreationParam
 import com.mashup.gabbangzip.sharedalbum.domain.repository.EventRepository
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.UploadImageUseCase
 import dagger.Reusable
 import java.io.File
 import java.io.IOException
