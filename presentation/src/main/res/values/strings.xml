@@ -96,7 +96,7 @@
     <string name="group_detail_event_complete">네컷 사진이 만들어졌어요!</string>
     <string name="group_detail_history_title">우리들의 인생네컷</string>
     <string name="group_detail_empty_history_image_description">역대 이벤트 기본 이미지</string>
-    <string name="group_detail_empty_history_label">그룹 이벤트를 만들고\n우리끼리 PIC으로 인생 네컷을 모아보세요</string>
+    <string name="group_detail_empty_history_label">네컷 사진이 만들어지면\n이벤트가 추가돼요.</string>
 
     <string name="button_text_state_before_my_upload">내 PIC 올리기</string>
     <string name="information_text_state_before_my_upload">까지 내 PIC 등록을 완료해 주세요.</string>
