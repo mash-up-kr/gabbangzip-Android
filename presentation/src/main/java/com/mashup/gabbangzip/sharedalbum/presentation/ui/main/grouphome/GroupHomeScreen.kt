@@ -76,8 +76,10 @@ fun GroupHomeScreen(
     onClickMyPage: () -> Unit,
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
-    onClickSendFcm: () -> Unit,
+    onClickSendFcmButton: (eventId: Long) -> Unit,
     navigateToGroupCreationAndFinish: () -> Unit,
+    onNavigateGallery: () -> Unit,
+    onNavigateVote: () -> Unit,
     viewModel: GroupHomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -95,7 +97,9 @@ fun GroupHomeScreen(
                 onClickMyPage = onClickMyPage,
                 onClickGroupEnter = onClickGroupEnter,
                 onClickGroupMake = onClickGroupMake,
-                onClickSendFcm = onClickSendFcm,
+                onClickSendFcmButton = onClickSendFcmButton,
+                onNavigateVote = onNavigateVote,
+                onNavigateGallery = onNavigateGallery,
             )
         }
 
