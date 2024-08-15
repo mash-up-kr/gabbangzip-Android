@@ -2,6 +2,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
 import android.graphics.Bitmap
 import android.graphics.Picture
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -54,6 +55,7 @@ fun RecentEventContainer(
     onClickActionButton: (GroupStatusType) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
+    Log.d("TAG", "RecentEventContainer: status: $status")
     if (status == GroupStatusType.EVENT_COMPLETED) {
         CompletedEventContainer(
             modifier = modifier,
@@ -73,6 +75,7 @@ fun RecentEventContainer(
                 imageUrl = cardFrontImageUrl,
             )
             status.getActionButtonState()?.let { buttonState ->
+                Log.d("TAG", "RecentEventContainer: $buttonState")
                 RecentEventBottomSection(
                     modifier = Modifier.padding(top = 32.dp),
                     buttonState = buttonState,

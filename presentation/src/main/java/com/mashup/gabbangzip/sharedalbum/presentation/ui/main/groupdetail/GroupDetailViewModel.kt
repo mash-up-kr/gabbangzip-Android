@@ -8,6 +8,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -46,6 +47,7 @@ class GroupDetailViewModel @Inject constructor(
                         state.copy(
                             isLoading = false,
                             groupInfo = groupDetail.toUiModel(),
+                            status = GroupStatusType.getType(groupDetail.status),
                             recentEvent = groupDetail.recentEvent.toUiModel(),
                         )
                     }

@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.data.dto.response.group
 
+import com.mashup.gabbangzip.sharedalbum.data.common.toS3Url
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupDomainModel
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -30,7 +31,7 @@ fun GroupDetailResponse.toDomainModel(): GroupDomainModel {
     return GroupDomainModel(
         id = id,
         cardBackImages = cardBackImages?.map { it.toDomainModel() } ?: emptyList(),
-        cardFrontImageUrl = cardFrontImageUrl,
+        cardFrontImageUrl = cardFrontImageUrl.toS3Url(),
         keyword = keyword,
         name = name,
         recentEvent = recentEvent.toDomainModel(),
