@@ -10,4 +10,5 @@ data class GroupDetailUiState(
     val recentEvent: GroupEvent? = null,
     val history: List<HistoryItem> = emptyList(),
     val isError: Boolean = false,
+    val isFirstVisit: Boolean = false,
 )
