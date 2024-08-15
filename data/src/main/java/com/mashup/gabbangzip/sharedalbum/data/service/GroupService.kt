@@ -32,7 +32,7 @@ interface GroupService {
         @Path(value = "groupId") groupId: Long,
     ): PicResponse<GroupMemberResponse>
 
-    @GET("api/v1/groups/join")
+    @POST("api/v1/groups/join")
     suspend fun enterGroupByCode(
         @Body enterGroupRequest: EnterGroupRequest,
     ): PicResponse<EnterGroupResponse>
