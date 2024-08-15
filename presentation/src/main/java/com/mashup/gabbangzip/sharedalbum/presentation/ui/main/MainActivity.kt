@@ -114,7 +114,7 @@ class MainActivity : ComponentActivity() {
 
                     MainEvent.SuccessUploadMyPic -> {
                         snackbarHostState.showPicSnackbar(
-                            type = PicSnackbarType.NORMAL,
+                            type = PicSnackbarType.CHECK,
                             message = getString(R.string.my_pic_upload_complete),
                         )
                     }
