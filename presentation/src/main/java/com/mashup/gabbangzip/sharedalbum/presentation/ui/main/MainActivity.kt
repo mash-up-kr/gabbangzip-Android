@@ -10,19 +10,25 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.MainEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -39,7 +45,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             val snackbarHostState = remember { SnackbarHostState() }
             val coroutineScope = rememberCoroutineScope()
+
             SharedAlbumTheme {
+                ObserveEvent(snackbarHostState)
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     snackbarHost = { PicSnackbarHost(state = snackbarHostState) },
@@ -61,7 +69,9 @@ class MainActivity : ComponentActivity() {
                         onClickOpenPhotoPickerButton = {
                             photoPicker.open()
                         },
-                        onClickPokeButton = viewModel::pokeOtherUser,
+                        onClickSendFcmButton = { eventId ->
+                            viewModel.sendKookNotification(eventId)
+                        },
                         onClickShareButton = { bitmap ->
                             shareBitmap(bitmap)
                         },
@@ -80,6 +90,22 @@ class MainActivity : ComponentActivity() {
         photoPicker = PicPhotoPicker.create(this) { uri ->
             if (uri != null) {
                 viewModel.uploadMyPic(uri)
+            }
+        }
+    }
+
+    @Composable
+    private fun ObserveEvent(snackbarHostState: SnackbarHostState) {
+        LaunchedEffect(null) {
+            viewModel.mainEvent.collect { event ->
+                when (event) {
+                    MainEvent.SuccessNotification -> snackbarHostState.showPicSnackbar(
+                        type = PicSnackbarType.NORMAL,
+                        message = getString(R.string.kook_snackbar),
+                    )
+
+                    MainEvent.FailNotification -> showToast(R.string.error_retry)
+                }
             }
         }
     }

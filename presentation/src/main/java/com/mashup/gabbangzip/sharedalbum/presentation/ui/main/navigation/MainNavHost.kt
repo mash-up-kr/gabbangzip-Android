@@ -29,7 +29,7 @@ fun MainNavHost(
     navigateLoginAndFinish: () -> Unit,
     navigateToGroupCreationAndFinish: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
-    onClickPokeButton: () -> Unit,
+    onClickSendFcmButton: (eventId: Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onSnackbarRequired: (PicSnackbarType, String) -> Unit,
 ) {
@@ -47,7 +47,9 @@ fun MainNavHost(
             onClickEventMake = { id -> EventCreationActivity.openActivity(context, id) },
             onClickGroupMake = { GroupCreationActivity.openActivity(context) },
             onClickGroupEnter = { InvitationCodeActivity.openActivity(context) },
-            onClickSendFcm = { /* TODO : 푸시 알림 */ },
+            onClickSendFcmButton = onClickSendFcmButton,
+            onNavigateGallery = onClickOpenPhotoPickerButton,
+            onNavigateVote = { VoteActivity.openActivity(context) },
         )
         groupDetailNavGraph(
             onClickGroupMemberButton = { id, keyword ->
@@ -55,7 +57,7 @@ fun MainNavHost(
             },
             onClickBackButton = { navController.popBackStack() },
             onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
-            onClickPokeButton = onClickPokeButton,
+            onClickSendFcmButton = onClickSendFcmButton,
             onClickVoteButton = { VoteActivity.openActivity(context) },
             onClickEventMake = { id -> EventCreationActivity.openActivity(context, id) },
             onClickShareButton = onClickShareButton,

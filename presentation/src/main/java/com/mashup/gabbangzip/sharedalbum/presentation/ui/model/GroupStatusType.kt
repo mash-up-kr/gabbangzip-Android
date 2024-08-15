@@ -1,6 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.model
 
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.ClickType
 
 enum class GroupStatusType {
     NO_PAST_AND_CURRENT_EVENT,
@@ -17,18 +18,26 @@ enum class GroupStatusType {
             return entries.associateBy { it.name }[status] ?: NO_PAST_AND_CURRENT_EVENT
         }
 
-        fun getButtonRes(type: GroupStatusType): Pair<Int, Int>? {
+        fun getButtonRes(type: GroupStatusType): Triple<Int, Int, ClickType>? {
             return when (type) {
                 AFTER_MY_VOTE, AFTER_MY_UPLOAD -> {
-                    Pair(R.drawable.ic_group_notice, R.string.group_home_pic_fcm)
+                    Triple(R.drawable.ic_group_notice, R.string.group_home_pic_fcm, ClickType.Fcm)
                 }
 
                 BEFORE_MY_UPLOAD -> {
-                    Pair(R.drawable.ic_btn_gallery, R.string.group_home_pic_upload)
+                    Triple(
+                        R.drawable.ic_btn_gallery,
+                        R.string.group_home_pic_upload,
+                        ClickType.Gallery,
+                    )
                 }
 
                 BEFORE_MY_VOTE -> {
-                    Pair(R.drawable.ic_btn_vote, R.string.group_home_select_pic)
+                    Triple(
+                        R.drawable.ic_btn_vote,
+                        R.string.group_home_select_pic,
+                        ClickType.Vote,
+                    )
                 }
 
                 else -> null
