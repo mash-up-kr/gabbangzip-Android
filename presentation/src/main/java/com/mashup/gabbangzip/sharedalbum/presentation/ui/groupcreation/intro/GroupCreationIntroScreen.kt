@@ -88,7 +88,17 @@ fun GroupCreationIntroScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(horizontal = 21.dp, vertical = 16.dp),
+                .padding(top = 8.dp, start = 21.dp, end = 21.dp),
+            text = stringResource(id = R.string.group_creation_button_code),
+            backgroundColor = Gray40,
+            contentColor = Gray80,
+            onButtonClicked = onClickEnterByCodeButton,
+        )
+        PicButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(top = 12.dp, start = 21.dp, end = 21.dp, bottom = 16.dp),
             text = stringResource(id = R.string.group_creation_button_name),
             isRippleClickable = true,
             onButtonClicked = onClickNextButton,
