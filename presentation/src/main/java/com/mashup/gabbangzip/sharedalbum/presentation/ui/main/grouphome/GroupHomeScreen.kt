@@ -76,7 +76,9 @@ fun GroupHomeScreen(
     onClickMyPage: () -> Unit,
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
-    onClickSendFcm: () -> Unit,
+    onClickSendFcmButton: (eventId: Long) -> Unit,
+    onNavigateGallery: () -> Unit,
+    onNavigateVote: () -> Unit,
     navigateToGroupCreationAndFinish: () -> Unit,
     viewModel: GroupHomeViewModel = hiltViewModel(),
 ) {
@@ -95,7 +97,9 @@ fun GroupHomeScreen(
                 onClickMyPage = onClickMyPage,
                 onClickGroupEnter = onClickGroupEnter,
                 onClickGroupMake = onClickGroupMake,
-                onClickSendFcm = onClickSendFcm,
+                onClickSendFcmButton = onClickSendFcmButton,
+                onNavigateGallery = onNavigateGallery,
+                onNavigateVote = onNavigateVote,
             )
         }
 
