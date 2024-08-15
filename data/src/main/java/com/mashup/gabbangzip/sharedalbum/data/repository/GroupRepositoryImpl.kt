@@ -1,7 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.data.repository
 
 import com.mashup.gabbangzip.sharedalbum.data.base.callApi
-import com.mashup.gabbangzip.sharedalbum.data.common.Constants
+import com.mashup.gabbangzip.sharedalbum.data.common.toS3Url
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.CreateGroupRequest
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.EnterGroupRequest
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.toDomainModel
@@ -28,7 +28,7 @@ class GroupRepositoryImpl @Inject constructor(
                 id = id,
                 name = groupName,
                 keyword = keyword,
-                imageUrl = "${Constants.S3_BUCKET_DOMAIN_URL}$groupImageUrl",
+                imageUrl = groupImageUrl.toS3Url(),
                 invitationCode = invitationCode,
             )
         }
