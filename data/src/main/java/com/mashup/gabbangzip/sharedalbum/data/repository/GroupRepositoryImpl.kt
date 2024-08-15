@@ -28,7 +28,7 @@ class GroupRepositoryImpl @Inject constructor(
                 id = id,
                 name = groupName,
                 keyword = keyword,
-                imageUrl = "${Constants.S3_BUCKET_DOMAIN_URl}$groupImageUrl",
+                imageUrl = "${Constants.S3_BUCKET_DOMAIN_URL}$groupImageUrl",
                 invitationCode = invitationCode,
             )
         }
