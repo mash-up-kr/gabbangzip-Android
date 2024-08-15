@@ -30,7 +30,7 @@ class GroupDetailViewModel @Inject constructor(
             getGroupDetail(groupId)
         } else {
             _uiState.update { state ->
-                state.copy(error = "잘못된 접근입니다.")
+                state.copy(isError = true)
             }
         }
     }
@@ -47,14 +47,13 @@ class GroupDetailViewModel @Inject constructor(
                             isLoading = false,
                             groupInfo = groupDetail.toUiModel(),
                             recentEvent = groupDetail.recentEvent.toUiModel(),
-                            error = null,
                         )
                     }
-                }.onFailure { e ->
+                }.onFailure {
                     _uiState.update { state ->
                         state.copy(
                             isLoading = false,
-                            error = e.message,
+                            isError = true,
                         )
                     }
                 }
