@@ -3,6 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.event.CheckVisitUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupDetailUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupDetailUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.toUiModel
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class GroupDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getGroupDetailUseCase: GetGroupDetailUseCase,
+    private val checkVisitUseCase: CheckVisitUseCase,
 ) : ViewModel() {
     private val groupId = savedStateHandle.get<Long>(MainRoute.GroupDetailRoute.KEY_GROUP_ID)
 
@@ -32,6 +34,22 @@ class GroupDetailViewModel @Inject constructor(
         } else {
             _uiState.update { state ->
                 state.copy(isError = true)
+            }
+        }
+    }
+
+    fun checkVisit() {
+        uiState.value.recentEvent?.let { event ->
+            viewModelScope.launch {
+                checkVisitUseCase(event.id)
+                    .onSuccess { domain ->
+                        val eventVisit = domain.toUiModel()
+                        _uiState.update { state ->
+                            state.copy(
+                                isFirstVisit = eventVisit.isVisit,
+                            )
+                        }
+                    }
             }
         }
     }
