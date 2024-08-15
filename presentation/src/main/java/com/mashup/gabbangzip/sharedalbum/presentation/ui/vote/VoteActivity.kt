@@ -22,11 +22,15 @@ class VoteActivity : ComponentActivity() {
     private val viewModel: VoteViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.fetchUserName()
+        fetchVoteData()
 
         setContent {
             val state by viewModel.voteUiState.collectAsStateWithLifecycle()
             val navController = rememberNavController()
+
+            if (state.isError) {
+                showToast(R.string.error_retry)
+            }
 
             VoteNavHost(
                 state = state,
@@ -61,10 +65,21 @@ class VoteActivity : ComponentActivity() {
         }
     }
 
+    private fun fetchVoteData() {
+        with(viewModel) {
+            fetchUserInfo()
+            fetchVotePhotoList(EVENT_ID)
+        }
+    }
+
     companion object {
-        fun openActivity(context: Context) {
+        private const val EVENT_ID = "eventId"
+
+        fun openActivity(context: Context, eventId: Long) {
             context.startActivity(
-                Intent(context, VoteActivity::class.java),
+                Intent(context, VoteActivity::class.java).apply {
+                    putExtra(EVENT_ID, eventId)
+                },
             )
         }
     }

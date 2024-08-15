@@ -6,9 +6,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.PhotoVoteScreen
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.VoteCompleteScreen
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.Photo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.VotePhoto
 
 fun NavController.navigateToVote() {
     navigate(VoteNavRoute.VoteRoute.route)
@@ -23,8 +23,8 @@ fun NavGraphBuilder.voteNavGraph(
     onDialogConfirm: () -> Unit,
     onCancelVote: () -> Unit,
     onVoteExit: () -> Unit,
-    onVoteBySwiped: (voteType: PhotoVoteType, photo: Photo) -> Unit,
-    onVoteByClicked: (result: PhotoVoteType, photo: Photo) -> Unit,
+    onVoteBySwiped: (voteType: PhotoVoteType, photo: VotePhoto) -> Unit,
+    onVoteByClicked: (result: PhotoVoteType, photo: VotePhoto) -> Unit,
     onVoteClick: (voteType: PhotoVoteType) -> Unit,
     onSwipeFinish: () -> Unit,
     onUploadPicture: (Boolean) -> Unit,

@@ -38,20 +38,27 @@ fun GroupDetailScreen(
     onClickBackButton: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
     onClickSendFcmButton: (eventId: Long) -> Unit,
-    onClickVoteButton: () -> Unit,
+    onClickVoteButton: (eventId: Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onClickEventMake: () -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
+    onErrorEvent: () -> Unit,
     viewModel: GroupDetailViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
+    if (state.isError) {
+        onErrorEvent()
+    }
+
     GroupDetailScreen(
         state = state,
         onClickGroupMemberButton = {
-            state.groupInfo?.let {
-                onClickGroupMemberButton(it.keyword)
-            }
+            state.groupInfo
+                ?.let {
+                    onClickGroupMemberButton(it.keyword)
+                }
+                ?: onErrorEvent()
         },
         onClickBackButton = onClickBackButton,
         onClickActionButton = { status ->
@@ -65,7 +72,14 @@ fun GroupDetailScreen(
                     // TODO : #150 이슈 머지된 이후 errorEvent 로직 추가하기
                 }
 
-                GroupStatusType.BEFORE_MY_VOTE -> onClickVoteButton()
+                GroupStatusType.BEFORE_MY_VOTE -> {
+                    state.recentEvent
+                        ?.let { event ->
+                            onClickVoteButton(event.id)
+                        }
+                        ?: onErrorEvent()
+                }
+
                 else -> {}
             }
         },

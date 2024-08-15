@@ -32,6 +32,7 @@ fun MainNavHost(
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onSnackbarRequired: (PicSnackbarType, String) -> Unit,
+    onErrorEvent: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -49,7 +50,7 @@ fun MainNavHost(
             onClickGroupEnter = { InvitationCodeActivity.openActivity(context) },
             onClickSendFcmButton = onClickSendFcmButton,
             onNavigateGallery = onClickOpenPhotoPickerButton,
-            onNavigateVote = { VoteActivity.openActivity(context) },
+            onNavigateVote = { id -> VoteActivity.openActivity(context, id) },
         )
         groupDetailNavGraph(
             onClickGroupMemberButton = { id, keyword ->
@@ -58,10 +59,11 @@ fun MainNavHost(
             onClickBackButton = { navController.popBackStack() },
             onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
             onClickSendFcmButton = onClickSendFcmButton,
-            onClickVoteButton = { VoteActivity.openActivity(context) },
+            onClickVoteButton = { eventId -> VoteActivity.openActivity(context, eventId) },
             onClickEventMake = { id -> EventCreationActivity.openActivity(context, id) },
             onClickShareButton = onClickShareButton,
             onClickHistoryItem = { /* TODO */ },
+            onErrorEvent = onErrorEvent,
         )
         groupMemberNavGraph(
             onClickBackButton = { navController.popBackStack() },

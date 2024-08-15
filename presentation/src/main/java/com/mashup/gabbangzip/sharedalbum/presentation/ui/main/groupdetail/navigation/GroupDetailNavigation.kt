@@ -20,10 +20,11 @@ fun NavGraphBuilder.groupDetailNavGraph(
     onClickBackButton: () -> Unit,
     onClickOpenPhotoPickerButton: () -> Unit,
     onClickSendFcmButton: (eventId: Long) -> Unit,
-    onClickVoteButton: () -> Unit,
+    onClickVoteButton: (eventId: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
+    onErrorEvent: () -> Unit,
 ) {
     composable(
         route = "${MainRoute.GroupDetailRoute.route}/{$KEY_GROUP_ID}",
@@ -43,6 +44,7 @@ fun NavGraphBuilder.groupDetailNavGraph(
                 onClickShareButton = onClickShareButton,
                 onClickHistoryItem = onClickHistoryItem,
                 onClickEventMake = { onClickEventMake(groupId) },
+                onErrorEvent = onErrorEvent,
             )
         }
     }
