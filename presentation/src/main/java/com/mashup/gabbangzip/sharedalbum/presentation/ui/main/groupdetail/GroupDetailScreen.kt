@@ -152,7 +152,7 @@ private fun GroupDetailScreenContent(
                         .padding(horizontal = 16.dp),
                     history = state.history,
                     onClickHistoryItem = onClickHistoryItem,
-                    backgroundColor = state.groupInfo?.keyword?.behindCardBackGroundColor
+                    thumbnailBackgroundColor = state.groupInfo?.keyword?.behindCardBackGroundColor
                         ?: GroupKeyword.SCHOOL.behindCardBackGroundColor,
                 )
             },
