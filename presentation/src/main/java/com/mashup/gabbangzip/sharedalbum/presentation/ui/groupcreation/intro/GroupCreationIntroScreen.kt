@@ -26,6 +26,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -34,6 +35,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 
 @Composable
 fun GroupCreationIntroScreen(
+    onClickEnterByCodeButton: () -> Unit,
     onClickNextButton: () -> Unit,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.change_shape))
@@ -110,6 +112,7 @@ fun GroupCreationIntroScreen(
 @Composable
 private fun GroupCreationFirstScreenPreview() {
     GroupCreationIntroScreen(
+        onClickEnterByCodeButton = {},
         onClickNextButton = {},
     )
 }
