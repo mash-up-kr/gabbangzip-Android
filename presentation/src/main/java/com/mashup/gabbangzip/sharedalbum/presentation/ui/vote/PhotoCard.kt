@@ -15,9 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.contract.VoteConstant
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.Photo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.VoteClickInfo
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.VotePhoto
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.rememberSwipeState
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.swiper
 import kotlinx.coroutines.delay
@@ -25,12 +25,12 @@ import kotlinx.coroutines.delay
 @Composable
 fun PhotoCard(
     modifier: Modifier = Modifier,
-    photo: Photo,
+    photo: VotePhoto,
     voteClickInfo: VoteClickInfo,
     currentIndex: Int,
-    onVoteBySwiped: (result: PhotoVoteType, photo: Photo) -> Unit,
+    onVoteBySwiped: (result: PhotoVoteType, photo: VotePhoto) -> Unit,
     content: @Composable () -> Unit,
-    onVoteByClicked: (result: PhotoVoteType, photo: Photo) -> Unit,
+    onVoteByClicked: (result: PhotoVoteType, photo: VotePhoto) -> Unit,
 ) {
     val swiped = remember { mutableStateOf(false) }
     val swipeEnable = remember { mutableStateOf(false) }
