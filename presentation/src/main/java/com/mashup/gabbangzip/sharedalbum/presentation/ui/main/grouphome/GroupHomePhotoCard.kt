@@ -25,7 +25,6 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.Gr
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 
 @Composable
 fun GroupHomePhotoCard(
@@ -59,9 +58,11 @@ fun GroupHomePhotoCard(
             PicNormalButton(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(top = 19.dp, bottom = 34.dp)
-                    .rippleClickable { onClickEventMake(groupInfo.id) },
+                    .padding(top = 19.dp, bottom = 34.dp),
                 text = stringResource(R.string.event_creation_btn_text),
+                onButtonClicked = {
+                    onClickEventMake(groupInfo.id)
+                },
             )
         }
 
