@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mashup.gabbangzip.sharedalbum.domain.usecase.CreateEventUseCase
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.event.CreateEventUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
