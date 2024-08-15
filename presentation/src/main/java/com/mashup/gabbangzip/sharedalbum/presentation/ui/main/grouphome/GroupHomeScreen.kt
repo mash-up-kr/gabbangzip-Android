@@ -78,7 +78,7 @@ fun GroupHomeScreen(
     onClickGroupMake: () -> Unit,
     onClickSendFcmButton: (eventId: Long) -> Unit,
     navigateToGroupCreationAndFinish: () -> Unit,
-    onNavigateGallery: () -> Unit,
+    onNavigateGallery: (eventId: Long) -> Unit,
     onNavigateVote: (eventId: Long) -> Unit,
     viewModel: GroupHomeViewModel = hiltViewModel(),
 ) {
@@ -116,7 +116,7 @@ fun GroupHomeScreen(
     onClickGroupEnter: () -> Unit,
     onClickGroupMake: () -> Unit,
     onClickSendFcmButton: (eventId: Long) -> Unit,
-    onNavigateGallery: () -> Unit,
+    onNavigateGallery: (eventId: Long) -> Unit,
     onNavigateVote: (eventId: Long) -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -180,7 +180,7 @@ private fun GroupContainer(
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onNavigateVote: (eventId: Long) -> Unit,
-    onNavigateGallery: () -> Unit,
+    onNavigateGallery: (eventId: Long) -> Unit,
 ) {
     Column(
         modifier = modifier.noRippleClickable { onGroupDetailClick(groupInfo.id) },
@@ -225,7 +225,7 @@ private fun GroupContainer(
                         when (clickType) {
                             ClickType.Fcm -> onClickSendFcmButton(groupInfo.recentEvent.id)
                             ClickType.Vote -> onNavigateVote(groupInfo.recentEvent.id)
-                            ClickType.Gallery -> onNavigateGallery()
+                            ClickType.Gallery -> onNavigateGallery(groupInfo.recentEvent.id)
                         }
                     },
                 )
