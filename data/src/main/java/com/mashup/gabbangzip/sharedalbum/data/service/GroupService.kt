@@ -22,14 +22,14 @@ interface GroupService {
     @GET("api/v1/groups")
     suspend fun getGroupList(): PicResponse<GroupDataResponse>
 
-    @GET("api/v1/groups/{id}")
+    @GET("api/v1/groups/{groupId}")
     suspend fun getGroupDetail(
-        @Path(value = "id") groupId: Long,
+        @Path(value = "groupId") groupId: Long,
     ): PicResponse<GroupDetailResponse>
 
-    @GET("api/v1/groups/{id}/members")
+    @GET("api/v1/groups/{groupId}/members")
     suspend fun getGroupMembers(
-        @Path(value = "id") groupId: Long,
+        @Path(value = "groupId") groupId: Long,
     ): PicResponse<GroupMemberResponse>
 
     @GET("api/v1/groups/join")
