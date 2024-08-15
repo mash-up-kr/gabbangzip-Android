@@ -36,5 +36,6 @@ fun GroupDetailResponse.toDomainModel(): GroupDomainModel {
         recentEvent = recentEvent.toDomainModel(),
         status = status,
         statusDescription = statusDescription,
+        history = history.map { it.toDomainModel() },
     )
 }

@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.data.dto.response.group
 
+import com.mashup.gabbangzip.sharedalbum.data.common.toLocalDateTime
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.HistoryDomainModel
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -20,7 +21,7 @@ fun HistoryResponse.toDomainModel(): HistoryDomainModel {
     return HistoryDomainModel(
         id = id,
         name = name,
-        date = date,
+        date = date.toLocalDateTime(),
         images = images.map { it.toDomainModel() },
     )
 }
