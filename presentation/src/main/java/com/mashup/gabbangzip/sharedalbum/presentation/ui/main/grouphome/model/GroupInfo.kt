@@ -2,6 +2,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model
 
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupDomainModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
@@ -17,6 +18,7 @@ data class GroupInfo(
     val recentEvent: GroupEvent,
     val status: GroupStatusType,
     val statusDescription: String,
+    val history: List<HistoryItem> = emptyList(),
 )
 
 fun GroupDomainModel.toUiModel(): GroupInfo {
@@ -30,6 +32,7 @@ fun GroupDomainModel.toUiModel(): GroupInfo {
         recentEvent = recentEvent.toUiModel(),
         status = GroupStatusType.getType(status),
         statusDescription = statusDescription,
+        history = history.map { it.toUiModel() },
     )
 }
 

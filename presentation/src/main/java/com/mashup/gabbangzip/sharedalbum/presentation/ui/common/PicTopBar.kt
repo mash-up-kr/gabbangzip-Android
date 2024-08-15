@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -65,6 +66,7 @@ fun PicTopBar(
 @Composable
 fun PicBackButtonTopBar(
     modifier: Modifier = Modifier,
+    isLightMode: Boolean = true,
     titleText: String,
     titleAlign: PicTopBarTitleAlign = PicTopBarTitleAlign.CENTER,
     backButtonClicked: () -> Unit,
@@ -91,6 +93,7 @@ fun PicBackButtonTopBar(
                     .noRippleClickable { backButtonClicked() }
                     .size(26.dp),
                 painter = painterResource(id = PicTopBarIcon.BACK.iconRes),
+                colorFilter = ColorFilter.tint(color = if (isLightMode) Gray80 else Gray0),
                 contentDescription = stringResource(id = PicTopBarIcon.BACK.desc),
             )
             if (titleAlign == PicTopBarTitleAlign.LEFT) {
@@ -100,7 +103,7 @@ fun PicBackButtonTopBar(
                         .weight(1.0f),
                     text = titleText,
                     style = PicTypography.bodyMedium16,
-                    color = Gray80,
+                    color = if (isLightMode) Gray80 else Gray0,
                 )
             }
             if (rightIcon1 != null) {
@@ -129,7 +132,7 @@ fun PicBackButtonTopBar(
                 text = titleText,
                 textAlign = TextAlign.Center,
                 style = PicTypography.bodyMedium16,
-                color = Gray80,
+                color = if (isLightMode) Gray80 else Gray0,
             )
         }
     }

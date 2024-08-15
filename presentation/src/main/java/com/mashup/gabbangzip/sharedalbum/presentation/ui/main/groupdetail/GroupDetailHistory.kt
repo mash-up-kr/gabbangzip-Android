@@ -10,13 +10,17 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,14 +30,19 @@ import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicCroppedPhoto
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.preview.EventHistoryProvider
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun EventHistoryContainer(
     modifier: Modifier = Modifier,
+    thumbnailBackgroundColor: Color,
     history: List<HistoryItem>,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
@@ -54,6 +63,7 @@ fun EventHistoryContainer(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
+                thumbnailBackgroundColor = thumbnailBackgroundColor,
                 history = history,
                 onClickHistoryItem = onClickHistoryItem,
             )
@@ -87,6 +97,7 @@ private fun EventHistoryEmptyContent(
 @Composable
 private fun EventHistoryGridContent(
     modifier: Modifier = Modifier,
+    thumbnailBackgroundColor: Color,
     history: List<HistoryItem>,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
@@ -99,6 +110,7 @@ private fun EventHistoryGridContent(
     ) {
         items(history) { item ->
             EventHistoryItemContainer(
+                thumbnailBackgroundColor = thumbnailBackgroundColor,
                 item = item,
                 onClickHistoryItem = onClickHistoryItem,
             )
@@ -109,6 +121,7 @@ private fun EventHistoryGridContent(
 @Composable
 private fun EventHistoryItemContainer(
     modifier: Modifier = Modifier,
+    thumbnailBackgroundColor: Color,
     item: HistoryItem,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
@@ -118,11 +131,12 @@ private fun EventHistoryItemContainer(
                 onClickHistoryItem(item)
             },
     ) {
-        Box(
+        HistoryThumbnail(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1f)
-                .background(color = Gray60),
+                .aspectRatio(1f),
+            backgroundColor = thumbnailBackgroundColor,
+            cardBackImageList = item.images,
         )
         Text(
             modifier = Modifier.padding(top = 6.dp),
@@ -139,6 +153,37 @@ private fun EventHistoryItemContainer(
     }
 }
 
+@Composable
+private fun HistoryThumbnail(
+    modifier: Modifier = Modifier,
+    backgroundColor: Color,
+    cardBackImageList: ImmutableList<CardBackImage>,
+) {
+    Box(
+        modifier = modifier
+            .clip(shape = RoundedCornerShape(12.dp))
+            .background(color = backgroundColor)
+            .padding(10.dp),
+    ) {
+        LazyVerticalGrid(
+            modifier = Modifier.wrapContentSize(),
+            verticalArrangement = Arrangement.spacedBy(5.dp),
+            horizontalArrangement = Arrangement.spacedBy(5.dp),
+            columns = GridCells.Fixed(2),
+            userScrollEnabled = false,
+        ) {
+            items(items = cardBackImageList) { cardBackImage ->
+                PicCroppedPhoto(
+                    modifier = Modifier.aspectRatio(1f),
+                    imageUrl = cardBackImage.imageUrl,
+                    frameResId = cardBackImage.frameType.frameResId,
+                    backgroundColor = backgroundColor,
+                )
+            }
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun EventHistoryContainerPreview(
@@ -148,6 +193,7 @@ private fun EventHistoryContainerPreview(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
+        thumbnailBackgroundColor = GroupKeyword.SCHOOL.behindCardBackGroundColor,
         history = history,
         onClickHistoryItem = {},
     )
@@ -157,6 +203,7 @@ private fun EventHistoryContainerPreview(
 @Composable
 private fun EventHistoryItemPreview() {
     EventHistoryItemContainer(
+        thumbnailBackgroundColor = GroupKeyword.SCHOOL.behindCardBackGroundColor,
         item = HistoryItem(
             title = "가빵집 MT",
             date = "2024.11.03",
