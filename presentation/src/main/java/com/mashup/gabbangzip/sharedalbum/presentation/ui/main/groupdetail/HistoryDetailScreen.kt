@@ -54,8 +54,7 @@ fun HistoryDetailScreen(
         )
         HistoryPhotoCard(
             modifier = Modifier
-                .weight(1f)
-                .wrapContentSize(),
+                .weight(1f),
             keyword = keyword,
             item = item,
         )
