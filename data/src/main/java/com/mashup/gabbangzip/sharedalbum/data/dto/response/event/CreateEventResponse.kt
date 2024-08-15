@@ -1,6 +1,6 @@
-package com.mashup.gabbangzip.sharedalbum.data.dto.response
+package com.mashup.gabbangzip.sharedalbum.data.dto.response.event
 
-import com.mashup.gabbangzip.sharedalbum.domain.model.eventcreation.EventCreationDomainModel
+import com.mashup.gabbangzip.sharedalbum.domain.model.event.EventCreationDomainModel
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

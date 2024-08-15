@@ -28,7 +28,7 @@ fun MainNavHost(
     startDestination: String,
     navigateLoginAndFinish: () -> Unit,
     navigateToGroupCreationAndFinish: () -> Unit,
-    onClickOpenPhotoPickerButton: () -> Unit,
+    onClickOpenPhotoPickerButton: (eventId: Long) -> Unit,
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onSnackbarRequired: (PicSnackbarType, String) -> Unit,

@@ -36,7 +36,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 fun GroupDetailScreen(
     onClickGroupMemberButton: (GroupKeyword) -> Unit,
     onClickBackButton: () -> Unit,
-    onClickOpenPhotoPickerButton: () -> Unit,
+    onClickOpenPhotoPickerButton: (eventId: Long) -> Unit,
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onClickVoteButton: (eventId: Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
@@ -63,7 +63,10 @@ fun GroupDetailScreen(
         onClickBackButton = onClickBackButton,
         onClickActionButton = { status ->
             when (status) {
-                GroupStatusType.BEFORE_MY_UPLOAD -> onClickOpenPhotoPickerButton()
+                GroupStatusType.BEFORE_MY_UPLOAD -> state.recentEvent?.let { event ->
+                    onClickOpenPhotoPickerButton(event.id)
+                }
+
                 GroupStatusType.AFTER_MY_UPLOAD, GroupStatusType.AFTER_MY_VOTE,
                 -> {
                     state.recentEvent?.let {

@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.domain.model.eventcreation
+package com.mashup.gabbangzip.sharedalbum.domain.model.event
 
 @JvmInline
 value class EventCreationDomainModel(

@@ -26,6 +26,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.MainEvent
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.showToast
@@ -66,7 +67,8 @@ class MainActivity : ComponentActivity() {
                             GroupCreationActivity.openActivity(this)
                             finish()
                         },
-                        onClickOpenPhotoPickerButton = {
+                        onClickOpenPhotoPickerButton = { eventId ->
+                            viewModel.setCurrentEventId(eventId)
                             photoPicker.open()
                         },
                         onClickSendFcmButton = { eventId ->
@@ -88,10 +90,13 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun initPhotoPicker() {
-        photoPicker = PicPhotoPicker.create(this) { uri ->
-            if (uri != null) {
-                viewModel.uploadMyPic(uri)
-            }
+        photoPicker = PicPhotoPicker.create(
+            activity = this,
+            max = PICTURES_MAX_COUNT,
+        ) { uriList ->
+            uriList.mapNotNull { uri ->
+                FileUtil.getFileFromUri(this, uri)
+            }.also { viewModel.uploadMyPic(it) }
         }
     }
 
@@ -106,12 +111,23 @@ class MainActivity : ComponentActivity() {
                     )
 
                     MainEvent.FailNotification -> showToast(R.string.error_retry)
+
+                    MainEvent.SuccessUploadMyPic -> {
+                        snackbarHostState.showPicSnackbar(
+                            type = PicSnackbarType.CHECK,
+                            message = getString(R.string.my_pic_upload_complete),
+                        )
+                    }
+
+                    MainEvent.FailUploadMyPic -> showToast(R.string.error_retry)
                 }
             }
         }
     }
 
     companion object {
+        const val PICTURES_MAX_COUNT = 4
+
         fun openActivity(context: Activity) {
             context.startActivity(
                 Intent(context, MainActivity::class.java),
