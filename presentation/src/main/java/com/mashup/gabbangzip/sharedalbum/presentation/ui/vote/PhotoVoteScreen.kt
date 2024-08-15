@@ -1,8 +1,12 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.vote
 
 import androidx.activity.compose.BackHandler
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,18 +21,27 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -44,6 +57,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 @Composable
 fun PhotoVoteScreen(
@@ -114,6 +128,8 @@ fun PhotoVoteScreen(
                 .padding(top = 68.dp, bottom = 78.dp),
             onVoteClick = onVoteClick,
         )
+
+        VoteGuideScreen(modifier = Modifier.fillMaxSize(), VoteGuide.LIKE)
     }
 }
 
@@ -271,5 +287,123 @@ private fun PhotoCardContent(
         model = photo.imageUrl,
         contentScale = ContentScale.Crop,
         contentDescription = stringResource(R.string.vote_photo),
+    )
+}
+
+@Composable
+private fun VoteGuideScreen(modifier: Modifier, voteGuide: VoteGuide) {
+    var offset by remember { mutableFloatStateOf(0f) }
+    var alpha by remember { mutableFloatStateOf(1f) }
+    var isVisible by remember { mutableStateOf(true) }
+
+    if (isVisible) {
+        Box(modifier = modifier.background(color = Color.Black.copy(alpha = 0.4f))) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .align(Alignment.Center)
+                    .pointerInput(Unit) {
+                        detectHorizontalDragGestures { _, dragAmount ->
+                            val direction =
+                                if (dragAmount > 0) VoteGuide.LIKE else VoteGuide.DISLIKE
+
+                            if (direction == voteGuide) {
+                                offset += dragAmount
+                                alpha = (1f - abs(offset) / 150f).coerceIn(0f, 1f)
+
+                                isVisible = if (alpha <= 0.1f) {
+                                    false
+                                } else {
+                                    true
+                                }
+                            }
+                        }
+                    }
+                    .graphicsLayer(
+                        translationX = offset,
+                        alpha = alpha,
+                    )
+                    .animateContentSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ) {
+                Text(
+                    textAlign = TextAlign.Center,
+                    color = Gray0,
+                    text = stringResource(id = voteGuide.textResId),
+                    style = PicTypography.headBold16,
+                )
+                StableImage(
+                    drawableResId = voteGuide.imageResId,
+                    contentDescription = stringResource(id = voteGuide.imageDescResId),
+                )
+            }
+        }
+    } else {
+        if (voteGuide == VoteGuide.LIKE) {
+            VoteGuideScreen(modifier = modifier, voteGuide = VoteGuide.DISLIKE)
+            return
+        }
+    }
+}
+
+private enum class VoteGuide(
+    @DrawableRes val imageResId: Int,
+    @StringRes val textResId: Int,
+    @StringRes val imageDescResId: Int,
+) {
+    DISLIKE(
+        imageResId = R.drawable.ic_guide_dislike,
+        textResId = R.string.guide_dislike_title,
+        imageDescResId = R.string.guide_dislike_desc,
+    ),
+
+    LIKE(
+        imageResId = R.drawable.ic_guide_like,
+        textResId = R.string.guide_like_title,
+        imageDescResId = R.string.guide_like_desc,
+    ),
+}
+
+@Composable
+@Preview
+fun PhotoVoteScreenPreview() {
+    PhotoVoteScreen(
+        state = PhotoVoteState(
+            userInfo = UserInfo(
+                name = "서정우",
+            ),
+            photoList = ImmutableList(
+                listOf(
+                    Photo(
+                        id = 1,
+                        imageUrl = "https://avatars.githubusercontent.com/u/77449500?v=4",
+                        date = "2021.10.10",
+                    ),
+                    Photo(
+                        id = 2,
+                        imageUrl = "https://avatars.githubusercontent.com/u/77449500?v=4",
+                        date = "2021.10.10",
+                    ),
+                    Photo(
+                        id = 3,
+                        imageUrl = "https://avatars.githubusercontent.com/u/77449500?v=4",
+                        date = "2021.10.10",
+                    ),
+                ),
+            ),
+            voteClickInfo = VoteClickInfo(
+                index = 0,
+                type = PhotoVoteType.DEFAULT,
+            ),
+        ),
+        onDialogConfirm = {},
+        onCancelVote = {},
+        onVoteExit = {},
+        onVoteBySwiped = { _, _ -> },
+        onVoteByClicked = { _, _ -> },
+        onVoteClick = {},
+        onSwipeFinish = {},
+        onUploadPicture = {},
     )
 }
