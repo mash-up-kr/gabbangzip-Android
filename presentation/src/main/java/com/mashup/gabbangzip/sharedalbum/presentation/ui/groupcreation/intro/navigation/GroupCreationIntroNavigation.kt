@@ -6,10 +6,12 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.intro.Gro
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationRoute
 
 fun NavGraphBuilder.groupCreationIntroNavGraph(
+    onClickEnterByCodeButton: () -> Unit,
     onClickNextButton: () -> Unit,
 ) {
     composable(route = GroupCreationRoute.IntroScreenRoute.route) {
         GroupCreationIntroScreen(
+            onClickEnterByCodeButton = onClickEnterByCodeButton,
             onClickNextButton = onClickNextButton,
         )
     }

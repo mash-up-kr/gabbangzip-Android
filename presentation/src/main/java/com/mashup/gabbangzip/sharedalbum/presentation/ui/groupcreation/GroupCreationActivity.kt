@@ -27,6 +27,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackba
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.invitation.InvitationCodeActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
@@ -62,6 +63,9 @@ class GroupCreationActivity : ComponentActivity() {
                         navController = rememberNavController(),
                         startDestination = GroupCreationRoute.initRoute,
                         groupCreationUiState = groupCreationState,
+                        navigateToInvitationCode = {
+                            InvitationCodeActivity.openActivity(this)
+                        },
                         onGetThumbnailButtonClicked = photoPicker::open,
                         updateName = viewModel::updateName,
                         updateKeyword = viewModel::updateKeyword,

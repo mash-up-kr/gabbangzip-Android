@@ -26,6 +26,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -34,6 +35,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 
 @Composable
 fun GroupCreationIntroScreen(
+    onClickEnterByCodeButton: () -> Unit,
     onClickNextButton: () -> Unit,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.change_shape))
@@ -88,7 +90,17 @@ fun GroupCreationIntroScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(horizontal = 21.dp, vertical = 16.dp),
+                .padding(top = 8.dp, start = 21.dp, end = 21.dp),
+            text = stringResource(id = R.string.group_creation_button_code),
+            backgroundColor = Gray40,
+            contentColor = Gray80,
+            onButtonClicked = onClickEnterByCodeButton,
+        )
+        PicButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(top = 12.dp, start = 21.dp, end = 21.dp, bottom = 16.dp),
             text = stringResource(id = R.string.group_creation_button_name),
             isRippleClickable = true,
             onButtonClicked = onClickNextButton,
@@ -100,6 +112,7 @@ fun GroupCreationIntroScreen(
 @Composable
 private fun GroupCreationFirstScreenPreview() {
     GroupCreationIntroScreen(
+        onClickEnterByCodeButton = {},
         onClickNextButton = {},
     )
 }

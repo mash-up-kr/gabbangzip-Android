@@ -33,7 +33,8 @@
 
     <string name="group_creation_title">내 친구들과\n그룹을 만들어\nPIC과 함께해 볼까요?</string>
     <string name="group_creation_button_name">그룹 만들기</string>
-    <string name="group_creation_button_description">초대 링크를 받으셨나요?\n링크를 눌러 바로 그룹에 들어갈 수 있어요.</string>
+    <string name="group_creation_button_description">초대 코드를 받으셨나요?\n코드를 입력해 바로 그룹에 들어갈 수 있어요.</string>
+    <string name="group_creation_button_code">초대코드 입력하기</string>
     <string name="next">다음</string>
     <string name="group_creation_name_title">그룹의 이름은 무엇인가요?</string>
     <string name="group_creation_name_hint">최대 10자 까지 입력 가능해요.</string>

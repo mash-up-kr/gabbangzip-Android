@@ -25,6 +25,7 @@ fun GroupCreationNavHost(
     navController: NavHostController,
     startDestination: String,
     groupCreationUiState: GroupCreationUiState,
+    navigateToInvitationCode: () -> Unit,
     onGetThumbnailButtonClicked: () -> Unit,
     updateName: (name: String) -> Unit,
     updateKeyword: (keyword: GroupKeyword) -> Unit,
@@ -40,6 +41,7 @@ fun GroupCreationNavHost(
         exitTransition = { ExitTransition.None },
     ) {
         groupCreationIntroNavGraph(
+            onClickEnterByCodeButton = navigateToInvitationCode,
             onClickNextButton = { navController.navigateToGroupCreationName() },
         )
         groupCreationNameNavGraph(
