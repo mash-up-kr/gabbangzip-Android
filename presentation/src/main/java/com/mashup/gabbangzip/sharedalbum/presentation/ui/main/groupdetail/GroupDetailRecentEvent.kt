@@ -52,18 +52,14 @@ fun RecentEventContainer(
     event: GroupEvent,
     keyword: GroupKeyword,
     cardFrontImageUrl: String,
-    isVisit: Boolean,
     onClickActionButton: (GroupStatusType) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
-    onVisitCheck: () -> Unit,
 ) {
     Log.d("TAG", "RecentEventContainer: status: $status")
     if (status == GroupStatusType.EVENT_COMPLETED) {
         CompletedEventContainer(
             modifier = modifier,
             onClickShareButton = onClickShareButton,
-            isVisit = isVisit,
-            onVisitCheck = onVisitCheck,
         )
     } else {
         Column(
@@ -95,9 +91,7 @@ fun RecentEventContainer(
 @Composable
 private fun CompletedEventContainer(
     modifier: Modifier = Modifier,
-    isVisit: Boolean,
     onClickShareButton: (Bitmap) -> Unit,
-    onVisitCheck: () -> Unit,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottie_confetti))
 
@@ -129,13 +123,10 @@ private fun CompletedEventContainer(
                 },
             )
         }
-        if (!isVisit) {
-            onVisitCheck()
-            LottieAnimation(
-                alignment = Alignment.TopCenter,
-                composition = composition,
-            )
-        }
+        LottieAnimation(
+            alignment = Alignment.TopCenter,
+            composition = composition,
+        )
     }
 }
 
@@ -227,8 +218,6 @@ private fun RecentEventPreview(
             cardFrontImageUrl = "https://picsum.photos/200/300",
             onClickActionButton = {},
             onClickShareButton = {},
-            isVisit = false,
-            onVisitCheck = {},
         )
     }
 }
