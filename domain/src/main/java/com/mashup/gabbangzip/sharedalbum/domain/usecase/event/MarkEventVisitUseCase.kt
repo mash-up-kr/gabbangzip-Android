@@ -7,12 +7,12 @@ import dagger.Reusable
 import javax.inject.Inject
 
 @Reusable
-class CheckVisitUseCase @Inject constructor(
+class MarkEventVisitUseCase @Inject constructor(
     private val eventRepository: EventRepository,
 ) {
     suspend operator fun invoke(eventId: Long): Result<EventVisitDomainModel> {
         return runCatching {
-            eventRepository.checkVisitEvent(EventVisitParamDomainModel(eventId))
+            eventRepository.markEventVisit(EventVisitParamDomainModel(eventId))
         }
     }
 }

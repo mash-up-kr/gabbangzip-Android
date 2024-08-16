@@ -25,7 +25,7 @@ interface EventService {
     ): PicResponse<UploadMyPicResponse>
 
     @PUT("api/v1/events/visit")
-    suspend fun checkVisitEvent(
+    suspend fun markEventVisit(
         @Body eventVisitRequest: EventVisitRequest,
     ): PicResponse<EventVisitResponse>
 }

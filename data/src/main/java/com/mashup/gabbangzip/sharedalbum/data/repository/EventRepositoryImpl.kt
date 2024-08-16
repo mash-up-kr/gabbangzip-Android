@@ -29,15 +29,15 @@ class EventRepositoryImpl @Inject constructor(
         return callApi { eventService.createEvent(request) }.toDomainModel()
     }
 
+    override suspend fun markEventVisit(param: EventVisitParamDomainModel): EventVisitDomainModel {
+        return callApi { eventService.markEventVisit(param.toRequestBody()) }.toDomainModel()
+    }
+    
     override suspend fun uploadMyPic(param: UploadMyPicParam): UploadMyPicDomainModel {
         val request = UploadMyPicRequest(
             eventId = param.eventId,
             imageUrls = param.imageUrls,
         )
         return callApi { eventService.uploadMyPic(request) }.toDomainModel()
-    }
-
-    override suspend fun checkVisitEvent(param: EventVisitParamDomainModel): EventVisitDomainModel {
-        return callApi { eventService.checkVisitEvent(param.toRequestBody()) }.toDomainModel()
     }
 }

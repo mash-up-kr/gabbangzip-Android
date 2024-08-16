@@ -9,6 +9,6 @@ import com.mashup.gabbangzip.sharedalbum.domain.model.eventcreation.EventCreatio
 
 interface EventRepository {
     suspend fun createEvent(param: EventCreationParam): EventCreationDomainModel
+    suspend fun markEventVisit(param: EventVisitParamDomainModel): EventVisitDomainModel
     suspend fun uploadMyPic(param: UploadMyPicParam): UploadMyPicDomainModel
-    suspend fun checkVisitEvent(param: EventVisitParamDomainModel): EventVisitDomainModel
 }
