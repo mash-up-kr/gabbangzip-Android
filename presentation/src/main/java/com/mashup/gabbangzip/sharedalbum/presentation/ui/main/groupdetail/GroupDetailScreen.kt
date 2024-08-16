@@ -51,6 +51,10 @@ fun GroupDetailScreen(
         onErrorEvent()
     }
 
+    if (state.status == GroupStatusType.NO_CURRENT_EVENT) {
+        viewModel.checkVisit()
+    }
+
     GroupDetailScreen(
         state = state,
         onClickGroupMemberButton = {

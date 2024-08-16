@@ -31,7 +31,6 @@ class GroupDetailViewModel @Inject constructor(
     init {
         if (groupId != null) {
             getGroupDetail(groupId)
-            checkVisit()
         } else {
             _uiState.update { state ->
                 state.copy(isError = true)
@@ -65,7 +64,7 @@ class GroupDetailViewModel @Inject constructor(
         }
     }
 
-    private fun checkVisit() {
+    fun checkVisit() {
         uiState.value.recentEvent?.let { event ->
             viewModelScope.launch {
                 checkVisitUseCase(event.id)
