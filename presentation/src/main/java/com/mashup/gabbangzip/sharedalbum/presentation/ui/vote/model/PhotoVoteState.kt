@@ -12,4 +12,5 @@ data class PhotoVoteState(
     val isLoading: Boolean = false,
     val isVoteUploadFinish: Boolean? = null,
     val isError: Boolean = false,
+    val isFirstVisit: Boolean = false,
 )
