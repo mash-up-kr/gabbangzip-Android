@@ -51,8 +51,8 @@ fun GroupDetailScreen(
         onErrorEvent()
     }
 
-    if (state.status == GroupStatusType.NO_CURRENT_EVENT) {
-        viewModel.checkVisit()
+    if (state.status == GroupStatusType.EVENT_COMPLETED) {
+        viewModel.markEventVisit()
     }
 
     GroupDetailScreen(
