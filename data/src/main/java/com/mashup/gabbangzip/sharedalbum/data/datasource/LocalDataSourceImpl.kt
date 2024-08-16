@@ -17,7 +17,7 @@ class LocalDataSourceImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences by lazy {
         val keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC
         val masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec)
-
+        
         EncryptedSharedPreferences.create(
             PREF_NAME,
             masterKeyAlias,
@@ -26,7 +26,7 @@ class LocalDataSourceImpl @Inject constructor(
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM,
         )
     }
-
+    
     /**
      * Int
      */
@@ -37,14 +37,14 @@ class LocalDataSourceImpl @Inject constructor(
             putInt(key, value)
         }
     }
-
+    
     @Synchronized
     private fun getInt(key: String, defaultValue: Int): Int {
         return sharedPreferences.getInt(key, defaultValue).also {
             Log.d(TAG, "getInt: key: $key, value: $it")
         }
     }
-
+    
     /**
      * Long
      */
@@ -55,14 +55,14 @@ class LocalDataSourceImpl @Inject constructor(
             putLong(key, value)
         }
     }
-
+    
     @Synchronized
     private fun getLong(key: String, defaultValue: Long): Long {
         return sharedPreferences.getLong(key, defaultValue).also {
             Log.d(TAG, "getLong: key: $key, value: $it")
         }
     }
-
+    
     /**
      * String
      */
@@ -73,18 +73,18 @@ class LocalDataSourceImpl @Inject constructor(
             putString(key, value)
         }
     }
-
+    
     private fun getString(key: String, defaultValue: String = ""): String {
         return getStringOrNull(key, defaultValue) ?: defaultValue
     }
-
+    
     @Synchronized
     private fun getStringOrNull(key: String, defaultValue: String? = null): String? {
         return sharedPreferences.getString(key, defaultValue).also {
             Log.d(TAG, "getStringOrNull: key: $key, value: $it")
         }
     }
-
+    
     /**
      * Boolean
      */
@@ -95,63 +95,72 @@ class LocalDataSourceImpl @Inject constructor(
             putBoolean(key, value)
         }
     }
-
+    
     @Synchronized
     private fun getBoolean(key: String, defaultValue: Boolean): Boolean {
         return sharedPreferences.getBoolean(key, defaultValue).also {
             Log.d(TAG, "getBoolean: key: $key, value: $it")
         }
     }
-
+    
     private fun remove(key: String) {
         return sharedPreferences.edit {
             remove(key)
         }
     }
-
+    
     override fun removeAll() {
         sharedPreferences.edit {
             clear()
         }
     }
-
+    
     override fun saveToken(accessToken: String, refreshToken: String) {
         putString(KEY_ACCESS_TOKEN, accessToken)
         putString(KEY_REFRESH_TOKEN, refreshToken)
     }
-
+    
     override fun removeToken() {
         remove(KEY_ACCESS_TOKEN)
         remove(KEY_REFRESH_TOKEN)
     }
-
+    
     override fun getAccessToken(): String? {
         return getStringOrNull(KEY_ACCESS_TOKEN)
     }
-
+    
     override fun getRefreshToken(): String? {
         return getStringOrNull(KEY_REFRESH_TOKEN)
     }
-
+    
     override fun saveUserInfo(userInfo: UserInfoDomainModel) {
         putString(KEY_USER_NAME, userInfo.name)
     }
-
+    
     override fun loadUserInfo(): UserInfoDomainModel {
         return UserInfoDomainModel(
             name = getString(KEY_USER_NAME, ""),
         )
     }
-
+    
     override fun removeUserInfo() {
         remove(KEY_USER_NAME)
     }
-
+    
+    override fun saveVoteFirstVisit(isFirstVisit: Boolean) {
+        putBoolean(KEY_VOTE_FIRST_VISIT, isFirstVisit)
+    }
+    
+    override fun getVoteFirstVisit(): Boolean {
+        return getBoolean(KEY_VOTE_FIRST_VISIT, true)
+    }
+    
     companion object {
         private const val TAG = "preferences"
         private const val PREF_NAME = "pic_preferences"
         private const val KEY_ACCESS_TOKEN = "key_access_token"
         private const val KEY_REFRESH_TOKEN = "key_refresh_token"
         private const val KEY_USER_NAME = "key_user_name"
+        private const val KEY_VOTE_FIRST_VISIT = "key_vote_first_visit"
     }
 }
