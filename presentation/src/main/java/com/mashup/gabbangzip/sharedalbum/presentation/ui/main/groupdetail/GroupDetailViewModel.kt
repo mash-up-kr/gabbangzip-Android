@@ -31,25 +31,10 @@ class GroupDetailViewModel @Inject constructor(
     init {
         if (groupId != null) {
             getGroupDetail(groupId)
+            checkVisit()
         } else {
             _uiState.update { state ->
                 state.copy(isError = true)
-            }
-        }
-    }
-
-    fun checkVisit() {
-        uiState.value.recentEvent?.let { event ->
-            viewModelScope.launch {
-                checkVisitUseCase(event.id)
-                    .onSuccess { domain ->
-                        val eventVisit = domain.toUiModel()
-                        _uiState.update { state ->
-                            state.copy(
-                                isFirstVisit = eventVisit.isVisit,
-                            )
-                        }
-                    }
             }
         }
     }
@@ -77,6 +62,14 @@ class GroupDetailViewModel @Inject constructor(
                         )
                     }
                 }
+        }
+    }
+
+    private fun checkVisit() {
+        uiState.value.recentEvent?.let { event ->
+            viewModelScope.launch {
+                checkVisitUseCase(event.id)
+            }
         }
     }
 }
