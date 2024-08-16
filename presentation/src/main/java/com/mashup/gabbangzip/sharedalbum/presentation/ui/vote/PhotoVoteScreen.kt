@@ -37,7 +37,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
@@ -129,7 +128,9 @@ fun PhotoVoteScreen(
             onVoteClick = onVoteClick,
         )
 
-        VoteGuideScreen(modifier = Modifier.fillMaxSize(), VoteGuide.LIKE)
+        if (state.isFirstVisit) {
+            VoteGuideContainer(modifier = Modifier.fillMaxSize())
+        }
     }
 }
 
@@ -291,7 +292,31 @@ private fun PhotoCardContent(
 }
 
 @Composable
-private fun VoteGuideScreen(modifier: Modifier, voteGuide: VoteGuide) {
+fun VoteGuideContainer(modifier: Modifier) {
+    var voteGuideState by remember { mutableStateOf(VoteGuide.LIKE) }
+    when (voteGuideState) {
+        VoteGuide.LIKE -> {
+            VoteGuideContent(
+                modifier = modifier,
+                voteGuide = voteGuideState,
+                onGuideFinish = {
+                    voteGuideState = VoteGuide.DISLIKE
+                },
+            )
+        }
+
+        VoteGuide.DISLIKE -> {
+            VoteGuideContent(modifier = modifier, voteGuideState)
+        }
+    }
+}
+
+@Composable
+private fun VoteGuideContent(
+    modifier: Modifier,
+    voteGuide: VoteGuide,
+    onGuideFinish: () -> Unit = {},
+) {
     var offset by remember { mutableFloatStateOf(0f) }
     var alpha by remember { mutableFloatStateOf(1f) }
     var isVisible by remember { mutableStateOf(true) }
@@ -312,6 +337,7 @@ private fun VoteGuideScreen(modifier: Modifier, voteGuide: VoteGuide) {
                                 alpha = (1f - abs(offset) / 150f).coerceIn(0f, 1f)
 
                                 isVisible = if (alpha <= 0.1f) {
+                                    onGuideFinish()
                                     false
                                 } else {
                                     true
@@ -338,11 +364,6 @@ private fun VoteGuideScreen(modifier: Modifier, voteGuide: VoteGuide) {
                     contentDescription = stringResource(id = voteGuide.imageDescResId),
                 )
             }
-        }
-    } else {
-        if (voteGuide == VoteGuide.LIKE) {
-            VoteGuideScreen(modifier = modifier, voteGuide = VoteGuide.DISLIKE)
-            return
         }
     }
 }
