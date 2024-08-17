@@ -61,9 +61,12 @@ fun RecentEventContainer(
     onClickActionButton: (GroupStatusType) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
-    if (status == GroupStatusType.EVENT_COMPLETED) {
+    if (status == GroupStatusType.EVENT_COMPLETED
+        || status == GroupStatusType.NO_CURRENT_EVENT
+    ) {
         CompletedEventContainer(
             modifier = modifier,
+            isFirstVisit = status == GroupStatusType.EVENT_COMPLETED,
             keyword = keyword,
             images = images,
             onClickShareButton = onClickShareButton,
@@ -97,11 +100,11 @@ fun RecentEventContainer(
 @Composable
 private fun CompletedEventContainer(
     modifier: Modifier = Modifier,
+    isFirstVisit: Boolean,
     keyword: GroupKeyword,
     images: ImmutableList<CardBackImage>,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottie_confetti))
 
     Box(
         modifier = modifier,
@@ -110,14 +113,16 @@ private fun CompletedEventContainer(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text(
-                text = stringResource(id = R.string.group_detail_event_complete),
-                fontFamily = pretendard,
-                fontWeight = FontWeight.Normal,
-                fontSize = 20.sp,
-                lineHeight = 28.sp,
-                letterSpacing = (-0.02).em,
-            )
+            if (isFirstVisit) {
+                Text(
+                    text = stringResource(id = R.string.group_detail_event_complete),
+                    fontFamily = pretendard,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 20.sp,
+                    lineHeight = 28.sp,
+                    letterSpacing = (-0.02).em,
+                )
+            }
             PhotoCardWithShareButton(
                 modifier = Modifier.fillMaxWidth(),
                 keyword = keyword,
@@ -125,10 +130,14 @@ private fun CompletedEventContainer(
                 onClickShareButton = onClickShareButton,
             )
         }
-        LottieAnimation(
-            alignment = Alignment.TopCenter,
-            composition = composition,
-        )
+        if (isFirstVisit) {
+            val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottie_confetti))
+
+            LottieAnimation(
+                alignment = Alignment.TopCenter,
+                composition = composition,
+            )
+        }
     }
 }
 
