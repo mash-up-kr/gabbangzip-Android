@@ -7,38 +7,27 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.Gr
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class GroupHomeViewModel @Inject constructor(
-    private val getGroupListUseCase: GetGroupListUseCase,
+    getGroupListUseCase: GetGroupListUseCase,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<GroupHomeUiState>(GroupHomeUiState.NotInitialized)
-    val uiState = _uiState.asStateFlow()
 
-    init {
-        getGroupList()
-    }
-
-    private fun getGroupList() {
-        _uiState.update { GroupHomeUiState.Loading }
-        viewModelScope.launch {
-            getGroupListUseCase()
-                .onSuccess { response ->
-                    _uiState.update {
-                        if (response.isEmpty()) {
-                            GroupHomeUiState.NoGroup
-                        } else {
-                            GroupHomeUiState.GroupList(
-                                groupList = ImmutableList(response.toUiModel()),
-                            )
-                        }
-                    }
-                }
+    val groupUiState = getGroupListUseCase()
+        .map { groupList ->
+            if (groupList.isEmpty()) {
+                GroupHomeUiState.NoGroup
+            } else {
+                GroupHomeUiState.GroupList(ImmutableList(groupList.toUiModel()))
+            }
         }
-    }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = GroupHomeUiState.NotInitialized,
+        )
 }
