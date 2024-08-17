@@ -84,7 +84,12 @@ class EventCreationActivity : ComponentActivity() {
                     eventCreationViewModel.eventFlow.collect {
                         when (it) {
                             is EventCreationEvent.Success -> {
-                                MainActivity.openActivity(this@EventCreationActivity, it.groupId)
+                                MainActivity.openActivity(
+                                    context = this@EventCreationActivity,
+                                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP,
+                                    groupId = it.groupId,
+                                )
+                                finish()
                             }
 
                             is EventCreationEvent.Error -> {

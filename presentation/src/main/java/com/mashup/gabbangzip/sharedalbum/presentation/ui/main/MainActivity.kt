@@ -3,7 +3,6 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -49,11 +48,6 @@ class MainActivity : ComponentActivity() {
             val snackbarHostState = remember { SnackbarHostState() }
             val coroutineScope = rememberCoroutineScope()
             val navController = rememberNavController()
-            if (viewModel.getCurrentGroupId() > 0) {
-                Log.d("test", viewModel.getCurrentGroupId().toString())
-                navController.navigateGroupDetail(0)
-            }
-            Log.d("test", "ㅎㅇㅎㅇ")
 
             SharedAlbumTheme {
                 ObserveEvent(snackbarHostState)
@@ -92,6 +86,13 @@ class MainActivity : ComponentActivity() {
                         },
                         onErrorEvent = { showToast(R.string.error_retry) },
                     )
+                }
+
+                LaunchedEffect(true) {
+                    val groupId = intent.getLongExtra(INTENT_EXTRA_GROUP_ID, -1)
+                    if (groupId > 0) {
+                        navController.navigateGroupDetail(groupId)
+                    }
                 }
             }
         }
@@ -151,9 +152,10 @@ class MainActivity : ComponentActivity() {
             )
         }
 
-        fun openActivity(context: Activity, groupId: Long) {
+        fun openActivity(context: Activity, flags: Int, groupId: Long) {
             context.startActivity(
                 Intent(context, MainActivity::class.java).apply {
+                    addFlags(flags)
                     putExtra(INTENT_EXTRA_GROUP_ID, groupId)
                 },
             )
