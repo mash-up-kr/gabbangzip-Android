@@ -69,6 +69,8 @@ fun RecentEventContainer(
             isFirstVisit = status == GroupStatusType.EVENT_COMPLETED,
             keyword = keyword,
             images = images,
+            date = event.date,
+            title = event.title,
             onClickShareButton = onClickShareButton,
         )
     } else {
@@ -102,6 +104,8 @@ private fun CompletedEventContainer(
     modifier: Modifier = Modifier,
     isFirstVisit: Boolean,
     keyword: GroupKeyword,
+    date: String,
+    title: String,
     images: ImmutableList<CardBackImage>,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
@@ -125,6 +129,8 @@ private fun CompletedEventContainer(
             PhotoCardWithShareButton(
                 modifier = Modifier.fillMaxWidth(),
                 keyword = keyword,
+                date = date,
+                title = title,
                 images = images,
                 onClickShareButton = onClickShareButton,
             )
@@ -144,6 +150,8 @@ private fun CompletedEventContainer(
 private fun PhotoCardWithShareButton(
     modifier: Modifier = Modifier,
     keyword: GroupKeyword,
+    date: String,
+    title: String,
     images: ImmutableList<CardBackImage>,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
@@ -162,6 +170,8 @@ private fun PhotoCardWithShareButton(
                 )
                 .captureIntoCanvas(picture),
             keyword = keyword,
+            date = date,
+            title = title,
             images = images,
         )
         PicNormalButton(
@@ -179,6 +189,8 @@ private fun PhotoCardWithShareButton(
 private fun PhotoCard(
     modifier: Modifier = Modifier,
     keyword: GroupKeyword,
+    date: String,
+    title: String,
     images: ImmutableList<CardBackImage>,
 ) {
     val maxHeight = LocalConfiguration.current.screenHeightDp.dp.div(2)
@@ -193,12 +205,28 @@ private fun PhotoCard(
             keywordType = keyword,
             frameResId = PicPhotoFrame.getTypeByKeyword(keyword.name).frameResId,
         )
+        Text(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .padding(top = 37.dp),
+            text = date,
+            color = Gray80,
+            style = PicTypography.bodyMedium16,
+        )
         PicFourPhotoGrid(
             modifier = Modifier
                 .padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp)
                 .align(Alignment.Center),
             backgroundColor = keyword.frontCardBackgroundColor,
             images = images,
+        )
+        Text(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(top = 31.dp, bottom = 41.dp),
+            text = title,
+            color = Gray80,
+            style = PicTypography.headBold20,
         )
     }
 }
