@@ -11,4 +11,6 @@ interface LocalDataSource {
     fun saveUserInfo(userInfo: UserInfoDomainModel)
     fun loadUserInfo(): UserInfoDomainModel
     fun removeUserInfo()
+    fun saveVoteFirstVisit(isFirstVisit: Boolean)
+    fun getVoteFirstVisit(): Boolean
 }

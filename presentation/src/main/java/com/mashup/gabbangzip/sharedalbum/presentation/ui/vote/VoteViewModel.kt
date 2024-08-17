@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.model.vote.VoteResultParam
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.LoadUserInfoUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.vote.GetVotePhotoListUseCase
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.vote.GetVoteVisitUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.vote.RequestVoteResultUseCase
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.vote.SaveVoteVisitUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteType
@@ -26,11 +28,29 @@ class VoteViewModel @Inject constructor(
     private val requestVoteResultUseCase: RequestVoteResultUseCase,
     private val getVotePhotoListUseCase: GetVotePhotoListUseCase,
     private val getLoadUserInfoUseCase: LoadUserInfoUseCase,
+    private val loadUserInfoUseCase: LoadUserInfoUseCase,
+    private val getVoteVisitUseCase: GetVoteVisitUseCase,
+    private val saveVoteVisitUseCase: SaveVoteVisitUseCase,
 ) : ViewModel() {
     private val _voteUiState = MutableStateFlow(PhotoVoteState())
     val voteUiState = _voteUiState.asStateFlow()
 
     private val likedPhotoList = mutableListOf<VotePhoto>()
+
+    init {
+        checkFirstVisit()
+    }
+
+    private fun checkFirstVisit() {
+        val isFirstVisit = getVoteVisitUseCase()
+        _voteUiState.update { state ->
+            state.copy(isFirstVisit = isFirstVisit)
+        }
+
+        if (isFirstVisit) {
+            saveVoteVisitUseCase(isFirstVisit = false)
+        }
+    }
 
     fun fetchVotePhotoList(eventIdKey: String) {
         savedStateHandle.get<Long>(eventIdKey)?.let { eventId ->

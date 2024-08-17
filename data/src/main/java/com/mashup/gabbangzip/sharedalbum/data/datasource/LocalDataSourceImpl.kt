@@ -147,11 +147,20 @@ class LocalDataSourceImpl @Inject constructor(
         remove(KEY_USER_NAME)
     }
 
+    override fun saveVoteFirstVisit(isFirstVisit: Boolean) {
+        putBoolean(KEY_VOTE_FIRST_VISIT, isFirstVisit)
+    }
+
+    override fun getVoteFirstVisit(): Boolean {
+        return getBoolean(KEY_VOTE_FIRST_VISIT, true)
+    }
+
     companion object {
         private const val TAG = "preferences"
         private const val PREF_NAME = "pic_preferences"
         private const val KEY_ACCESS_TOKEN = "key_access_token"
         private const val KEY_REFRESH_TOKEN = "key_refresh_token"
         private const val KEY_USER_NAME = "key_user_name"
+        private const val KEY_VOTE_FIRST_VISIT = "key_vote_first_visit"
     }
 }

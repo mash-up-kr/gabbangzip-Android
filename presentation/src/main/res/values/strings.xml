@@ -134,5 +134,9 @@
     <string name="group_home_select_pic">픽 고르기</string>
     <string name="my_pic_upload_complete">내 PIC 올리기 완료!</string>
     <string name="error_retry">다시 시도해주세요.</string>
+    <string name="guide_like_title">오른쪽으로 스와이프해서\n사진을 PIC 해보세요</string>
+    <string name="guide_dislike_title">마음에 들지 않는 사진은\n왼쪽으로 스와이프 해보세요</string>
+    <string name="guide_like_desc">좋아요 가이드 이미지</string>
+    <string name="guide_dislike_desc">싫어요 가이드 이미지</string>
     <string name="kook_snackbar">그룹원들을 쿡 찔렀어요!</string>
 </resources>
