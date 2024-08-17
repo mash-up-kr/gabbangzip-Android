@@ -208,14 +208,14 @@ private fun PhotoCard(
         Text(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .padding(top = 37.dp),
+                .padding(top = 25.dp),
             text = date,
             color = Gray80,
             style = PicTypography.bodyMedium16,
         )
         PicFourPhotoGrid(
             modifier = Modifier
-                .padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp)
+                .padding(top = 85.dp, bottom = 85.dp, start = 30.dp, end = 30.dp)
                 .align(Alignment.Center),
             backgroundColor = keyword.frontCardBackgroundColor,
             images = images,
@@ -223,7 +223,7 @@ private fun PhotoCard(
         Text(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(top = 31.dp, bottom = 41.dp),
+                .padding(bottom = 31.dp),
             text = title,
             color = Gray80,
             style = PicTypography.headBold20,
