@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
@@ -65,7 +66,7 @@ private fun GroupCreationKeywordScreen(
             PicProgressBar(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 32.dp, start = 16.dp, end = 16.dp),
+                    .padding(start = 16.dp, end = 16.dp),
                 level = 2,
                 total = 4f,
             )
@@ -81,15 +82,10 @@ private fun GroupCreationKeywordScreen(
                 onButtonClicked = { onNextButtonClicked(selectedKeyword) },
             )
         },
-        content = {
+        boxContent = {
             GroupCreationCompleteContent(
                 selectedKeyword = selectedKeyword,
                 setSelected = setSelected,
-            )
-            Spacer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp),
             )
         },
     )
@@ -100,22 +96,31 @@ private fun GroupCreationCompleteContent(
     selectedKeyword: GroupKeyword,
     setSelected: (GroupKeyword) -> Unit,
 ) {
-    Text(
-        modifier = Modifier.padding(bottom = 24.dp),
-        text = stringResource(id = R.string.group_creation_keyword_title),
-        style = PicTypography.headBold18,
-        color = Gray80,
-    )
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
+        item(span = { GridItemSpan(3) }) {
+            Text(
+                modifier = Modifier.padding(top = 32.dp, bottom = 24.dp),
+                text = stringResource(id = R.string.group_creation_keyword_title),
+                style = PicTypography.headBold18,
+                color = Gray80,
+            )
+        }
         items(GroupKeyword.entries) { keyword ->
             PicKeywordButton(
                 keyword = keyword,
                 selected = selectedKeyword == keyword,
                 onButtonClicked = { setSelected(it) },
+            )
+        }
+        item(span = { GridItemSpan(3) }) {
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
             )
         }
     }

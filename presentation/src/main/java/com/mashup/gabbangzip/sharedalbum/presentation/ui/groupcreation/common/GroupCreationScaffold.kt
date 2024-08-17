@@ -24,17 +24,53 @@ fun GroupCreationScaffold(
     bottomFloatingButton: @Composable BoxScope.() -> Unit = {},
 ) {
     val scrollState = rememberScrollState()
+    GroupCreationInternals(
+        modifier = modifier,
+        topBar = topBar,
+        bottomFloatingButton = bottomFloatingButton,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentPadding)
+                .verticalScroll(scrollState),
+            horizontalAlignment = contentAlignment,
+            content = content,
+        )
+    }
+}
+
+@Composable
+fun GroupCreationScaffold(
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    boxContent: @Composable BoxScope.() -> Unit,
+    topBar: @Composable () -> Unit = {},
+    bottomFloatingButton: @Composable BoxScope.() -> Unit = {},
+) {
+    GroupCreationInternals(
+        modifier = modifier,
+        topBar = topBar,
+        bottomFloatingButton = bottomFloatingButton,
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize().padding(contentPadding),
+            content = boxContent,
+        )
+    }
+}
+
+@Composable
+private fun GroupCreationInternals(
+    modifier: Modifier = Modifier,
+    topBar: @Composable () -> Unit = {},
+    bottomFloatingButton: @Composable BoxScope.() -> Unit = {},
+    content: @Composable () -> Unit,
+) {
     Column(modifier = modifier) {
         topBar()
         Box(modifier = Modifier.weight(1f)) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(contentPadding)
-                    .verticalScroll(scrollState),
-                horizontalAlignment = contentAlignment,
-                content = content,
-            )
+            content()
             Box(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 content = bottomFloatingButton,
