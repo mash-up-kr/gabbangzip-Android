@@ -183,7 +183,11 @@ private fun GroupContainer(
     onNavigateGallery: (eventId: Long) -> Unit,
 ) {
     Column(
-        modifier = modifier.noRippleClickable { onGroupDetailClick(groupInfo.id) },
+        modifier = modifier.noRippleClickable {
+            if (groupInfo.status != GroupStatusType.NO_PAST_AND_CURRENT_EVENT) {
+                onGroupDetailClick(groupInfo.id)
+            }
+        },
     ) {
         GroupTitle(
             modifier = Modifier
