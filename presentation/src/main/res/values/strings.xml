@@ -100,13 +100,13 @@
     <string name="group_detail_empty_history_label">네컷 사진이 만들어지면\n이벤트가 추가돼요.</string>
 
     <string name="button_text_state_before_my_upload">내 PIC 올리기</string>
-    <string name="information_text_state_before_my_upload">까지 내 PIC 등록을 완료해 주세요.</string>
+    <string name="information_text_state_before_my_upload">모든 그룹원이 사진을 올리면 투표가 시작돼요</string>
     <string name="button_text_state_after_my_upload">쿡 찌르기</string>
-    <string name="information_text_state_after_my_upload">아직 사진 추가를 하지 않은 친구가 있어요!</string>
+    <string name="information_text_state_after_my_upload">아직 사진 추가를 하지 않은 친구가 있어요</string>
     <string name="button_text_state_before_my_vote">투표하기</string>
-    <string name="information_text_state_before_my_vote">내 PIC을 고르고 네컷사진을 완성해 보세요.</string>
+    <string name="information_text_state_before_my_vote">내 PIC을 고르고 네컷사진을 완성해 보세요</string>
     <string name="button_text_state_after_my_vote">쿡 찌르기</string>
-    <string name="information_text_state_after_my_vote">아직 PIC을 고르지 않은 친구가 있어요!</string>
+    <string name="information_text_state_after_my_vote">아직 PIC 하지 않은 친구가 있어요</string>
 
     <string name="complete">완료</string>
     <string name="group_complete_title">그룹에 친구들을 추가하고\n추억을 함께 PIC 해보세요</string>
