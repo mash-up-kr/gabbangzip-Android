@@ -110,7 +110,7 @@ fun GroupCreationIntroScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun GroupCreationFirstScreenPreview() {
+private fun GroupCreationIntroScreenPreview() {
     GroupCreationIntroScreen(
         onClickEnterByCodeButton = {},
         onClickNextButton = {},
