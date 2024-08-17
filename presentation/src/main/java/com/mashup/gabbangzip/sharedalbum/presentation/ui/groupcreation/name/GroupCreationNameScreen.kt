@@ -77,7 +77,7 @@ private fun GroupCreationNameScreen(
             PicProgressBar(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 32.dp, start = 16.dp, end = 16.dp),
+                    .padding(start = 16.dp, end = 16.dp),
                 level = 1,
                 total = 4f,
             )
@@ -117,7 +117,7 @@ private fun GroupCreationNameContent(
     setName: (String) -> Unit,
 ) {
     Text(
-        modifier = Modifier.padding(bottom = 16.dp),
+        modifier = Modifier.padding(top = 32.dp, bottom = 16.dp),
         text = stringResource(id = R.string.group_creation_name_title),
         style = PicTypography.headBold18,
         color = Gray80,

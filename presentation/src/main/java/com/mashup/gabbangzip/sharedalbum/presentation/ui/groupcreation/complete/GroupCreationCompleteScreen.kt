@@ -56,7 +56,7 @@ fun GroupCreationCompleteScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .padding(top = 3.dp, bottom = 32.dp, start = 16.dp, end = 16.dp),
+                    .padding(top = 3.dp, start = 16.dp, end = 16.dp),
                 level = 4,
                 total = 4f,
             )
@@ -104,7 +104,7 @@ private fun ColumnScope.GroupCreationCompleteContent(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(bottom = 16.dp),
+            .padding(top = 32.dp, bottom = 16.dp),
         text = stringResource(id = R.string.group_complete_title),
         style = PicTypography.headBold18,
         color = Gray80,
