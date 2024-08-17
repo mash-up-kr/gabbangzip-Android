@@ -90,7 +90,7 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(true) {
                     val groupId = intent.getLongExtra(INTENT_EXTRA_GROUP_ID, -1)
-                    if (groupId > 0) {
+                    if (groupId > -1) {
                         navController.navigateGroupDetail(groupId)
                     }
                 }
