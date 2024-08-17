@@ -183,13 +183,18 @@ private fun GroupContainer(
     onNavigateGallery: (eventId: Long) -> Unit,
 ) {
     Column(
-        modifier = modifier.noRippleClickable { onGroupDetailClick(groupInfo.id) },
+        modifier = modifier.noRippleClickable {
+            if (groupInfo.status != GroupStatusType.NO_PAST_AND_CURRENT_EVENT) {
+                onGroupDetailClick(groupInfo.id)
+            }
+        },
     ) {
         GroupTitle(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             groupName = groupInfo.name,
+            isVisibleNavigation = groupInfo.status != GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
         )
 
         GroupTag(
@@ -287,7 +292,11 @@ private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo, onClickEventMake
 }
 
 @Composable
-private fun GroupTitle(modifier: Modifier, groupName: String) {
+private fun GroupTitle(
+    modifier: Modifier,
+    groupName: String,
+    isVisibleNavigation: Boolean,
+) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
@@ -298,10 +307,12 @@ private fun GroupTitle(modifier: Modifier, groupName: String) {
             color = Gray80,
             style = PicTypography.headBold24,
         )
-        Image(
-            painter = painterResource(id = R.drawable.ic_right_arrow),
-            contentDescription = stringResource(R.string.detail_page_move),
-        )
+        if (isVisibleNavigation) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_right_arrow),
+                contentDescription = stringResource(R.string.detail_page_move),
+            )
+        }
     }
 }
 
@@ -314,8 +325,9 @@ private fun GroupTag(
     Row(modifier = modifier) {
         PicTag(
             modifier = Modifier.padding(end = 6.dp),
-            text = keyword.name,
+            text = stringResource(id = keyword.tagNameResId),
             iconRes = keyword.symbolResId,
+            iconColor = keyword.symbolColor,
         )
         PicTag(
             text = statusDesc,
