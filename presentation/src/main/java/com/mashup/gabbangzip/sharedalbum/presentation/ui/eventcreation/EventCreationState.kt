@@ -10,5 +10,6 @@ data class EventCreationState(
 )
 
 sealed interface EventCreationEvent {
+    data class Success(val groupId: Long) : EventCreationEvent
     data object Error : EventCreationEvent
 }

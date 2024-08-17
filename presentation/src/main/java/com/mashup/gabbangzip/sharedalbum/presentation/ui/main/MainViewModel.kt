@@ -1,6 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.messaging.FirebaseMessaging
@@ -18,10 +19,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val registerFcmTokenUseCase: RegisterFcmTokenUseCase,
     private val uploadMyPicUseCase: UploadMyPicUseCase,
     private val sendFcmNotificationUseCase: SendFcmNotificationUseCase,
 ) : ViewModel() {
+
+    private val groupId = savedStateHandle.get<Long>(MainActivity.INTENT_EXTRA_GROUP_ID) ?: -1
+
     private var currentEventId: Long = -1
 
     private val _mainEvent = MutableSharedFlow<MainEvent>()
@@ -40,7 +45,11 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun setCurrentEventId(eventId: Long) { currentEventId = eventId }
+    fun getCurrentGroupId() = groupId
+
+    fun setCurrentEventId(eventId: Long) {
+        currentEventId = eventId
+    }
 
     fun uploadMyPic(fileList: List<File>) {
         viewModelScope.launch {

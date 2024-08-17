@@ -26,6 +26,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackba
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.navigation.EventCreationNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.navigation.EventCreationRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -82,6 +83,10 @@ class EventCreationActivity : ComponentActivity() {
                 LaunchedEffect(true) {
                     eventCreationViewModel.eventFlow.collect {
                         when (it) {
+                            is EventCreationEvent.Success -> {
+                                MainActivity.openActivity(this@EventCreationActivity, it.groupId)
+                            }
+
                             is EventCreationEvent.Error -> {
                                 snackbarHostState.showPicSnackbar(
                                     type = PicSnackbarType.WARNING,
