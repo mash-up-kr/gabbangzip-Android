@@ -325,8 +325,9 @@ private fun GroupTag(
     Row(modifier = modifier) {
         PicTag(
             modifier = Modifier.padding(end = 6.dp),
-            text = keyword.name,
+            text = stringResource(id = keyword.tagNameResId),
             iconRes = keyword.symbolResId,
+            iconColor = keyword.symbolColor,
         )
         PicTag(
             text = statusDesc,
