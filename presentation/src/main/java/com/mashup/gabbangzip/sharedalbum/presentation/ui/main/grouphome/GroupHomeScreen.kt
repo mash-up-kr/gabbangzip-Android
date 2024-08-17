@@ -190,6 +190,7 @@ private fun GroupContainer(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             groupName = groupInfo.name,
+            isVisibleNavigation = groupInfo.status != GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
         )
 
         GroupTag(
@@ -287,7 +288,11 @@ private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo, onClickEventMake
 }
 
 @Composable
-private fun GroupTitle(modifier: Modifier, groupName: String) {
+private fun GroupTitle(
+    modifier: Modifier,
+    groupName: String,
+    isVisibleNavigation: Boolean,
+) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
@@ -298,10 +303,12 @@ private fun GroupTitle(modifier: Modifier, groupName: String) {
             color = Gray80,
             style = PicTypography.headBold24,
         )
-        Image(
-            painter = painterResource(id = R.drawable.ic_right_arrow),
-            contentDescription = stringResource(R.string.detail_page_move),
-        )
+        if (isVisibleNavigation) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_right_arrow),
+                contentDescription = stringResource(R.string.detail_page_move),
+            )
+        }
     }
 }
 
