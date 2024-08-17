@@ -31,6 +31,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.Gr
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 @Composable
 fun GroupDetailScreen(
@@ -70,6 +71,7 @@ fun GroupDetailScreen(
                 GroupStatusType.BEFORE_MY_UPLOAD -> state.recentEvent?.let { event ->
                     onClickOpenPhotoPickerButton(event.id)
                 }
+
                 GroupStatusType.AFTER_MY_UPLOAD, GroupStatusType.AFTER_MY_VOTE -> {
                     state.recentEvent
                         ?.let {
@@ -172,6 +174,7 @@ private fun GroupDetailScreenContent(
                 event = state.recentEvent,
                 keyword = state.groupInfo?.keyword ?: GroupKeyword.SCHOOL,
                 cardFrontImageUrl = state.groupInfo?.cardFrontImageUrl.orEmpty(),
+                images = ImmutableList(state.groupInfo?.cardBackImages.orEmpty()),
                 onClickActionButton = onClickActionButton,
                 onClickShareButton = onClickShareButton,
             )

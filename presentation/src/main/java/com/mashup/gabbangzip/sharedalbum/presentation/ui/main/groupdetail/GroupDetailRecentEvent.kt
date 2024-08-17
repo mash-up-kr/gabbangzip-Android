@@ -2,20 +2,22 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
 import android.graphics.Bitmap
 import android.graphics.Picture
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,14 +35,18 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.pretendard
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicCroppedPhoto
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicFourPhotoGrid
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicPhotoCardFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.preview.GroupStatusProvider
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEventActionButtonState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.getActionButtonState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.captureIntoCanvas
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.createBitmap
 
@@ -51,12 +57,15 @@ fun RecentEventContainer(
     event: GroupEvent,
     keyword: GroupKeyword,
     cardFrontImageUrl: String,
+    images: ImmutableList<CardBackImage>,
     onClickActionButton: (GroupStatusType) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
     if (status == GroupStatusType.EVENT_COMPLETED) {
         CompletedEventContainer(
             modifier = modifier,
+            keyword = keyword,
+            images = images,
             onClickShareButton = onClickShareButton,
         )
     } else {
@@ -88,6 +97,8 @@ fun RecentEventContainer(
 @Composable
 private fun CompletedEventContainer(
     modifier: Modifier = Modifier,
+    keyword: GroupKeyword,
+    images: ImmutableList<CardBackImage>,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottie_confetti))
@@ -108,6 +119,9 @@ private fun CompletedEventContainer(
                 letterSpacing = (-0.02).em,
             )
             PhotoCardWithShareButton(
+                modifier = Modifier.fillMaxWidth(),
+                keyword = keyword,
+                images = images,
                 onClickShareButton = onClickShareButton,
             )
         }
@@ -121,16 +135,26 @@ private fun CompletedEventContainer(
 @Composable
 private fun PhotoCardWithShareButton(
     modifier: Modifier = Modifier,
+    keyword: GroupKeyword,
+    images: ImmutableList<CardBackImage>,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
     val picture = remember { Picture() }
 
     Column(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         PhotoCard(
-            modifier = Modifier.captureIntoCanvas(picture),
+            modifier = Modifier
+                .padding(
+                    top = 16.dp,
+                    start = 41.5.dp,
+                    end = 41.5.dp,
+                )
+                .captureIntoCanvas(picture),
+            keyword = keyword,
+            images = images,
         )
         PicNormalButton(
             modifier = Modifier.padding(top = 32.dp),
@@ -146,14 +170,29 @@ private fun PhotoCardWithShareButton(
 @Composable
 private fun PhotoCard(
     modifier: Modifier = Modifier,
+    keyword: GroupKeyword,
+    images: ImmutableList<CardBackImage>,
 ) {
-    // todo
+    val maxHeight = LocalConfiguration.current.screenHeightDp.dp.div(2)
+
     Box(
         modifier = modifier
-            .padding(top = 16.dp)
-            .size(240.dp)
-            .background(color = Gray60),
-    )
+            .heightIn(max = maxHeight)
+            .wrapContentSize(),
+    ) {
+        PicPhotoCardFrame(
+            modifier = Modifier.matchParentSize(),
+            keywordType = keyword,
+            frameResId = PicPhotoFrame.getTypeByKeyword(keyword.name).frameResId,
+        )
+        PicFourPhotoGrid(
+            modifier = Modifier
+                .padding(top = 74.dp, bottom = 96.dp, start = 30.dp, end = 30.dp)
+                .align(Alignment.Center),
+            backgroundColor = keyword.frontCardBackgroundColor,
+            images = images,
+        )
+    }
 }
 
 @Composable
@@ -229,6 +268,26 @@ private fun RecentEventPreview(
             ),
             keyword = GroupKeyword.SCHOOL,
             cardFrontImageUrl = "https://picsum.photos/200/300",
+            images = ImmutableList(
+                listOf(
+                    CardBackImage(
+                        imageUrl = "https://picsum.photos/200/300",
+                        frameType = PicPhotoFrame.HAMBURGER,
+                    ),
+                    CardBackImage(
+                        imageUrl = "https://picsum.photos/200/300",
+                        frameType = PicPhotoFrame.PLUS,
+                    ),
+                    CardBackImage(
+                        imageUrl = "https://picsum.photos/200/300",
+                        frameType = PicPhotoFrame.GHOST,
+                    ),
+                    CardBackImage(
+                        imageUrl = "https://picsum.photos/200/300",
+                        frameType = PicPhotoFrame.SEXY,
+                    ),
+                ),
+            ),
             onClickActionButton = {},
             onClickShareButton = {},
         )
