@@ -190,8 +190,8 @@ private fun PhotoCard(
 
     Box(
         modifier = modifier
-            .heightIn(max = maxHeight)
-            .wrapContentSize(),
+            .wrapContentSize()
+            .heightIn(max = maxHeight),
     ) {
         PicPhotoCardFrame(
             modifier = Modifier.matchParentSize(),
