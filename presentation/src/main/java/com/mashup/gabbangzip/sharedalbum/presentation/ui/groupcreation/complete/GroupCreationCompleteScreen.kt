@@ -83,8 +83,8 @@ fun GroupCreationCompleteScreen(
             )
             Spacer(
                 modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
+                    .fillMaxWidth()
+                    .height(60.dp),
             )
         },
     )
@@ -168,9 +168,11 @@ private fun ThumbnailCard(
 
 @Composable
 private fun ColumnScope.EmptyThumbnailCard() {
-    Box(modifier = Modifier
-        .size(310.dp, 420.dp)
-        .align(Alignment.CenterHorizontally))
+    Box(
+        modifier = Modifier
+            .size(310.dp, 420.dp)
+            .align(Alignment.CenterHorizontally),
+    )
 }
 
 @Preview(showBackground = true)

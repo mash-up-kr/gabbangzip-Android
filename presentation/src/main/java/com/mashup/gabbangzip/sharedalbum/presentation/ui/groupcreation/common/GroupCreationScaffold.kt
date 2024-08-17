@@ -37,7 +37,7 @@ fun GroupCreationScaffold(
             )
             Box(
                 modifier = Modifier.align(Alignment.BottomCenter),
-                content = bottomFloatingButton
+                content = bottomFloatingButton,
             )
         }
     }

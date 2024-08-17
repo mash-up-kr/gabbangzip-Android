@@ -104,7 +104,7 @@ private fun GroupCreationNameScreen(
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(60.dp)
+                    .height(60.dp),
             )
         },
     )

@@ -132,7 +132,7 @@ private fun GroupCreationThumbnailScreen(
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(60.dp)
+                    .height(60.dp),
             )
         },
     )

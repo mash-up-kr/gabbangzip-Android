@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,7 +37,12 @@ fun GroupCreationKeywordScreen(
     onNextButtonClicked: (keyword: GroupKeyword) -> Unit,
 ) {
     val (selectedKeyword, setSelected) = remember { mutableStateOf(initialKeyword) }
-    GroupCreationKeywordScreen(selectedKeyword, setSelected, onBackButtonClicked, onNextButtonClicked)
+    GroupCreationKeywordScreen(
+        selectedKeyword,
+        setSelected,
+        onBackButtonClicked,
+        onNextButtonClicked,
+    )
 }
 
 @Composable
@@ -80,12 +84,12 @@ private fun GroupCreationKeywordScreen(
         content = {
             GroupCreationCompleteContent(
                 selectedKeyword = selectedKeyword,
-                setSelected = setSelected
+                setSelected = setSelected,
             )
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(60.dp)
+                    .height(60.dp),
             )
         },
     )
