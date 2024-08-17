@@ -7,9 +7,9 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.LocalDateUtil
 data class EventCreationState(
     val date: String = LocalDateUtil.getNowDate(),
     val pictures: ImmutableList<Uri?> = ImmutableList(emptyList()),
+    val eventCreationSuccess: Long? = null,
 )
 
 sealed interface EventCreationEvent {
-    data class Success(val groupId: Long) : EventCreationEvent
     data object Error : EventCreationEvent
 }

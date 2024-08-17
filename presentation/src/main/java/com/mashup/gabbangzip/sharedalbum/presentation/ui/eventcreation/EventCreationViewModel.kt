@@ -77,7 +77,7 @@ class EventCreationViewModel @Inject constructor(
                 fileList = fileList,
             ).onSuccess {
                 Log.d(TAG, "이벤트 생성 성공")
-                _eventFlow.emit(EventCreationEvent.Success(groupId))
+                _uiState.update { it.copy(eventCreationSuccess = groupId) }
             }.onFailure {
                 Log.d(TAG, "이벤트 생성 실패")
                 showSnackBar()

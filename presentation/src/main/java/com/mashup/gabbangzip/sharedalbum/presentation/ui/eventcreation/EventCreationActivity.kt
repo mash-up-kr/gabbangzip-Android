@@ -47,7 +47,7 @@ class EventCreationActivity : ComponentActivity() {
             },
         )
         setContent {
-            val eventCreationState by eventCreationViewModel.uiState.collectAsStateWithLifecycle()
+            val state by eventCreationViewModel.uiState.collectAsStateWithLifecycle()
             val snackbarHostState = remember { SnackbarHostState() }
             SharedAlbumTheme {
                 Scaffold(
@@ -63,10 +63,10 @@ class EventCreationActivity : ComponentActivity() {
                             .systemBarsPadding(),
                         navController = rememberNavController(),
                         startDestination = EventCreationRoute.initRoute,
-                        eventCreationState = eventCreationState,
+                        eventCreationState = state,
                         clearEventCreationState = eventCreationViewModel::clearEventCreationState,
                         onCompleteButtonClicked = { description ->
-                            eventCreationState.pictures
+                            state.pictures
                                 .mapNotNull { uri ->
                                     FileUtil.getFileFromUri(this@EventCreationActivity, uri)
                                 }
@@ -80,18 +80,19 @@ class EventCreationActivity : ComponentActivity() {
                     )
                 }
 
+                val groupId = state.eventCreationSuccess
+                if (groupId != null) {
+                    MainActivity.openActivity(
+                        context = this@EventCreationActivity,
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP,
+                        groupId = groupId,
+                    )
+                    finish()
+                }
+
                 LaunchedEffect(true) {
                     eventCreationViewModel.eventFlow.collect {
                         when (it) {
-                            is EventCreationEvent.Success -> {
-                                MainActivity.openActivity(
-                                    context = this@EventCreationActivity,
-                                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP,
-                                    groupId = it.groupId,
-                                )
-                                finish()
-                            }
-
                             is EventCreationEvent.Error -> {
                                 snackbarHostState.showPicSnackbar(
                                     type = PicSnackbarType.WARNING,
