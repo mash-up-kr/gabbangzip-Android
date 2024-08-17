@@ -19,12 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -33,7 +30,6 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.pretendard
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicCroppedPhoto
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicFourPhotoGrid
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
@@ -119,11 +115,8 @@ private fun CompletedEventContainer(
             if (isFirstVisit) {
                 Text(
                     text = stringResource(id = R.string.group_detail_event_complete),
-                    fontFamily = pretendard,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 20.sp,
-                    lineHeight = 28.sp,
-                    letterSpacing = (-0.02).em,
+                    style = PicTypography.headBold20,
+                    color = Gray80,
                 )
             }
             PhotoCardWithShareButton(
