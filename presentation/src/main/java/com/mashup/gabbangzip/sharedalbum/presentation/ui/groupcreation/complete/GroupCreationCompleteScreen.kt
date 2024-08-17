@@ -3,7 +3,9 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -77,7 +79,12 @@ fun GroupCreationCompleteScreen(
                 playStoreUrl = stringResource(id = R.string.play_store_url),
                 appStoreUrl = stringResource(id = R.string.app_store_url),
                 groupCreationResult = groupCreationResult,
-                showSnackBarMessage = showSnackBarMessage
+                showSnackBarMessage = showSnackBarMessage,
+            )
+            Spacer(
+                modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
             )
         },
     )

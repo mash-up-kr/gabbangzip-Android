@@ -3,7 +3,9 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.keyword
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -79,6 +81,11 @@ private fun GroupCreationKeywordScreen(
             GroupCreationCompleteContent(
                 selectedKeyword = selectedKeyword,
                 setSelected = setSelected
+            )
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
             )
         },
     )
