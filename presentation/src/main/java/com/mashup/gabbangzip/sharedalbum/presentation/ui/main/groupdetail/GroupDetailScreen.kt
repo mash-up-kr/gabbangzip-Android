@@ -51,6 +51,10 @@ fun GroupDetailScreen(
         onErrorEvent()
     }
 
+    if (state.status == GroupStatusType.EVENT_COMPLETED) {
+        viewModel.markEventVisit()
+    }
+
     GroupDetailScreen(
         state = state,
         onClickGroupMemberButton = {
@@ -66,13 +70,12 @@ fun GroupDetailScreen(
                 GroupStatusType.BEFORE_MY_UPLOAD -> state.recentEvent?.let { event ->
                     onClickOpenPhotoPickerButton(event.id)
                 }
-
-                GroupStatusType.AFTER_MY_UPLOAD, GroupStatusType.AFTER_MY_VOTE,
-                -> {
-                    state.recentEvent?.let {
-                        onClickSendFcmButton(it.id)
-                    }
-                    // TODO : #150 이슈 머지된 이후 errorEvent 로직 추가하기
+                GroupStatusType.AFTER_MY_UPLOAD, GroupStatusType.AFTER_MY_VOTE -> {
+                    state.recentEvent
+                        ?.let {
+                            onClickSendFcmButton(it.id)
+                        }
+                        ?: onErrorEvent()
                 }
 
                 GroupStatusType.BEFORE_MY_VOTE -> {
