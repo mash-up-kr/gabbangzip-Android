@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.model.vote.VoteResultParam
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.LoadUserInfoUseCase
-import com.mashup.gabbangzip.sharedalbum.domain.usecase.vote.GetVoteVisitUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.vote.GetVotePhotoListUseCase
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.vote.GetVoteVisitUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.vote.RequestVoteResultUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.vote.SaveVoteVisitUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.toUiModel

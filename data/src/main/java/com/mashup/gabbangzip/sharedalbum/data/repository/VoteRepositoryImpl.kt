@@ -4,8 +4,8 @@ import com.mashup.gabbangzip.sharedalbum.data.base.callApi
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.vote.toRequestBody
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.vote.toDomainModel
 import com.mashup.gabbangzip.sharedalbum.data.service.VoteService
-import com.mashup.gabbangzip.sharedalbum.domain.model.vote.VotePhotoDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.datasource.LocalDataSource
+import com.mashup.gabbangzip.sharedalbum.domain.model.vote.VotePhotoDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.model.vote.VoteResultDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.model.vote.VoteResultParam
 import com.mashup.gabbangzip.sharedalbum.domain.repository.VoteRepository
