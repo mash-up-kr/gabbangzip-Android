@@ -99,7 +99,6 @@ private fun CompletedEventContainer(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            val picture = remember { Picture() }
             Text(
                 text = stringResource(id = R.string.group_detail_event_complete),
                 fontFamily = pretendard,
@@ -108,21 +107,38 @@ private fun CompletedEventContainer(
                 lineHeight = 28.sp,
                 letterSpacing = (-0.02).em,
             )
-            PhotoCard(
-                modifier = Modifier.captureIntoCanvas(picture),
-            )
-            PicNormalButton(
-                modifier = Modifier.padding(top = 32.dp),
-                iconRes = R.drawable.ic_share,
-                onButtonClicked = {
-                    val bitmap = picture.createBitmap()
-                    onClickShareButton(bitmap)
-                },
+            PhotoCardWithShareButton(
+                onClickShareButton = onClickShareButton,
             )
         }
         LottieAnimation(
             alignment = Alignment.TopCenter,
             composition = composition,
+        )
+    }
+}
+
+@Composable
+private fun PhotoCardWithShareButton(
+    modifier: Modifier = Modifier,
+    onClickShareButton: (Bitmap) -> Unit,
+) {
+    val picture = remember { Picture() }
+
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        PhotoCard(
+            modifier = Modifier.captureIntoCanvas(picture),
+        )
+        PicNormalButton(
+            modifier = Modifier.padding(top = 32.dp),
+            iconRes = R.drawable.ic_share,
+            onButtonClicked = {
+                val bitmap = picture.createBitmap()
+                onClickShareButton(bitmap)
+            },
         )
     }
 }
