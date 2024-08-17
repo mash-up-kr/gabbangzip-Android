@@ -47,14 +47,18 @@ fun GroupHomePhotoCard(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .padding(top = 37.dp),
-            text = if (groupInfo.status == GroupStatusType.NO_PAST_AND_CURRENT_EVENT) {
+            text = if (groupInfo.status == GroupStatusType.NO_PAST_AND_CURRENT_EVENT ||
+                groupInfo.status == GroupStatusType.NO_CURRENT_EVENT
+            ) {
                 stringResource(id = R.string.intro_event_top_title)
             } else {
                 groupInfo.recentEvent.date
             },
         )
 
-        if (groupInfo.status == GroupStatusType.NO_PAST_AND_CURRENT_EVENT) {
+        if (groupInfo.status == GroupStatusType.NO_PAST_AND_CURRENT_EVENT ||
+            groupInfo.status == GroupStatusType.NO_CURRENT_EVENT
+        ) {
             PicNormalButton(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
@@ -68,7 +72,9 @@ fun GroupHomePhotoCard(
 
         content()
 
-        if (groupInfo.status != GroupStatusType.NO_PAST_AND_CURRENT_EVENT) {
+        if (groupInfo.status != GroupStatusType.NO_PAST_AND_CURRENT_EVENT &&
+            groupInfo.status != GroupStatusType.NO_CURRENT_EVENT
+        ) {
             EventTitle(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
