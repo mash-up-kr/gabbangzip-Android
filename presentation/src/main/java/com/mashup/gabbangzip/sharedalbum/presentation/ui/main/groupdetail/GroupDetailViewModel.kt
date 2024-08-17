@@ -51,6 +51,7 @@ class GroupDetailViewModel @Inject constructor(
                             groupInfo = groupDetail.toUiModel(),
                             status = GroupStatusType.getType(groupDetail.status),
                             recentEvent = groupDetail.recentEvent.toUiModel(),
+                            history = groupDetail.history.map { it.toUiModel() },
                         )
                     }
                 }.onFailure {
