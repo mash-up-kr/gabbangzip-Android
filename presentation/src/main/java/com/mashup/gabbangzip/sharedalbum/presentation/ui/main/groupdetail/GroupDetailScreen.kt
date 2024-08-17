@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberBottomSheetScaffoldState
@@ -169,7 +171,8 @@ private fun GroupDetailScreenContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Gray0)
-                    .padding(top = 10.dp),
+                    .verticalScroll(rememberScrollState())
+                    .padding(top = 10.dp, bottom = 270.dp),
                 status = state.status,
                 event = state.recentEvent,
                 keyword = state.groupInfo?.keyword ?: GroupKeyword.SCHOOL,
