@@ -61,8 +61,8 @@ fun RecentEventContainer(
     onClickActionButton: (GroupStatusType) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
-    if (status == GroupStatusType.EVENT_COMPLETED
-        || status == GroupStatusType.NO_CURRENT_EVENT
+    if (status == GroupStatusType.EVENT_COMPLETED ||
+        status == GroupStatusType.NO_CURRENT_EVENT
     ) {
         CompletedEventContainer(
             modifier = modifier,
@@ -105,7 +105,6 @@ private fun CompletedEventContainer(
     images: ImmutableList<CardBackImage>,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
-
     Box(
         modifier = modifier,
     ) {
