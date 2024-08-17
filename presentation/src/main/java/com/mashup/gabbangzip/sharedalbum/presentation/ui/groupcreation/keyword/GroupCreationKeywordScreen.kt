@@ -59,7 +59,7 @@ private fun GroupCreationKeywordScreen(
                 modifier = Modifier
                     .background(Gray0Alpha80)
                     .padding(top = 16.dp),
-                titleText = "stringResource(id = R.string.group_creation_button_name)",
+                titleText = stringResource(id = R.string.group_creation_button_name),
                 backButtonClicked = onBackButtonClicked,
             )
             PicProgressBar(
@@ -75,7 +75,7 @@ private fun GroupCreationKeywordScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 22.dp, end = 22.dp, bottom = 16.dp),
-                text = "stringResource(id = R.string.next)",
+                text = stringResource(id = R.string.next),
                 isRippleClickable = true,
                 enable = true,
                 onButtonClicked = { onNextButtonClicked(selectedKeyword) },

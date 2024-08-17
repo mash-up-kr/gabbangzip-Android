@@ -13,6 +13,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
@@ -38,12 +39,12 @@ fun GroupCreationNameScreen(
     onNextButtonClicked: (name: String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
-    val (name, setName) = remember { mutableStateOf(initialName) }
+    var name by remember { mutableStateOf(initialName) }
     val buttonEnabled by remember { derivedStateOf { name.isNotBlank() } }
     GroupCreationNameScreen(
         name = name,
         focusManager = focusManager,
-        setName = setName,
+        setName = { name = it },
         buttonEnabled = buttonEnabled,
         onBackButtonClicked = onBackButtonClicked,
         onNextButtonClicked = onNextButtonClicked,
