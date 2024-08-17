@@ -5,7 +5,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,7 +16,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,6 +36,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTop
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicProgressBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationUiState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.common.GroupCreationScaffold
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.common.ThumbnailCardFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
@@ -53,28 +52,51 @@ fun GroupCreationThumbnailScreen(
     onGetThumbnailButtonClicked: () -> Unit,
     navigateNextScreen: () -> Unit,
 ) {
-    val buttonEnabled by rememberUpdatedState(newValue = state.thumbnail != null)
-    var modifyButtonEnabled by remember { mutableStateOf(false) }
+    val nextButtonEnabled by rememberUpdatedState(newValue = state.thumbnail != null)
+    val (modifyButtonEnabled, setModifyButtonEnabled) = remember { mutableStateOf(false) }
 
-    Column(
+    GroupCreationThumbnailScreen(
+        state = state,
+        nextButtonEnabled = nextButtonEnabled,
+        modifyButtonEnabled = modifyButtonEnabled,
+        setModifyButtonEnabled = setModifyButtonEnabled,
+        onBackButtonClicked = onBackButtonClicked,
+        onNextButtonClicked = onNextButtonClicked,
+        openPhotoPicker = onGetThumbnailButtonClicked,
+    )
+
+    LaunchedEffect(isGroupCreated) {
+        if (isGroupCreated) {
+            navigateNextScreen()
+        }
+    }
+}
+
+@Composable
+private fun GroupCreationThumbnailScreen(
+    state: GroupCreationUiState,
+    nextButtonEnabled: Boolean,
+    modifyButtonEnabled: Boolean,
+    setModifyButtonEnabled: (Boolean) -> Unit,
+    onBackButtonClicked: () -> Unit,
+    onNextButtonClicked: () -> Unit,
+    openPhotoPicker: () -> Unit,
+) {
+    GroupCreationScaffold(
         modifier = Modifier.noRippleClickable {
             if (modifyButtonEnabled) {
-                modifyButtonEnabled = false
+                setModifyButtonEnabled(false)
             }
         },
-    ) {
-        PicBackButtonTopBar(
-            modifier = Modifier
-                .background(Gray0Alpha80)
-                .padding(top = 16.dp),
-            titleText = stringResource(id = R.string.group_creation_button_name),
-            backButtonClicked = onBackButtonClicked,
-        )
-        Column(
-            modifier = Modifier
-                .weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
+        contentAlignment = Alignment.CenterHorizontally,
+        topBar = {
+            PicBackButtonTopBar(
+                modifier = Modifier
+                    .background(Gray0Alpha80)
+                    .padding(top = 16.dp),
+                titleText = stringResource(id = R.string.group_creation_button_name),
+                backButtonClicked = onBackButtonClicked,
+            )
             PicProgressBar(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -83,42 +105,60 @@ fun GroupCreationThumbnailScreen(
                 level = 3,
                 total = 4f,
             )
-            Text(
+        },
+        bottomFloatingButton = {
+            PicButton(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(bottom = 32.dp),
-                text = stringResource(id = R.string.group_add_description),
-                style = PicTypography.headBold18,
-                color = Gray80,
-                textAlign = TextAlign.Center,
+                    .align(Alignment.BottomCenter)
+                    .padding(start = 22.dp, end = 22.dp, bottom = 16.dp),
+                text = stringResource(id = R.string.next),
+                isRippleClickable = true,
+                enable = nextButtonEnabled,
+                onButtonClicked = onNextButtonClicked,
             )
-            ThumbnailCard(
-                modifier = Modifier.size(310.dp, 420.dp),
+        },
+        content = {
+            GroupCreationThumbnailContent(
                 thumbnailUri = state.thumbnail,
                 groupName = state.name,
                 keyword = state.keyword,
                 modifyButtonEnabled = modifyButtonEnabled,
-                onThumbnailButtonClick = { modifyButtonEnabled = true },
-                openPhotoPicker = onGetThumbnailButtonClicked,
+                onThumbnailButtonClick = { setModifyButtonEnabled(true) },
+                openPhotoPicker = openPhotoPicker,
             )
-        }
-        PicButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 22.dp, end = 22.dp, bottom = 16.dp),
-            text = stringResource(id = R.string.next),
-            isRippleClickable = true,
-            enable = buttonEnabled,
-            onButtonClicked = onNextButtonClicked,
-        )
-    }
+        },
+    )
+}
 
-    LaunchedEffect(isGroupCreated) {
-        if (isGroupCreated) {
-            navigateNextScreen()
-        }
-    }
+@Composable
+private fun GroupCreationThumbnailContent(
+    thumbnailUri: Uri?,
+    groupName: String,
+    keyword: GroupKeyword,
+    modifyButtonEnabled: Boolean,
+    onThumbnailButtonClick: () -> Unit,
+    openPhotoPicker: () -> Unit,
+) {
+    Text(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(bottom = 32.dp),
+        text = stringResource(id = R.string.group_add_description),
+        style = PicTypography.headBold18,
+        color = Gray80,
+        textAlign = TextAlign.Center,
+    )
+    ThumbnailCard(
+        modifier = Modifier.size(310.dp, 420.dp),
+        thumbnailUri = thumbnailUri,
+        groupName = groupName,
+        keyword = keyword,
+        modifyButtonEnabled = modifyButtonEnabled,
+        onThumbnailButtonClick = onThumbnailButtonClick,
+        openPhotoPicker = openPhotoPicker,
+    )
 }
 
 @Composable
@@ -199,10 +239,11 @@ private fun GroupCreationThumbnailScreenPreview() {
             thumbnail = null,
             groupCreationResult = null,
         ),
-        isGroupCreated = false,
+        nextButtonEnabled = false,
+        modifyButtonEnabled = false,
+        setModifyButtonEnabled = {},
         onBackButtonClicked = {},
         onNextButtonClicked = {},
-        onGetThumbnailButtonClicked = {},
-        navigateNextScreen = {},
+        openPhotoPicker = {},
     )
 }
