@@ -28,7 +28,6 @@ class VoteViewModel @Inject constructor(
     private val requestVoteResultUseCase: RequestVoteResultUseCase,
     private val getVotePhotoListUseCase: GetVotePhotoListUseCase,
     private val getLoadUserInfoUseCase: LoadUserInfoUseCase,
-    private val loadUserInfoUseCase: LoadUserInfoUseCase,
     private val getVoteVisitUseCase: GetVoteVisitUseCase,
     private val saveVoteVisitUseCase: SaveVoteVisitUseCase,
 ) : ViewModel() {
