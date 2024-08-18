@@ -23,6 +23,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackba
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation.navigateGroupDetail
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.MainEvent
@@ -46,6 +47,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val snackbarHostState = remember { SnackbarHostState() }
             val coroutineScope = rememberCoroutineScope()
+            val navController = rememberNavController()
 
             SharedAlbumTheme {
                 ObserveEvent(snackbarHostState)
@@ -57,7 +59,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding),
-                        navController = rememberNavController(),
+                        navController = navController,
                         startDestination = MainRoute.initRoute,
                         navigateLoginAndFinish = {
                             LoginActivity.openActivity(this)
@@ -84,6 +86,13 @@ class MainActivity : ComponentActivity() {
                         },
                         onErrorEvent = { showToast(R.string.error_retry) },
                     )
+                }
+
+                LaunchedEffect(true) {
+                    val groupId = intent.getLongExtra(INTENT_EXTRA_GROUP_ID, -1)
+                    if (groupId > -1) {
+                        navController.navigateGroupDetail(groupId)
+                    }
                 }
             }
         }
@@ -127,6 +136,7 @@ class MainActivity : ComponentActivity() {
 
     companion object {
         const val PICTURES_MAX_COUNT = 4
+        const val INTENT_EXTRA_GROUP_ID = "groupId"
 
         fun openActivity(context: Activity) {
             context.startActivity(
@@ -138,6 +148,15 @@ class MainActivity : ComponentActivity() {
             context.startActivity(
                 Intent(context, MainActivity::class.java).apply {
                     addFlags(flags)
+                },
+            )
+        }
+
+        fun openActivity(context: Activity, flags: Int, groupId: Long) {
+            context.startActivity(
+                Intent(context, MainActivity::class.java).apply {
+                    addFlags(flags)
+                    putExtra(INTENT_EXTRA_GROUP_ID, groupId)
                 },
             )
         }

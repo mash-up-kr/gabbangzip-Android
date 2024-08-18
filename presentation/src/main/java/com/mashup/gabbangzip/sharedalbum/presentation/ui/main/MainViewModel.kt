@@ -40,7 +40,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun setCurrentEventId(eventId: Long) { currentEventId = eventId }
+    fun setCurrentEventId(eventId: Long) {
+        currentEventId = eventId
+    }
 
     fun uploadMyPic(fileList: List<File>) {
         viewModelScope.launch {

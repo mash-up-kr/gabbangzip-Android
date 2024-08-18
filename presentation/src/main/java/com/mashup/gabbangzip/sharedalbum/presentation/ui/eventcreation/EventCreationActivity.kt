@@ -26,6 +26,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackba
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.navigation.EventCreationNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.navigation.EventCreationRoute
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +47,7 @@ class EventCreationActivity : ComponentActivity() {
             },
         )
         setContent {
-            val eventCreationState by eventCreationViewModel.uiState.collectAsStateWithLifecycle()
+            val state by eventCreationViewModel.uiState.collectAsStateWithLifecycle()
             val snackbarHostState = remember { SnackbarHostState() }
             SharedAlbumTheme {
                 Scaffold(
@@ -62,10 +63,10 @@ class EventCreationActivity : ComponentActivity() {
                             .systemBarsPadding(),
                         navController = rememberNavController(),
                         startDestination = EventCreationRoute.initRoute,
-                        eventCreationState = eventCreationState,
+                        eventCreationState = state,
                         clearEventCreationState = eventCreationViewModel::clearEventCreationState,
                         onCompleteButtonClicked = { description ->
-                            eventCreationState.pictures
+                            state.pictures
                                 .mapNotNull { uri ->
                                     FileUtil.getFileFromUri(this@EventCreationActivity, uri)
                                 }
@@ -77,6 +78,16 @@ class EventCreationActivity : ComponentActivity() {
                         onPictureDeleteButtonClicked = eventCreationViewModel::deletePicture,
                         onBackButtonClicked = { finish() },
                     )
+                }
+
+                val groupId = state.eventCreationSuccess
+                if (groupId != null) {
+                    MainActivity.openActivity(
+                        context = this@EventCreationActivity,
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP,
+                        groupId = groupId,
+                    )
+                    finish()
                 }
 
                 LaunchedEffect(true) {
