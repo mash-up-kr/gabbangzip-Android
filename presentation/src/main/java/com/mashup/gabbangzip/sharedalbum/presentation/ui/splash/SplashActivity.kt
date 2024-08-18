@@ -30,7 +30,7 @@ class SplashActivity : ComponentActivity() {
             ),
             navigationBarStyle = SystemBarStyle.dark(
                 TRANSPARENT,
-            )
+            ),
         )
         viewModel.checkUserLoggedIn()
         setContent {
