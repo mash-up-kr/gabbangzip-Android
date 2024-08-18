@@ -5,13 +5,14 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.Ca
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.LocalDateUtil
+import java.io.Serializable
 
 data class HistoryItem(
     val id: Long = 0,
     val title: String,
     val date: String,
     val images: ImmutableList<CardBackImage> = ImmutableList(emptyList()),
-)
+) : Serializable
 
 fun HistoryDomainModel.toUiModel(): HistoryItem {
     return HistoryItem(
