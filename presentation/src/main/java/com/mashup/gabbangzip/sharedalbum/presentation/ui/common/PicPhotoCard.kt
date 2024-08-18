@@ -21,11 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
@@ -195,7 +197,10 @@ fun PicCroppedPhoto(
     ) {
         AsyncImage(
             modifier = Modifier.matchParentSize(),
-            model = imageUrl,
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(imageUrl)
+                .allowHardware(false)
+                .build(),
             contentScale = ContentScale.Crop,
             contentDescription = stringResource(R.string.group_main_picture),
         )
