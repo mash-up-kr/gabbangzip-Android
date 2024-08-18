@@ -10,4 +10,7 @@ data class GroupDetailUiState(
     val recentEvent: GroupEvent? = null,
     val history: List<HistoryItem> = emptyList(),
     val isError: Boolean = false,
-)
+) {
+    val isEnabledNewEvent: Boolean
+        get() = status == GroupStatusType.EVENT_COMPLETED || status == GroupStatusType.NO_CURRENT_EVENT
+}
