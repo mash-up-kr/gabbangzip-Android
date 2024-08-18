@@ -9,7 +9,11 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.complete.
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.navigation.GroupCreationRoute
 
 fun NavController.navigateToGroupCreationComplete() {
-    navigate(GroupCreationRoute.CompleteScreenRoute.route)
+    navigate(GroupCreationRoute.CompleteScreenRoute.route) {
+        popUpTo(graph.startDestinationId) {
+            inclusive = true
+        }
+    }
 }
 
 fun NavGraphBuilder.groupCreationCompleteNavGraph(
