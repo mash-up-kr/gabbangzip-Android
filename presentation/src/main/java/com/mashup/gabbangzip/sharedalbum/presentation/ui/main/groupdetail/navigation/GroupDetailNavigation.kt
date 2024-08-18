@@ -7,7 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.GroupDetailScreen
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.HistoryDetailState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute.GroupDetailRoute.KEY_GROUP_ID
 
@@ -23,7 +23,7 @@ fun NavGraphBuilder.groupDetailNavGraph(
     onClickVoteButton: (eventId: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
-    onClickHistoryItem: (HistoryItem) -> Unit,
+    onClickHistoryItem: (HistoryDetailState) -> Unit,
     onErrorEvent: () -> Unit,
 ) {
     composable(
