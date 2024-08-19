@@ -80,6 +80,8 @@ class SplashActivity : ComponentActivity() {
             } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
+        } else {
+            viewModel.checkUserLoggedIn()
         }
     }
 }
