@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.data.dto.response.vote
 
+import com.mashup.gabbangzip.sharedalbum.data.common.toS3Url
 import com.mashup.gabbangzip.sharedalbum.domain.model.vote.VoteResultDomainModel
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -17,6 +18,6 @@ data class VoteResultResponse(
 fun VoteResultResponse.toDomainModel(): VoteResultDomainModel =
     VoteResultDomainModel(
         eventId = eventId,
-        randomImageUrl = randomImageUrl,
+        randomImageUrl = randomImageUrl.toS3Url(),
         groupKeyword = groupKeyword,
     )
