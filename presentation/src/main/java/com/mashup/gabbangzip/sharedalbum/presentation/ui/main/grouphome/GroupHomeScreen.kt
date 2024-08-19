@@ -286,6 +286,7 @@ private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo, onClickEventMake
             durationMillis = 700,
             easing = LinearOutSlowInEasing,
         ),
+        enableFlip = groupInfo.cardBackImages.isNotEmpty(),
         enableFlipByDrag = true,
     )
 }
