@@ -12,6 +12,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRou
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -33,6 +34,10 @@ class GroupDetailViewModel @Inject constructor(
                 status = GroupStatusType.getType(groupDetail.status),
                 recentEvent = groupDetail.recentEvent.toUiModel(),
                 history = groupDetail.history.map { it.toUiModel() },
+            )
+        }.catch {
+            GroupDetailUiState(
+                isError = true,
             )
         }.stateIn(
             scope = viewModelScope,
