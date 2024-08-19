@@ -83,7 +83,7 @@ private fun GroupCreationKeywordScreen(
             )
         },
         boxContent = {
-            GroupCreationCompleteContent(
+            GroupCreationKeywordContent(
                 selectedKeyword = selectedKeyword,
                 setSelected = setSelected,
             )
@@ -92,7 +92,7 @@ private fun GroupCreationKeywordScreen(
 }
 
 @Composable
-private fun GroupCreationCompleteContent(
+private fun GroupCreationKeywordContent(
     selectedKeyword: GroupKeyword,
     setSelected: (GroupKeyword) -> Unit,
 ) {
