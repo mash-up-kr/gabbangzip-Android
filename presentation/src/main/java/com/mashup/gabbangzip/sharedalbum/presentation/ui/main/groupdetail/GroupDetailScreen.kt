@@ -1,6 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,7 +44,7 @@ fun GroupDetailScreen(
     onClickVoteButton: (eventId: Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onClickEventMake: () -> Unit,
-    onClickHistoryItem: (HistoryItem) -> Unit,
+    onClickHistoryItem: (HistoryDetailState) -> Unit,
     onErrorEvent: () -> Unit,
     viewModel: GroupDetailViewModel = hiltViewModel(),
 ) {
@@ -94,7 +95,18 @@ fun GroupDetailScreen(
         },
         onClickEventMake = onClickEventMake,
         onClickShareButton = onClickShareButton,
-        onClickHistoryItem = onClickHistoryItem,
+        onClickHistoryItem = { history ->
+            state.groupInfo?.run {
+                Log.d("TAG", "GroupDetailScreen: 히스토리")
+                onClickHistoryItem(
+                    HistoryDetailState(
+                        groupName = name,
+                        keyword = keyword.name,
+                        history = history,
+                    ),
+                )
+            }
+        },
     )
 }
 

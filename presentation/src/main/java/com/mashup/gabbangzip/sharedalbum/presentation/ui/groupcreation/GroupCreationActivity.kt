@@ -2,9 +2,12 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,7 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.R
@@ -40,7 +42,12 @@ class GroupCreationActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        enableEdgeToEdge(
+            SystemBarStyle.light(
+                Color.TRANSPARENT,
+                Color.TRANSPARENT,
+            ),
+        )
         photoPicker = PicPhotoPicker.create(this@GroupCreationActivity) {
             viewModel.updateThumbnail(it)
         }

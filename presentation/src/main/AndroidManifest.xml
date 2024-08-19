@@ -22,6 +22,10 @@
             android:exported="true" />
 
         <activity
+            android:name=".ui.main.groupdetail.HistoryDetailActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.invitation.InvitationCodeActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

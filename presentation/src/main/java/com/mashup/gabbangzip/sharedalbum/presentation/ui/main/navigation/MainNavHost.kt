@@ -12,6 +12,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackba
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.invitation.InvitationCodeActivity
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.HistoryDetailActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation.groupDetailNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation.navigateGroupDetail
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.navigation.groupHomeNavGraph
@@ -62,7 +63,9 @@ fun MainNavHost(
             onClickVoteButton = { eventId -> VoteActivity.openActivity(context, eventId) },
             onClickEventMake = { id -> EventCreationActivity.openActivity(context, id) },
             onClickShareButton = onClickShareButton,
-            onClickHistoryItem = { /* TODO */ },
+            onClickHistoryItem = {
+                HistoryDetailActivity.openActivity(context, it)
+            },
             onErrorEvent = onErrorEvent,
         )
         groupMemberNavGraph(
