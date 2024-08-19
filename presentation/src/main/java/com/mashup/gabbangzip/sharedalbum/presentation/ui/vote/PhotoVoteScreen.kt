@@ -268,9 +268,14 @@ private fun PhotoCardContainer(
                         photo = photo,
                     )
                 },
-                voteClickInfo = voteClickInfo.copy(index = index),
-                currentIndex = photoList.lastIndex - voteClickInfo.index,
-                onVoteByClicked = onVoteByClicked,
+                voteClickInfo = voteClickInfo,
+                currentIndex = index,
+                onVoteByClicked = { voteType, photoInfo ->
+                    onVoteByClicked(voteType, photoInfo)
+                    if (photoInfo.id == photoList.first().id) {
+                        onSwipeFinish()
+                    }
+                },
             )
         }
     }
