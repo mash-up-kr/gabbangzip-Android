@@ -96,28 +96,30 @@ fun EventCreationDetailScreen(
         )
         Column(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(top = 16.dp, start = 16.dp)
                 .weight(1f),
         ) {
-            EventCreationTitle(stringResource(id = R.string.event_creation_detail_summary))
-            PicTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp, bottom = 24.dp),
-                value = summary,
-                onValueChange = { summary = it },
-                hint = stringResource(id = R.string.event_creation_detail_summary_hint),
-                maxLength = 10,
-            )
-            EventCreationTitle(stringResource(id = R.string.date))
-            PicDatePickerField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp, bottom = 24.dp),
-                date = state.date,
-                textColor = Gray60,
-            )
-            EventCreationTitle(stringResource(id = R.string.picture_select))
+            Column(modifier = Modifier.padding(end = 16.dp)) {
+                EventCreationTitle(stringResource(id = R.string.event_creation_detail_summary))
+                PicTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, bottom = 24.dp),
+                    value = summary,
+                    onValueChange = { summary = it },
+                    hint = stringResource(id = R.string.event_creation_detail_summary_hint),
+                    maxLength = 10,
+                )
+                EventCreationTitle(stringResource(id = R.string.date))
+                PicDatePickerField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, bottom = 24.dp),
+                    date = state.date,
+                    textColor = Gray60,
+                )
+                EventCreationTitle(stringResource(id = R.string.picture_select))
+            }
             LazyRow(
                 modifier = Modifier.padding(top = 9.dp),
                 horizontalArrangement = Arrangement.spacedBy(1.dp),
