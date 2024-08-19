@@ -62,27 +62,29 @@ fun PhotoCard(
             }
         }
 
-        LaunchedEffect(voteClickInfo.index == currentIndex) {
-            when (voteClickInfo.type) {
-                PhotoVoteType.LIKE -> {
-                    swipeEnable.value = true
-                    onVoteByClicked(PhotoVoteType.LIKE, photo)
-                    swipeState.liked(coroutineScope)
-                    delay(VoteConstant.CARD_DELAY_TIME)
-                    swiped.value = true
-                    swipeEnable.value = false
-                }
+        LaunchedEffect(voteClickInfo) {
+            if (voteClickInfo.index == currentIndex && !swiped.value) {
+                when (voteClickInfo.type) {
+                    PhotoVoteType.LIKE -> {
+                        swipeEnable.value = true
+                        onVoteByClicked(PhotoVoteType.LIKE, photo)
+                        swipeState.liked(coroutineScope)
+                        delay(VoteConstant.CARD_DELAY_TIME)
+                        swiped.value = true
+                        swipeEnable.value = false
+                    }
 
-                PhotoVoteType.DISLIKE -> {
-                    swipeEnable.value = true
-                    onVoteByClicked(PhotoVoteType.DISLIKE, photo)
-                    swipeState.disliked(coroutineScope)
-                    delay(VoteConstant.CARD_DELAY_TIME)
-                    swiped.value = true
-                    swipeEnable.value = false
-                }
+                    PhotoVoteType.DISLIKE -> {
+                        swipeEnable.value = true
+                        onVoteByClicked(PhotoVoteType.DISLIKE, photo)
+                        swipeState.disliked(coroutineScope)
+                        delay(VoteConstant.CARD_DELAY_TIME)
+                        swiped.value = true
+                        swipeEnable.value = false
+                    }
 
-                else -> Unit
+                    else -> Unit
+                }
             }
         }
 
