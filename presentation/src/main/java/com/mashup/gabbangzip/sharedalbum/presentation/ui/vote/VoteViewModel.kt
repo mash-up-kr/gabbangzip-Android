@@ -55,9 +55,15 @@ class VoteViewModel @Inject constructor(
         savedStateHandle.get<Long>(eventIdKey)?.let { eventId ->
             viewModelScope.launch {
                 getVotePhotoListUseCase(eventId).onSuccess { votePhotoList ->
-                    _voteUiState.update {
-                        it.copy(
+                    _voteUiState.update { state ->
+                        state.copy(
                             photoList = ImmutableList(votePhotoList.toUiModel()),
+                            voteResult = state.voteResult.copy(
+                                eventId = eventId,
+                            ),
+                            voteClickInfo = state.voteClickInfo.copy(
+                                index = votePhotoList.size,
+                            ),
                         )
                     }
                 }.onFailure {
@@ -77,7 +83,7 @@ class VoteViewModel @Inject constructor(
     }
 
     fun updateVoteEvent(type: PhotoVoteType) {
-        val index = voteUiState.value.voteClickInfo.index + 1
+        val index = voteUiState.value.voteClickInfo.index - 1
 
         _voteUiState.update { state ->
             state.copy(
@@ -108,7 +114,7 @@ class VoteViewModel @Inject constructor(
             requestVoteResultUseCase(
                 VoteResultParam(
                     eventId = voteUiState.value.voteResult.eventId,
-                    voteResultIdList = ImmutableList(voteUiState.value.photoList.map { it.id }),
+                    voteResultIdList = voteUiState.value.photoList.map { it.id },
                 ),
             ).onSuccess { voteResultDomain ->
                 _voteUiState.update { state ->
