@@ -3,7 +3,6 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupListUseCase
-import com.mashup.gabbangzip.sharedalbum.presentation.contract.Contract.STATE_FLOW_TIMEOUT
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
@@ -28,7 +27,7 @@ class GroupHomeViewModel @Inject constructor(
         }
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(STATE_FLOW_TIMEOUT),
+            started = SharingStarted.WhileSubscribed(),
             initialValue = GroupHomeUiState.NotInitialized,
         )
 }
