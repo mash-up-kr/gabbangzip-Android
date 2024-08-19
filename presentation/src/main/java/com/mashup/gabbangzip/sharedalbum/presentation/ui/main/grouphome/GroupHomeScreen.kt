@@ -126,6 +126,7 @@ fun GroupHomeScreen(
                 .align(Alignment.TopCenter),
         ) {
             PicTopBar(
+                modifier = Modifier.padding(top = 16.dp),
                 rightIcon = PicTopBarIcon.USER,
                 rightIconClicked = onClickMyPage,
             )
