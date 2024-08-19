@@ -82,7 +82,7 @@ fun GroupHomeScreen(
     onNavigateVote: (eventId: Long) -> Unit,
     viewModel: GroupHomeViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.groupUiState.collectAsStateWithLifecycle()
 
     when (state) {
         is GroupHomeUiState.NoGroup -> {
