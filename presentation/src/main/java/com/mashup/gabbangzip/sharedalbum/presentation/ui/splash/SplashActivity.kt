@@ -73,12 +73,16 @@ class SplashActivity : ComponentActivity() {
 
     private fun askNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
-                PackageManager.PERMISSION_GRANTED
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS,
+                ) != PackageManager.PERMISSION_GRANTED
             ) {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            } else {
+                viewModel.checkUserLoggedIn()
             }
         } else {
             viewModel.checkUserLoggedIn()
