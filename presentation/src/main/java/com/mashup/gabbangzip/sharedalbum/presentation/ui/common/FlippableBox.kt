@@ -33,6 +33,7 @@ import kotlin.math.abs
  * @param flipAnimationSpec 회전 Animation
  * @param onFrontScreenClick null 이면 클릭 시 화면 뒤집기, 그 이외는 앞면 클릭 시 수행 작업
  * @param onBackScreenClick null 이면 클릭 시 화면 뒤집기, 그 이외는 뒷면 클릭 시 수행 작업
+ * @param enableFlip true 이면 카드를 뒤집을 수 있다
  * @param enableFlipByDrag true 이면 drag 를 통해 카드를 뒤집을 수 있다
  * @sample FlippableBoxPreview
  */
@@ -44,6 +45,7 @@ fun FlippableBox(
     flipAnimationSpec: AnimationSpec<Float>,
     onFrontScreenClick: (() -> Unit)? = null,
     onBackScreenClick: (() -> Unit)? = null,
+    enableFlip: Boolean = true,
     enableFlipByDrag: Boolean = false,
 ) {
     var rotationAngle by remember { mutableFloatStateOf(0f) }
@@ -61,15 +63,21 @@ fun FlippableBox(
 
     Box(
         modifier = modifier
-            .noRippleClickable {
-                if (isFront) {
-                    onFrontScreenClick?.invoke() ?: run { rotationAngle += 180f }
+            .run {
+                if (enableFlip) {
+                    noRippleClickable {
+                        if (isFront) {
+                            onFrontScreenClick?.invoke() ?: run { rotationAngle += 180f }
+                        } else {
+                            onBackScreenClick?.invoke() ?: run { rotationAngle += 180f }
+                        }
+                    }
                 } else {
-                    onBackScreenClick?.invoke() ?: run { rotationAngle += 180f }
+                    this
                 }
             }
             .run {
-                if (enableFlipByDrag) {
+                if (enableFlip && enableFlipByDrag) {
                     pointerInput(Unit) {
                         detectHorizontalDragGestures { _, dragAmount ->
                             val flingThreshold = 100f
