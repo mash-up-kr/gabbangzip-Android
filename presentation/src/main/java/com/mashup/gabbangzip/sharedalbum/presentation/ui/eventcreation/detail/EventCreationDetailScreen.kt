@@ -96,10 +96,10 @@ fun EventCreationDetailScreen(
         )
         Column(
             modifier = Modifier
-                .padding(top = 16.dp, start = 16.dp)
+                .padding(top = 16.dp)
                 .weight(1f),
         ) {
-            Column(modifier = Modifier.padding(end = 16.dp)) {
+            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
                 EventCreationTitle(stringResource(id = R.string.event_creation_detail_summary))
                 PicTextField(
                     modifier = Modifier
@@ -126,7 +126,7 @@ fun EventCreationDetailScreen(
             ) {
                 item {
                     PicGallery(
-                        modifier = Modifier.padding(top = 7.dp, end = 7.dp),
+                        modifier = Modifier.padding(top = 7.dp, end = 7.dp, start = 16.dp),
                         currentCount = state.pictures.size,
                         totalCount = PICTURES_MAX_COUNT,
                         onClicked = { onGalleryButtonClicked() },
