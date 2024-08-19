@@ -249,6 +249,7 @@ private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo, onClickEventMake
                 groupInfo = groupInfo,
                 contentMaxHeight = contentMaxHeight,
                 backgroundColor = groupInfo.keyword.frontCardBackgroundColor,
+                eventName = groupInfo.recentEvent.title,
                 content = {
                     FrontCardImage(
                         modifier = Modifier
@@ -269,6 +270,7 @@ private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo, onClickEventMake
                 groupInfo = groupInfo,
                 contentMaxHeight = contentMaxHeight,
                 backgroundColor = groupInfo.keyword.behindCardBackGroundColor,
+                eventName = groupInfo.recentEvent.title,
                 content = {
                     BackCardImage(
                         modifier = Modifier
