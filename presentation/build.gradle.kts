@@ -1,4 +1,5 @@
-import com.mashup.gabbangzip.buildsrc.AppConfig
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.mashup.gabbangzip.sharedalbum.buildsrc.AppConfig
 
 plugins {
     alias(libs.plugins.androidLibrary)
@@ -10,20 +11,22 @@ plugins {
 android {
     namespace = AppConfig.presentationNameSpace
     compileSdk = AppConfig.compileSdk
-    
+
     defaultConfig {
         minSdk = AppConfig.minSdk
-        
+        manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] =
+            gradleLocalProperties(rootDir, providers).getProperty("kakao_native_app_key")
+
         testInstrumentationRunner = AppConfig.testRunner
         consumerProguardFiles("consumer-rules.pro")
     }
-    
+
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -44,7 +47,7 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-    
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -53,6 +56,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.compose.material3)
+    implementation(libs.androidx.material3.android)
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -60,11 +65,24 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    
+
     // dagger hilt
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
-    
+    implementation(libs.hilt.navigation.compose)
+
     // coroutine
     implementation(libs.bundles.coroutine)
+
+    // navigation
+    implementation(libs.navigation.compose)
+
+    implementation(libs.kakao.login)
+    implementation(libs.lottie.compose)
+
+    // compose coil
+    implementation(libs.coil.compose)
+
+    // firebase messaging
+    implementation(libs.firebase.messaging)
 }

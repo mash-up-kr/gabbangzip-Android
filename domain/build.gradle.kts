@@ -1,4 +1,4 @@
-import com.mashup.gabbangzip.buildsrc.AppConfig
+import com.mashup.gabbangzip.sharedalbum.buildsrc.AppConfig
 
 plugins {
     id("kotlin")
@@ -15,7 +15,7 @@ dependencies {
     // dagger hilt
     implementation(libs.hilt.core)
     kapt(libs.hilt.compiler)
-    
+
     // coroutine
     implementation(libs.coroutine.core)
 }

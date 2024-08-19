@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="my_page">마이페이지</string>
+    <string name="go_back">뒤로가기</string>
+    <string name="notification_setting">알림 설정</string>
+    <string name="account_setting">계정 설정</string>
+    <string name="app_notification_setting">앱 알림 설정</string>
+    <string name="logout">로그아웃</string>
+    <string name="withdrawal">탈퇴하기</string>
+    <string name="account_withdrawal">회원탈퇴</string>
+    <string name="current_version">현재 버전</string>
+    <string name="cancel">취소</string>
+    <string name="go_plus">그룹 생성하기</string>
+    <string name="go_user">마이페이지 화면 이동하기</string>
+    <string name="go_group_member">그룹원 화면 이동하기</string>
+
+    <string name="dialog_logout_title">로그아웃 하시겠어요?</string>
+    <string name="dialog_withdrawal_title">탈퇴하실건가요?</string>
+    <string name="dialog_withdrawal_contents">탈퇴 시 그룹, 활동 내역이\n삭제되며 복구되지 않습니다.</string>
+    <string name="login_intro_title">PIC</string>
+    <string name="login_intro_subtitle">우리가 픽! 하는\n우리끼리 네컷앨범</string>
+    <string name="login_with_kakao">카카오 로그인</string>
+    <string name="login_failure_message">로그인에 실패했어요.</string>
+    <string name="withdrawal_failure_message">회원탈퇴에 실패했어요.</string>
+
+    <string name="vote_user_name">%s의 픽</string>
+    <string name="profile_image">프로필 이미지</string>
+    <string name="cancel_icon">취소</string>
+    <string name="vote_photo">투표 사진</string>
+
+    <string name="app_notification_off">OFF</string>
+    <string name="app_notification_on">ON</string>
+
+    <string name="group_creation_title">내 친구들과\n그룹을 만들어\nPIC과 함께해 볼까요?</string>
+    <string name="group_creation_button_name">그룹 만들기</string>
+    <string name="group_creation_button_description">초대 코드를 받으셨나요?\n코드를 입력해 바로 그룹에 들어갈 수 있어요.</string>
+    <string name="group_creation_button_code">초대코드 입력하기</string>
+    <string name="next">다음</string>
+    <string name="group_creation_name_title">그룹의 이름은 무엇인가요?</string>
+    <string name="group_creation_name_hint">최대 10자 까지 입력 가능해요.</string>
+    <string name="group_creation_keyword_title">그룹의 키워드를 선택해 주세요</string>
+    <string name="invitation_message">PIC 앱 다운받기\n- PlayStore: %s\n- AppStore: %s\n초대코드: %s</string>
+    <string name="play_store_url">https://play.google.com/store/apps/details?id=com.mashup.gabbangzip.sharedalbum</string>
+    <string name="app_store_url">https://apps.apple.com/kr/app/PIC/id6503334452</string>
+
+    <string name="event_creation">이벤트 만들기</string>
+    <string name="event_creation_title">이벤트를 생성하고\n함께한 순간을 공유해요!</string>
+    <string name="event_creation_description">공유한 사진을 함께 PIC하면 네컷사진을 만들 수 있어요.</string>
+    <string name="event_creation_detail_summary">이벤트 한줄 요약</string>
+    <string name="event_creation_detail_summary_hint">이벤트를 한줄로 요약해주세요.</string>
+    <string name="event_creation_detail_timeout">이벤트 PIC은 2시간 후에 종료돼요.</string>
+    <string name="event_creation_dialog_title">나가실건가요?</string>
+    <string name="event_creation_dialog_desc">페이지를 나가면\n작성중인 내용이 삭제돼요.</string>
+    <string name="event_creation_dialog_dismiss">나가기</string>
+    <string name="event_creation_dialog_confirm">계속 작성하기</string>
+    <string name="event_creation_picture_delete">사진 삭제</string>
+    <string name="date">날짜</string>
+    <string name="picture_select">사진 선택</string>
+
+    <string name="pic_tag">%s 태그 이미지</string>
+    <string name="pic_keyword_button">%s 키워드 버튼 이미지</string>
+    <string name="pic_button">%s 버튼 이미지</string>
+    <string name="pic_calendar">캘린더</string>
+    <string name="pic_date_default">YY/MM/DD</string>
+    <string name="pic_gallery">갤러리</string>
+    <string name="group_main_picture">그룹 대표 사진</string>
+    <string name="group_symbol">그룹 심볼</string>
+    <string name="detail_page_move">상세 페이지 이동</string>
+    <string name="tag_school">학교</string>
+    <string name="tag_company">회사</string>
+    <string name="tag_crew">동아리</string>
+    <string name="tag_network">친목</string>
+    <string name="tag_exercise">운동</string>
+    <string name="tag_hobby">취미</string>
+    <string name="tag_somoim">소모임</string>
+
+    <string name="group_member_list_title">그룹원</string>
+    <string name="group_add_more_member">그룹원을 추가하고 싶으세요?</string>
+    <string name="group_maximum_count">그룹 최대 인원은 6명이에요.</string>
+    <string name="button_copy_link">초대코드 복사</string>
+    <string name="vote_icon">투표 아이콘</string>
+    <string name="vote_dislike_desc">싫어요</string>
+    <string name="vote_like_desc">좋아요</string>
+    <string name="vote_dialog_title">나가실건가요?</string>
+    <string name="vote_dialog_content">페이지를 나가면\n처음부터 다시 투표 하게돼요.</string>
+    <string name="vote_dialog_exit">나가기</string>
+    <string name="vote_dialog_keep_vote">계속 투표하기</string>
+    <string name="button_copy_link_message">링크를 복사했어요.</string>
+
+    <string name="group_add_description">그룹의 대표 사진을 추가해 주세요</string>
+    <string name="group_add">이미지 추가</string>
+    <string name="group_modify">이미지 수정</string>
+    <string name="thumbnail_image">썸네일 이미지</string>
+
+    <string name="group_detail_empty_title">이벤트를 생성하고\n함께한 순간을 공유해요!</string>
+    <string name="group_detail_empty_subtitle">공유한 사진을 함께 PIC하면 네컷사진을 만들 수 있어요.</string>
+    <string name="group_detail_event_complete">네컷 사진이 만들어졌어요!</string>
+    <string name="group_detail_history_title">우리들의 인생네컷</string>
+    <string name="group_detail_empty_history_image_description">역대 이벤트 기본 이미지</string>
+    <string name="group_detail_empty_history_label">네컷 사진이 만들어지면\n이벤트가 추가돼요.</string>
+
+    <string name="button_text_state_before_my_upload">내 PIC 올리기</string>
+    <string name="information_text_state_before_my_upload">모든 그룹원이 사진을 올리면 투표가 시작돼요</string>
+    <string name="button_text_state_after_my_upload">쿡 찌르기</string>
+    <string name="information_text_state_after_my_upload">아직 사진 추가를 하지 않은 친구가 있어요</string>
+    <string name="button_text_state_before_my_vote">투표하기</string>
+    <string name="information_text_state_before_my_vote">내 PIC을 고르고 네컷사진을 완성해 보세요</string>
+    <string name="button_text_state_after_my_vote">쿡 찌르기</string>
+    <string name="information_text_state_after_my_vote">아직 PIC 하지 않은 친구가 있어요</string>
+
+    <string name="complete">완료</string>
+    <string name="group_complete_title">그룹에 친구들을 추가하고\n추억을 함께 PIC 해보세요</string>
+    <string name="group_complete_contents">그룹원은 최대 6명까지 초대 가능해요.</string>
+
+    <string name="image_upload_failed">이미지 업로드 실패</string>
+    <string name="image_retrieve_failed">이미지 파일 조회 실패</string>
+
+    <string name="enter_group_by_code_title">그룹 들어가기</string>
+    <string name="enter_group_by_code_input_title">초대코드를 입력해주세요</string>
+    <string name="enter_group_by_code_input_hint">예) A12B0EHQ</string>
+    <string name="enter_group_by_code_failure_message">존재하지 않는 초대코드에요.</string>
+
+    <string name="vote_complete_title">내 PIC을 골랐어요!</string>
+    <string name="vote_complete_subtitle">모든 사람이 PIC을 완료하면\n네컷 사진이 만들어져요</string>
+    <string name="intro_event_top_title">이벤트를 만들어보세요</string>
+    <string name="event_creation_btn_text">이벤트 생성하기</string>
+    <string name="floating_group_creation">그룹 만들기</string>
+    <string name="floationg_group_enter">그룹 들어가기</string>
+    <string name="floating_btn_desc">플로팅 버튼 아이콘</string>
+    <string name="floating_btn">플로팅 버튼</string>
+    <string name="floating_animate">FloatingRotationAngle</string>
+    <string name="group_home_pic_fcm">쿡 찌르기</string>
+    <string name="group_home_pic_upload">내 PIC 올리기</string>
+    <string name="group_home_select_pic">픽 고르기</string>
+    <string name="my_pic_upload_complete">내 PIC 올리기 완료!</string>
+    <string name="error_retry">다시 시도해주세요.</string>
+    <string name="guide_like_title">오른쪽으로 스와이프해서\n사진을 PIC 해보세요</string>
+    <string name="guide_dislike_title">마음에 들지 않는 사진은\n왼쪽으로 스와이프 해보세요</string>
+    <string name="guide_like_desc">좋아요 가이드 이미지</string>
+    <string name="guide_dislike_desc">싫어요 가이드 이미지</string>
+    <string name="kook_snackbar">그룹원들을 쿡 찔렀어요!</string>
+</resources>
