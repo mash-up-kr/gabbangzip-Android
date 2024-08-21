@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.auth.KakaoUserSdkUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
@@ -51,7 +52,13 @@ class LoginActivity : ComponentActivity() {
                 ) { contentPadding ->
                     Box(modifier = Modifier.padding(contentPadding)) {
                         LoginScreen(
-                            onClickLoginButton = viewModel::login,
+                            onClickLoginButton = {
+                                KakaoUserSdkUtil.loginWithKakao(
+                                    context = this@LoginActivity,
+                                    onSuccess = viewModel::kakaoLoginSuccess,
+                                    onFailure = viewModel::kakaoLoginFailure,
+                                )
+                            },
                         )
                     }
                 }
