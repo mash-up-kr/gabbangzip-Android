@@ -33,8 +33,8 @@ class GroupHomeViewModel @Inject constructor(
                     when (it) {
                         is UnknownHostException -> R.string.error_network
                         else -> R.string.error_server
-                    }
-                )
+                    },
+                ),
             )
         }
         .stateIn(
