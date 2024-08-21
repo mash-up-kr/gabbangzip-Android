@@ -33,11 +33,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBar
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.component.GroupItemNormal
@@ -140,19 +137,10 @@ fun MyPageScreen(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        TopBar(
-            leftIcon = TopBarIcon(
-                size = 26.dp,
-                leftPadding = 16.dp,
-                description = stringResource(id = R.string.go_back),
-                resId = R.drawable.ic_back,
-                iconClickListener = onClickBack,
-            ),
+        PicBackButtonTopBar(
+            modifier = Modifier.padding(top = 16.dp),
             titleText = stringResource(id = R.string.my_page),
-            titleAlign = TopBarTitleAlign.CENTER,
-            titleStyle = PicTypography.bodyMedium16,
-            topPadding = 10.dp,
-            bottomPadding = 10.dp,
+            backButtonClicked = onClickBack,
         )
         UserContainer(
             modifier = Modifier
