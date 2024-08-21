@@ -138,7 +138,6 @@ fun MyPageScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         PicBackButtonTopBar(
-            modifier = Modifier.padding(top = 16.dp),
             titleText = stringResource(id = R.string.my_page),
             backButtonClicked = onClickBack,
         )
