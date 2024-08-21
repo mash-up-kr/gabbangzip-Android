@@ -52,6 +52,7 @@ fun MainNavHost(
             onClickSendFcmButton = onClickSendFcmButton,
             onNavigateGallery = onClickOpenPhotoPickerButton,
             onNavigateVote = { id -> VoteActivity.openActivity(context, id) },
+            onShowSnackbar = onSnackbarRequired,
         )
         groupDetailNavGraph(
             onClickGroupMemberButton = { id, keyword ->

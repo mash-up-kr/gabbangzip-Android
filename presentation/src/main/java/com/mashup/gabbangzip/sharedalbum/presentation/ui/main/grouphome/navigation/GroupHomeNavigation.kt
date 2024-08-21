@@ -3,6 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.navigat
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.GroupHomeScreen
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 
@@ -20,6 +21,7 @@ fun NavGraphBuilder.groupHomeNavGraph(
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onNavigateGallery: (eventId: Long) -> Unit,
     onNavigateVote: (eventId: Long) -> Unit,
+    onShowSnackbar: (PicSnackbarType, String) -> Unit,
 ) {
     composable(route = MainRoute.GroupHomeRoute.route) {
         GroupHomeScreen(
@@ -32,6 +34,7 @@ fun NavGraphBuilder.groupHomeNavGraph(
             onClickSendFcmButton = onClickSendFcmButton,
             onNavigateGallery = onNavigateGallery,
             onNavigateVote = onNavigateVote,
+            onShowSnackbar = onShowSnackbar,
         )
     }
 }
