@@ -34,10 +34,8 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBar
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarIcon
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.TopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.model.Member
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
@@ -81,18 +79,10 @@ private fun GroupMemberScreen(
             .fillMaxSize()
             .background(Gray0),
     ) {
-        TopBar(
-            leftIcon = TopBarIcon(
-                size = 26.dp,
-                leftPadding = 16.dp,
-                description = stringResource(id = R.string.go_back),
-                resId = R.drawable.ic_back,
-                iconClickListener = onClickBackButton,
-            ),
+        PicBackButtonTopBar(
+            modifier = Modifier.padding(top = 16.dp),
             titleText = stringResource(id = R.string.group_member_list_title),
-            titleAlign = TopBarTitleAlign.CENTER,
-            topPadding = 16.dp,
-            bottomPadding = 16.dp,
+            backButtonClicked = onClickBackButton,
         )
         GroupMemberScreenContent(
             modifier = Modifier.fillMaxWidth(),
