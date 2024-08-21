@@ -415,8 +415,14 @@ private fun GroupFloatingButton(
                         shape = RoundedCornerShape(16.dp),
                     )
                     .padding(16.dp),
-                onClickGroupMake = onClickGroupMake,
-                onClickGroupEnter = onClickGroupEnter,
+                onClickGroupMake = {
+                    isExpanded = false
+                    onClickGroupMake()
+                },
+                onClickGroupEnter = {
+                    isExpanded = false
+                    onClickGroupEnter()
+                },
             )
         }
 
