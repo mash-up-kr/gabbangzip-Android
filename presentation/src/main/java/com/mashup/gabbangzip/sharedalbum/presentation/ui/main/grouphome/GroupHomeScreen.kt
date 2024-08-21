@@ -56,6 +56,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.FlippableBox
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBar
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
@@ -80,6 +81,7 @@ fun GroupHomeScreen(
     navigateToGroupCreationAndFinish: () -> Unit,
     onNavigateGallery: (eventId: Long) -> Unit,
     onNavigateVote: (eventId: Long) -> Unit,
+    onShowSnackbar: (PicSnackbarType, String) -> Unit,
     viewModel: GroupHomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.groupUiState.collectAsStateWithLifecycle()
@@ -101,6 +103,11 @@ fun GroupHomeScreen(
                 onNavigateVote = onNavigateVote,
                 onNavigateGallery = onNavigateGallery,
             )
+        }
+
+        is GroupHomeUiState.Error -> {
+            val message = (state as GroupHomeUiState.Error).errorMessage
+            onShowSnackbar(PicSnackbarType.WARNING, stringResource(id = message))
         }
 
         else -> {}
