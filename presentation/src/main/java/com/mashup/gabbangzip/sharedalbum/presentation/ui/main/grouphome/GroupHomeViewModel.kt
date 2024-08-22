@@ -27,7 +27,8 @@ class GroupHomeViewModel @Inject constructor(
             } else {
                 GroupHomeUiState.GroupList(ImmutableList(groupList.toUiModel()))
             }
-        }.catch {
+        }
+        .catch {
             emit(
                 GroupHomeUiState.Error(
                     when (it) {
