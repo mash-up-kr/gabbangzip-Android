@@ -17,6 +17,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,6 +54,10 @@ fun GroupMemberScreen(
     val playStoreUrl = stringResource(id = R.string.play_store_url)
     val appStoreUrl = stringResource(id = R.string.app_store_url)
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    state.errorMessage?.let { errorMessage ->
+        onSnackbarRequired(PicSnackbarType.WARNING, stringResource(id = errorMessage))
+    }
 
     GroupMemberScreen(
         state = state,
