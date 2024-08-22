@@ -10,20 +10,29 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.navigation.VoteNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.navigation.VoteNavRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.navigation.navigateToVoteComplete
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class VoteActivity : ComponentActivity() {
@@ -40,13 +49,27 @@ class VoteActivity : ComponentActivity() {
 
         setContent {
             val state by viewModel.voteUiState.collectAsStateWithLifecycle()
+            val snackbarHostState = remember { SnackbarHostState() }
+            val coroutineScope = rememberCoroutineScope()
             val navController = rememberNavController()
-            if (state.isError) {
-                showToast(R.string.error_retry)
+            val errorRetryMessage = stringResource(id = R.string.error_retry)
+
+            LaunchedEffect(key1 = state.isError) {
+                coroutineScope.launch {
+                    snackbarHostState.showPicSnackbar(
+                        type = PicSnackbarType.WARNING,
+                        message = errorRetryMessage,
+                    )
+                }
             }
 
             SharedAlbumTheme {
-                Scaffold { innerPadding ->
+                Scaffold(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .navigationBarsPadding(),
+                    snackbarHost = { PicSnackbarHost(state = snackbarHostState) },
+                ) { innerPadding ->
                     VoteNavHost(
                         modifier = Modifier
                             .fillMaxSize()
@@ -76,7 +99,12 @@ class VoteActivity : ComponentActivity() {
                             if (isUploadSuccess) {
                                 navController.navigateToVoteComplete()
                             } else {
-                                showToast(R.string.error_retry)
+                                coroutineScope.launch {
+                                    snackbarHostState.showPicSnackbar(
+                                        type = PicSnackbarType.WARNING,
+                                        message = errorRetryMessage,
+                                    )
+                                }
                             }
                         },
                     )
