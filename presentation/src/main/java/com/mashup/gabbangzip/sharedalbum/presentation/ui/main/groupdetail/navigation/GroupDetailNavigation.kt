@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.GroupDetailScreen
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.HistoryDetailState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
@@ -24,7 +25,7 @@ fun NavGraphBuilder.groupDetailNavGraph(
     onClickEventMake: (Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onClickHistoryItem: (HistoryDetailState) -> Unit,
-    onErrorEvent: () -> Unit,
+    onShowSnackbar: (PicSnackbarType, String) -> Unit,
 ) {
     composable(
         route = "${MainRoute.GroupDetailRoute.route}/{$KEY_GROUP_ID}",
@@ -44,7 +45,7 @@ fun NavGraphBuilder.groupDetailNavGraph(
                 onClickShareButton = onClickShareButton,
                 onClickHistoryItem = onClickHistoryItem,
                 onClickEventMake = { onClickEventMake(groupId) },
-                onErrorEvent = onErrorEvent,
+                onShowSnackbar = onShowSnackbar,
             )
         }
     }
