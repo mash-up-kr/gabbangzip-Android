@@ -18,7 +18,7 @@ fun CardBackImageDomainModel.toUiModel(): CardBackImage {
 
 fun List<CardBackImageDomainModel>.toUiModel(): List<CardBackImage> {
     return if (size >= 4) {
-        take(4).toUiModel()
+        take(4).map { it.toUiModel() }
     } else {
         emptyList()
     }
