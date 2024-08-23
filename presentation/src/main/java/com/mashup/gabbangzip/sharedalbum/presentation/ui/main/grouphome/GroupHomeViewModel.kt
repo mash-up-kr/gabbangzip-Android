@@ -41,6 +41,6 @@ class GroupHomeViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),
-            initialValue = GroupHomeUiState.NotInitialized,
+            initialValue = GroupHomeUiState.Loading,
         )
 }

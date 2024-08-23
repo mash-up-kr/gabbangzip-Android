@@ -53,6 +53,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.FlippableBox
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicLoadingIndicator
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBar
@@ -108,6 +109,10 @@ fun GroupHomeScreen(
         is GroupHomeUiState.Error -> {
             val message = (state as GroupHomeUiState.Error).errorMessage
             onShowSnackbar(PicSnackbarType.WARNING, stringResource(id = message))
+        }
+
+        is GroupHomeUiState.Loading -> {
+            PicLoadingIndicator(modifier = Modifier.fillMaxSize(), isVisible = true)
         }
 
         else -> {}
