@@ -9,7 +9,7 @@ data class PhotoVoteState(
     val voteResult: VoteResult = VoteResult(),
     val voteClickInfo: VoteClickInfo = VoteClickInfo(),
     val isVoteCancel: Boolean = false,
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val isVoteUploadFinish: Boolean? = null,
     val isError: Boolean = false,
     val isFirstVisit: Boolean = false,

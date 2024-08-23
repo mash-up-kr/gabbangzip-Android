@@ -54,21 +54,25 @@ class VoteViewModel @Inject constructor(
     fun fetchVotePhotoList(eventIdKey: String) {
         savedStateHandle.get<Long>(eventIdKey)?.let { eventId ->
             viewModelScope.launch {
-                getVotePhotoListUseCase(eventId).onSuccess { votePhotoList ->
-                    _voteUiState.update { state ->
-                        state.copy(
-                            photoList = ImmutableList(votePhotoList.toUiModel()),
-                            voteResult = state.voteResult.copy(
-                                eventId = eventId,
-                            ),
-                            voteClickInfo = state.voteClickInfo.copy(
-                                index = votePhotoList.size,
-                            ),
-                        )
+                getVotePhotoListUseCase(eventId)
+                    .onSuccess { votePhotoList ->
+                        _voteUiState.update { state ->
+                            state.copy(
+                                photoList = ImmutableList(votePhotoList.toUiModel()),
+                                voteResult = state.voteResult.copy(
+                                    eventId = eventId,
+                                ),
+                                voteClickInfo = state.voteClickInfo.copy(
+                                    index = votePhotoList.size,
+                                ),
+                                isLoading = false,
+                            )
+                        }
                     }
-                }.onFailure {
-                    updateErrorState()
-                }
+                    .onFailure {
+                        updateLoadingState(isLoading = false)
+                        updateErrorState()
+                    }
             }
         } ?: updateErrorState()
     }
@@ -110,6 +114,7 @@ class VoteViewModel @Inject constructor(
     }
 
     fun finishVote() {
+        updateLoadingState(isLoading = true)
         viewModelScope.launch {
             requestVoteResultUseCase(
                 VoteResultParam(
@@ -123,7 +128,9 @@ class VoteViewModel @Inject constructor(
                         isVoteUploadFinish = true,
                     )
                 }
+                updateLoadingState(isLoading = false)
             }.onFailure {
+                updateLoadingState(isLoading = false)
                 _voteUiState.update { state ->
                     state.copy(
                         isVoteUploadFinish = false,
@@ -138,6 +145,12 @@ class VoteViewModel @Inject constructor(
             state.copy(
                 isError = true,
             )
+        }
+    }
+
+    private fun updateLoadingState(isLoading: Boolean) {
+        _voteUiState.update {
+            it.copy(isLoading = isLoading)
         }
     }
 }
