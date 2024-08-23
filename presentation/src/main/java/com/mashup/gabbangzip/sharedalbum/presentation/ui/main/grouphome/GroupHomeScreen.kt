@@ -232,7 +232,9 @@ private fun GroupContainer(
                         .padding(top = 16.dp)
                         .align(Alignment.CenterHorizontally),
                     iconRes = iconResId,
+                    isRippleClickable = true,
                     text = stringResource(textResId),
+                    isHaptic = ClickType.Fcm == clickType,
                     onButtonClicked = {
                         when (clickType) {
                             ClickType.Fcm -> onClickSendFcmButton(groupInfo.recentEvent.id)
