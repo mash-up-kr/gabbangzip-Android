@@ -73,6 +73,7 @@ class EventCreationActivity : ComponentActivity() {
                         eventCreationState = state,
                         clearEventCreationState = eventCreationViewModel::clearEventCreationState,
                         onCompleteButtonClicked = { description ->
+                            eventCreationViewModel.updateLoadingState(isLoading = true)
                             state.pictures
                                 .mapNotNull { uri ->
                                     FileUtil.getFileFromUri(this@EventCreationActivity, uri)

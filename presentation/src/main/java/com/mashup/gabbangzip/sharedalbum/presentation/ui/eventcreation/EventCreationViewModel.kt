@@ -78,11 +78,17 @@ class EventCreationViewModel @Inject constructor(
             ).onSuccess {
                 Log.d(TAG, "이벤트 생성 성공")
                 _uiState.update { it.copy(eventCreationSuccess = groupId) }
+                updateLoadingState(isLoading = false)
             }.onFailure {
                 Log.d(TAG, "이벤트 생성 실패")
                 showSnackBar()
+                updateLoadingState(isLoading = false)
             }
         }
+    }
+
+    fun updateLoadingState(isLoading: Boolean) {
+        _uiState.update { it.copy(isLoading = isLoading) }
     }
 
     private fun showSnackBar() {
