@@ -37,7 +37,6 @@ class VoteViewModel @Inject constructor(
     private val likedPhotoList = mutableListOf<VotePhoto>()
 
     init {
-        updateLoadingState(isLoading = true)
         checkFirstVisit()
     }
 
@@ -53,6 +52,7 @@ class VoteViewModel @Inject constructor(
     }
 
     fun fetchVotePhotoList(eventIdKey: String) {
+        updateLoadingState(isLoading = true)
         savedStateHandle.get<Long>(eventIdKey)?.let { eventId ->
             viewModelScope.launch {
                 getVotePhotoListUseCase(eventId)
