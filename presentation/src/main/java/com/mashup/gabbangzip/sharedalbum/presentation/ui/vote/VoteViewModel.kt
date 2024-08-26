@@ -37,6 +37,7 @@ class VoteViewModel @Inject constructor(
     private val likedPhotoList = mutableListOf<VotePhoto>()
 
     init {
+        updateLoadingState(isLoading = true)
         checkFirstVisit()
     }
 
@@ -126,9 +127,9 @@ class VoteViewModel @Inject constructor(
                     state.copy(
                         voteResult = voteResultDomain.toUiModel(),
                         isVoteUploadFinish = true,
+                        isLoading = false,
                     )
                 }
-                updateLoadingState(isLoading = false)
             }.onFailure {
                 updateLoadingState(isLoading = false)
                 _voteUiState.update { state ->
