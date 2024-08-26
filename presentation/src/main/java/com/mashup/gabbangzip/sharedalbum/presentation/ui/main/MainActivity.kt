@@ -19,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
@@ -34,7 +35,6 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.MainEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -96,7 +96,6 @@ class MainActivity : ComponentActivity() {
                                 snackbarHostState.showPicSnackbar(type, message)
                             }
                         },
-                        onErrorEvent = { showToast(R.string.error_retry) },
                     )
                 }
 
@@ -123,6 +122,7 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun ObserveEvent(snackbarHostState: SnackbarHostState) {
+        val errorRetryMessage = stringResource(id = R.string.error_retry)
         LaunchedEffect(null) {
             viewModel.mainEvent.collect { event ->
                 when (event) {
@@ -131,16 +131,20 @@ class MainActivity : ComponentActivity() {
                         message = getString(R.string.kook_snackbar),
                     )
 
-                    MainEvent.FailNotification -> showToast(R.string.error_retry)
+                    MainEvent.FailNotification -> snackbarHostState.showPicSnackbar(
+                        type = PicSnackbarType.WARNING,
+                        message = errorRetryMessage,
+                    )
 
-                    MainEvent.SuccessUploadMyPic -> {
-                        snackbarHostState.showPicSnackbar(
-                            type = PicSnackbarType.CHECK,
-                            message = getString(R.string.my_pic_upload_complete),
-                        )
-                    }
+                    MainEvent.SuccessUploadMyPic -> snackbarHostState.showPicSnackbar(
+                        type = PicSnackbarType.CHECK,
+                        message = getString(R.string.my_pic_upload_complete),
+                    )
 
-                    MainEvent.FailUploadMyPic -> showToast(R.string.error_retry)
+                    MainEvent.FailUploadMyPic -> snackbarHostState.showPicSnackbar(
+                        type = PicSnackbarType.WARNING,
+                        message = errorRetryMessage,
+                    )
                 }
             }
         }

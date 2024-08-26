@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.event.MarkEventVisitUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupDetailUseCase
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupDetailUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toUiModel
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,8 +38,13 @@ class GroupDetailViewModel @Inject constructor(
                 history = groupDetail.history.map { it.toUiModel() },
             )
         }.catch {
-            GroupDetailUiState(
-                isError = true,
+            emit(
+                GroupDetailUiState(
+                    errorMessage = when (it) {
+                        is UnknownHostException -> R.string.error_network
+                        else -> R.string.error_server
+                    },
+                ),
             )
         }.stateIn(
             scope = viewModelScope,

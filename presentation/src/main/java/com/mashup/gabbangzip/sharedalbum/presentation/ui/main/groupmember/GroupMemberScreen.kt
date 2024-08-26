@@ -54,6 +54,10 @@ fun GroupMemberScreen(
     val appStoreUrl = stringResource(id = R.string.app_store_url)
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    state.errorMessage?.let { errorMessage ->
+        onSnackbarRequired(PicSnackbarType.WARNING, stringResource(id = errorMessage))
+    }
+
     GroupMemberScreen(
         state = state,
         onClickBackButton = onClickBackButton,

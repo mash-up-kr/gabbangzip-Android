@@ -33,7 +33,6 @@ fun MainNavHost(
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onSnackbarRequired: (PicSnackbarType, String) -> Unit,
-    onErrorEvent: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -67,7 +66,7 @@ fun MainNavHost(
             onClickHistoryItem = {
                 HistoryDetailActivity.openActivity(context, it)
             },
-            onErrorEvent = onErrorEvent,
+            onShowSnackbar = onSnackbarRequired,
         )
         groupMemberNavGraph(
             onClickBackButton = { navController.popBackStack() },
