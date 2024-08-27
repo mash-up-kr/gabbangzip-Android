@@ -24,6 +24,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
@@ -42,6 +43,9 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -129,9 +133,15 @@ class MainActivity : ComponentActivity() {
             activity = this,
             max = PICTURES_MAX_COUNT,
         ) { uriList ->
-            uriList.mapNotNull { uri ->
-                FileUtil.getFileFromUri(this, uri)
-            }.also { viewModel.uploadMyPic(it) }
+            lifecycleScope.launch {
+                uriList.mapNotNull { uri ->
+                    uri?.let {
+                        async(Dispatchers.IO) {
+                            FileUtil.getJpgImage(this@MainActivity, it)
+                        }
+                    }
+                }.also { viewModel.uploadMyPic(it.awaitAll()) }
+            }
         }
     }
 

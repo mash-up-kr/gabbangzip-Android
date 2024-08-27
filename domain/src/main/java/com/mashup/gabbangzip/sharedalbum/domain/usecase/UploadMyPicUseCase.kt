@@ -4,8 +4,11 @@ import com.mashup.gabbangzip.sharedalbum.domain.model.event.UploadMyPicDomainMod
 import com.mashup.gabbangzip.sharedalbum.domain.model.event.UploadMyPicParam
 import com.mashup.gabbangzip.sharedalbum.domain.repository.EventRepository
 import dagger.Reusable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import java.io.File
-import java.io.IOException
 import javax.inject.Inject
 
 @Reusable
@@ -18,15 +21,17 @@ class UploadMyPicUseCase @Inject constructor(
         fileList: List<File>,
     ): Result<UploadMyPicDomainModel> {
         return runCatching {
-            val pictureList = mutableListOf<String>()
-            fileList.forEach { file ->
-                uploadImageUseCase(file)
-                    .onSuccess { fileId -> pictureList.add(fileId) }
-                    .onFailure { throw IOException(it.message) }
+            coroutineScope {
+                val pictureList = fileList.map { file ->
+                    async(Dispatchers.IO) {
+                        uploadImageUseCase(file).getOrThrow()
+                    }
+                }
+
+                eventRepository.uploadMyPic(
+                    UploadMyPicParam(eventId, pictureList.awaitAll()),
+                )
             }
-            eventRepository.uploadMyPic(
-                UploadMyPicParam(eventId, pictureList),
-            )
         }
     }
 }
