@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.model
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.model
 
 sealed interface MainEvent {
     data object SuccessNotification : MainEvent

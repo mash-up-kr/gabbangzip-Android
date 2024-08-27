@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -41,6 +42,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDatePickerField
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicGallery
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicLoadingIndicator
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextField
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity.Companion.PICTURES_MAX_COUNT
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationState
@@ -161,6 +163,7 @@ fun EventCreationDetailScreen(
             },
         )
     }
+    PicLoadingIndicator(modifier = Modifier.fillMaxSize(), isVisible = state.isLoading)
 }
 
 @Composable

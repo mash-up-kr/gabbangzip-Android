@@ -9,6 +9,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -16,22 +17,26 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicLoadingIndicator
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.showPicSnackbar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation.navigateGroupDetail
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.model.MainEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNavHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.MainEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
@@ -55,6 +60,7 @@ class MainActivity : ComponentActivity() {
         initPhotoPicker()
 
         setContent {
+            val state by viewModel.mainState.collectAsStateWithLifecycle()
             val snackbarHostState = remember { SnackbarHostState() }
             val coroutineScope = rememberCoroutineScope()
             val navController = rememberNavController()
@@ -105,6 +111,13 @@ class MainActivity : ComponentActivity() {
                         navController.navigateGroupDetail(groupId)
                     }
                 }
+
+                PicLoadingIndicator(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color = Gray0),
+                    isVisible = state.isLoading,
+                )
             }
         }
     }
