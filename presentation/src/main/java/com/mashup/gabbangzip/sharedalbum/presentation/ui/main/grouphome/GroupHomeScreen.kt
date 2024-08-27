@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -254,15 +255,12 @@ private fun GroupContainer(
 
 @Composable
 private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo, onClickEventMake: (Long) -> Unit) {
-    val contentMaxHeight = LocalConfiguration.current.screenHeightDp.dp.div(2)
-
     FlippableBox(
         modifier = modifier,
         frontScreen = {
             GroupHomePhotoCard(
                 modifier = Modifier,
                 groupInfo = groupInfo,
-                contentMaxHeight = contentMaxHeight,
                 backgroundColor = groupInfo.keyword.frontCardBackgroundColor,
                 eventName = groupInfo.recentEvent.title,
                 content = {
@@ -283,7 +281,6 @@ private fun GroupCard(modifier: Modifier, groupInfo: GroupInfo, onClickEventMake
             GroupHomePhotoCard(
                 modifier = Modifier,
                 groupInfo = groupInfo,
-                contentMaxHeight = contentMaxHeight,
                 backgroundColor = groupInfo.keyword.behindCardBackGroundColor,
                 eventName = groupInfo.recentEvent.title,
                 content = {
@@ -369,7 +366,7 @@ private fun FrontCardImage(
             contentDescription = stringResource(R.string.group_main_picture),
         )
         StableImage(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.aspectRatio(1f),
             drawableResId = frameResId,
             colorFilter = ColorFilter.tint(backgroundColor),
             contentScale = ContentScale.FillBounds,
@@ -384,8 +381,9 @@ private fun BackCardImage(
     cardBackImageList: List<CardBackImage>,
     backgroundColor: Color,
 ) {
+    val contentMaxHeight = LocalConfiguration.current.screenHeightDp.dp
     LazyVerticalGrid(
-        modifier = modifier.wrapContentSize(),
+        modifier = modifier.wrapContentSize().heightIn(max = contentMaxHeight),
         verticalArrangement = Arrangement.spacedBy(7.46.dp),
         horizontalArrangement = Arrangement.spacedBy(7.46.dp),
         columns = GridCells.Fixed(2),

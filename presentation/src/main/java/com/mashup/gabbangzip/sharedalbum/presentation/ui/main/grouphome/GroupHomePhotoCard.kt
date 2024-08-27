@@ -30,16 +30,13 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 fun GroupHomePhotoCard(
     modifier: Modifier,
     groupInfo: GroupInfo,
-    contentMaxHeight: Dp,
     backgroundColor: Color,
     content: @Composable BoxScope.() -> Unit,
     eventName: String = "",
     onClickEventMake: (Long) -> Unit,
 ) {
     GroupPhotoCardContainer(
-        modifier = modifier
-            .heightIn(max = contentMaxHeight)
-            .wrapContentSize(),
+        modifier = modifier.wrapContentSize(),
         keywordType = groupInfo.keyword,
         backgroundColor = backgroundColor,
     ) {
