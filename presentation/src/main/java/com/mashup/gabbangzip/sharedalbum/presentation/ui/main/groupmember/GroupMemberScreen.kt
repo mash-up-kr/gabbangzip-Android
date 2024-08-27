@@ -199,6 +199,7 @@ private fun InvitationSection(
             text = stringResource(id = R.string.button_copy_link),
             iconRes = R.drawable.ic_link,
             enable = isEnabled,
+            isSingleClick = false,
             onButtonClicked = onButtonClick,
         )
     }

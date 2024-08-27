@@ -131,6 +131,7 @@ private fun ColumnScope.GroupCreationCompleteContent(
     PicNormalButton(
         text = stringResource(id = R.string.button_copy_link),
         isRippleClickable = true,
+        isSingleClick = false,
         backgroundColor = Gray40,
         contentColor = Gray80,
         iconRes = R.drawable.ic_link,
