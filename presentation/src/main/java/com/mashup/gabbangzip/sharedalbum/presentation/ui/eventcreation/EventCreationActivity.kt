@@ -32,6 +32,10 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class EventCreationActivity : ComponentActivity() {
@@ -56,6 +60,8 @@ class EventCreationActivity : ComponentActivity() {
         setContent {
             val state by eventCreationViewModel.uiState.collectAsStateWithLifecycle()
             val snackbarHostState = remember { SnackbarHostState() }
+            val coroutineScope = rememberCoroutineScope()
+
             SharedAlbumTheme {
                 Scaffold(
                     snackbarHost = {
@@ -74,13 +80,25 @@ class EventCreationActivity : ComponentActivity() {
                         clearEventCreationState = eventCreationViewModel::clearEventCreationState,
                         onCompleteButtonClicked = { description ->
                             eventCreationViewModel.updateLoadingState(isLoading = true)
-                            state.pictures
-                                .mapNotNull { uri ->
-                                    FileUtil.getFileFromUri(this@EventCreationActivity, uri)
-                                }
-                                .also {
-                                    eventCreationViewModel.checkEventCreation(description, it)
-                                }
+                            coroutineScope.launch(Dispatchers.IO) {
+                                state.pictures
+                                    .mapNotNull { uri ->
+                                        uri?.let {
+                                            async {
+                                                FileUtil.getJpgImage(
+                                                    this@EventCreationActivity,
+                                                    uri,
+                                                )
+                                            }
+                                        }
+                                    }
+                                    .also {
+                                        eventCreationViewModel.checkEventCreation(
+                                            description,
+                                            it.awaitAll(),
+                                        )
+                                    }
+                            }
                         },
                         onGalleryButtonClicked = photoPicker::open,
                         onPictureDeleteButtonClicked = eventCreationViewModel::deletePicture,
