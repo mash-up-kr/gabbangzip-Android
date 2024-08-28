@@ -77,7 +77,7 @@ private fun Modifier.clickable(
                 if (isHaptic) {
                     hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
                 }
-                
+
                 if (isSingleClick) {
                     manager.processEvent(onClick)
                 } else {
