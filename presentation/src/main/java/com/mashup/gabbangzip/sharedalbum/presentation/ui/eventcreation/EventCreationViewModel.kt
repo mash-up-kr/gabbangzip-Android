@@ -35,7 +35,14 @@ class EventCreationViewModel @Inject constructor(
 
     fun updatePictures(uriList: List<Uri?>) {
         viewModelScope.launch {
-            _uiState.update { it.copy(pictures = ImmutableList(uriList.filterNotNull())) }
+            val currentList = uiState.value.pictures
+            val addedList = if (currentList.size + uriList.size > EventCreationActivity.PICTURES_MAX_COUNT) {
+                _eventFlow.emit(EventCreationEvent.OverflowImageError)
+                uriList.filterNotNull().take(EventCreationActivity.PICTURES_MAX_COUNT - currentList.size)
+            } else {
+                uriList.filterNotNull()
+            }
+            _uiState.update { it.copy(pictures = ImmutableList(currentList + addedList)) }
         }
     }
 
@@ -63,7 +70,7 @@ class EventCreationViewModel @Inject constructor(
         if (fileList.size == uiState.value.pictures.size) {
             createEvent(description, fileList)
         } else {
-            showSnackBar()
+            showErrorSnackBar()
             clearPictures()
         }
     }
@@ -81,7 +88,7 @@ class EventCreationViewModel @Inject constructor(
                 updateLoadingState(isLoading = false)
             }.onFailure {
                 Log.d(TAG, "이벤트 생성 실패")
-                showSnackBar()
+                showErrorSnackBar()
                 updateLoadingState(isLoading = false)
             }
         }
@@ -91,7 +98,7 @@ class EventCreationViewModel @Inject constructor(
         _uiState.update { it.copy(isLoading = isLoading) }
     }
 
-    private fun showSnackBar() {
+    private fun showErrorSnackBar() {
         viewModelScope.launch { _eventFlow.emit(EventCreationEvent.Error) }
     }
 

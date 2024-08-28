@@ -107,6 +107,14 @@ class EventCreationActivity : ComponentActivity() {
                                     message = getString(R.string.image_retrieve_failed),
                                 )
                             }
+
+                            EventCreationEvent.OverflowImageError -> {
+                                snackbarHostState.showPicSnackbar(
+                                    type = PicSnackbarType.WARNING,
+                                    message = getString(R.string.image_overflow_failed)
+                                        .format(PICTURES_MAX_COUNT),
+                                )
+                            }
                         }
                     }
                 }

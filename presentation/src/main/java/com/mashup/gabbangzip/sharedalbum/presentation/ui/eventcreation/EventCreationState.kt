@@ -13,4 +13,5 @@ data class EventCreationState(
 
 sealed interface EventCreationEvent {
     data object Error : EventCreationEvent
+    data object OverflowImageError : EventCreationEvent
 }
