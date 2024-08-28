@@ -22,36 +22,16 @@ fun Modifier.rippleClickable(
     role: Role? = null,
     onClick: () -> Unit,
 ): Modifier = composed {
-    val hapticFeedback = LocalHapticFeedback.current
-    this then if (isSingleClick) {
-        singleClickable(
-            interactionSource = remember { MutableInteractionSource() },
-            indication = rememberRipple(),
-            enabled = enabled,
-            onClickLabel = onClickLabel,
-            role = role,
-            onClick = {
-                if (isHaptic) {
-                    hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-                }
-                onClick()
-            },
-        )
-    } else {
-        clickable(
-            interactionSource = remember { MutableInteractionSource() },
-            indication = rememberRipple(),
-            enabled = enabled,
-            onClickLabel = onClickLabel,
-            role = role,
-            onClick = {
-                if (isHaptic) {
-                    hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-                }
-                onClick()
-            },
-        )
-    }
+    this then clickable(
+        interactionSource = remember { MutableInteractionSource() },
+        indication = rememberRipple(),
+        isSingleClick = isSingleClick,
+        enabled = enabled,
+        isHaptic = isHaptic,
+        onClickLabel = onClickLabel,
+        role = role,
+        onClick = onClick,
+    )
 }
 
 fun Modifier.noRippleClickable(
@@ -62,47 +42,30 @@ fun Modifier.noRippleClickable(
     role: Role? = null,
     onClick: () -> Unit,
 ): Modifier = composed {
-    val hapticFeedback = LocalHapticFeedback.current
-    this then if (isSingleClick) {
-        singleClickable(
-            interactionSource = remember { MutableInteractionSource() },
-            indication = null,
-            enabled = enabled,
-            onClickLabel = onClickLabel,
-            role = role,
-            onClick = {
-                if (isHaptic) {
-                    hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-                }
-                onClick()
-            },
-        )
-    } else {
-        clickable(
-            interactionSource = remember { MutableInteractionSource() },
-            indication = null,
-            enabled = enabled,
-            onClickLabel = onClickLabel,
-            role = role,
-            onClick = {
-                if (isHaptic) {
-                    hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-                }
-                onClick()
-            },
-        )
-    }
+    this then clickable(
+        interactionSource = remember { MutableInteractionSource() },
+        indication = null,
+        isSingleClick = isSingleClick,
+        enabled = enabled,
+        isHaptic = isHaptic,
+        onClickLabel = onClickLabel,
+        role = role,
+        onClick = onClick,
+    )
 }
 
-private fun Modifier.singleClickable(
+private fun Modifier.clickable(
     interactionSource: MutableInteractionSource,
     indication: Indication?,
     onClick: () -> Unit,
+    isSingleClick: Boolean = true,
     enabled: Boolean = true,
+    isHaptic: Boolean = false,
     onClickLabel: String? = null,
     role: Role? = null,
     debounceMillis: Long = 300L,
 ): Modifier = composed {
+    val hapticFeedback = LocalHapticFeedback.current
     multipleEventsCutter(debounceMillis = debounceMillis) { manager ->
         this then clickable(
             interactionSource = interactionSource,
@@ -111,7 +74,15 @@ private fun Modifier.singleClickable(
             onClickLabel = onClickLabel,
             role = role,
             onClick = {
-                manager.processEvent { onClick() }
+                if (isHaptic) {
+                    hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                }
+                
+                if (isSingleClick) {
+                    manager.processEvent(onClick)
+                } else {
+                    onClick()
+                }
             },
         )
     }
