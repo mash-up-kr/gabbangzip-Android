@@ -77,25 +77,22 @@
 
 <div>
     <img
-        width="40%"
+        width="23%"
         alt="image"
         src="https://github.com/user-attachments/assets/344b519d-af89-4ea5-9a0d-890aeab7114e"
     />
     <img
-        width="40%"
+        width="23%"
         alt="image"
         src="https://github.com/user-attachments/assets/e1d161ad-1e12-487e-afe8-3061f2f46ec8"
     />
-</div>
-
-<div>
-   <img
-        width="40%"
+    <img
+        width="23%"
         alt="image"
         src="https://github.com/user-attachments/assets/80bdc49e-8b49-4432-b59e-4ae5fb83a04a"
     />
     <img
-        width="40%"
+        width="23%"
         alt="image"
         src="https://github.com/user-attachments/assets/f0c99971-3a71-473d-820e-1dbd9df5cac3"
     />
