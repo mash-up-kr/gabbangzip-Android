@@ -9,6 +9,7 @@ data class GroupCreationUiState(
     val keyword: GroupKeyword = GroupKeyword.SCHOOL,
     val thumbnail: Uri? = null,
     val groupCreationResult: GroupCreationResult? = null,
+    val isLoading: Boolean = false,
 ) {
     val isGroupCreated get() = groupCreationResult != null
 }

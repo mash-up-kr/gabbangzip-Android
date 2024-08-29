@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model
 
+import androidx.annotation.StringRes
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 sealed class GroupHomeUiState {
@@ -9,4 +10,5 @@ sealed class GroupHomeUiState {
     data class GroupList(
         val groupList: ImmutableList<GroupInfo> = ImmutableList(emptyList()),
     ) : GroupHomeUiState()
+    data class Error(@StringRes val errorMessage: Int) : GroupHomeUiState()
 }

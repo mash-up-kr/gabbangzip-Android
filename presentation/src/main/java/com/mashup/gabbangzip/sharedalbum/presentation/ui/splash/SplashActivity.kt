@@ -75,9 +75,9 @@ class SplashActivity : ComponentActivity() {
     @SuppressLint("InlinedApi")
     private fun checkNotificationPermission() {
         if (askNotificationPermission()) {
-            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-        } else {
             viewModel.checkUserLoggedIn()
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 

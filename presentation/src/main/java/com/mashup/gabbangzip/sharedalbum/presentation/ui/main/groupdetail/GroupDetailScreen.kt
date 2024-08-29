@@ -15,15 +15,18 @@ import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarIcon
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupDetailUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
@@ -45,13 +48,14 @@ fun GroupDetailScreen(
     onClickShareButton: (Bitmap) -> Unit,
     onClickEventMake: () -> Unit,
     onClickHistoryItem: (HistoryDetailState) -> Unit,
-    onErrorEvent: () -> Unit,
+    onShowSnackbar: (PicSnackbarType, String) -> Unit,
     viewModel: GroupDetailViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val errorRetryMessage = stringResource(id = R.string.error_retry)
 
-    if (state.isError) {
-        onErrorEvent()
+    state.errorMessage?.let { errorMessage ->
+        onShowSnackbar(PicSnackbarType.WARNING, stringResource(id = errorMessage))
     }
 
     if (state.status == GroupStatusType.EVENT_COMPLETED) {
@@ -61,11 +65,11 @@ fun GroupDetailScreen(
     GroupDetailScreen(
         state = state,
         onClickGroupMemberButton = {
-            state.groupInfo
-                ?.let {
-                    onClickGroupMemberButton(it.keyword)
-                }
-                ?: onErrorEvent()
+            state.groupInfo?.let {
+                onClickGroupMemberButton(it.keyword)
+            } ?: run {
+                onShowSnackbar(PicSnackbarType.WARNING, errorRetryMessage)
+            }
         },
         onClickBackButton = onClickBackButton,
         onClickActionButton = { status ->
@@ -75,19 +79,19 @@ fun GroupDetailScreen(
                 }
 
                 GroupStatusType.AFTER_MY_UPLOAD, GroupStatusType.AFTER_MY_VOTE -> {
-                    state.recentEvent
-                        ?.let {
-                            onClickSendFcmButton(it.id)
-                        }
-                        ?: onErrorEvent()
+                    state.recentEvent?.let {
+                        onClickSendFcmButton(it.id)
+                    } ?: run {
+                        onShowSnackbar(PicSnackbarType.WARNING, errorRetryMessage)
+                    }
                 }
 
                 GroupStatusType.BEFORE_MY_VOTE -> {
-                    state.recentEvent
-                        ?.let { event ->
-                            onClickVoteButton(event.id)
-                        }
-                        ?: onErrorEvent()
+                    state.recentEvent?.let { event ->
+                        onClickVoteButton(event.id)
+                    } ?: run {
+                        onShowSnackbar(PicSnackbarType.WARNING, errorRetryMessage)
+                    }
                 }
 
                 else -> {}
@@ -105,6 +109,8 @@ fun GroupDetailScreen(
                         history = history,
                     ),
                 )
+            } ?: run {
+                onShowSnackbar(PicSnackbarType.WARNING, errorRetryMessage)
             }
         },
     )

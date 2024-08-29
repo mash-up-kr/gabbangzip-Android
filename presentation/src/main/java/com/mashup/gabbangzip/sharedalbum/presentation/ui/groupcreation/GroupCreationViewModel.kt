@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -54,6 +55,7 @@ class GroupCreationViewModel @Inject constructor(
     }
 
     fun createGroup(name: String, keyword: String, file: File) {
+        updateLoadingState(isLoading = true)
         viewModelScope.launch {
             createGroupUseCase(
                 name = name,
@@ -68,10 +70,17 @@ class GroupCreationViewModel @Inject constructor(
                             imageUrl = it.imageUrl,
                             invitationCode = it.invitationCode,
                         ),
+                        isLoading = false,
                     ),
                 )
             }.onFailure {
-                _effect.emit(Event.ShowSnackBarMessageRes(PicSnackbarType.WARNING, message = R.string.image_upload_failed))
+                _effect.emit(
+                    Event.ShowSnackBarMessageRes(
+                        PicSnackbarType.WARNING,
+                        message = R.string.image_upload_failed,
+                    ),
+                )
+                updateLoadingState(isLoading = false)
             }
         }
     }
@@ -88,9 +97,16 @@ class GroupCreationViewModel @Inject constructor(
         }
     }
 
+    private fun updateLoadingState(isLoading: Boolean) {
+        _uiState.update {
+            it.copy(isLoading = isLoading)
+        }
+    }
+
     sealed interface Event {
         data class ShowSnackBarMessage(val type: PicSnackbarType, val message: String) : Event
-        data class ShowSnackBarMessageRes(val type: PicSnackbarType, @StringRes val message: Int) : Event
+        data class ShowSnackBarMessageRes(val type: PicSnackbarType, @StringRes val message: Int) :
+            Event
     }
 
     companion object {

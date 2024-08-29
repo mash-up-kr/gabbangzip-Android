@@ -8,12 +8,15 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
 
 fun Modifier.rippleClickable(
     enabled: Boolean = true,
+    isHaptic: Boolean = false,
     onClickLabel: String? = null,
     role: Role? = null,
     onClick: () -> Unit,
@@ -22,6 +25,7 @@ fun Modifier.rippleClickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = rememberRipple(),
         enabled = enabled,
+        isHaptic = isHaptic,
         onClickLabel = onClickLabel,
         role = role,
         onClick = onClick,
@@ -30,6 +34,7 @@ fun Modifier.rippleClickable(
 
 fun Modifier.noRippleClickable(
     enabled: Boolean = true,
+    isHaptic: Boolean = false,
     onClickLabel: String? = null,
     role: Role? = null,
     onClick: () -> Unit,
@@ -37,10 +42,11 @@ fun Modifier.noRippleClickable(
     this then singleClickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = null,
+        onClick = onClick,
         enabled = enabled,
+        isHaptic = isHaptic,
         onClickLabel = onClickLabel,
         role = role,
-        onClick = onClick,
     )
 }
 
@@ -48,11 +54,13 @@ private fun Modifier.singleClickable(
     interactionSource: MutableInteractionSource,
     indication: Indication?,
     onClick: () -> Unit,
+    isHaptic: Boolean,
     enabled: Boolean = true,
     onClickLabel: String? = null,
     role: Role? = null,
     debounceMillis: Long = 300L,
 ): Modifier = composed {
+    val hapticFeedback = LocalHapticFeedback.current
     multipleEventsCutter(debounceMillis = debounceMillis) { manager ->
         this then clickable(
             interactionSource = interactionSource,
@@ -60,7 +68,12 @@ private fun Modifier.singleClickable(
             enabled = enabled,
             onClickLabel = onClickLabel,
             role = role,
-            onClick = { manager.processEvent { onClick() } },
+            onClick = {
+                if (isHaptic) {
+                    hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                }
+                manager.processEvent { onClick() }
+            },
         )
     }
 }

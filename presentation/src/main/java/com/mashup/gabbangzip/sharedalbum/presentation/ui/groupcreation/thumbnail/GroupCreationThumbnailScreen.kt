@@ -6,6 +6,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,6 +37,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicLoadingIndicator
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicProgressBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.GroupCreationUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.groupcreation.common.GroupCreationScaffold
@@ -135,6 +137,12 @@ private fun GroupCreationThumbnailScreen(
                     .height(60.dp),
             )
         },
+    )
+    PicLoadingIndicator(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Gray0),
+        isVisible = state.isLoading,
     )
 }
 

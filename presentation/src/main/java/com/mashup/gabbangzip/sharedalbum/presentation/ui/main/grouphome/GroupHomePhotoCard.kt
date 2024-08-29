@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
@@ -15,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
@@ -30,16 +28,13 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 fun GroupHomePhotoCard(
     modifier: Modifier,
     groupInfo: GroupInfo,
-    contentMaxHeight: Dp,
     backgroundColor: Color,
     content: @Composable BoxScope.() -> Unit,
     eventName: String = "",
     onClickEventMake: (Long) -> Unit,
 ) {
     GroupPhotoCardContainer(
-        modifier = modifier
-            .heightIn(max = contentMaxHeight)
-            .wrapContentSize(),
+        modifier = modifier.wrapContentSize(),
         keywordType = groupInfo.keyword,
         backgroundColor = backgroundColor,
     ) {
@@ -63,6 +58,7 @@ fun GroupHomePhotoCard(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(top = 19.dp, bottom = 34.dp),
+                isRippleClickable = true,
                 text = stringResource(R.string.event_creation_btn_text),
                 onButtonClicked = {
                     onClickEventMake(groupInfo.id)

@@ -103,6 +103,7 @@ fun PicNormalButton(
     backgroundColor: Color = Gray80,
     contentColor: Color = Gray0,
     @DrawableRes iconRes: Int? = null,
+    isHaptic: Boolean = false,
     onButtonClicked: () -> Unit = {},
 ) {
     Box(
@@ -111,9 +112,9 @@ fun PicNormalButton(
             .background(if (enable) backgroundColor else SilverSand)
             .then(
                 if (isRippleClickable) {
-                    Modifier.rippleClickable(onClick = onButtonClicked)
+                    Modifier.rippleClickable(onClick = onButtonClicked, isHaptic = isHaptic)
                 } else {
-                    Modifier.noRippleClickable(onClick = onButtonClicked)
+                    Modifier.noRippleClickable(onClick = onButtonClicked, isHaptic = isHaptic)
                 },
             )
             .padding(

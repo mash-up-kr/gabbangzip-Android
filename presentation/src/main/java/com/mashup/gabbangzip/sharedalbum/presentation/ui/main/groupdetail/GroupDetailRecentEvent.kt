@@ -275,6 +275,8 @@ private fun RecentEventBottomSection(
             text = buttonState.textResId?.let { resId ->
                 stringResource(id = resId)
             }.orEmpty(),
+            isRippleClickable = true,
+            isHaptic = R.drawable.ic_group_notice == buttonState.iconResId,
             iconRes = buttonState.iconResId,
             onButtonClicked = onClickActionButton,
         )

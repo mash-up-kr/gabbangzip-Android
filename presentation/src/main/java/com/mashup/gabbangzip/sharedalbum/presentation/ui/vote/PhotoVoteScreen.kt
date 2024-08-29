@@ -45,6 +45,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDialog
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicLoadingIndicator
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.UserInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.contract.VoteConstant
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.model.PhotoVoteState
@@ -132,6 +133,12 @@ fun PhotoVoteScreen(
             VoteGuideContainer(modifier = Modifier.fillMaxSize())
         }
     }
+    PicLoadingIndicator(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Gray0),
+        isVisible = state.isLoading,
+    )
 }
 
 @Composable

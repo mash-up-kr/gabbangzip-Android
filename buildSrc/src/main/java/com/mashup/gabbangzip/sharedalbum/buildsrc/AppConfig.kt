@@ -11,8 +11,8 @@ object AppConfig {
     const val applicationId = "com.mashup.gabbangzip.sharedalbum"
     const val appNameSpace = "com.mashup.gabbangzip.sharedalbum"
 
-    const val appVersionCode = 1
-    const val appVersionName = "1.0.0"
+    const val appVersionCode = 2
+    const val appVersionName = "1.1.0"
 
     const val dataNameSpace = "com.mashup.gabbangzip.sharedalbum.data"
     const val domainNameSpace = "com.mashup.gabbangzip.sharedalbum.domain"
