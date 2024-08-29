@@ -36,11 +36,12 @@ class EventCreationViewModel @Inject constructor(
     fun updatePictures(uriList: List<Uri?>) {
         viewModelScope.launch {
             val currentList = uiState.value.pictures
-            val addedList = if (currentList.size + uriList.size > EventCreationActivity.PICTURES_MAX_COUNT) {
+            val uriListNotNull = uriList.filterNotNull()
+            val addedList = if (currentList.size + uriListNotNull.size > EventCreationActivity.PICTURES_MAX_COUNT) {
                 _eventFlow.emit(EventCreationEvent.OverflowImageError)
-                uriList.filterNotNull().take(EventCreationActivity.PICTURES_MAX_COUNT - currentList.size)
+                uriListNotNull.take(EventCreationActivity.PICTURES_MAX_COUNT - currentList.size)
             } else {
-                uriList.filterNotNull()
+                uriListNotNull
             }
             _uiState.update { it.copy(pictures = ImmutableList(currentList + addedList)) }
         }
