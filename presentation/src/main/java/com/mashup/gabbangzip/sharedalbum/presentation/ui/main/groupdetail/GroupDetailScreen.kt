@@ -2,6 +2,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
 import android.graphics.Bitmap
 import android.util.Log
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -130,6 +131,9 @@ fun GroupDetailScreen(
 ) {
     if (state.recentEvent != null) {
         val scaffoldState = rememberBottomSheetScaffoldState()
+        val sheetElevation by animateDpAsState(
+            targetValue = if (scaffoldState.bottomSheetState.currentValue == SheetValue.Expanded) 0.dp else 16.dp,
+        )
 
         BottomSheetScaffold(
             modifier = Modifier.fillMaxSize(),
@@ -146,7 +150,7 @@ fun GroupDetailScreen(
                 )
             },
             scaffoldState = scaffoldState,
-            sheetShadowElevation = if (scaffoldState.bottomSheetState.currentValue == SheetValue.Expanded) 0.dp else 16.dp,
+            sheetShadowElevation = sheetElevation,
             sheetPeekHeight = 250.dp,
             sheetContainerColor = Gray0,
             sheetContentColor = Gray0,
