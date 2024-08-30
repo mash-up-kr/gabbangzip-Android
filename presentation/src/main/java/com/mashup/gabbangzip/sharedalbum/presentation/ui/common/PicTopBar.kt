@@ -56,7 +56,7 @@ fun PicTopBar(
         Image(
             modifier = Modifier
                 .size(26.dp)
-                .noRippleClickable { rightIconClicked() },
+                .noRippleClickable(isSingleClick = true) { rightIconClicked() },
             painter = painterResource(id = rightIcon.iconRes),
             contentDescription = stringResource(id = rightIcon.desc),
         )
@@ -90,7 +90,7 @@ fun PicBackButtonTopBar(
         ) {
             Image(
                 modifier = Modifier
-                    .noRippleClickable { backButtonClicked() }
+                    .noRippleClickable(isSingleClick = true) { backButtonClicked() }
                     .size(26.dp),
                 painter = painterResource(id = PicTopBarIcon.BACK.iconRes),
                 colorFilter = ColorFilter.tint(color = if (isLightMode) Gray80 else Gray0),
@@ -111,7 +111,7 @@ fun PicBackButtonTopBar(
                     modifier = Modifier
                         .padding(end = 12.dp)
                         .size(26.dp)
-                        .noRippleClickable { rightIcon1Clicked() },
+                        .noRippleClickable(isSingleClick = true) { rightIcon1Clicked() },
                     painter = painterResource(id = rightIcon1.iconRes),
                     contentDescription = stringResource(id = rightIcon1.desc),
                 )
@@ -120,7 +120,7 @@ fun PicBackButtonTopBar(
                 Image(
                     modifier = Modifier
                         .size(26.dp)
-                        .noRippleClickable { rightIcon2Clicked() },
+                        .noRippleClickable(isSingleClick = true) { rightIcon2Clicked() },
                     painter = painterResource(id = rightIcon2.iconRes),
                     contentDescription = stringResource(id = rightIcon2.desc),
                 )

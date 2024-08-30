@@ -196,7 +196,7 @@ private fun PictureWithDeleteButton(
         StableImage(
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .noRippleClickable { onButtonClicked() },
+                .noRippleClickable(isSingleClick = true) { onButtonClicked() },
             drawableResId = R.drawable.ic_delete,
             contentDescription = stringResource(id = R.string.event_creation_picture_delete),
         )

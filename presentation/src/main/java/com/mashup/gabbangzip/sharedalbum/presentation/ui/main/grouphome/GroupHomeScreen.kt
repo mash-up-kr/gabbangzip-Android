@@ -196,7 +196,7 @@ private fun GroupContainer(
     onNavigateGallery: (eventId: Long) -> Unit,
 ) {
     Column(
-        modifier = modifier.noRippleClickable {
+        modifier = modifier.noRippleClickable(isSingleClick = true) {
             if (groupInfo.status != GroupStatusType.NO_PAST_AND_CURRENT_EVENT) {
                 onGroupDetailClick(groupInfo.id)
             }
@@ -240,6 +240,7 @@ private fun GroupContainer(
                     iconRes = iconResId,
                     isRippleClickable = true,
                     text = stringResource(textResId),
+                    isSingleClick = true,
                     isHaptic = ClickType.Fcm == clickType,
                     onButtonClicked = {
                         when (clickType) {
@@ -489,7 +490,7 @@ private fun FloatingItem(
     onClicked: () -> Unit,
 ) {
     Row(
-        modifier = modifier.noRippleClickable { onClicked() },
+        modifier = modifier.noRippleClickable(isSingleClick = true) { onClicked() },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         StableImage(

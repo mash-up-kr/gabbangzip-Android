@@ -220,7 +220,7 @@ private fun CancelVoteButton(
     Icon(
         modifier = modifier
             .size(24.dp)
-            .noRippleClickable { onCancelVote() },
+            .noRippleClickable(isSingleClick = true) { onCancelVote() },
         imageVector = Icons.Default.Close,
         contentDescription = stringResource(R.string.cancel_icon),
     )

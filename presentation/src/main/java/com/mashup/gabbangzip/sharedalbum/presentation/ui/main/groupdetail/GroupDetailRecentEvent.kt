@@ -170,6 +170,7 @@ private fun PhotoCardWithShareButton(
         PicNormalButton(
             modifier = Modifier.padding(top = 32.dp),
             iconRes = R.drawable.ic_share,
+            isSingleClick = true,
             onButtonClicked = {
                 val bitmap = picture.createBitmap()
                 onClickShareButton(bitmap)
@@ -277,6 +278,7 @@ private fun RecentEventBottomSection(
             }.orEmpty(),
             isRippleClickable = true,
             isHaptic = R.drawable.ic_group_notice == buttonState.iconResId,
+            isSingleClick = true,
             iconRes = buttonState.iconResId,
             onButtonClicked = onClickActionButton,
         )
