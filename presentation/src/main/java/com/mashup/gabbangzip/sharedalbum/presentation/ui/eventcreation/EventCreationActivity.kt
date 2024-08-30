@@ -108,7 +108,7 @@ class EventCreationActivity : ComponentActivity() {
                                 )
                             }
 
-                            EventCreationEvent.OverflowImageError -> {
+                            is EventCreationEvent.OverflowImageError -> {
                                 snackbarHostState.showPicSnackbar(
                                     type = PicSnackbarType.WARNING,
                                     message = getString(R.string.image_overflow_failed)
