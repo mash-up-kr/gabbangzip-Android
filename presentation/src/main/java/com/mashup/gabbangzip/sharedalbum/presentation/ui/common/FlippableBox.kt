@@ -65,7 +65,7 @@ fun FlippableBox(
         modifier = modifier
             .run {
                 if (enableFlip) {
-                    noRippleClickable(isSingleClick = false) {
+                    noRippleClickable {
                         if (isFront) {
                             onFrontScreenClick?.invoke() ?: run { rotationAngle += 180f }
                         } else {

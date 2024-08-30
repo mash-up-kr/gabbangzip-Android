@@ -87,7 +87,7 @@ private fun GroupCreationThumbnailScreen(
     openPhotoPicker: () -> Unit,
 ) {
     GroupCreationScaffold(
-        modifier = Modifier.noRippleClickable {
+        modifier = Modifier.noRippleClickable(isSingleClick = true) {
             if (modifyButtonEnabled) {
                 setModifyButtonEnabled(false)
             }
@@ -196,7 +196,7 @@ private fun ThumbnailCard(
                 modifier = Modifier
                     .matchParentSize()
                     .background(keyword.frameInnerColor)
-                    .rippleClickable(onClick = openPhotoPicker),
+                    .rippleClickable(onClick = openPhotoPicker, isSingleClick = true),
                 iconRes = R.drawable.ic_image_add,
                 iconContentDescription = R.string.group_add,
                 iconColor = Gray80,
@@ -205,7 +205,7 @@ private fun ThumbnailCard(
             AsyncImage(
                 modifier = Modifier
                     .matchParentSize()
-                    .rippleClickable(onClick = onThumbnailButtonClick),
+                    .rippleClickable(onClick = onThumbnailButtonClick, isSingleClick = true),
                 model = thumbnailUri,
                 contentDescription = stringResource(id = R.string.thumbnail_image),
                 contentScale = ContentScale.Crop,
@@ -215,7 +215,7 @@ private fun ThumbnailCard(
                     modifier = Modifier
                         .matchParentSize()
                         .background(BlackAlpha50)
-                        .rippleClickable(onClick = openPhotoPicker),
+                        .rippleClickable(onClick = openPhotoPicker, isSingleClick = true),
                     iconRes = R.drawable.ic_image_modify,
                     iconContentDescription = R.string.group_modify,
                     iconColor = Gray0,

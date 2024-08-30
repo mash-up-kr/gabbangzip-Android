@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
 
 fun Modifier.rippleClickable(
-    isSingleClick: Boolean = true,
+    isSingleClick: Boolean = false,
     enabled: Boolean = true,
     isHaptic: Boolean = false,
     onClickLabel: String? = null,
@@ -35,7 +35,7 @@ fun Modifier.rippleClickable(
 }
 
 fun Modifier.noRippleClickable(
-    isSingleClick: Boolean = true,
+    isSingleClick: Boolean = false,
     enabled: Boolean = true,
     isHaptic: Boolean = false,
     onClickLabel: String? = null,
@@ -58,7 +58,7 @@ private fun Modifier.clickable(
     interactionSource: MutableInteractionSource,
     indication: Indication?,
     onClick: () -> Unit,
-    isSingleClick: Boolean = true,
+    isSingleClick: Boolean = false,
     enabled: Boolean = true,
     isHaptic: Boolean = false,
     onClickLabel: String? = null,

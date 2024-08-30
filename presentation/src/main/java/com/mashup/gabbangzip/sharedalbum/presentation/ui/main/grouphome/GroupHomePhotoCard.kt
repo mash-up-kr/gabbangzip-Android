@@ -64,6 +64,7 @@ fun GroupHomePhotoCard(
                     .align(Alignment.BottomCenter)
                     .padding(top = 19.dp, bottom = 34.dp),
                 isRippleClickable = true,
+                isSingleClick = true,
                 text = stringResource(R.string.event_creation_btn_text),
                 onButtonClicked = {
                     onClickEventMake(groupInfo.id)

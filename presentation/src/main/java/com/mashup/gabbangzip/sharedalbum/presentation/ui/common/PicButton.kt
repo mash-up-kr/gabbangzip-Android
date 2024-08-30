@@ -104,7 +104,7 @@ fun PicNormalButton(
     contentColor: Color = Gray0,
     @DrawableRes iconRes: Int? = null,
     isHaptic: Boolean = false,
-    isSingleClick: Boolean = true,
+    isSingleClick: Boolean = false,
     onButtonClicked: () -> Unit = {},
 ) {
     Box(
