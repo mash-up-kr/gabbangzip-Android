@@ -6,6 +6,8 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -50,6 +52,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.BlackAlpha40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -384,7 +387,9 @@ private fun BackCardImage(
 ) {
     val contentMaxHeight = LocalConfiguration.current.screenHeightDp.dp
     LazyVerticalGrid(
-        modifier = modifier.wrapContentSize().heightIn(max = contentMaxHeight),
+        modifier = modifier
+            .wrapContentSize()
+            .heightIn(max = contentMaxHeight),
         verticalArrangement = Arrangement.spacedBy(7.46.dp),
         horizontalArrangement = Arrangement.spacedBy(7.46.dp),
         columns = GridCells.Fixed(2),
@@ -416,6 +421,10 @@ private fun GroupFloatingButton(
         label = stringResource(R.string.floating_animate),
     )
 
+    AnimatedOverlay(
+        visible = isExpanded,
+        onClick = { isExpanded = false },
+    )
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.End,
@@ -455,6 +464,22 @@ private fun GroupFloatingButton(
                 contentDescription = stringResource(R.string.floating_btn),
             )
         }
+    }
+}
+
+@Composable
+private fun AnimatedOverlay(visible: Boolean, onClick: () -> Unit) {
+    AnimatedVisibility(
+        visible = visible,
+        enter = fadeIn(),
+        exit = fadeOut(),
+    ) {
+        Spacer(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(BlackAlpha40)
+                .noRippleClickable(onClick = onClick),
+        )
     }
 }
 
