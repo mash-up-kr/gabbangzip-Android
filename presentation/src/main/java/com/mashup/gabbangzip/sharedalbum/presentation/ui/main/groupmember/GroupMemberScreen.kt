@@ -3,6 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
@@ -43,6 +44,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 @Composable
 fun GroupMemberScreen(
+    innerPadding: PaddingValues,
     onClickBackButton: () -> Unit,
     onSnackbarRequired: (type: PicSnackbarType, message: String) -> Unit,
     viewModel: GroupMemberViewModel = hiltViewModel(),
@@ -59,6 +61,10 @@ fun GroupMemberScreen(
     }
 
     GroupMemberScreen(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding)
+            .background(Gray0),
         state = state,
         onClickBackButton = onClickBackButton,
         onClickCopyButton = {
@@ -74,15 +80,12 @@ fun GroupMemberScreen(
 
 @Composable
 private fun GroupMemberScreen(
+    modifier: Modifier,
     state: GroupMemberUiState,
     onClickBackButton: () -> Unit,
     onClickCopyButton: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Gray0),
-    ) {
+    Column(modifier = modifier) {
         PicBackButtonTopBar(
             modifier = Modifier.padding(top = 16.dp),
             titleText = stringResource(id = R.string.group_member_list_title),
@@ -210,6 +213,7 @@ private fun GroupMemberScreenPreview(
     @PreviewParameter(GroupMemberProvider::class) state: GroupMemberUiState,
 ) {
     GroupMemberScreen(
+        modifier = Modifier,
         state = state,
         onClickBackButton = {},
         onClickCopyButton = {},

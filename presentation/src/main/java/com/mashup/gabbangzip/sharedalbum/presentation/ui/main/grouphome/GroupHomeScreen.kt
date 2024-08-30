@@ -13,6 +13,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -77,6 +78,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun GroupHomeScreen(
+    innerPadding: PaddingValues,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
@@ -98,6 +100,7 @@ fun GroupHomeScreen(
 
         is GroupHomeUiState.GroupList -> {
             GroupHomeScreen(
+                modifier = Modifier.fillMaxSize().padding(innerPadding),
                 groupList = (state as GroupHomeUiState.GroupList).groupList,
                 onClickGroupDetail = onClickGroupDetail,
                 onClickEventMake = onClickEventMake,
@@ -125,6 +128,7 @@ fun GroupHomeScreen(
 
 @Composable
 fun GroupHomeScreen(
+    modifier: Modifier,
     groupList: ImmutableList<GroupInfo>,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
@@ -135,9 +139,9 @@ fun GroupHomeScreen(
     onNavigateGallery: (eventId: Long) -> Unit,
     onNavigateVote: (eventId: Long) -> Unit,
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .align(Alignment.TopCenter),
         ) {
@@ -535,6 +539,7 @@ private fun FloatingItem(
 @Composable
 private fun GroupHomeScreenPreview() {
     GroupHomeScreen(
+        modifier = Modifier,
         groupList = ImmutableList(
             listOf(
                 GroupInfo(

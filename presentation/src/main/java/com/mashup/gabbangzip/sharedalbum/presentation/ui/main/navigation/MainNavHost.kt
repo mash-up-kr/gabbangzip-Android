@@ -3,6 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation
 import android.content.Intent
 import android.graphics.Bitmap
 import android.provider.Settings
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,6 +26,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.VoteActivity
 @Composable
 fun MainNavHost(
     modifier: Modifier = Modifier,
+    innerPadding: PaddingValues,
     navController: NavHostController,
     startDestination: String,
     navigateLoginAndFinish: () -> Unit,
@@ -42,6 +44,7 @@ fun MainNavHost(
         startDestination = startDestination,
     ) {
         groupHomeNavGraph(
+            innerPadding = innerPadding,
             navigateToGroupCreationAndFinish = navigateToGroupCreationAndFinish,
             onClickGroupDetail = { id -> navController.navigateGroupDetail(id) },
             onClickMyPage = { navController.navigateMyPage() },
@@ -54,6 +57,7 @@ fun MainNavHost(
             onShowSnackbar = onSnackbarRequired,
         )
         groupDetailNavGraph(
+            innerPadding = innerPadding,
             onClickGroupMemberButton = { id, keyword ->
                 navController.navigateGroupMember(id, keyword)
             },
@@ -69,10 +73,12 @@ fun MainNavHost(
             onShowSnackbar = onSnackbarRequired,
         )
         groupMemberNavGraph(
+            innerPadding = innerPadding,
             onClickBackButton = { navController.popBackStack() },
             onShowSnackbar = onSnackbarRequired,
         )
         myPageNavGraph(
+            innerPadding = innerPadding,
             onClickBack = { navController.popBackStack() },
             onClickNotificationSetting = {
                 context.startActivity(

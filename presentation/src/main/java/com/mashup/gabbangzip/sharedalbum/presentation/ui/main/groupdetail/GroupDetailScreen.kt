@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -40,6 +41,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 @Composable
 fun GroupDetailScreen(
+    innerPadding: PaddingValues,
     onClickGroupMemberButton: (GroupKeyword) -> Unit,
     onClickBackButton: () -> Unit,
     onClickOpenPhotoPickerButton: (eventId: Long) -> Unit,
@@ -63,6 +65,7 @@ fun GroupDetailScreen(
     }
 
     GroupDetailScreen(
+        modifier = Modifier.fillMaxSize().padding(innerPadding),
         state = state,
         onClickGroupMemberButton = {
             state.groupInfo?.let {
@@ -118,6 +121,7 @@ fun GroupDetailScreen(
 
 @Composable
 fun GroupDetailScreen(
+    modifier: Modifier,
     state: GroupDetailUiState,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
@@ -126,9 +130,7 @@ fun GroupDetailScreen(
     onClickEventMake: () -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-    ) {
+    Column(modifier = modifier) {
         PicBackButtonTopBar(
             modifier = Modifier.fillMaxWidth(),
             titleText = state.groupInfo?.name.orEmpty(),
@@ -205,6 +207,7 @@ private fun GroupDetailScreenPreview(
 ) {
     SharedAlbumTheme {
         GroupDetailScreen(
+            modifier = Modifier,
             state = GroupDetailUiState(
                 groupInfo = GroupInfo(
                     id = 0,
