@@ -8,8 +8,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
 
 class HistoryDetailActivity : ComponentActivity() {
     private val state by lazy { intent.getSerializableExtra(KEY_HISTORY) as HistoryDetailState? }
@@ -24,12 +28,16 @@ class HistoryDetailActivity : ComponentActivity() {
         setContent {
             SharedAlbumTheme {
                 state?.let { state ->
-                    HistoryDetailScreen(
-                        groupName = state.groupName,
-                        keyword = GroupKeyword.getKeyword(state.keyword),
-                        item = state.history,
-                        onClickBackButton = { finish() },
-                    )
+                    Scaffold { innerPadding ->
+                        HistoryDetailScreen(
+                            modifier = Modifier.padding(innerPadding),
+                            groupName = state.groupName,
+                            keyword = GroupKeyword.getKeyword(state.keyword),
+                            item = state.history,
+                            onClickBackButton = { finish() },
+                            onClickShareButton = { bitmap -> shareBitmap(bitmap) },
+                        )
+                    }
                 }
             }
         }
