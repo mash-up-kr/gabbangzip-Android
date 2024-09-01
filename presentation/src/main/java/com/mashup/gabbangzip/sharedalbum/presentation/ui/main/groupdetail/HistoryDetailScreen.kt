@@ -62,7 +62,7 @@ fun HistoryDetailScreen(
             modifier = Modifier.padding(start = 46.dp),
             text = "2024.05.24",
             style = PicTypography.bodyMedium16,
-            color = Color(0xFFB3B3B3),
+            color = Color(0xFFB3B3B3), // Todo : 추후 Design System 색상값 받기
         )
         HistoryPhotoCard(
             modifier = Modifier
