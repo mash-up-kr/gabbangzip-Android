@@ -8,9 +8,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
@@ -30,7 +33,10 @@ class HistoryDetailActivity : ComponentActivity() {
                 state?.let { state ->
                     Scaffold { innerPadding ->
                         HistoryDetailScreen(
-                            modifier = Modifier.padding(innerPadding),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color(0xFF555555)) // Todo : 추후 Design System 색상값 받기
+                                .padding(innerPadding),
                             groupName = state.groupName,
                             keyword = GroupKeyword.getKeyword(state.keyword),
                             item = state.history,

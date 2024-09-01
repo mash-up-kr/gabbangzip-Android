@@ -2,12 +2,10 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
 import android.graphics.Bitmap
 import android.graphics.Picture
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -49,11 +47,7 @@ fun HistoryDetailScreen(
     onClickShareButton: (Bitmap) -> Unit,
 ) {
     val picture = remember { Picture() }
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color(0xFF555555)),
-    ) {
+    Column(modifier = modifier) {
         PicBackButtonTopBar(
             modifier = Modifier
                 .fillMaxWidth()
