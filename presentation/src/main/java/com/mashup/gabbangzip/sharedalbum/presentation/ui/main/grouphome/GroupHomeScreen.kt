@@ -481,7 +481,7 @@ private fun AnimatedOverlay(visible: Boolean, onClick: () -> Unit) {
         Spacer(
             modifier = Modifier
                 .fillMaxSize()
-                .background(BlackAlpha40)
+                .background(Color.Black.copy(alpha = 0.4f))
                 .noRippleClickable(onClick = onClick),
         )
     }

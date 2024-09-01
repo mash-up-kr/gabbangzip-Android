@@ -214,7 +214,7 @@ private fun ThumbnailCard(
                 CardCoverIcon(
                     modifier = Modifier
                         .matchParentSize()
-                        .background(BlackAlpha50)
+                        .background(Color.Black.copy(alpha = 0.5f))
                         .rippleClickable(onClick = openPhotoPicker, isSingleClick = true),
                     iconRes = R.drawable.ic_image_modify,
                     iconContentDescription = R.string.group_modify,

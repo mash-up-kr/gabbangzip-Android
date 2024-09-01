@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -59,7 +60,7 @@ private fun PicSnackbar(
     Row(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(30.dp))
-            .background(color = BlackAlpha50)
+            .background(color = Color.Black.copy(alpha = 0.5f))
             .wrapContentSize()
             .padding(
                 horizontal = 24.dp,
