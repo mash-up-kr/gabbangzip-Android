@@ -64,13 +64,18 @@ fun HistoryDetailScreen(
             style = PicTypography.bodyMedium16,
             color = Color(0xFFB3B3B3), // Todo : 추후 Design System 색상값 받기
         )
-        HistoryPhotoCard(
-            modifier = Modifier
-                .weight(1f)
-                .captureIntoCanvas(picture),
-            keyword = keyword,
-            item = item,
-        )
+        Box(
+            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.Center,
+        ) {
+            HistoryPhotoCard(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .captureIntoCanvas(picture),
+                keyword = keyword,
+                item = item,
+            )
+        }
         PicNormalButton(
             modifier = Modifier
                 .padding(bottom = 19.dp)
