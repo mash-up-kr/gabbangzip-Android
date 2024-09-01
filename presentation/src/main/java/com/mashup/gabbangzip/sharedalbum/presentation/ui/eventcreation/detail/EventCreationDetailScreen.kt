@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -88,8 +89,10 @@ fun EventCreationDetailScreen(
     ) {
         PicBackButtonTopBar(
             modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
                 .background(Gray0Alpha80)
-                .padding(top = 16.dp),
+                .padding(top = 30.dp, bottom = 14.dp, start = 16.dp, end = 16.dp),
             titleText = stringResource(id = R.string.event_creation),
             backButtonClicked = {
                 focusManager.clearFocus()

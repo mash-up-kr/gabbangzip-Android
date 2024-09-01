@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -36,6 +37,10 @@ fun InvitationCodeScreen(
         modifier = Modifier.fillMaxSize(),
     ) {
         PicBackButtonTopBar(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(vertical = 14.dp, horizontal = 16.dp),
             titleText = stringResource(id = R.string.enter_group_by_code_title),
             backButtonClicked = onBackButtonClicked,
         )

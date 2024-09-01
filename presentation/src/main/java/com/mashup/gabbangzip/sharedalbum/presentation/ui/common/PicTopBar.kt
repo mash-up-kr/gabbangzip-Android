@@ -76,10 +76,7 @@ fun PicBackButtonTopBar(
     rightIcon2Clicked: () -> Unit = {},
 ) {
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(vertical = 14.dp, horizontal = 16.dp),
+        modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
         Row(
@@ -178,15 +175,20 @@ private fun PicTopBarPreview() {
             )
             PicBackButtonTopBar(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
                     .background(Gray0.copy(alpha = 0.2f))
-                    .padding(top = 56.dp),
+                    .padding(top = 70.dp, bottom = 14.dp, start = 16.dp, end = 16.dp),
                 titleText = "그룹 만들기",
                 backButtonClicked = {},
             )
             PicBackButtonTopBar(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
                     .background(Gray0.copy(alpha = 0.2f))
-                    .padding(top = 56.dp),
+                    .padding(top = 70.dp, bottom = 14.dp, start = 16.dp, end = 16.dp)
+                    .padding(vertical = 14.dp, horizontal = 16.dp),
                 titleText = "뛰뛰빵빵 가빵집",
                 titleAlign = PicTopBarTitleAlign.LEFT,
                 backButtonClicked = {},

@@ -84,7 +84,10 @@ private fun GroupMemberScreen(
             .background(Gray0),
     ) {
         PicBackButtonTopBar(
-            modifier = Modifier.padding(top = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(top = 30.dp, bottom = 14.dp, start = 16.dp, end = 16.dp),
             titleText = stringResource(id = R.string.group_member_list_title),
             backButtonClicked = onClickBackButton,
         )

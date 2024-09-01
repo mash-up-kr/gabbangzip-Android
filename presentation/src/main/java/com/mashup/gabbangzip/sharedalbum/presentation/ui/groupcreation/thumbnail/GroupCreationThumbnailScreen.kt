@@ -96,8 +96,10 @@ private fun GroupCreationThumbnailScreen(
         topBar = {
             PicBackButtonTopBar(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
                     .background(Gray0Alpha80)
-                    .padding(top = 16.dp),
+                    .padding(top = 30.dp, bottom = 14.dp, start = 16.dp, end = 16.dp),
                 titleText = stringResource(id = R.string.group_creation_button_name),
                 backButtonClicked = onBackButtonClicked,
             )

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -58,8 +59,10 @@ private fun GroupCreationKeywordScreen(
         topBar = {
             PicBackButtonTopBar(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
                     .background(Gray0Alpha80)
-                    .padding(top = 16.dp),
+                    .padding(top = 30.dp, bottom = 14.dp, start = 16.dp, end = 16.dp),
                 titleText = stringResource(id = R.string.group_creation_button_name),
                 backButtonClicked = onBackButtonClicked,
             )
