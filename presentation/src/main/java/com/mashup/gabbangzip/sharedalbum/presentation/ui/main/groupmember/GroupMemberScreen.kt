@@ -63,8 +63,7 @@ fun GroupMemberScreen(
     GroupMemberScreen(
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding)
-            .background(Gray0),
+            .padding(innerPadding),
         state = state,
         onClickBackButton = onClickBackButton,
         onClickCopyButton = {
