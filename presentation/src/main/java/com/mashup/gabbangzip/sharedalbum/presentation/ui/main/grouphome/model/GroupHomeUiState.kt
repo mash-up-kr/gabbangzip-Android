@@ -1,8 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model
 
 import androidx.annotation.StringRes
-import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 sealed class GroupHomeUiState {

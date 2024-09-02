@@ -60,7 +60,6 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray100
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Malibu
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -83,7 +82,6 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 
 @Composable
 fun GroupHomeScreen(
@@ -242,7 +240,7 @@ private fun TagFilter(
                 iconRes = tagInfo.symbolResId,
                 iconColor = if (tagInfo.isSelected) Gray0 else tagInfo.symbolColor,
                 textColor = if (tagInfo.isSelected) Gray0 else Gray80,
-                textStyle = PicTypography.headBold14
+                textStyle = PicTypography.headBold14,
             )
         }
         item { Spacer(modifier = Modifier.width(10.dp)) }
