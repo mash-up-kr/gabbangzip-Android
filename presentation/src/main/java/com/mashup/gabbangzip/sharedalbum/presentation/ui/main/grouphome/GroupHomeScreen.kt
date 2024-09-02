@@ -22,8 +22,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -53,7 +56,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.FlippableBox
@@ -66,6 +72,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarI
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.ClickType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.FilterTagUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
@@ -90,7 +97,7 @@ fun GroupHomeScreen(
     onShowSnackbar: (PicSnackbarType, String) -> Unit,
     viewModel: GroupHomeViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.groupUiState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (state) {
         is GroupHomeUiState.NoGroup -> {
@@ -98,9 +105,13 @@ fun GroupHomeScreen(
         }
 
         is GroupHomeUiState.GroupList -> {
+            val groupHomeUiState = (state as GroupHomeUiState.GroupList)
             GroupHomeScreen(
-                modifier = Modifier.fillMaxSize().padding(innerPadding),
-                groupList = (state as GroupHomeUiState.GroupList).groupList,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                groupList = groupHomeUiState.groupList,
+                filterTagList = groupHomeUiState.filterTagList,
                 onClickGroupDetail = onClickGroupDetail,
                 onClickEventMake = onClickEventMake,
                 onClickMyPage = onClickMyPage,
@@ -109,6 +120,7 @@ fun GroupHomeScreen(
                 onClickSendFcmButton = onClickSendFcmButton,
                 onNavigateVote = onNavigateVote,
                 onNavigateGallery = onNavigateGallery,
+                onClickFilterTag = viewModel::clickedFilterTag,
             )
         }
 
@@ -129,6 +141,7 @@ fun GroupHomeScreen(
 fun GroupHomeScreen(
     modifier: Modifier,
     groupList: ImmutableList<GroupInfo>,
+    filterTagList: ImmutableList<FilterTagUiModel>,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
@@ -137,6 +150,7 @@ fun GroupHomeScreen(
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onNavigateGallery: (eventId: Long) -> Unit,
     onNavigateVote: (eventId: Long) -> Unit,
+    onClickFilterTag: (FilterTagUiModel) -> Unit,
 ) {
     Box {
         Column(
@@ -148,6 +162,14 @@ fun GroupHomeScreen(
                 modifier = Modifier.padding(top = 16.dp),
                 rightIcon = PicTopBarIcon.USER,
                 rightIconClicked = onClickMyPage,
+            )
+
+            TagFilter(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                filterTagList = filterTagList,
+                onTagClicked = onClickFilterTag,
             )
 
             LazyColumn {
@@ -188,6 +210,34 @@ fun GroupHomeScreen(
             onClickGroupMake = onClickGroupMake,
             onClickGroupEnter = onClickGroupEnter,
         )
+    }
+}
+
+@Composable
+private fun TagFilter(
+    modifier: Modifier,
+    filterTagList: ImmutableList<FilterTagUiModel>,
+    onTagClicked: (FilterTagUiModel) -> Unit,
+) {
+    LazyRow(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        item { Spacer(modifier = Modifier.width(10.dp)) }
+        itemsIndexed(filterTagList, key = { _, item -> item.name }) { _, tagInfo ->
+            PicTag(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(vertical = 3.5.dp)
+                    .noRippleClickable { onTagClicked(tagInfo) },
+                text = stringResource(id = tagInfo.tagNameResId),
+                iconRes = tagInfo.symbolResId,
+                iconColor = if (tagInfo.isSelected) Gray0 else Gray50,
+                backgroundColor = if (tagInfo.isSelected) Gray60 else Color(0xFFF5F5F5), // Todo : Design System color 추가 예정
+                textColor = if (tagInfo.isSelected) Gray0 else Gray60,
+            )
+        }
+        item { Spacer(modifier = Modifier.width(10.dp)) }
     }
 }
 
@@ -675,6 +725,22 @@ private fun GroupHomeScreenPreview() {
                 ),
             ),
         ),
+        filterTagList = ImmutableList(
+            listOf(
+                FilterTagUiModel(
+                    "전체",
+                    R.drawable.sb_total,
+                    R.string.tag_total,
+                    false,
+                ),
+                FilterTagUiModel(
+                    "전체",
+                    R.drawable.sb_total,
+                    R.string.tag_total,
+                    true,
+                ),
+            ),
+        ),
         onClickGroupDetail = {},
         onClickEventMake = {},
         onClickMyPage = {},
@@ -683,5 +749,6 @@ private fun GroupHomeScreenPreview() {
         onClickSendFcmButton = {},
         onNavigateGallery = {},
         onNavigateVote = {},
+        onClickFilterTag = {},
     )
 }

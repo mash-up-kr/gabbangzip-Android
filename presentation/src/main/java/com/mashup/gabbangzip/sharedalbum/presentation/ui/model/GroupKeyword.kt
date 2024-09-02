@@ -100,6 +100,7 @@ enum class GroupKeyword(
     ;
 
     companion object {
+        const val TOTAL = "TOTAL"
         fun getKeyword(keyword: String): GroupKeyword {
             return entries.associateBy { it.name }[keyword] ?: SCHOOL
         }
