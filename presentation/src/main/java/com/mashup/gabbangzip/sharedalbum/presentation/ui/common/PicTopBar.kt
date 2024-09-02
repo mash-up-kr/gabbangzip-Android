@@ -187,8 +187,7 @@ private fun PicTopBarPreview() {
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .background(Gray0.copy(alpha = 0.2f))
-                    .padding(top = 70.dp, bottom = 14.dp, start = 16.dp, end = 16.dp)
-                    .padding(vertical = 14.dp, horizontal = 16.dp),
+                    .padding(top = 70.dp, bottom = 14.dp, start = 16.dp, end = 16.dp),
                 titleText = "뛰뛰빵빵 가빵집",
                 titleAlign = PicTopBarTitleAlign.LEFT,
                 backButtonClicked = {},
