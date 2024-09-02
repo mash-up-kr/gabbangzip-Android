@@ -1,6 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation
 
 import android.graphics.Bitmap
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -17,6 +18,7 @@ fun NavController.navigateGroupDetail(groupId: Long) {
 }
 
 fun NavGraphBuilder.groupDetailNavGraph(
+    innerPadding: PaddingValues,
     onClickGroupMemberButton: (groupId: Long, keyword: String) -> Unit,
     onClickBackButton: () -> Unit,
     onClickOpenPhotoPickerButton: (eventId: Long) -> Unit,
@@ -35,6 +37,7 @@ fun NavGraphBuilder.groupDetailNavGraph(
     ) { backStackEntry ->
         backStackEntry.arguments?.getLong(KEY_GROUP_ID)?.let { groupId ->
             GroupDetailScreen(
+                innerPadding = innerPadding,
                 onClickGroupMemberButton = { keyword ->
                     onClickGroupMemberButton(groupId, keyword.name)
                 },

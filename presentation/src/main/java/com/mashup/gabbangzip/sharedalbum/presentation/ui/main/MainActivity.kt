@@ -10,9 +10,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -76,7 +77,9 @@ class MainActivity : ComponentActivity() {
                     MainNavHost(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(innerPadding),
+                            .consumeWindowInsets(innerPadding)
+                            .systemBarsPadding(),
+                        innerPadding = innerPadding,
                         navController = navController,
                         startDestination = MainRoute.initRoute,
                         navigateLoginAndFinish = {
@@ -104,7 +107,6 @@ class MainActivity : ComponentActivity() {
                         },
                     )
                 }
-
                 LaunchedEffect(true) {
                     val groupId = intent.getLongExtra(INTENT_EXTRA_GROUP_ID, -1)
                     if (groupId > -1) {

@@ -30,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.BlackAlpha50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0Alpha80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
@@ -214,7 +213,7 @@ private fun ThumbnailCard(
                 CardCoverIcon(
                     modifier = Modifier
                         .matchParentSize()
-                        .background(BlackAlpha50)
+                        .background(Color.Black.copy(alpha = 0.5f))
                         .rippleClickable(onClick = openPhotoPicker, isSingleClick = true),
                     iconRes = R.drawable.ic_image_modify,
                     iconContentDescription = R.string.group_modify,

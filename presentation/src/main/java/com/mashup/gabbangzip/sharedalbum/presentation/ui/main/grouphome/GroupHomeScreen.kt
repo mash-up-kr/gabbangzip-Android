@@ -6,11 +6,14 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -74,6 +77,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun GroupHomeScreen(
+    innerPadding: PaddingValues,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
@@ -95,6 +99,7 @@ fun GroupHomeScreen(
 
         is GroupHomeUiState.GroupList -> {
             GroupHomeScreen(
+                modifier = Modifier.fillMaxSize().padding(innerPadding),
                 groupList = (state as GroupHomeUiState.GroupList).groupList,
                 onClickGroupDetail = onClickGroupDetail,
                 onClickEventMake = onClickEventMake,
@@ -122,6 +127,7 @@ fun GroupHomeScreen(
 
 @Composable
 fun GroupHomeScreen(
+    modifier: Modifier,
     groupList: ImmutableList<GroupInfo>,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
@@ -132,9 +138,9 @@ fun GroupHomeScreen(
     onNavigateGallery: (eventId: Long) -> Unit,
     onNavigateVote: (eventId: Long) -> Unit,
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .align(Alignment.TopCenter),
         ) {
@@ -384,7 +390,9 @@ private fun BackCardImage(
 ) {
     val contentMaxHeight = LocalConfiguration.current.screenHeightDp.dp
     LazyVerticalGrid(
-        modifier = modifier.wrapContentSize().heightIn(max = contentMaxHeight),
+        modifier = modifier
+            .wrapContentSize()
+            .heightIn(max = contentMaxHeight),
         verticalArrangement = Arrangement.spacedBy(7.46.dp),
         horizontalArrangement = Arrangement.spacedBy(7.46.dp),
         columns = GridCells.Fixed(2),
@@ -416,6 +424,10 @@ private fun GroupFloatingButton(
         label = stringResource(R.string.floating_animate),
     )
 
+    AnimatedOverlay(
+        visible = isExpanded,
+        onClick = { isExpanded = false },
+    )
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.End,
@@ -455,6 +467,22 @@ private fun GroupFloatingButton(
                 contentDescription = stringResource(R.string.floating_btn),
             )
         }
+    }
+}
+
+@Composable
+private fun AnimatedOverlay(visible: Boolean, onClick: () -> Unit) {
+    AnimatedVisibility(
+        visible = visible,
+        enter = fadeIn(),
+        exit = fadeOut(),
+    ) {
+        Spacer(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.4f))
+                .noRippleClickable(onClick = onClick),
+        )
     }
 }
 
@@ -510,6 +538,7 @@ private fun FloatingItem(
 @Composable
 private fun GroupHomeScreenPreview() {
     GroupHomeScreen(
+        modifier = Modifier,
         groupList = ImmutableList(
             listOf(
                 GroupInfo(

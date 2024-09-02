@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -11,12 +12,14 @@ fun NavController.navigateMyPage() {
 }
 
 fun NavGraphBuilder.myPageNavGraph(
+    innerPadding: PaddingValues,
     onClickBack: () -> Unit,
     onClickNotificationSetting: () -> Unit,
     navigateLoginAndFinish: () -> Unit,
 ) {
     composable(route = MainRoute.MyPageRoute.route) {
         MyPageScreen(
+            innerPadding = innerPadding,
             onClickBack = onClickBack,
             onClickNotificationSetting = onClickNotificationSetting,
             navigateLoginAndFinish = navigateLoginAndFinish,

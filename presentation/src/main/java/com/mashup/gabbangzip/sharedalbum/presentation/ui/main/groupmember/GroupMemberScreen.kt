@@ -1,8 +1,8 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -43,6 +42,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 @Composable
 fun GroupMemberScreen(
+    innerPadding: PaddingValues,
     onClickBackButton: () -> Unit,
     onSnackbarRequired: (type: PicSnackbarType, message: String) -> Unit,
     viewModel: GroupMemberViewModel = hiltViewModel(),
@@ -59,6 +59,9 @@ fun GroupMemberScreen(
     }
 
     GroupMemberScreen(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding),
         state = state,
         onClickBackButton = onClickBackButton,
         onClickCopyButton = {
@@ -74,15 +77,12 @@ fun GroupMemberScreen(
 
 @Composable
 private fun GroupMemberScreen(
+    modifier: Modifier,
     state: GroupMemberUiState,
     onClickBackButton: () -> Unit,
     onClickCopyButton: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Gray0),
-    ) {
+    Column(modifier = modifier) {
         PicBackButtonTopBar(
             modifier = Modifier.padding(top = 16.dp),
             titleText = stringResource(id = R.string.group_member_list_title),
@@ -210,6 +210,7 @@ private fun GroupMemberScreenPreview(
     @PreviewParameter(GroupMemberProvider::class) state: GroupMemberUiState,
 ) {
     GroupMemberScreen(
+        modifier = Modifier,
         state = state,
         onClickBackButton = {},
         onClickCopyButton = {},

@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -19,6 +20,7 @@ fun NavController.navigateGroupMember(
 }
 
 fun NavGraphBuilder.groupMemberNavGraph(
+    innerPadding: PaddingValues,
     onClickBackButton: () -> Unit,
     onShowSnackbar: (PicSnackbarType, String) -> Unit,
 ) {
@@ -30,6 +32,7 @@ fun NavGraphBuilder.groupMemberNavGraph(
         ),
     ) {
         GroupMemberScreen(
+            innerPadding = innerPadding,
             onClickBackButton = onClickBackButton,
             onSnackbarRequired = onShowSnackbar,
         )

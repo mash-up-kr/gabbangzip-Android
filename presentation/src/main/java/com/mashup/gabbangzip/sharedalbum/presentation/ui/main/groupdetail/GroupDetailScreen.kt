@@ -4,6 +4,8 @@ import android.graphics.Bitmap
 import android.util.Log
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -41,6 +43,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 
 @Composable
 fun GroupDetailScreen(
+    innerPadding: PaddingValues,
     onClickGroupMemberButton: (GroupKeyword) -> Unit,
     onClickBackButton: () -> Unit,
     onClickOpenPhotoPickerButton: (eventId: Long) -> Unit,
@@ -64,6 +67,9 @@ fun GroupDetailScreen(
     }
 
     GroupDetailScreen(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding),
         state = state,
         onClickGroupMemberButton = {
             state.groupInfo?.let {
@@ -120,6 +126,7 @@ fun GroupDetailScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GroupDetailScreen(
+    modifier: Modifier,
     state: GroupDetailUiState,
     onClickGroupMemberButton: () -> Unit,
     onClickBackButton: () -> Unit,
@@ -128,6 +135,42 @@ fun GroupDetailScreen(
     onClickEventMake: () -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
+    Column(modifier = modifier) {
+        PicBackButtonTopBar(
+            modifier = Modifier.fillMaxWidth(),
+            titleText = state.groupInfo?.name.orEmpty(),
+            titleAlign = PicTopBarTitleAlign.LEFT,
+            backButtonClicked = onClickBackButton,
+            rightIcon1 = if (state.isEnabledNewEvent) PicTopBarIcon.PLUS else null,
+            rightIcon2 = PicTopBarIcon.GROUP_MEMBER,
+            rightIcon1Clicked = onClickEventMake,
+            rightIcon2Clicked = onClickGroupMemberButton,
+        )
+        GroupDetailScreenContent(
+            modifier = Modifier.fillMaxWidth(),
+            state = state,
+            onClickActionButton = onClickActionButton,
+            onClickShareButton = onClickShareButton,
+            onClickHistoryItem = onClickHistoryItem,
+            onClickBackButton = onClickBackButton,
+            onClickGroupMemberButton = onClickGroupMemberButton,
+            onClickEventMake = onClickEventMake,
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun GroupDetailScreenContent(
+    modifier: Modifier = Modifier,
+    state: GroupDetailUiState,
+    onClickActionButton: (GroupStatusType) -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
+    onClickHistoryItem: (HistoryItem) -> Unit,
+    onClickGroupMemberButton: () -> Unit,
+    onClickBackButton: () -> Unit,
+    onClickEventMake: () -> Unit,
+) {
     if (state.recentEvent != null) {
         val scaffoldState = rememberBottomSheetScaffoldState()
         val sheetElevation by animateDpAsState(
@@ -135,7 +178,7 @@ fun GroupDetailScreen(
         )
 
         BottomSheetScaffold(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier,
             topBar = {
                 PicBackButtonTopBar(
                     modifier = Modifier.fillMaxWidth(),
@@ -190,6 +233,7 @@ private fun GroupDetailScreenPreview(
 ) {
     SharedAlbumTheme {
         GroupDetailScreen(
+            modifier = Modifier,
             state = GroupDetailUiState(
                 groupInfo = GroupInfo(
                     id = 0,
