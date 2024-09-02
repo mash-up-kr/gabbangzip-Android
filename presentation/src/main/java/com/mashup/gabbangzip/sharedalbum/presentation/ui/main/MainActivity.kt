@@ -3,6 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color.TRANSPARENT
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -133,15 +134,19 @@ class MainActivity : ComponentActivity() {
             activity = this,
             max = PICTURES_MAX_COUNT,
         ) { uriList ->
-            lifecycleScope.launch {
-                uriList.mapNotNull { uri ->
-                    uri?.let {
-                        async(Dispatchers.IO) {
-                            FileUtil.getJpgImage(this@MainActivity, it)
-                        }
+            uploadPic(uriList)
+        }
+    }
+
+    private fun uploadPic(uriList: List<Uri?>) {
+        lifecycleScope.launch {
+            uriList.mapNotNull { uri ->
+                uri?.let {
+                    async(Dispatchers.IO) {
+                        FileUtil.getJpgImage(this@MainActivity, it)
                     }
-                }.also { viewModel.uploadMyPic(it.awaitAll()) }
-            }
+                }
+            }.also { viewModel.uploadMyPic(it.awaitAll()) }
         }
     }
 
