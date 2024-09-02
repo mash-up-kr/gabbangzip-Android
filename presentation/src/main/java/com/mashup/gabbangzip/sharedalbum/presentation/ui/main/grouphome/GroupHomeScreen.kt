@@ -57,10 +57,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray100
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Malibu
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.FlippableBox
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicLoadingIndicator
@@ -81,6 +83,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.rippleClickable
 
 @Composable
 fun GroupHomeScreen(
@@ -229,12 +232,17 @@ private fun TagFilter(
                 modifier = Modifier
                     .wrapContentSize()
                     .padding(vertical = 3.5.dp)
-                    .noRippleClickable { onTagClicked(tagInfo) },
+                    .background(
+                        color = if (tagInfo.isSelected) tagInfo.symbolColor else Gray40,
+                        shape = RoundedCornerShape(20.dp),
+                    )
+                    .noRippleClickable { onTagClicked(tagInfo) }
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
                 text = stringResource(id = tagInfo.tagNameResId),
                 iconRes = tagInfo.symbolResId,
-                iconColor = if (tagInfo.isSelected) Gray0 else Gray50,
-                backgroundColor = if (tagInfo.isSelected) Gray60 else Color(0xFFF5F5F5), // Todo : Design System color 추가 예정
-                textColor = if (tagInfo.isSelected) Gray0 else Gray60,
+                iconColor = if (tagInfo.isSelected) Gray0 else tagInfo.symbolColor,
+                textColor = if (tagInfo.isSelected) Gray0 else Gray80,
+                textStyle = PicTypography.headBold14
             )
         }
         item { Spacer(modifier = Modifier.width(10.dp)) }
@@ -395,12 +403,24 @@ private fun GroupTag(
 ) {
     Row(modifier = modifier) {
         PicTag(
-            modifier = Modifier.padding(end = 6.dp),
+            modifier = Modifier
+                .padding(end = 6.dp)
+                .background(
+                    color = Gray40,
+                    shape = RoundedCornerShape(20.dp),
+                )
+                .padding(horizontal = 10.dp, vertical = 6.dp),
             text = stringResource(id = keyword.tagNameResId),
             iconRes = keyword.symbolResId,
             iconColor = keyword.symbolColor,
         )
         PicTag(
+            modifier = Modifier
+                .background(
+                    color = Gray40,
+                    shape = RoundedCornerShape(20.dp),
+                )
+                .padding(horizontal = 10.dp, vertical = 6.dp),
             text = statusDesc,
         )
     }
@@ -729,13 +749,15 @@ private fun GroupHomeScreenPreview() {
             listOf(
                 FilterTagUiModel(
                     "전체",
-                    R.drawable.sb_total,
+                    null,
+                    Gray100,
                     R.string.tag_total,
                     false,
                 ),
                 FilterTagUiModel(
-                    "전체",
-                    R.drawable.sb_total,
+                    "취미",
+                    R.drawable.sb_hobby,
+                    Malibu,
                     R.string.tag_total,
                     true,
                 ),

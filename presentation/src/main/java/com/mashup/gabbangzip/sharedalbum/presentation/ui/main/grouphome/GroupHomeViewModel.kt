@@ -1,9 +1,11 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome
 
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupListUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray100
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.FilterTagUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toUiModel
@@ -28,7 +30,8 @@ class GroupHomeViewModel @Inject constructor(
         listOf(
             FilterTagUiModel(
                 GroupKeyword.TOTAL,
-                R.drawable.sb_total,
+                null,
+                Gray100,
                 R.string.tag_total,
                 true,
             ),
@@ -37,6 +40,7 @@ class GroupHomeViewModel @Inject constructor(
                 FilterTagUiModel(
                     it.name,
                     it.symbolResId,
+                    it.symbolColor,
                     it.tagNameResId,
                     false,
                 )
