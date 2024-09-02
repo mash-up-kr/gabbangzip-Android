@@ -67,7 +67,9 @@ fun GroupDetailScreen(
     }
 
     GroupDetailScreen(
-        modifier = Modifier.fillMaxSize().padding(innerPadding),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding),
         state = state,
         onClickGroupMemberButton = {
             state.groupInfo?.let {
@@ -150,6 +152,9 @@ fun GroupDetailScreen(
             onClickActionButton = onClickActionButton,
             onClickShareButton = onClickShareButton,
             onClickHistoryItem = onClickHistoryItem,
+            onClickBackButton = onClickBackButton,
+            onClickGroupMemberButton = onClickGroupMemberButton,
+            onClickEventMake = onClickEventMake,
         )
     }
 }
@@ -162,6 +167,9 @@ private fun GroupDetailScreenContent(
     onClickActionButton: (GroupStatusType) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
+    onClickGroupMemberButton: () -> Unit,
+    onClickBackButton: () -> Unit,
+    onClickEventMake: () -> Unit,
 ) {
     if (state.recentEvent != null) {
         val scaffoldState = rememberBottomSheetScaffoldState()
@@ -170,7 +178,7 @@ private fun GroupDetailScreenContent(
         )
 
         BottomSheetScaffold(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier,
             topBar = {
                 PicBackButtonTopBar(
                     modifier = Modifier.fillMaxWidth(),
