@@ -1,7 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.domain.usecase
 
 import dagger.Reusable
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -16,7 +15,7 @@ class UploadImageListUseCase @Inject constructor(
         return runCatching {
             coroutineScope {
                 fileList.map { file ->
-                    async(Dispatchers.IO) {
+                    async {
                         uploadImageUseCase(file).getOrThrow()
                     }
                 }.awaitAll()
