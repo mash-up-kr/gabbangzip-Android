@@ -64,22 +64,20 @@ class GroupHomeViewModel @Inject constructor(
                 filterTagList = ImmutableList(filterTagList),
             )
         }
-    }
-        .catch {
-            emit(
-                GroupHomeUiState.Error(
-                    when (it) {
-                        is UnknownHostException -> R.string.error_network
-                        else -> R.string.error_server
-                    },
-                ),
-            )
-        }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
-            initialValue = GroupHomeUiState.Loading,
+    }.catch {
+        emit(
+            GroupHomeUiState.Error(
+                when (it) {
+                    is UnknownHostException -> R.string.error_network
+                    else -> R.string.error_server
+                },
+            ),
         )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = GroupHomeUiState.Loading,
+    )
 
     fun clickedFilterTag(filterTagUiModel: FilterTagUiModel) {
         viewModelScope.launch {
