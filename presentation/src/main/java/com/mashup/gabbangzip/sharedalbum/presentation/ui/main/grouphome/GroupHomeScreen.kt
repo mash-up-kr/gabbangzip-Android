@@ -173,11 +173,19 @@ fun GroupHomeScreen(
                 onTagClicked = onClickFilterTag,
             )
 
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp)
+                    .height(8.dp)
+                    .background(Gray20),
+            )
+
             LazyColumn {
                 itemsIndexed(groupList) { index, groupInfo ->
                     GroupContainer(
                         modifier = if (index == 0) {
-                            Modifier.padding(top = 16.dp)
+                            Modifier.padding(top = 24.dp)
                         } else if (index == groupList.lastIndex) {
                             Modifier.padding(bottom = 16.dp)
                         } else {
