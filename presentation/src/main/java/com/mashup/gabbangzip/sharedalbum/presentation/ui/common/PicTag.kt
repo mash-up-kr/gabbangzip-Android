@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
@@ -39,7 +40,7 @@ fun PicTag(
     iconColor: Color = Gray50,
     textColor: Color = Gray80,
 ) {
-    Box(modifier = modifier) {
+    Box(modifier = modifier.clip(RoundedCornerShape(20.dp))) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -70,19 +71,13 @@ fun PicTagPreview() {
         ) {
             PicTag(
                 modifier = Modifier
-                    .background(
-                        color = Gray40,
-                        shape = RoundedCornerShape(20.dp),
-                    )
+                    .background(color = Gray40)
                     .padding(horizontal = 10.dp, vertical = 6.dp),
                 text = "쉿, 투표중",
             )
             PicTag(
                 modifier = Modifier
-                    .background(
-                        color = Gray40,
-                        shape = RoundedCornerShape(20.dp),
-                    )
+                    .background(color = Gray40)
                     .padding(horizontal = 10.dp, vertical = 6.dp),
                 text = "학교",
                 iconRes = R.drawable.ic_kakao,
@@ -90,10 +85,7 @@ fun PicTagPreview() {
             )
             PicTag(
                 modifier = Modifier
-                    .background(
-                        color = Gray40,
-                        shape = RoundedCornerShape(20.dp),
-                    )
+                    .background(color = Gray40)
                     .padding(horizontal = 10.dp, vertical = 6.dp),
                 text = "학교",
                 iconRes = R.drawable.ic_kakao,

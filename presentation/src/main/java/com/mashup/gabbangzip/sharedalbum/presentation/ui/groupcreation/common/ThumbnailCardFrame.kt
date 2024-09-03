@@ -44,10 +44,7 @@ fun ThumbnailCardFrame(
                 .wrapContentSize()
                 .padding(top = 25.dp)
                 .align(Alignment.TopCenter)
-                .background(
-                    color = Gray80,
-                    shape = RoundedCornerShape(20.dp),
-                )
+                .background(color = Gray80)
                 .padding(horizontal = 10.dp, vertical = 6.dp),
             text = stringResource(id = keyword.tagNameResId),
             iconRes = keyword.symbolResId,

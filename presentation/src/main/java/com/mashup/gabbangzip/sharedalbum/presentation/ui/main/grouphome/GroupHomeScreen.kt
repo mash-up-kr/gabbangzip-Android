@@ -43,6 +43,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -230,10 +231,7 @@ private fun TagFilter(
                 modifier = Modifier
                     .wrapContentSize()
                     .padding(vertical = 3.5.dp)
-                    .background(
-                        color = if (tagInfo.isSelected) Gray100 else Gray40,
-                        shape = RoundedCornerShape(20.dp),
-                    )
+                    .background(color = if (tagInfo.isSelected) Gray100 else Gray40)
                     .noRippleClickable { onTagClicked(tagInfo) }
                     .padding(horizontal = 12.dp, vertical = 8.dp),
                 text = stringResource(id = tagInfo.tagNameResId),
@@ -403,10 +401,7 @@ private fun GroupTag(
         PicTag(
             modifier = Modifier
                 .padding(end = 6.dp)
-                .background(
-                    color = Gray40,
-                    shape = RoundedCornerShape(20.dp),
-                )
+                .background(color = Gray40)
                 .padding(horizontal = 10.dp, vertical = 6.dp),
             text = stringResource(id = keyword.tagNameResId),
             iconRes = keyword.symbolResId,
@@ -414,10 +409,7 @@ private fun GroupTag(
         )
         PicTag(
             modifier = Modifier
-                .background(
-                    color = Gray40,
-                    shape = RoundedCornerShape(20.dp),
-                )
+                .background(color = Gray40)
                 .padding(horizontal = 10.dp, vertical = 6.dp),
             text = statusDesc,
         )
