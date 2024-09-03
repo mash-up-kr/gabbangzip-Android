@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,10 +43,7 @@ fun ThumbnailCardFrame(
                 .wrapContentSize()
                 .padding(top = 25.dp)
                 .align(Alignment.TopCenter)
-                .background(
-                    color = Gray80,
-                    shape = RoundedCornerShape(20.dp),
-                )
+                .background(color = Gray80)
                 .padding(horizontal = 10.dp, vertical = 6.dp),
             text = stringResource(id = keyword.tagNameResId),
             iconRes = keyword.symbolResId,

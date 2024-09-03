@@ -238,15 +238,12 @@ private fun TagFilter(
                 modifier = Modifier
                     .wrapContentSize()
                     .padding(vertical = 3.5.dp)
-                    .background(
-                        color = if (tagInfo.isSelected) tagInfo.symbolColor else Gray40,
-                        shape = RoundedCornerShape(20.dp),
-                    )
+                    .background(color = if (tagInfo.isSelected) Gray100 else Gray40)
                     .noRippleClickable { onTagClicked(tagInfo) }
                     .padding(horizontal = 12.dp, vertical = 8.dp),
                 text = stringResource(id = tagInfo.tagNameResId),
                 iconRes = tagInfo.symbolResId,
-                iconColor = if (tagInfo.isSelected) Gray0 else tagInfo.symbolColor,
+                iconColor = tagInfo.symbolColor,
                 textColor = if (tagInfo.isSelected) Gray0 else Gray80,
                 textStyle = PicTypography.headBold14,
             )
@@ -411,10 +408,7 @@ private fun GroupTag(
         PicTag(
             modifier = Modifier
                 .padding(end = 6.dp)
-                .background(
-                    color = Gray40,
-                    shape = RoundedCornerShape(20.dp),
-                )
+                .background(color = Gray40)
                 .padding(horizontal = 10.dp, vertical = 6.dp),
             text = stringResource(id = keyword.tagNameResId),
             iconRes = keyword.symbolResId,
@@ -422,10 +416,7 @@ private fun GroupTag(
         )
         PicTag(
             modifier = Modifier
-                .background(
-                    color = Gray40,
-                    shape = RoundedCornerShape(20.dp),
-                )
+                .background(color = Gray40)
                 .padding(horizontal = 10.dp, vertical = 6.dp),
             text = statusDesc,
         )
