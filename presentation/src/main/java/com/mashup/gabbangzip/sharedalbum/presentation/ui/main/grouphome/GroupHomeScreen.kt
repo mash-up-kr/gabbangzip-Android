@@ -100,13 +100,12 @@ fun GroupHomeScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when (state) {
+    when (val groupHomeUiState = state) {
         is GroupHomeUiState.NoGroup -> {
             navigateToGroupCreationAndFinish()
         }
 
         is GroupHomeUiState.GroupList -> {
-            val groupHomeUiState = (state as GroupHomeUiState.GroupList)
             GroupHomeScreen(
                 modifier = Modifier
                     .fillMaxSize()
