@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupListUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray100
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.FilterTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toFilterTagList
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
@@ -26,24 +26,7 @@ class GroupHomeViewModel @Inject constructor(
 ) : ViewModel() {
     private val groupUiState = getGroupListUseCase()
     private val filterTagUiState: MutableStateFlow<List<FilterTag>> = MutableStateFlow(
-        listOf(
-            FilterTag(
-                GroupKeyword.TOTAL,
-                null,
-                Gray100,
-                R.string.tag_total,
-                true,
-            ),
-        ) +
-            GroupKeyword.entries.map {
-                FilterTag(
-                    it.name,
-                    it.symbolResId,
-                    it.symbolColor,
-                    it.tagNameResId,
-                    false,
-                )
-            },
+        listOf(FilterTag.getTotalFilter()) + GroupKeyword.entries.toFilterTagList(),
     )
 
     val uiState = groupUiState.combine(filterTagUiState) { groupList, filterTagList ->
