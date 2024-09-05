@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupListUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray100
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.FilterTagUiModel
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.FilterTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
@@ -25,9 +25,9 @@ class GroupHomeViewModel @Inject constructor(
     getGroupListUseCase: GetGroupListUseCase,
 ) : ViewModel() {
     private val groupUiState = getGroupListUseCase()
-    private val filterTagUiState: MutableStateFlow<List<FilterTagUiModel>> = MutableStateFlow(
+    private val filterTagUiState: MutableStateFlow<List<FilterTag>> = MutableStateFlow(
         listOf(
-            FilterTagUiModel(
+            FilterTag(
                 GroupKeyword.TOTAL,
                 null,
                 Gray100,
@@ -36,7 +36,7 @@ class GroupHomeViewModel @Inject constructor(
             ),
         ) +
             GroupKeyword.entries.map {
-                FilterTagUiModel(
+                FilterTag(
                     it.name,
                     it.symbolResId,
                     it.symbolColor,
@@ -79,11 +79,11 @@ class GroupHomeViewModel @Inject constructor(
         initialValue = GroupHomeUiState.Loading,
     )
 
-    fun clickedFilterTag(filterTagUiModel: FilterTagUiModel) {
+    fun clickedFilterTag(filterTag: FilterTag) {
         viewModelScope.launch {
             filterTagUiState.emit(
                 filterTagUiState.value.map {
-                    it.copy(isSelected = it == filterTagUiModel)
+                    it.copy(isSelected = it == filterTag)
                 },
             )
         }

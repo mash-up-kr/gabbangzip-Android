@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 
-data class FilterTagUiModel(
+data class FilterTag(
     val name: String,
     @DrawableRes val symbolResId: Int?,
     @DrawableRes val symbolColor: Color,
@@ -13,7 +13,7 @@ data class FilterTagUiModel(
     val isSelected: Boolean,
 )
 
-fun GroupKeyword.toFilterTagUiModel() = FilterTagUiModel(
+fun GroupKeyword.toFilterTag() = FilterTag(
     name = name,
     symbolResId = symbolResId,
     symbolColor = symbolColor,

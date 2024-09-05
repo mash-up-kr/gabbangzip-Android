@@ -73,7 +73,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarI
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.ClickType
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.FilterTagUiModel
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.FilterTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
@@ -141,7 +141,7 @@ fun GroupHomeScreen(
 fun GroupHomeScreen(
     modifier: Modifier,
     groupList: ImmutableList<GroupInfo>,
-    filterTagList: ImmutableList<FilterTagUiModel>,
+    filterTagList: ImmutableList<FilterTag>,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
@@ -150,7 +150,7 @@ fun GroupHomeScreen(
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onNavigateGallery: (eventId: Long) -> Unit,
     onNavigateVote: (eventId: Long) -> Unit,
-    onClickFilterTag: (FilterTagUiModel) -> Unit,
+    onClickFilterTag: (FilterTag) -> Unit,
 ) {
     Box {
         Column(
@@ -224,8 +224,8 @@ fun GroupHomeScreen(
 @Composable
 private fun TagFilter(
     modifier: Modifier,
-    filterTagList: ImmutableList<FilterTagUiModel>,
-    onTagClicked: (FilterTagUiModel) -> Unit,
+    filterTagList: ImmutableList<FilterTag>,
+    onTagClicked: (FilterTag) -> Unit,
 ) {
     LazyRow(
         modifier = modifier,
@@ -746,14 +746,14 @@ private fun GroupHomeScreenPreview() {
         ),
         filterTagList = ImmutableList(
             listOf(
-                FilterTagUiModel(
+                FilterTag(
                     "전체",
                     null,
                     Gray100,
                     R.string.tag_total,
                     false,
                 ),
-                FilterTagUiModel(
+                FilterTag(
                     "취미",
                     R.drawable.sb_hobby,
                     Malibu,
