@@ -10,6 +10,7 @@ import com.mashup.gabbangzip.sharedalbum.domain.model.GroupParam
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupInfoDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.MemberListDomainModel
+import com.mashup.gabbangzip.sharedalbum.domain.model.group.WithdrawalGroupDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.repository.GroupRepository
 import javax.inject.Inject
 
@@ -49,5 +50,9 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun getGroupMembers(groupId: Long): MemberListDomainModel {
         return callApi { groupService.getGroupMembers(groupId) }.toDomainModel()
+    }
+
+    override suspend fun withdrawGroup(groupId: Long): WithdrawalGroupDomainModel {
+        return callApi { groupService.withdrawGroup(groupId) }.toDomainModel()
     }
 }
