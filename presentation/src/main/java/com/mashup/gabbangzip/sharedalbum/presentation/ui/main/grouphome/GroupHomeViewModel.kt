@@ -55,7 +55,7 @@ class GroupHomeViewModel @Inject constructor(
                     groupList.toUiModel().let {
                         val selectedTag = filterTagList.find { tag -> tag.isSelected }
                         if (selectedTag?.name != GroupKeyword.TOTAL) {
-                            ImmutableList(it.filter { tag -> tag.keyword.name == selectedTag?.name })
+                            it.filter { tag -> tag.keyword.name == selectedTag?.name }
                         } else {
                             it
                         }
