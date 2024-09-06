@@ -230,8 +230,8 @@ private fun TagFilter(
     LazyRow(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
+        contentPadding = PaddingValues(horizontal = 10.dp),
     ) {
-        item { Spacer(modifier = Modifier.width(10.dp)) }
         itemsIndexed(filterTagList, key = { _, item -> item.name }) { _, tagInfo ->
             PicTag(
                 modifier = Modifier
@@ -250,7 +250,6 @@ private fun TagFilter(
                 textStyle = PicTypography.headBold14,
             )
         }
-        item { Spacer(modifier = Modifier.width(10.dp)) }
     }
 }
 
