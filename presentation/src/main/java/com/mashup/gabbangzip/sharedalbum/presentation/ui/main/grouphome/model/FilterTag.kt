@@ -33,4 +33,4 @@ fun GroupKeyword.toFilterTag() = FilterTag(
     isSelected = false,
 )
 
-fun List<GroupKeyword>.toFilterTagList() = this.map { it.toFilterTag() }
+fun List<GroupKeyword>.toFilterTagList() = map { it.toFilterTag() }
