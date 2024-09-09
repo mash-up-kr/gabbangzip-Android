@@ -6,8 +6,6 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -424,10 +422,6 @@ private fun GroupFloatingButton(
         label = stringResource(R.string.floating_animate),
     )
 
-    AnimatedOverlay(
-        visible = isExpanded,
-        onClick = { isExpanded = false },
-    )
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.End,
@@ -467,22 +461,6 @@ private fun GroupFloatingButton(
                 contentDescription = stringResource(R.string.floating_btn),
             )
         }
-    }
-}
-
-@Composable
-private fun AnimatedOverlay(visible: Boolean, onClick: () -> Unit) {
-    AnimatedVisibility(
-        visible = visible,
-        enter = fadeIn(),
-        exit = fadeOut(),
-    ) {
-        Spacer(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black.copy(alpha = 0.4f))
-                .noRippleClickable(onClick = onClick),
-        )
     }
 }
 
