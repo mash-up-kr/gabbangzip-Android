@@ -97,7 +97,9 @@ fun GroupHomeScreen(
 
         is GroupHomeUiState.GroupList -> {
             GroupHomeScreen(
-                modifier = Modifier.fillMaxSize().padding(innerPadding),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
                 groupList = (state as GroupHomeUiState.GroupList).groupList,
                 onClickGroupDetail = onClickGroupDetail,
                 onClickEventMake = onClickEventMake,
