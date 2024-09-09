@@ -39,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -428,7 +429,10 @@ private fun GroupFloatingButton(
         modifier = modifier,
         horizontalAlignment = Alignment.End,
     ) {
-        AnimatedVisibility(visible = isExpanded) {
+        AnimatedVisibility(
+            modifier = Modifier.shadow(5.dp, RoundedCornerShape(16.dp)),
+            visible = isExpanded,
+        ) {
             FloatingButtonContent(
                 modifier = Modifier
                     .background(
@@ -452,7 +456,7 @@ private fun GroupFloatingButton(
             onClick = { isExpanded = !isExpanded },
             shape = CircleShape,
             containerColor = if (isExpanded) Color.White else Gray80,
-            elevation = FloatingActionButtonDefaults.elevation(0.dp),
+            elevation = FloatingActionButtonDefaults.elevation(if (isExpanded) 5.dp else 0.dp),
         ) {
             StableImage(
                 modifier = Modifier
