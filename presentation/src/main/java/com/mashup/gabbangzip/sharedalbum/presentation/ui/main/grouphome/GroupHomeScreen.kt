@@ -20,8 +20,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -54,8 +56,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray100
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Malibu
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.FlippableBox
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicLoadingIndicator
@@ -67,6 +72,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarI
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.ClickType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.FilterTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
@@ -91,9 +97,9 @@ fun GroupHomeScreen(
     onShowSnackbar: (PicSnackbarType, String) -> Unit,
     viewModel: GroupHomeViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.groupUiState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when (state) {
+    when (val groupHomeUiState = state) {
         is GroupHomeUiState.NoGroup -> {
             navigateToGroupCreationAndFinish()
         }
@@ -103,7 +109,8 @@ fun GroupHomeScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),
-                groupList = (state as GroupHomeUiState.GroupList).groupList,
+                groupList = groupHomeUiState.groupList,
+                filterTagList = groupHomeUiState.filterTagList,
                 onClickGroupDetail = onClickGroupDetail,
                 onClickEventMake = onClickEventMake,
                 onClickMyPage = onClickMyPage,
@@ -112,6 +119,7 @@ fun GroupHomeScreen(
                 onClickSendFcmButton = onClickSendFcmButton,
                 onNavigateVote = onNavigateVote,
                 onNavigateGallery = onNavigateGallery,
+                onClickFilterTag = viewModel::clickedFilterTag,
             )
         }
 
@@ -132,6 +140,7 @@ fun GroupHomeScreen(
 fun GroupHomeScreen(
     modifier: Modifier,
     groupList: ImmutableList<GroupInfo>,
+    filterTagList: ImmutableList<FilterTag>,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
@@ -140,6 +149,7 @@ fun GroupHomeScreen(
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onNavigateGallery: (eventId: Long) -> Unit,
     onNavigateVote: (eventId: Long) -> Unit,
+    onClickFilterTag: (FilterTag) -> Unit,
 ) {
     Box {
         Column(
@@ -153,11 +163,27 @@ fun GroupHomeScreen(
                 rightIconClicked = onClickMyPage,
             )
 
+            TagFilter(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                filterTagList = filterTagList,
+                onTagClicked = onClickFilterTag,
+            )
+
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp)
+                    .height(8.dp)
+                    .background(Gray20),
+            )
+
             LazyColumn {
                 itemsIndexed(groupList) { index, groupInfo ->
                     GroupContainer(
                         modifier = if (index == 0) {
-                            Modifier.padding(top = 16.dp)
+                            Modifier.padding(top = 24.dp)
                         } else if (index == groupList.lastIndex) {
                             Modifier.padding(bottom = 16.dp)
                         } else {
@@ -191,6 +217,38 @@ fun GroupHomeScreen(
             onClickGroupMake = onClickGroupMake,
             onClickGroupEnter = onClickGroupEnter,
         )
+    }
+}
+
+@Composable
+private fun TagFilter(
+    modifier: Modifier,
+    filterTagList: ImmutableList<FilterTag>,
+    onTagClicked: (FilterTag) -> Unit,
+) {
+    LazyRow(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        contentPadding = PaddingValues(horizontal = 10.dp),
+    ) {
+        itemsIndexed(filterTagList, key = { _, item -> item.name }) { _, tagInfo ->
+            PicTag(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(vertical = 3.5.dp)
+                    .background(
+                        color = if (tagInfo.isSelected) Gray100 else Gray40,
+                        shape = RoundedCornerShape(20.dp),
+                    )
+                    .noRippleClickable { onTagClicked(tagInfo) }
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
+                text = stringResource(id = tagInfo.tagNameResId),
+                iconRes = tagInfo.symbolResId,
+                iconColor = tagInfo.symbolColor,
+                textColor = if (tagInfo.isSelected) Gray0 else Gray80,
+                textStyle = PicTypography.headBold14,
+            )
+        }
     }
 }
 
@@ -348,12 +406,18 @@ private fun GroupTag(
 ) {
     Row(modifier = modifier) {
         PicTag(
-            modifier = Modifier.padding(end = 6.dp),
+            modifier = Modifier
+                .padding(end = 6.dp)
+                .background(color = Gray40, RoundedCornerShape(20.dp))
+                .padding(horizontal = 10.dp, vertical = 6.dp),
             text = stringResource(id = keyword.tagNameResId),
             iconRes = keyword.symbolResId,
             iconColor = keyword.symbolColor,
         )
         PicTag(
+            modifier = Modifier
+                .background(color = Gray40, RoundedCornerShape(20.dp))
+                .padding(horizontal = 10.dp, vertical = 6.dp),
             text = statusDesc,
         )
     }
@@ -662,6 +726,24 @@ private fun GroupHomeScreenPreview() {
                 ),
             ),
         ),
+        filterTagList = ImmutableList(
+            listOf(
+                FilterTag(
+                    "전체",
+                    null,
+                    Gray100,
+                    R.string.tag_total,
+                    false,
+                ),
+                FilterTag(
+                    "취미",
+                    R.drawable.sb_hobby,
+                    Malibu,
+                    R.string.tag_total,
+                    true,
+                ),
+            ),
+        ),
         onClickGroupDetail = {},
         onClickEventMake = {},
         onClickMyPage = {},
@@ -670,5 +752,6 @@ private fun GroupHomeScreenPreview() {
         onClickSendFcmButton = {},
         onNavigateGallery = {},
         onNavigateVote = {},
+        onClickFilterTag = {},
     )
 }

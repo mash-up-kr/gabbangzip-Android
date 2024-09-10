@@ -9,6 +9,7 @@ sealed class GroupHomeUiState {
     data object NoGroup : GroupHomeUiState()
     data class GroupList(
         val groupList: ImmutableList<GroupInfo> = ImmutableList(emptyList()),
+        val filterTagList: ImmutableList<FilterTag> = ImmutableList(emptyList()),
     ) : GroupHomeUiState()
     data class Error(@StringRes val errorMessage: Int) : GroupHomeUiState()
 }

@@ -37,17 +37,9 @@ fun PicTag(
     textStyle: TextStyle = PicTypography.bodyMedium12,
     @DrawableRes iconRes: Int? = null,
     iconColor: Color = Gray50,
-    backgroundColor: Color = Gray40,
     textColor: Color = Gray80,
 ) {
-    Box(
-        modifier = modifier
-            .background(
-                color = backgroundColor,
-                shape = RoundedCornerShape(20.dp),
-            )
-            .padding(horizontal = 10.dp, vertical = 6.dp),
-    ) {
+    Box(modifier = modifier) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -77,18 +69,26 @@ fun PicTagPreview() {
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             PicTag(
+                modifier = Modifier
+                    .background(color = Gray40, RoundedCornerShape(20.dp))
+                    .padding(horizontal = 10.dp, vertical = 6.dp),
                 text = "쉿, 투표중",
             )
             PicTag(
+                modifier = Modifier
+                    .background(color = Gray40, RoundedCornerShape(20.dp))
+                    .padding(horizontal = 10.dp, vertical = 6.dp),
                 text = "학교",
                 iconRes = R.drawable.ic_kakao,
                 iconColor = Malibu,
             )
             PicTag(
+                modifier = Modifier
+                    .background(color = Gray40, RoundedCornerShape(20.dp))
+                    .padding(horizontal = 10.dp, vertical = 6.dp),
                 text = "학교",
                 iconRes = R.drawable.ic_kakao,
                 iconColor = Malibu,
-                backgroundColor = Gray80,
                 textColor = Gray0,
             )
         }
