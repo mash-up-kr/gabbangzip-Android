@@ -6,7 +6,7 @@ import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupListUseCas
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.FilterTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
-import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toFilterTagList
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toFilterTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
@@ -25,26 +25,31 @@ class GroupHomeViewModel @Inject constructor(
     getGroupListUseCase: GetGroupListUseCase,
 ) : ViewModel() {
     private val groupUiState = getGroupListUseCase()
-    private val filterTagUiState: MutableStateFlow<List<FilterTag>> = MutableStateFlow(
-        listOf(FilterTag.getTotalFilter()) + GroupKeyword.entries.toFilterTagList(),
-    )
+    private val selectedTagFlow = MutableStateFlow(FilterTag.getTotalFilter())
 
-    val uiState = groupUiState.combine(filterTagUiState) { groupList, filterTagList ->
+    val uiState = groupUiState.combine(selectedTagFlow) { groupList, selectedTag ->
         if (groupList.isEmpty()) {
             GroupHomeUiState.NoGroup
         } else {
             GroupHomeUiState.GroupList(
                 groupList = ImmutableList(
                     groupList.toUiModel().let {
-                        val selectedTag = filterTagList.find { tag -> tag.isSelected }
-                        if (selectedTag?.name != GroupKeyword.TOTAL) {
-                            it.filter { tag -> tag.keyword.name == selectedTag?.name }
+                        if (selectedTag.name != GroupKeyword.TOTAL) {
+                            it.filter { tag -> tag.keyword.name == selectedTag.name }
                         } else {
                             it
                         }
                     },
                 ),
-                filterTagList = ImmutableList(filterTagList),
+                filterTagList = ImmutableList(
+                    listOf(
+                        FilterTag.getTotalFilter(isSelected = GroupKeyword.TOTAL == selectedTag.name),
+                    ) + groupList.map {
+                        GroupKeyword
+                            .getKeyword(keyword = it.keyword)
+                            .toFilterTag(isSelected = it.keyword == selectedTag.name)
+                    }.distinct(),
+                ),
             )
         }
     }.catch {
@@ -64,11 +69,7 @@ class GroupHomeViewModel @Inject constructor(
 
     fun clickedFilterTag(filterTag: FilterTag) {
         viewModelScope.launch {
-            filterTagUiState.emit(
-                filterTagUiState.value.map {
-                    it.copy(isSelected = it == filterTag)
-                },
-            )
+            selectedTagFlow.emit(filterTag)
         }
     }
 }
