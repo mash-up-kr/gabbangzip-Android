@@ -3,7 +3,6 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -135,42 +134,6 @@ fun GroupDetailScreen(
     onClickEventMake: () -> Unit,
     onClickHistoryItem: (HistoryItem) -> Unit,
 ) {
-    Column(modifier = modifier) {
-        PicBackButtonTopBar(
-            modifier = Modifier.fillMaxWidth(),
-            titleText = state.groupInfo?.name.orEmpty(),
-            titleAlign = PicTopBarTitleAlign.LEFT,
-            backButtonClicked = onClickBackButton,
-            rightIcon1 = if (state.isEnabledNewEvent) PicTopBarIcon.PLUS else null,
-            rightIcon2 = PicTopBarIcon.GROUP_MEMBER,
-            rightIcon1Clicked = onClickEventMake,
-            rightIcon2Clicked = onClickGroupMemberButton,
-        )
-        GroupDetailScreenContent(
-            modifier = Modifier.fillMaxWidth(),
-            state = state,
-            onClickActionButton = onClickActionButton,
-            onClickShareButton = onClickShareButton,
-            onClickHistoryItem = onClickHistoryItem,
-            onClickBackButton = onClickBackButton,
-            onClickGroupMemberButton = onClickGroupMemberButton,
-            onClickEventMake = onClickEventMake,
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun GroupDetailScreenContent(
-    modifier: Modifier = Modifier,
-    state: GroupDetailUiState,
-    onClickActionButton: (GroupStatusType) -> Unit,
-    onClickShareButton: (Bitmap) -> Unit,
-    onClickHistoryItem: (HistoryItem) -> Unit,
-    onClickGroupMemberButton: () -> Unit,
-    onClickBackButton: () -> Unit,
-    onClickEventMake: () -> Unit,
-) {
     if (state.recentEvent != null) {
         val scaffoldState = rememberBottomSheetScaffoldState()
         val sheetElevation by animateDpAsState(
@@ -179,18 +142,6 @@ private fun GroupDetailScreenContent(
 
         BottomSheetScaffold(
             modifier = modifier,
-            topBar = {
-                PicBackButtonTopBar(
-                    modifier = Modifier.fillMaxWidth(),
-                    titleText = state.groupInfo?.name.orEmpty(),
-                    titleAlign = PicTopBarTitleAlign.LEFT,
-                    backButtonClicked = onClickBackButton,
-                    rightIcon1 = if (state.isEnabledNewEvent) PicTopBarIcon.PLUS else null,
-                    rightIcon2 = PicTopBarIcon.GROUP_MEMBER,
-                    rightIcon1Clicked = onClickEventMake,
-                    rightIcon2Clicked = onClickGroupMemberButton,
-                )
-            },
             scaffoldState = scaffoldState,
             sheetShadowElevation = sheetElevation,
             sheetPeekHeight = 250.dp,
@@ -208,20 +159,31 @@ private fun GroupDetailScreenContent(
                 )
             },
         ) {
-            RecentEventContainer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Gray0)
-                    .verticalScroll(rememberScrollState())
-                    .padding(top = 10.dp, bottom = 270.dp),
-                status = state.status,
-                event = state.recentEvent,
-                keyword = state.groupInfo?.keyword ?: GroupKeyword.SCHOOL,
-                cardFrontImageUrl = state.groupInfo?.cardFrontImageUrl.orEmpty(),
-                images = ImmutableList(state.groupInfo?.cardBackImages.orEmpty()),
-                onClickActionButton = onClickActionButton,
-                onClickShareButton = onClickShareButton,
-            )
+            Column {
+                PicBackButtonTopBar(
+                    modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                    titleText = state.groupInfo?.name.orEmpty(),
+                    titleAlign = PicTopBarTitleAlign.LEFT,
+                    backButtonClicked = onClickBackButton,
+                    rightIcon1 = if (state.isEnabledNewEvent) PicTopBarIcon.PLUS else null,
+                    rightIcon2 = PicTopBarIcon.GROUP_MEMBER,
+                    rightIcon1Clicked = onClickEventMake,
+                    rightIcon2Clicked = onClickGroupMemberButton,
+                )
+                RecentEventContainer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .verticalScroll(rememberScrollState())
+                        .padding(bottom = 270.dp),
+                    status = state.status,
+                    event = state.recentEvent,
+                    keyword = state.groupInfo?.keyword ?: GroupKeyword.SCHOOL,
+                    cardFrontImageUrl = state.groupInfo?.cardFrontImageUrl.orEmpty(),
+                    images = ImmutableList(state.groupInfo?.cardBackImages.orEmpty()),
+                    onClickActionButton = onClickActionButton,
+                    onClickShareButton = onClickShareButton,
+                )
+            }
         }
     }
 }

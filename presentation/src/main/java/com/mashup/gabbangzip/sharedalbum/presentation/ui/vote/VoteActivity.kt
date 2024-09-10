@@ -55,7 +55,7 @@ class VoteActivity : ComponentActivity() {
             val errorRetryMessage = stringResource(id = R.string.error_retry)
 
             LaunchedEffect(key1 = state.isError) {
-                coroutineScope.launch {
+                if (state.isError) {
                     snackbarHostState.showPicSnackbar(
                         type = PicSnackbarType.WARNING,
                         message = errorRetryMessage,

@@ -6,8 +6,6 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -43,8 +41,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -438,6 +438,7 @@ private fun FrontCardImage(
             model = imageUrl,
             contentScale = ContentScale.Crop,
             contentDescription = stringResource(R.string.group_main_picture),
+            placeholder = ColorPainter(Gray0),
         )
         StableImage(
             modifier = Modifier.aspectRatio(1f),
@@ -491,15 +492,14 @@ private fun GroupFloatingButton(
         label = stringResource(R.string.floating_animate),
     )
 
-    AnimatedOverlay(
-        visible = isExpanded,
-        onClick = { isExpanded = false },
-    )
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.End,
     ) {
-        AnimatedVisibility(visible = isExpanded) {
+        AnimatedVisibility(
+            modifier = Modifier.shadow(5.dp, RoundedCornerShape(16.dp)),
+            visible = isExpanded,
+        ) {
             FloatingButtonContent(
                 modifier = Modifier
                     .background(
@@ -523,7 +523,7 @@ private fun GroupFloatingButton(
             onClick = { isExpanded = !isExpanded },
             shape = CircleShape,
             containerColor = if (isExpanded) Color.White else Gray80,
-            elevation = FloatingActionButtonDefaults.elevation(0.dp),
+            elevation = FloatingActionButtonDefaults.elevation(if (isExpanded) 5.dp else 0.dp),
         ) {
             StableImage(
                 modifier = Modifier
@@ -534,22 +534,6 @@ private fun GroupFloatingButton(
                 contentDescription = stringResource(R.string.floating_btn),
             )
         }
-    }
-}
-
-@Composable
-private fun AnimatedOverlay(visible: Boolean, onClick: () -> Unit) {
-    AnimatedVisibility(
-        visible = visible,
-        enter = fadeIn(),
-        exit = fadeOut(),
-    ) {
-        Spacer(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black.copy(alpha = 0.4f))
-                .noRippleClickable(onClick = onClick),
-        )
     }
 }
 
