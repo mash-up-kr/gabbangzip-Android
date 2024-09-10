@@ -42,6 +42,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -52,6 +53,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -372,6 +374,7 @@ private fun FrontCardImage(
             model = imageUrl,
             contentScale = ContentScale.Crop,
             contentDescription = stringResource(R.string.group_main_picture),
+            placeholder = ColorPainter(Gray0),
         )
         StableImage(
             modifier = Modifier.aspectRatio(1f),
