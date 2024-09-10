@@ -35,6 +35,7 @@ fun MainNavHost(
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onSnackbarRequired: (PicSnackbarType, String) -> Unit,
+    onClickBackButton: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -61,7 +62,7 @@ fun MainNavHost(
             onClickGroupMemberButton = { id, keyword ->
                 navController.navigateGroupMember(id, keyword)
             },
-            onClickBackButton = { navController.popBackStack() },
+            onClickBackButton = onClickBackButton,
             onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
             onClickSendFcmButton = onClickSendFcmButton,
             onClickVoteButton = { eventId -> VoteActivity.openActivity(context, eventId) },
@@ -74,12 +75,12 @@ fun MainNavHost(
         )
         groupMemberNavGraph(
             innerPadding = innerPadding,
-            onClickBackButton = { navController.popBackStack() },
+            onClickBackButton = onClickBackButton,
             onShowSnackbar = onSnackbarRequired,
         )
         myPageNavGraph(
             innerPadding = innerPadding,
-            onClickBack = { navController.popBackStack() },
+            onClickBack = onClickBackButton,
             onClickNotificationSetting = {
                 context.startActivity(
                     Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {

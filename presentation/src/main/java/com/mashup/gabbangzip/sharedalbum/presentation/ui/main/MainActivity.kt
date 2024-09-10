@@ -42,6 +42,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainNav
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.canNavigateBack
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -108,6 +109,13 @@ class MainActivity : ComponentActivity() {
                         onSnackbarRequired = { type, message ->
                             coroutineScope.launch {
                                 snackbarHostState.showPicSnackbar(type, message)
+                            }
+                        },
+                        onClickBackButton = {
+                            if (navController.canNavigateBack()) {
+                                navController.popBackStack()
+                            } else {
+                                finish()
                             }
                         },
                     )
