@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -208,6 +209,7 @@ private fun ThumbnailCard(
                 model = thumbnailUri,
                 contentDescription = stringResource(id = R.string.thumbnail_image),
                 contentScale = ContentScale.Crop,
+                placeholder = ColorPainter(Gray0),
             )
             if (modifyButtonEnabled) {
                 CardCoverIcon(
