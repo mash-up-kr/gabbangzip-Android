@@ -22,21 +22,19 @@ import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Cultured
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.LocalDateUtil
-import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PicDatePickerDialog(
     modifier: Modifier = Modifier,
-    date: LocalDateTime = LocalDateTime.now(),
+    date: Long? = null,
     onClickedDismiss: () -> Unit = {},
-    onClickedConfirm: () -> Unit = {},
+    onClickedConfirm: (Long) -> Unit = {},
 ) {
     val datePickerState = rememberDatePickerState(
         yearRange = 2020..2030,
         initialDisplayMode = DisplayMode.Picker,
-        initialSelectedDateMillis = LocalDateUtil.getTimeMillis(date),
+        initialSelectedDateMillis = date ?: System.currentTimeMillis(),
         selectableDates = object : SelectableDates {
             override fun isSelectableDate(utcTimeMillis: Long): Boolean = true
         },
@@ -86,7 +84,11 @@ fun PicDatePickerDialog(
                 modifier = Modifier.weight(0.5f),
                 text = stringResource(R.string.date_picker_dialog_confirm),
                 isRippleClickable = true,
-                onButtonClicked = onClickedConfirm,
+                onButtonClicked = {
+                    datePickerState.selectedDateMillis?.let {
+                        onClickedConfirm(it)
+                    }
+                },
             )
         }
     }
