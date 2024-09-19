@@ -17,4 +17,9 @@ object LocalDateUtil {
             .atZone(ZoneId.of("Asia/Seoul"))
             .format(DateTimeFormatter.ofPattern(pattern, Locale.KOREAN))
     }
+
+    fun getTimeMillis(date: LocalDateTime?): Long {
+        return date?.atZone(ZoneId.of("Asia/Seoul"))?.toInstant()?.toEpochMilli()
+            ?: System.currentTimeMillis()
+    }
 }
