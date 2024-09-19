@@ -33,6 +33,7 @@
 
     <string name="group_creation_title">내 친구들과\n그룹을 만들어\nPIC과 함께해 볼까요?</string>
     <string name="group_creation_button_name">그룹 만들기</string>
+    <string name="four_group_creation_button_name">네명 그룹 만들기</string>
     <string name="group_creation_button_description">초대 코드를 받으셨나요?\n코드를 입력해 바로 그룹에 들어갈 수 있어요.</string>
     <string name="group_creation_button_code">초대코드 입력하기</string>
     <string name="next">다음</string>
@@ -141,7 +142,7 @@
     <string name="guide_like_desc">좋아요 가이드 이미지</string>
     <string name="guide_dislike_desc">싫어요 가이드 이미지</string>
     <string name="kook_snackbar">그룹원들을 쿡 찔렀어요!</string>
-    
+
     <string name="error_network">네트워크가 연결되어 있지 않습니다</string>
     <string name="error_server">서버가 원활하지 않습니다</string>
 </resources>
