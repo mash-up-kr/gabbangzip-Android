@@ -83,21 +83,24 @@ class EventCreationViewModel @Inject constructor(
     }
 
     private fun createEvent(description: String, fileList: List<File>) {
-        viewModelScope.launch {
-            createEventUseCase(
-                groupId = groupId,
-                description = description,
-                date = uiState.value.date?.let {
-                    LocalDateUtil.parseLongToLocalDateTime(it).toString()
-                } ?: "",
-                fileList = fileList,
-            ).onSuccess {
-                _uiState.update { it.copy(eventCreationSuccess = groupId) }
-                updateLoadingState(isLoading = false)
-            }.onFailure {
-                showErrorSnackBar()
-                updateLoadingState(isLoading = false)
+        uiState.value.date?.let { date ->
+            viewModelScope.launch {
+                createEventUseCase(
+                    groupId = groupId,
+                    description = description,
+                    date = LocalDateUtil.parseLongToLocalDateTime(date).toString(),
+                    fileList = fileList,
+                ).onSuccess {
+                    _uiState.update { it.copy(eventCreationSuccess = groupId) }
+                    updateLoadingState(isLoading = false)
+                }.onFailure {
+                    showErrorSnackBar()
+                    updateLoadingState(isLoading = false)
+                }
             }
+        } ?: {
+            showErrorSnackBar()
+            updateLoadingState(isLoading = false)
         }
     }
 
