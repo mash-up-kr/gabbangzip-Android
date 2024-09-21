@@ -31,7 +31,7 @@
     <string name="app_notification_off">OFF</string>
     <string name="app_notification_on">ON</string>
 
-    <string name="group_creation_title">내 친구들과\n그룹을 만들어\nPIC과 함께해 볼까요?</string>
+    <string name="group_creation_title">친구들과 그룹을 만들어\n네컷 사진을 만들어보세요!</string>
     <string name="group_creation_button_name">그룹 만들기</string>
     <string name="four_group_creation_button_name">네명 그룹 만들기</string>
     <string name="group_creation_button_description">초대 코드를 받으셨나요?\n코드를 입력해 바로 그룹에 들어갈 수 있어요.</string>
@@ -44,12 +44,10 @@
     <string name="play_store_url">https://play.google.com/store/apps/details?id=com.mashup.gabbangzip.sharedalbum</string>
     <string name="app_store_url">https://apps.apple.com/kr/app/PIC/id6503334452</string>
 
-    <string name="event_creation">이벤트 만들기</string>
-    <string name="event_creation_title">이벤트를 생성하고\n함께한 순간을 공유해요!</string>
-    <string name="event_creation_description">공유한 사진을 함께 PIC하면 네컷사진을 만들 수 있어요.</string>
-    <string name="event_creation_detail_summary">이벤트 한줄 요약</string>
-    <string name="event_creation_detail_summary_hint">이벤트를 한줄로 요약해주세요.</string>
-    <string name="event_creation_detail_timeout">이벤트 PIC은 2시간 후에 종료돼요.</string>
+    <string name="event_creation">네컷 만들기</string>
+    <string name="event_creation_detail_summary">네컷 약속 한줄 요약</string>
+    <string name="event_creation_detail_summary_hint">어떤 약속인지 요약해 주세요</string>
+    <string name="event_creation_detail_timeout">네컷 PIC은 2시간 후에 종료돼요.</string>
     <string name="event_creation_dialog_title">나가실건가요?</string>
     <string name="event_creation_dialog_desc">페이지를 나가면\n작성중인 내용이 삭제돼요.</string>
     <string name="event_creation_dialog_dismiss">나가기</string>
@@ -100,7 +98,7 @@
     <string name="group_detail_event_complete">네컷 사진이 만들어졌어요!</string>
     <string name="group_detail_history_title">우리들의 인생네컷</string>
     <string name="group_detail_empty_history_image_description">역대 이벤트 기본 이미지</string>
-    <string name="group_detail_empty_history_label">네컷 사진이 만들어지면\n이벤트가 추가돼요.</string>
+    <string name="group_detail_empty_history_label">네컷 사진이 만들어지면\n이곳에 추가돼요.</string>
 
     <string name="button_text_state_before_my_upload">내 PIC 올리기</string>
     <string name="information_text_state_before_my_upload">모든 그룹원이 사진을 올리면 투표가 시작돼요</string>
@@ -127,8 +125,8 @@
 
     <string name="vote_complete_title">내 PIC을 골랐어요!</string>
     <string name="vote_complete_subtitle">모든 사람이 PIC을 완료하면\n네컷 사진이 만들어져요</string>
-    <string name="intro_event_top_title">이벤트를 만들어보세요</string>
-    <string name="event_creation_btn_text">이벤트 생성하기</string>
+    <string name="intro_event_top_title">네컷을 만들어 보세요!</string>
+    <string name="event_creation_btn_text">네컷 만들기</string>
     <string name="floating_group_creation">그룹 만들기</string>
     <string name="floationg_group_enter">그룹 들어가기</string>
     <string name="floating_btn_desc">플로팅 버튼 아이콘</string>
