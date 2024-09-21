@@ -138,7 +138,7 @@ fun EventCreationDetailScreen(
                         .padding(top = 16.dp, bottom = 24.dp),
                     date = state.date?.let {
                         LocalDateUtil.format(LocalDateUtil.parseLongToLocalDateTime(it), "yy/MM/dd")
-                    } ?: "",
+                    }.orEmpty(),
                     onClicked = { showDatePickerDialog = true },
                 )
                 EventCreationTitle(stringResource(id = R.string.picture_select))
