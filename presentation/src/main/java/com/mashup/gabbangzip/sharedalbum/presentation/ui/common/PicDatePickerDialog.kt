@@ -15,12 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Cultured
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -88,5 +90,17 @@ fun PicDatePickerDialog(
                 },
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PicDatePickerDialogPreview() {
+    SharedAlbumTheme {
+        PicDatePickerDialog(
+            date = null,
+            onClickedDismiss = {},
+            onClickedConfirm = {},
+        )
     }
 }
