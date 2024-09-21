@@ -10,7 +10,6 @@ import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -35,9 +34,7 @@ fun PicDatePickerDialog(
         yearRange = 2020..2030,
         initialDisplayMode = DisplayMode.Picker,
         initialSelectedDateMillis = date ?: System.currentTimeMillis(),
-        selectableDates = object : SelectableDates {
-            override fun isSelectableDate(utcTimeMillis: Long): Boolean = true
-        },
+        selectableDates = DatePickerDefaults.AllDates,
     )
 
     DatePickerDialog(
