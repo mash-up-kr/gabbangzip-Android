@@ -15,22 +15,22 @@ data class FilterTag(
     val isSelected: Boolean,
 ) {
     companion object {
-        fun getTotalFilter() = FilterTag(
+        fun getTotalFilter(isSelected: Boolean = false) = FilterTag(
             name = GroupKeyword.TOTAL,
             symbolResId = null,
             symbolColor = Gray100,
             tagNameResId = R.string.tag_total,
-            isSelected = true,
+            isSelected = isSelected,
         )
     }
 }
 
-fun GroupKeyword.toFilterTag() = FilterTag(
+fun GroupKeyword.toFilterTag(isSelected: Boolean = false) = FilterTag(
     name = name,
     symbolResId = symbolResId,
     symbolColor = symbolColor,
     tagNameResId = tagNameResId,
-    isSelected = false,
+    isSelected = isSelected,
 )
 
 fun List<GroupKeyword>.toFilterTagList() = map { it.toFilterTag() }
