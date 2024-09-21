@@ -81,11 +81,12 @@ class EventCreationActivity : ComponentActivity() {
                         startDestination = EventCreationRoute.initRoute,
                         eventCreationState = state,
                         clearEventCreationState = eventCreationViewModel::clearEventCreationState,
+                        updateDate = eventCreationViewModel::updateDate,
+                        onGalleryButtonClicked = photoPicker::open,
+                        onPictureDeleteButtonClicked = eventCreationViewModel::deletePicture,
                         onCompleteButtonClicked = { description ->
                             checkCreation(state.pictures, description)
                         },
-                        onGalleryButtonClicked = photoPicker::open,
-                        onPictureDeleteButtonClicked = eventCreationViewModel::deletePicture,
                         onBackButtonClicked = { finish() },
                     )
                 }

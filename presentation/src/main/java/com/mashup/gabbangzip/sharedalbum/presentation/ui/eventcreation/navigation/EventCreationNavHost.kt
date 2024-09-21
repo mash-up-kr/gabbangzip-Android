@@ -14,6 +14,7 @@ fun EventCreationNavHost(
     startDestination: String,
     eventCreationState: EventCreationState,
     clearEventCreationState: () -> Unit,
+    updateDate: (Long) -> Unit,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
     onPictureDeleteButtonClicked: (Int) -> Unit,
@@ -26,6 +27,7 @@ fun EventCreationNavHost(
     ) {
         eventCreationDetailNavGraph(
             eventCreationState = eventCreationState,
+            updateDate = updateDate,
             onCompleteButtonClicked = onCompleteButtonClicked,
             onGalleryButtonClicked = onGalleryButtonClicked,
             onPictureDeleteButtonClicked = onPictureDeleteButtonClicked,

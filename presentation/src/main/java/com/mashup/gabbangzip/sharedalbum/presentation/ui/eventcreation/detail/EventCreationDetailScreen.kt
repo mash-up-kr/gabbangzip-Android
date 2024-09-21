@@ -39,6 +39,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDatePickerDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDatePickerField
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicGallery
@@ -46,6 +47,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicLoadingIndica
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTextField
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationActivity.Companion.PICTURES_MAX_COUNT
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.eventcreation.EventCreationState
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.LocalDateUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.hideKeyboardOnOutsideClicked
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
@@ -54,33 +56,50 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 @Composable
 fun EventCreationDetailScreen(
     state: EventCreationState,
+    updateDate: (Long) -> Unit,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
     onPictureDeleteButtonClicked: (Int) -> Unit,
     onDismissButtonClicked: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
-    var showDialog by remember { mutableStateOf(false) }
-    var summary by remember { mutableStateOf("") }
-    val buttonEnabled by rememberUpdatedState(summary.isNotBlank() && state.pictures.size >= PICTURES_MAX_COUNT)
 
-    if (showDialog) {
+    var showExitDialog by remember { mutableStateOf(false) }
+    var showDatePickerDialog by remember { mutableStateOf(false) }
+
+    var summary by remember { mutableStateOf("") }
+    val buttonEnabled by rememberUpdatedState(
+        summary.isNotBlank() && state.date != null && state.pictures.size >= PICTURES_MAX_COUNT,
+    )
+
+    if (showExitDialog) {
         PicDialog(
             titleText = stringResource(R.string.event_creation_dialog_title),
             contentText = stringResource(R.string.event_creation_dialog_desc),
             dismissText = stringResource(R.string.event_creation_dialog_dismiss),
             confirmText = stringResource(R.string.event_creation_dialog_confirm),
             onDismiss = {
-                showDialog = false
+                showExitDialog = false
                 onDismissButtonClicked()
             },
-            onConfirm = { showDialog = false },
+            onConfirm = { showExitDialog = false },
             onDismissRequest = {},
         )
     }
 
+    if (showDatePickerDialog) {
+        PicDatePickerDialog(
+            date = state.date,
+            onClickedDismiss = { showDatePickerDialog = false },
+            onClickedConfirm = {
+                updateDate(it)
+                showDatePickerDialog = false
+            },
+        )
+    }
+
     BackHandler(true) {
-        showDialog = true
+        showExitDialog = true
     }
 
     Column(
@@ -93,7 +112,7 @@ fun EventCreationDetailScreen(
             titleText = stringResource(id = R.string.event_creation),
             backButtonClicked = {
                 focusManager.clearFocus()
-                showDialog = true
+                showExitDialog = true
             },
         )
         Column(
@@ -117,8 +136,10 @@ fun EventCreationDetailScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp, bottom = 24.dp),
-                    date = state.date,
-                    textColor = Gray60,
+                    date = state.date?.let {
+                        LocalDateUtil.format(LocalDateUtil.parseLongToLocalDateTime(it), "yy/MM/dd")
+                    }.orEmpty(),
+                    onClicked = { showDatePickerDialog = true },
                 )
                 EventCreationTitle(stringResource(id = R.string.picture_select))
             }
@@ -209,6 +230,7 @@ private fun EventCreationScreenPreview() {
     SharedAlbumTheme {
         EventCreationDetailScreen(
             state = EventCreationState(),
+            updateDate = {},
             onCompleteButtonClicked = {},
             onGalleryButtonClicked = {},
             onPictureDeleteButtonClicked = {},

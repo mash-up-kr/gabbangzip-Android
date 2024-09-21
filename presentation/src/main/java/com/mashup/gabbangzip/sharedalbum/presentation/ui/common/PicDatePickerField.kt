@@ -18,16 +18,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun PicDatePickerField(
     modifier: Modifier = Modifier,
     date: String = "",
     textColor: Color = Gray80,
+    onClicked: () -> Unit = {},
 ) {
     Row(
         modifier = modifier
@@ -35,9 +38,10 @@ fun PicDatePickerField(
             .background(Gray20)
             .border(
                 width = 1.dp,
-                color = Gray20,
-                shape = RoundedCornerShape(8.dp),
+                color = Gray50,
+                shape = RoundedCornerShape(10.dp),
             )
+            .noRippleClickable { onClicked() }
             .padding(horizontal = 16.dp, vertical = 18.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp),

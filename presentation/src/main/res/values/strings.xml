@@ -56,6 +56,7 @@
     <string name="event_creation_dialog_confirm">계속 작성하기</string>
     <string name="event_creation_picture_delete">사진 삭제</string>
     <string name="date">날짜</string>
+    <string name="date_picker_dialog_confirm">날짜 선택</string>
     <string name="picture_select">사진 선택</string>
 
     <string name="pic_tag">%s 태그 이미지</string>
