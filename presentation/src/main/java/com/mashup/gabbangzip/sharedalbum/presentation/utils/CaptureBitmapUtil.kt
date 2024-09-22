@@ -50,7 +50,7 @@ fun Modifier.capturable(controller: CaptureController): Modifier {
 
 @SuppressLint("ModifierNodeInspectableProperties")
 private data class CapturableModifierNodeElement(
-    private val controller: CaptureController
+    private val controller: CaptureController,
 ) : ModifierNodeElement<CapturableModifierNode>() {
     override fun create(): CapturableModifierNode {
         return CapturableModifierNode(controller)
@@ -62,7 +62,7 @@ private data class CapturableModifierNodeElement(
 }
 
 private class CapturableModifierNode(
-    controller: CaptureController
+    controller: CaptureController,
 ) : DelegatingNode(), DelegatableNode {
 
     /**
@@ -135,7 +135,7 @@ private class CapturableModifierNode(
                         pictureDrawn.complete(Unit)
                     }
                 }
-            }
+            },
         )
         // Wait until picture is drawn
         pictureDrawn.await()
@@ -159,7 +159,7 @@ class CaptureController {
 
     internal class CaptureRequest(
         val imageBitmapDeferred: CompletableDeferred<Bitmap>,
-        val config: Bitmap.Config
+        val config: Bitmap.Config,
     )
 }
 
