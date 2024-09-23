@@ -1,5 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
+import android.graphics.Bitmap
+import android.graphics.Picture
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,16 +15,19 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicCroppedPhoto
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicPhotoCardFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicTopBarTitleAlign
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.HistoryItem
@@ -30,6 +35,8 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.Ca
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.captureIntoCanvas
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.createBitmap
 
 @Composable
 fun HistoryDetailScreen(
@@ -37,7 +44,9 @@ fun HistoryDetailScreen(
     keyword: GroupKeyword,
     item: HistoryItem,
     onClickBackButton: () -> Unit,
+    onClickShareButton: (Bitmap) -> Unit,
 ) {
+    val picture = remember { Picture() }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -52,11 +61,28 @@ fun HistoryDetailScreen(
             titleAlign = PicTopBarTitleAlign.LEFT,
             backButtonClicked = onClickBackButton,
         )
-        HistoryPhotoCard(
+        Box(
+            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.Center,
+        ) {
+            HistoryPhotoCard(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .captureIntoCanvas(picture),
+                keyword = keyword,
+                item = item,
+            )
+        }
+        PicNormalButton(
             modifier = Modifier
-                .weight(1f),
-            keyword = keyword,
-            item = item,
+                .padding(bottom = 79.dp)
+                .align(Alignment.CenterHorizontally),
+            iconRes = R.drawable.ic_share,
+            isSingleClick = true,
+            onButtonClicked = {
+                val bitmap = picture.createBitmap()
+                onClickShareButton(bitmap)
+            },
         )
     }
 }
@@ -155,6 +181,7 @@ private fun HistoryDetailScreenPreview() {
                 ),
             ),
             onClickBackButton = {},
+            onClickShareButton = {},
         )
     }
 }

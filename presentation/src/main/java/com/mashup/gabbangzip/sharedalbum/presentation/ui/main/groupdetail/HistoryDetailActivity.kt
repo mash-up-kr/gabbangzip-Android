@@ -10,6 +10,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.shareBitmap
 
 class HistoryDetailActivity : ComponentActivity() {
     private val state by lazy { intent.getSerializableExtra(KEY_HISTORY) as HistoryDetailState? }
@@ -29,6 +30,7 @@ class HistoryDetailActivity : ComponentActivity() {
                         keyword = GroupKeyword.getKeyword(state.keyword),
                         item = state.history,
                         onClickBackButton = { finish() },
+                        onClickShareButton = { bitmap -> shareBitmap(bitmap) },
                     )
                 }
             }
