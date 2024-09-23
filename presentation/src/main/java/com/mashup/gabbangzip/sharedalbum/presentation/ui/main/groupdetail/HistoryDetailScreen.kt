@@ -1,7 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
 import android.graphics.Bitmap
-import android.graphics.Picture
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,7 +14,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,8 +34,9 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.Ca
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.captureIntoCanvas
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.createBitmap
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.capturable
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.rememberCaptureController
+import kotlinx.coroutines.launch
 
 @Composable
 fun HistoryDetailScreen(
@@ -46,7 +46,8 @@ fun HistoryDetailScreen(
     onClickBackButton: () -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
-    val picture = remember { Picture() }
+    val captureController = rememberCaptureController()
+    val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -68,7 +69,7 @@ fun HistoryDetailScreen(
             HistoryPhotoCard(
                 modifier = Modifier
                     .wrapContentSize()
-                    .captureIntoCanvas(picture),
+                    .capturable(captureController),
                 keyword = keyword,
                 item = item,
             )
@@ -80,8 +81,10 @@ fun HistoryDetailScreen(
             iconRes = R.drawable.ic_share,
             isSingleClick = true,
             onButtonClicked = {
-                val bitmap = picture.createBitmap()
-                onClickShareButton(bitmap)
+                coroutineScope.launch {
+                    val bitmap = captureController.captureAsync().await()
+                    onClickShareButton(bitmap)
+                }
             },
         )
     }
