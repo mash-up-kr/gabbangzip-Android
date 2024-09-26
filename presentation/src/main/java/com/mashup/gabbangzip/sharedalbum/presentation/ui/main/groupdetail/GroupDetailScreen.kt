@@ -143,6 +143,7 @@ fun GroupDetailScreen(
         BottomSheetScaffold(
             modifier = modifier,
             scaffoldState = scaffoldState,
+            containerColor = Gray0,
             sheetShadowElevation = sheetElevation,
             sheetPeekHeight = 250.dp,
             sheetContainerColor = Gray0,
@@ -161,7 +162,9 @@ fun GroupDetailScreen(
         ) {
             Column {
                 PicBackButtonTopBar(
-                    modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp),
                     titleText = state.groupInfo?.name.orEmpty(),
                     titleAlign = PicTopBarTitleAlign.LEFT,
                     backButtonClicked = onClickBackButton,
