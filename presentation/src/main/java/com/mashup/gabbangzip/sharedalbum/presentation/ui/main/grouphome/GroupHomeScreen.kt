@@ -59,6 +59,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray100
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Malibu
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
@@ -315,6 +316,17 @@ private fun GroupContainer(
                     },
                 )
             }
+
+        if (groupInfo.status == GroupStatusType.BEFORE_MY_UPLOAD) {
+            Text(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .align(Alignment.CenterHorizontally),
+                text = stringResource(id = R.string.group_home_pic_upload_description),
+                style = PicTypography.captionNormal12,
+                color = Gray60,
+            )
+        }
     }
 }
 
@@ -576,7 +588,7 @@ private fun FloatingItem(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun GroupHomeScreenPreview() {
     GroupHomeScreen(
@@ -614,7 +626,7 @@ private fun GroupHomeScreenPreview() {
                         date = "2024.11.01",
                         deadline = "2024.11.01",
                     ),
-                    status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                    status = GroupStatusType.BEFORE_MY_UPLOAD,
                 ),
                 GroupInfo(
                     id = 0,
