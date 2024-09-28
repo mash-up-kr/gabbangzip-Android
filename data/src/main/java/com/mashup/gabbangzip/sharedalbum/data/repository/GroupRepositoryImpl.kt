@@ -6,6 +6,7 @@ import com.mashup.gabbangzip.sharedalbum.data.dto.request.CreateGroupRequest
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.EnterGroupRequest
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.toDomainModel
 import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
+import com.mashup.gabbangzip.sharedalbum.domain.base.PicException
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupParam
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupInfoDomainModel
@@ -37,7 +38,17 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun enterGroupByCode(code: String): Long {
         val request = EnterGroupRequest(code)
-        return callApi { groupService.enterGroupByCode(request) }.groupId
+        return runCatching {
+            callApi { groupService.enterGroupByCode(request) }.groupId
+        }.getOrElse { e ->
+            val message = e.message
+            throw when {
+                message == null -> e
+                message.contains(MESSAGE_GROUP_NOT_FOUND) -> PicException.InvalidGroupCodeException
+                message.contains(MESSAGE_GROUP_OVERFLOW) -> PicException.GroupOverflowException
+                else -> e
+            }
+        }
     }
 
     override suspend fun getGroupList(): List<GroupDomainModel> {
@@ -54,5 +65,10 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun withdrawGroup(groupId: Long): WithdrawalGroupDomainModel {
         return callApi { groupService.withdrawGroup(groupId) }.toDomainModel()
+    }
+
+    companion object {
+        private const val MESSAGE_GROUP_NOT_FOUND = "해당하는 그룹을 찾을 수 없습니다"
+        private const val MESSAGE_GROUP_OVERFLOW = "인원 초과"
     }
 }
