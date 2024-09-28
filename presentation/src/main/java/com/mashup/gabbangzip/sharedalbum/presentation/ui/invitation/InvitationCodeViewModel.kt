@@ -50,14 +50,8 @@ class InvitationCodeViewModel @Inject constructor(
 
     private fun mapErrorMessageRes(e: Throwable): Int {
         return when (e) {
-            is PicException.InvalidGroupCodeException -> {
-                R.string.enter_group_by_code_failure_not_found
-            }
-
-            is PicException.GroupOverflowException -> {
-                R.string.enter_group_by_code_failure_overflow
-            }
-
+            is PicException.InvalidGroupCodeException -> R.string.enter_group_by_code_failure_not_found
+            is PicException.GroupOverflowException -> R.string.enter_group_by_code_failure_overflow
             else -> R.string.error_network
         }
     }
