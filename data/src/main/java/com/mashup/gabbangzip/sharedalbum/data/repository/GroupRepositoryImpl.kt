@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.data.repository
 
+import com.mashup.gabbangzip.sharedalbum.data.base.PicApiException
 import com.mashup.gabbangzip.sharedalbum.data.base.callApi
 import com.mashup.gabbangzip.sharedalbum.data.common.toS3Url
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.CreateGroupRequest
@@ -41,12 +42,14 @@ class GroupRepositoryImpl @Inject constructor(
         return runCatching {
             callApi { groupService.enterGroupByCode(request) }.groupId
         }.getOrElse { e ->
-            val message = e.message
-            throw when {
-                message == null -> e
-                message.contains(MESSAGE_GROUP_NOT_FOUND) -> PicException.InvalidGroupCodeException
-                message.contains(MESSAGE_GROUP_OVERFLOW) -> PicException.GroupOverflowException
-                else -> e
+            throw if (e is PicApiException && e.errorResponse != null) {
+                when (e.errorResponse.code) {
+                    CODE_NOT_EXIST -> PicException.InvalidGroupCodeException
+                    CODE_ARGUMENT_NOT_VALID -> PicException.GroupOverflowException
+                    else -> e
+                }
+            } else {
+                e
             }
         }
     }
@@ -68,7 +71,7 @@ class GroupRepositoryImpl @Inject constructor(
     }
 
     companion object {
-        private const val MESSAGE_GROUP_NOT_FOUND = "해당하는 그룹을 찾을 수 없습니다"
-        private const val MESSAGE_GROUP_OVERFLOW = "인원 초과"
+        private const val CODE_NOT_EXIST = "C001_NOT_EXIST"
+        private const val CODE_ARGUMENT_NOT_VALID = "C009_ARGUMENT_NOT_VALID"
     }
 }
