@@ -32,7 +32,7 @@ suspend fun <T> callApi(
     execute: suspend () -> PicResponse<T>,
 ): T {
     return runCatching {
-        execute().data!!
+        execute().data ?: throw NoSuchElementException()
     }.getOrElse { e ->
         throw PicApiErrorParser.parse(e)
     }
