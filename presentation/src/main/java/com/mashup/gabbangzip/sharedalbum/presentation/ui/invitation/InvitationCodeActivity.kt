@@ -18,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicSnackbarHost
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
@@ -59,11 +58,13 @@ class InvitationCodeActivity : ComponentActivity() {
                 when (state.isInvitationSuccessful) {
                     true -> navigateToMainActivity()
                     false -> {
-                        LaunchedEffect(snackbarHostState) {
-                            snackbarHostState.showPicSnackbar(
-                                type = PicSnackbarType.WARNING,
-                                message = getString(R.string.enter_group_by_code_failure_message),
-                            )
+                        LaunchedEffect(state.errorMessageRes) {
+                            state.errorMessageRes?.let { message ->
+                                snackbarHostState.showPicSnackbar(
+                                    type = PicSnackbarType.WARNING,
+                                    message = getString(message),
+                                )
+                            }
                         }
                     }
 
