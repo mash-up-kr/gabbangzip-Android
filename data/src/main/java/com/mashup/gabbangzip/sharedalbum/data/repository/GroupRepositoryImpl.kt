@@ -1,11 +1,13 @@
 package com.mashup.gabbangzip.sharedalbum.data.repository
 
+import com.mashup.gabbangzip.sharedalbum.data.base.PicApiException
 import com.mashup.gabbangzip.sharedalbum.data.base.callApi
 import com.mashup.gabbangzip.sharedalbum.data.common.toS3Url
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.CreateGroupRequest
 import com.mashup.gabbangzip.sharedalbum.data.dto.request.EnterGroupRequest
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.toDomainModel
 import com.mashup.gabbangzip.sharedalbum.data.service.GroupService
+import com.mashup.gabbangzip.sharedalbum.domain.base.PicException
 import com.mashup.gabbangzip.sharedalbum.domain.model.GroupParam
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.GroupInfoDomainModel
@@ -37,7 +39,19 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun enterGroupByCode(code: String): Long {
         val request = EnterGroupRequest(code)
-        return callApi { groupService.enterGroupByCode(request) }.groupId
+        return runCatching {
+            callApi { groupService.enterGroupByCode(request) }.groupId
+        }.getOrElse { e ->
+            throw if (e is PicApiException && e.errorResponse != null) {
+                when (e.errorResponse.code) {
+                    CODE_NOT_EXIST -> PicException.InvalidGroupCodeException
+                    CODE_ARGUMENT_NOT_VALID -> PicException.GroupOverflowException
+                    else -> e
+                }
+            } else {
+                e
+            }
+        }
     }
 
     override suspend fun getGroupList(): List<GroupDomainModel> {
@@ -54,5 +68,10 @@ class GroupRepositoryImpl @Inject constructor(
 
     override suspend fun withdrawGroup(groupId: Long): WithdrawalGroupDomainModel {
         return callApi { groupService.withdrawGroup(groupId) }.toDomainModel()
+    }
+
+    companion object {
+        private const val CODE_NOT_EXIST = "C001_NOT_EXIST"
+        private const val CODE_ARGUMENT_NOT_VALID = "C009_ARGUMENT_NOT_VALID"
     }
 }

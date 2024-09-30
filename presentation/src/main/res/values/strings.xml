@@ -122,7 +122,8 @@
     <string name="enter_group_by_code_title">그룹 들어가기</string>
     <string name="enter_group_by_code_input_title">초대코드를 입력해주세요</string>
     <string name="enter_group_by_code_input_hint">예) A12B0EHQ</string>
-    <string name="enter_group_by_code_failure_message">존재하지 않는 초대코드에요.</string>
+    <string name="enter_group_by_code_failure_not_found">존재하지 않는 초대코드에요.</string>
+    <string name="enter_group_by_code_failure_overflow">그룹이 가득 찼어요.</string>
 
     <string name="vote_complete_title">내 PIC을 골랐어요!</string>
     <string name="vote_complete_subtitle">모든 사람이 PIC을 완료하면\n네컷 사진이 만들어져요</string>
