@@ -31,8 +31,9 @@
     <string name="app_notification_off">OFF</string>
     <string name="app_notification_on">ON</string>
 
-    <string name="group_creation_title">내 친구들과\n그룹을 만들어\nPIC과 함께해 볼까요?</string>
+    <string name="group_creation_title">친구들과 그룹을 만들어\n네컷 사진을 만들어보세요!</string>
     <string name="group_creation_button_name">그룹 만들기</string>
+    <string name="four_group_creation_button_name">네명 그룹 만들기</string>
     <string name="group_creation_button_description">초대 코드를 받으셨나요?\n코드를 입력해 바로 그룹에 들어갈 수 있어요.</string>
     <string name="group_creation_button_code">초대코드 입력하기</string>
     <string name="next">다음</string>
@@ -43,18 +44,17 @@
     <string name="play_store_url">https://play.google.com/store/apps/details?id=com.mashup.gabbangzip.sharedalbum</string>
     <string name="app_store_url">https://apps.apple.com/kr/app/PIC/id6503334452</string>
 
-    <string name="event_creation">이벤트 만들기</string>
-    <string name="event_creation_title">이벤트를 생성하고\n함께한 순간을 공유해요!</string>
-    <string name="event_creation_description">공유한 사진을 함께 PIC하면 네컷사진을 만들 수 있어요.</string>
-    <string name="event_creation_detail_summary">이벤트 한줄 요약</string>
-    <string name="event_creation_detail_summary_hint">이벤트를 한줄로 요약해주세요.</string>
-    <string name="event_creation_detail_timeout">이벤트 PIC은 2시간 후에 종료돼요.</string>
+    <string name="event_creation">네컷 만들기</string>
+    <string name="event_creation_detail_summary">네컷 약속 한줄 요약</string>
+    <string name="event_creation_detail_summary_hint">어떤 약속인지 요약해 주세요</string>
+    <string name="event_creation_detail_timeout">네컷 PIC은 2시간 후에 종료돼요.</string>
     <string name="event_creation_dialog_title">나가실건가요?</string>
     <string name="event_creation_dialog_desc">페이지를 나가면\n작성중인 내용이 삭제돼요.</string>
     <string name="event_creation_dialog_dismiss">나가기</string>
     <string name="event_creation_dialog_confirm">계속 작성하기</string>
     <string name="event_creation_picture_delete">사진 삭제</string>
     <string name="date">날짜</string>
+    <string name="date_picker_dialog_confirm">날짜 선택</string>
     <string name="picture_select">사진 선택</string>
 
     <string name="pic_tag">%s 태그 이미지</string>
@@ -73,6 +73,7 @@
     <string name="tag_exercise">운동</string>
     <string name="tag_hobby">취미</string>
     <string name="tag_somoim">소모임</string>
+    <string name="tag_total">전체</string>
 
     <string name="group_member_list_title">그룹원</string>
     <string name="group_add_more_member">그룹원을 추가하고 싶으세요?</string>
@@ -97,7 +98,7 @@
     <string name="group_detail_event_complete">네컷 사진이 만들어졌어요!</string>
     <string name="group_detail_history_title">우리들의 인생네컷</string>
     <string name="group_detail_empty_history_image_description">역대 이벤트 기본 이미지</string>
-    <string name="group_detail_empty_history_label">네컷 사진이 만들어지면\n이벤트가 추가돼요.</string>
+    <string name="group_detail_empty_history_label">네컷 사진이 만들어지면\n이곳에 추가돼요.</string>
 
     <string name="button_text_state_before_my_upload">내 PIC 올리기</string>
     <string name="information_text_state_before_my_upload">모든 그룹원이 사진을 올리면 투표가 시작돼요</string>
@@ -114,16 +115,18 @@
 
     <string name="image_upload_failed">이미지 업로드 실패</string>
     <string name="image_retrieve_failed">이미지 파일 조회 실패</string>
+    <string name="image_overflow_failed">이미지 개수가 %d장을 초과하였습니다</string>
 
     <string name="enter_group_by_code_title">그룹 들어가기</string>
     <string name="enter_group_by_code_input_title">초대코드를 입력해주세요</string>
     <string name="enter_group_by_code_input_hint">예) A12B0EHQ</string>
-    <string name="enter_group_by_code_failure_message">존재하지 않는 초대코드에요.</string>
+    <string name="enter_group_by_code_failure_not_found">존재하지 않는 초대코드에요.</string>
+    <string name="enter_group_by_code_failure_overflow">그룹이 가득 찼어요.</string>
 
     <string name="vote_complete_title">내 PIC을 골랐어요!</string>
     <string name="vote_complete_subtitle">모든 사람이 PIC을 완료하면\n네컷 사진이 만들어져요</string>
-    <string name="intro_event_top_title">이벤트를 만들어보세요</string>
-    <string name="event_creation_btn_text">이벤트 생성하기</string>
+    <string name="intro_event_top_title">네컷을 만들어 보세요!</string>
+    <string name="event_creation_btn_text">네컷 만들기</string>
     <string name="floating_group_creation">그룹 만들기</string>
     <string name="floationg_group_enter">그룹 들어가기</string>
     <string name="floating_btn_desc">플로팅 버튼 아이콘</string>
@@ -131,6 +134,7 @@
     <string name="floating_animate">FloatingRotationAngle</string>
     <string name="group_home_pic_fcm">쿡 찌르기</string>
     <string name="group_home_pic_upload">내 PIC 올리기</string>
+    <string name="group_home_pic_upload_description">내 PIC은 네장까지 올릴 수 있어요</string>
     <string name="group_home_select_pic">픽 고르기</string>
     <string name="my_pic_upload_complete">내 PIC 올리기 완료!</string>
     <string name="error_retry">다시 시도해주세요.</string>
@@ -139,7 +143,7 @@
     <string name="guide_like_desc">좋아요 가이드 이미지</string>
     <string name="guide_dislike_desc">싫어요 가이드 이미지</string>
     <string name="kook_snackbar">그룹원들을 쿡 찔렀어요!</string>
-    
+
     <string name="error_network">네트워크가 연결되어 있지 않습니다</string>
     <string name="error_server">서버가 원활하지 않습니다</string>
 </resources>

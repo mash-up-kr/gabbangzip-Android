@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -29,6 +30,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Malibu
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun PicTag(
@@ -39,6 +41,8 @@ fun PicTag(
     iconColor: Color = Gray50,
     backgroundColor: Color = Gray40,
     textColor: Color = Gray80,
+    innerPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
+    onClick: (() -> Unit)? = null,
 ) {
     Box(
         modifier = modifier
@@ -46,7 +50,14 @@ fun PicTag(
                 color = backgroundColor,
                 shape = RoundedCornerShape(20.dp),
             )
-            .padding(horizontal = 10.dp, vertical = 6.dp),
+            .run {
+                if (onClick != null) {
+                    noRippleClickable(onClick = onClick)
+                } else {
+                    this
+                }
+            }
+            .padding(innerPadding),
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -88,7 +99,6 @@ fun PicTagPreview() {
                 text = "학교",
                 iconRes = R.drawable.ic_kakao,
                 iconColor = Malibu,
-                backgroundColor = Gray80,
                 textColor = Gray0,
             )
         }

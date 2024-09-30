@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -23,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0Alpha80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
@@ -162,6 +164,7 @@ private fun ThumbnailCard(
             model = groupCreationResult.imageUrl,
             contentDescription = stringResource(id = R.string.thumbnail_image),
             contentScale = ContentScale.Crop,
+            placeholder = ColorPainter(Gray0),
         )
     }
 }

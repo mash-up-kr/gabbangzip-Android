@@ -13,6 +13,7 @@ fun NavController.navigateToEventCreationDetail() {
 
 fun NavGraphBuilder.eventCreationDetailNavGraph(
     eventCreationState: EventCreationState,
+    updateDate: (Long) -> Unit,
     onCompleteButtonClicked: (String) -> Unit,
     onGalleryButtonClicked: () -> Unit,
     onPictureDeleteButtonClicked: (Int) -> Unit,
@@ -21,6 +22,7 @@ fun NavGraphBuilder.eventCreationDetailNavGraph(
     composable(route = EventCreationRoute.DetailScreenRoute.route) {
         EventCreationDetailScreen(
             state = eventCreationState,
+            updateDate = updateDate,
             onCompleteButtonClicked = onCompleteButtonClicked,
             onGalleryButtonClicked = onGalleryButtonClicked,
             onPictureDeleteButtonClicked = onPictureDeleteButtonClicked,

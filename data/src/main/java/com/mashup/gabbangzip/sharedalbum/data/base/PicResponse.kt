@@ -21,8 +21,19 @@ data class PicErrorResponse(
     val message: String,
 )
 
+data class PicApiException(
+    val errorResponse: PicErrorResponse?,
+) : RuntimeException() {
+    override val message: String
+        get() = errorResponse?.message.orEmpty()
+}
+
 suspend fun <T> callApi(
     execute: suspend () -> PicResponse<T>,
 ): T {
-    return execute().data ?: throw IllegalStateException()
+    return runCatching {
+        execute().data ?: throw NoSuchElementException()
+    }.getOrElse { e ->
+        throw PicApiErrorParser.parse(e)
+    }
 }

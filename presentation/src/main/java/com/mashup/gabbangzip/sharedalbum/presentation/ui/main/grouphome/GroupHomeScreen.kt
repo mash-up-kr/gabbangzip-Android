@@ -11,6 +11,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -19,8 +20,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -38,8 +41,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -50,8 +55,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray100
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray20
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Malibu
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.FlippableBox
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicLoadingIndicator
@@ -63,6 +73,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicTopBarI
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.model.GroupEvent
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.CardBackImage
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.ClickType
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.FilterTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupInfo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
@@ -74,6 +85,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun GroupHomeScreen(
+    innerPadding: PaddingValues,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
@@ -86,16 +98,20 @@ fun GroupHomeScreen(
     onShowSnackbar: (PicSnackbarType, String) -> Unit,
     viewModel: GroupHomeViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.groupUiState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when (state) {
+    when (val groupHomeUiState = state) {
         is GroupHomeUiState.NoGroup -> {
             navigateToGroupCreationAndFinish()
         }
 
         is GroupHomeUiState.GroupList -> {
             GroupHomeScreen(
-                groupList = (state as GroupHomeUiState.GroupList).groupList,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                groupList = groupHomeUiState.groupList,
+                filterTagList = groupHomeUiState.filterTagList,
                 onClickGroupDetail = onClickGroupDetail,
                 onClickEventMake = onClickEventMake,
                 onClickMyPage = onClickMyPage,
@@ -104,6 +120,7 @@ fun GroupHomeScreen(
                 onClickSendFcmButton = onClickSendFcmButton,
                 onNavigateVote = onNavigateVote,
                 onNavigateGallery = onNavigateGallery,
+                onClickFilterTag = viewModel::clickedFilterTag,
             )
         }
 
@@ -122,7 +139,9 @@ fun GroupHomeScreen(
 
 @Composable
 fun GroupHomeScreen(
+    modifier: Modifier,
     groupList: ImmutableList<GroupInfo>,
+    filterTagList: ImmutableList<FilterTag>,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
@@ -131,10 +150,11 @@ fun GroupHomeScreen(
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onNavigateGallery: (eventId: Long) -> Unit,
     onNavigateVote: (eventId: Long) -> Unit,
+    onClickFilterTag: (FilterTag) -> Unit,
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .align(Alignment.TopCenter),
         ) {
@@ -144,11 +164,27 @@ fun GroupHomeScreen(
                 rightIconClicked = onClickMyPage,
             )
 
+            TagFilter(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                filterTagList = filterTagList,
+                onTagClicked = onClickFilterTag,
+            )
+
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp)
+                    .height(8.dp)
+                    .background(Gray20),
+            )
+
             LazyColumn {
                 itemsIndexed(groupList) { index, groupInfo ->
                     GroupContainer(
                         modifier = if (index == 0) {
-                            Modifier.padding(top = 16.dp)
+                            Modifier.padding(top = 24.dp)
                         } else if (index == groupList.lastIndex) {
                             Modifier.padding(bottom = 16.dp)
                         } else {
@@ -186,6 +222,35 @@ fun GroupHomeScreen(
 }
 
 @Composable
+private fun TagFilter(
+    modifier: Modifier,
+    filterTagList: ImmutableList<FilterTag>,
+    onTagClicked: (FilterTag) -> Unit,
+) {
+    LazyRow(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        contentPadding = PaddingValues(horizontal = 10.dp),
+    ) {
+        itemsIndexed(filterTagList, key = { _, item -> item.name }) { _, tagInfo ->
+            PicTag(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(vertical = 3.5.dp),
+                text = stringResource(id = tagInfo.tagNameResId),
+                iconRes = tagInfo.symbolResId,
+                iconColor = tagInfo.symbolColor,
+                textColor = if (tagInfo.isSelected) Gray0 else Gray80,
+                textStyle = PicTypography.headBold14,
+                backgroundColor = if (tagInfo.isSelected) Gray100 else Gray40,
+                innerPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
+                onClick = { onTagClicked(tagInfo) },
+            )
+        }
+    }
+}
+
+@Composable
 private fun GroupContainer(
     modifier: Modifier,
     groupInfo: GroupInfo,
@@ -196,7 +261,7 @@ private fun GroupContainer(
     onNavigateGallery: (eventId: Long) -> Unit,
 ) {
     Column(
-        modifier = modifier.noRippleClickable {
+        modifier = modifier.noRippleClickable(isSingleClick = true) {
             if (groupInfo.status != GroupStatusType.NO_PAST_AND_CURRENT_EVENT) {
                 onGroupDetailClick(groupInfo.id)
             }
@@ -240,6 +305,7 @@ private fun GroupContainer(
                     iconRes = iconResId,
                     isRippleClickable = true,
                     text = stringResource(textResId),
+                    isSingleClick = true,
                     isHaptic = ClickType.Fcm == clickType,
                     onButtonClicked = {
                         when (clickType) {
@@ -250,6 +316,17 @@ private fun GroupContainer(
                     },
                 )
             }
+
+        if (groupInfo.status == GroupStatusType.BEFORE_MY_UPLOAD) {
+            Text(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .align(Alignment.CenterHorizontally),
+                text = stringResource(id = R.string.group_home_pic_upload_description),
+                style = PicTypography.captionNormal12,
+                color = Gray60,
+            )
+        }
     }
 }
 
@@ -364,6 +441,7 @@ private fun FrontCardImage(
             model = imageUrl,
             contentScale = ContentScale.Crop,
             contentDescription = stringResource(R.string.group_main_picture),
+            placeholder = ColorPainter(Gray0),
         )
         StableImage(
             modifier = Modifier.aspectRatio(1f),
@@ -383,7 +461,9 @@ private fun BackCardImage(
 ) {
     val contentMaxHeight = LocalConfiguration.current.screenHeightDp.dp
     LazyVerticalGrid(
-        modifier = modifier.wrapContentSize().heightIn(max = contentMaxHeight),
+        modifier = modifier
+            .wrapContentSize()
+            .heightIn(max = contentMaxHeight),
         verticalArrangement = Arrangement.spacedBy(7.46.dp),
         horizontalArrangement = Arrangement.spacedBy(7.46.dp),
         columns = GridCells.Fixed(2),
@@ -419,7 +499,10 @@ private fun GroupFloatingButton(
         modifier = modifier,
         horizontalAlignment = Alignment.End,
     ) {
-        AnimatedVisibility(visible = isExpanded) {
+        AnimatedVisibility(
+            modifier = Modifier.shadow(5.dp, RoundedCornerShape(16.dp)),
+            visible = isExpanded,
+        ) {
             FloatingButtonContent(
                 modifier = Modifier
                     .background(
@@ -443,7 +526,7 @@ private fun GroupFloatingButton(
             onClick = { isExpanded = !isExpanded },
             shape = CircleShape,
             containerColor = if (isExpanded) Color.White else Gray80,
-            elevation = FloatingActionButtonDefaults.elevation(0.dp),
+            elevation = FloatingActionButtonDefaults.elevation(if (isExpanded) 5.dp else 0.dp),
         ) {
             StableImage(
                 modifier = Modifier
@@ -489,7 +572,7 @@ private fun FloatingItem(
     onClicked: () -> Unit,
 ) {
     Row(
-        modifier = modifier.noRippleClickable { onClicked() },
+        modifier = modifier.noRippleClickable(isSingleClick = true) { onClicked() },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         StableImage(
@@ -505,10 +588,11 @@ private fun FloatingItem(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun GroupHomeScreenPreview() {
     GroupHomeScreen(
+        modifier = Modifier,
         groupList = ImmutableList(
             listOf(
                 GroupInfo(
@@ -542,7 +626,7 @@ private fun GroupHomeScreenPreview() {
                         date = "2024.11.01",
                         deadline = "2024.11.01",
                     ),
-                    status = GroupStatusType.NO_PAST_AND_CURRENT_EVENT,
+                    status = GroupStatusType.BEFORE_MY_UPLOAD,
                 ),
                 GroupInfo(
                     id = 0,
@@ -645,6 +729,24 @@ private fun GroupHomeScreenPreview() {
                 ),
             ),
         ),
+        filterTagList = ImmutableList(
+            listOf(
+                FilterTag(
+                    "전체",
+                    null,
+                    Gray100,
+                    R.string.tag_total,
+                    false,
+                ),
+                FilterTag(
+                    "취미",
+                    R.drawable.sb_hobby,
+                    Malibu,
+                    R.string.tag_total,
+                    true,
+                ),
+            ),
+        ),
         onClickGroupDetail = {},
         onClickEventMake = {},
         onClickMyPage = {},
@@ -653,5 +755,6 @@ private fun GroupHomeScreenPreview() {
         onClickSendFcmButton = {},
         onNavigateGallery = {},
         onNavigateVote = {},
+        onClickFilterTag = {},
     )
 }

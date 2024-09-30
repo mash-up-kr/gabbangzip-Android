@@ -101,7 +101,7 @@ fun GroupCreationIntroScreen(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(top = 12.dp, start = 21.dp, end = 21.dp, bottom = 16.dp),
-            text = stringResource(id = R.string.group_creation_button_name),
+            text = stringResource(id = R.string.four_group_creation_button_name),
             isRippleClickable = true,
             onButtonClicked = onClickNextButton,
         )

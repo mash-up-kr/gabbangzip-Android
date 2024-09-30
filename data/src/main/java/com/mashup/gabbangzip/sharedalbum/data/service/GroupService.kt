@@ -8,7 +8,9 @@ import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.EnterGroupRespo
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.GroupDataResponse
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.GroupDetailResponse
 import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.GroupMemberResponse
+import com.mashup.gabbangzip.sharedalbum.data.dto.response.group.GroupWithdrawResponse
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -36,4 +38,9 @@ interface GroupService {
     suspend fun enterGroupByCode(
         @Body enterGroupRequest: EnterGroupRequest,
     ): PicResponse<EnterGroupResponse>
+
+    @DELETE("api/v1/groups/{groupId}/join")
+    suspend fun withdrawGroup(
+        @Path(value = "groupId") groupId: Long,
+    ): PicResponse<GroupWithdrawResponse>
 }

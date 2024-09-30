@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -30,7 +31,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
-import com.mashup.gabbangzip.sharedalbum.presentation.theme.BlackAlpha50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0Alpha80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
@@ -87,7 +87,7 @@ private fun GroupCreationThumbnailScreen(
     openPhotoPicker: () -> Unit,
 ) {
     GroupCreationScaffold(
-        modifier = Modifier.noRippleClickable {
+        modifier = Modifier.noRippleClickable(isSingleClick = true) {
             if (modifyButtonEnabled) {
                 setModifyButtonEnabled(false)
             }
@@ -196,7 +196,7 @@ private fun ThumbnailCard(
                 modifier = Modifier
                     .matchParentSize()
                     .background(keyword.frameInnerColor)
-                    .rippleClickable(onClick = openPhotoPicker),
+                    .rippleClickable(onClick = openPhotoPicker, isSingleClick = true),
                 iconRes = R.drawable.ic_image_add,
                 iconContentDescription = R.string.group_add,
                 iconColor = Gray80,
@@ -205,17 +205,18 @@ private fun ThumbnailCard(
             AsyncImage(
                 modifier = Modifier
                     .matchParentSize()
-                    .rippleClickable(onClick = onThumbnailButtonClick),
+                    .rippleClickable(onClick = onThumbnailButtonClick, isSingleClick = true),
                 model = thumbnailUri,
                 contentDescription = stringResource(id = R.string.thumbnail_image),
                 contentScale = ContentScale.Crop,
+                placeholder = ColorPainter(Gray0),
             )
             if (modifyButtonEnabled) {
                 CardCoverIcon(
                     modifier = Modifier
                         .matchParentSize()
-                        .background(BlackAlpha50)
-                        .rippleClickable(onClick = openPhotoPicker),
+                        .background(Color.Black.copy(alpha = 0.5f))
+                        .rippleClickable(onClick = openPhotoPicker, isSingleClick = true),
                     iconRes = R.drawable.ic_image_modify,
                     iconContentDescription = R.string.group_modify,
                     iconColor = Gray0,

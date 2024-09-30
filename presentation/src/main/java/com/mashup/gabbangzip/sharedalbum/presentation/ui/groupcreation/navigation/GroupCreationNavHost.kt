@@ -32,6 +32,7 @@ fun GroupCreationNavHost(
     createGroup: () -> Unit,
     finishGroupCreation: () -> Unit,
     showSnackBarMessage: (type: PicSnackbarType, message: String) -> Unit,
+    onBackButtonClicked: () -> Unit,
 ) {
     NavHost(
         modifier = modifier,
@@ -46,7 +47,7 @@ fun GroupCreationNavHost(
         )
         groupCreationNameNavGraph(
             initialName = groupCreationUiState.name,
-            onBackButtonClicked = { navController.popBackStack() },
+            onBackButtonClicked = onBackButtonClicked,
             onNextButtonClicked = { name ->
                 navController.navigateToGroupCreationKeyword()
                 updateName(name)
@@ -54,7 +55,7 @@ fun GroupCreationNavHost(
         )
         groupCreationKeywordNavGraph(
             initialKeyword = groupCreationUiState.keyword,
-            onBackButtonClicked = { navController.popBackStack() },
+            onBackButtonClicked = onBackButtonClicked,
             onNextButtonClicked = { keyword ->
                 navController.navigateToGroupCreationThumbnail()
                 updateKeyword(keyword)
@@ -62,7 +63,7 @@ fun GroupCreationNavHost(
         )
         groupCreationThumbnailNavGraph(
             state = groupCreationUiState,
-            onBackButtonClicked = { navController.popBackStack() },
+            onBackButtonClicked = onBackButtonClicked,
             onNextButtonClicked = createGroup,
             onGetThumbnailButtonClicked = onGetThumbnailButtonClicked,
             navigateNextScreen = { navController.navigateToGroupCreationComplete() },

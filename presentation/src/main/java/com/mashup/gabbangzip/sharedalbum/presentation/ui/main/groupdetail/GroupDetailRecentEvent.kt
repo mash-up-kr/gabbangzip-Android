@@ -1,7 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail
 
 import android.graphics.Bitmap
-import android.graphics.Picture
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +13,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -43,8 +42,9 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupStatusType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.PicPhotoFrame
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.captureIntoCanvas
-import com.mashup.gabbangzip.sharedalbum.presentation.utils.createBitmap
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.capturable
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.rememberCaptureController
+import kotlinx.coroutines.launch
 
 @Composable
 fun RecentEventContainer(
@@ -148,8 +148,8 @@ private fun PhotoCardWithShareButton(
     images: ImmutableList<CardBackImage>,
     onClickShareButton: (Bitmap) -> Unit,
 ) {
-    val picture = remember { Picture() }
-
+    val captureController = rememberCaptureController()
+    val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -161,7 +161,7 @@ private fun PhotoCardWithShareButton(
                     start = 41.5.dp,
                     end = 41.5.dp,
                 )
-                .captureIntoCanvas(picture),
+                .capturable(captureController),
             keyword = keyword,
             date = date,
             title = title,
@@ -170,9 +170,12 @@ private fun PhotoCardWithShareButton(
         PicNormalButton(
             modifier = Modifier.padding(top = 32.dp),
             iconRes = R.drawable.ic_share,
+            isSingleClick = true,
             onButtonClicked = {
-                val bitmap = picture.createBitmap()
-                onClickShareButton(bitmap)
+                coroutineScope.launch {
+                    val bitmap = captureController.captureAsync().await()
+                    onClickShareButton(bitmap)
+                }
             },
         )
     }
@@ -186,7 +189,7 @@ private fun PhotoCard(
     title: String,
     images: ImmutableList<CardBackImage>,
 ) {
-    val maxHeight = LocalConfiguration.current.screenHeightDp.dp.div(2)
+    val maxHeight = LocalConfiguration.current.screenHeightDp.dp
 
     Box(
         modifier = modifier
@@ -277,6 +280,7 @@ private fun RecentEventBottomSection(
             }.orEmpty(),
             isRippleClickable = true,
             isHaptic = R.drawable.ic_group_notice == buttonState.iconResId,
+            isSingleClick = true,
             iconRes = buttonState.iconResId,
             onButtonClicked = onClickActionButton,
         )

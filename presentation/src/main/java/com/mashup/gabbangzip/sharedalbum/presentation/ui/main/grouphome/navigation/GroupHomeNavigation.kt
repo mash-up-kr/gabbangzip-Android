@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -12,6 +13,7 @@ fun NavController.navigateGroupHome() {
 }
 
 fun NavGraphBuilder.groupHomeNavGraph(
+    innerPadding: PaddingValues,
     navigateToGroupCreationAndFinish: () -> Unit,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
@@ -25,6 +27,7 @@ fun NavGraphBuilder.groupHomeNavGraph(
 ) {
     composable(route = MainRoute.GroupHomeRoute.route) {
         GroupHomeScreen(
+            innerPadding = innerPadding,
             navigateToGroupCreationAndFinish = navigateToGroupCreationAndFinish,
             onClickGroupDetail = onClickGroupDetail,
             onClickEventMake = onClickEventMake,

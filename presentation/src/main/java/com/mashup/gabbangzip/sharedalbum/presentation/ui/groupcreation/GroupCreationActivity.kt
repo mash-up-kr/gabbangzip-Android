@@ -33,6 +33,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.invitation.InvitationCo
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.FileUtil
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.PicPhotoPicker
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.canNavigateBack
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,6 +56,7 @@ class GroupCreationActivity : ComponentActivity() {
         setContent {
             val snackbarHostState = remember { SnackbarHostState() }
             val groupCreationState by viewModel.uiState.collectAsStateWithLifecycle()
+            val navController = rememberNavController()
             SharedAlbumTheme {
                 Scaffold(
                     snackbarHost = {
@@ -67,7 +69,7 @@ class GroupCreationActivity : ComponentActivity() {
                             .padding(contentPadding)
                             .consumeWindowInsets(contentPadding)
                             .systemBarsPadding(),
-                        navController = rememberNavController(),
+                        navController = navController,
                         startDestination = GroupCreationRoute.initRoute,
                         groupCreationUiState = groupCreationState,
                         navigateToInvitationCode = {
@@ -100,6 +102,13 @@ class GroupCreationActivity : ComponentActivity() {
                         },
                         showSnackBarMessage = { type: PicSnackbarType, message: String ->
                             viewModel.showSnackBar(type, message)
+                        },
+                        onBackButtonClicked = {
+                            if (navController.canNavigateBack()) {
+                                navController.popBackStack()
+                            } else {
+                                finish()
+                            }
                         },
                     )
                 }

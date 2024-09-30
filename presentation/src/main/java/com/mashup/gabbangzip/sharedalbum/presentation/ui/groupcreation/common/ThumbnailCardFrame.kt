@@ -45,8 +45,8 @@ fun ThumbnailCardFrame(
             text = stringResource(id = keyword.tagNameResId),
             iconRes = keyword.symbolResId,
             iconColor = keyword.symbolColor,
-            backgroundColor = Gray80,
             textColor = Gray0,
+            backgroundColor = Gray80,
         )
         Text(
             modifier = Modifier

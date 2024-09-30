@@ -43,6 +43,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray40
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicLoadingIndicator
@@ -220,9 +221,10 @@ private fun CancelVoteButton(
     Icon(
         modifier = modifier
             .size(24.dp)
-            .noRippleClickable { onCancelVote() },
+            .noRippleClickable(isSingleClick = true) { onCancelVote() },
         imageVector = Icons.Default.Close,
         contentDescription = stringResource(R.string.cancel_icon),
+        tint = Gray80,
     )
 }
 
@@ -244,6 +246,7 @@ private fun UserProfile(
             modifier = Modifier.padding(top = 4.dp),
             text = stringResource(R.string.vote_user_name, userInfo.name),
             style = PicTypography.headBold18,
+            color = Gray80,
         )
     }
 }

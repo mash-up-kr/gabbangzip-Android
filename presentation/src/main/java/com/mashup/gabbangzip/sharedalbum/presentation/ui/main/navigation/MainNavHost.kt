@@ -3,6 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation
 import android.content.Intent
 import android.graphics.Bitmap
 import android.provider.Settings
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,6 +26,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.vote.VoteActivity
 @Composable
 fun MainNavHost(
     modifier: Modifier = Modifier,
+    innerPadding: PaddingValues,
     navController: NavHostController,
     startDestination: String,
     navigateLoginAndFinish: () -> Unit,
@@ -33,6 +35,7 @@ fun MainNavHost(
     onClickSendFcmButton: (eventId: Long) -> Unit,
     onClickShareButton: (Bitmap) -> Unit,
     onSnackbarRequired: (PicSnackbarType, String) -> Unit,
+    onClickBackButton: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -42,6 +45,7 @@ fun MainNavHost(
         startDestination = startDestination,
     ) {
         groupHomeNavGraph(
+            innerPadding = innerPadding,
             navigateToGroupCreationAndFinish = navigateToGroupCreationAndFinish,
             onClickGroupDetail = { id -> navController.navigateGroupDetail(id) },
             onClickMyPage = { navController.navigateMyPage() },
@@ -54,10 +58,11 @@ fun MainNavHost(
             onShowSnackbar = onSnackbarRequired,
         )
         groupDetailNavGraph(
+            innerPadding = innerPadding,
             onClickGroupMemberButton = { id, keyword ->
                 navController.navigateGroupMember(id, keyword)
             },
-            onClickBackButton = { navController.popBackStack() },
+            onClickBackButton = onClickBackButton,
             onClickOpenPhotoPickerButton = onClickOpenPhotoPickerButton,
             onClickSendFcmButton = onClickSendFcmButton,
             onClickVoteButton = { eventId -> VoteActivity.openActivity(context, eventId) },
@@ -69,11 +74,13 @@ fun MainNavHost(
             onShowSnackbar = onSnackbarRequired,
         )
         groupMemberNavGraph(
-            onClickBackButton = { navController.popBackStack() },
+            innerPadding = innerPadding,
+            onClickBackButton = onClickBackButton,
             onShowSnackbar = onSnackbarRequired,
         )
         myPageNavGraph(
-            onClickBack = { navController.popBackStack() },
+            innerPadding = innerPadding,
+            onClickBack = onClickBackButton,
             onClickNotificationSetting = {
                 context.startActivity(
                     Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {

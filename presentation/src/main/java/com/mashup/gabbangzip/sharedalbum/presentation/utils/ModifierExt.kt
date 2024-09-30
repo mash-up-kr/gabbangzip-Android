@@ -15,15 +15,17 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
 
 fun Modifier.rippleClickable(
+    isSingleClick: Boolean = false,
     enabled: Boolean = true,
     isHaptic: Boolean = false,
     onClickLabel: String? = null,
     role: Role? = null,
     onClick: () -> Unit,
 ): Modifier = composed {
-    this then singleClickable(
+    this then clickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = rememberRipple(),
+        isSingleClick = isSingleClick,
         enabled = enabled,
         isHaptic = isHaptic,
         onClickLabel = onClickLabel,
@@ -33,29 +35,32 @@ fun Modifier.rippleClickable(
 }
 
 fun Modifier.noRippleClickable(
+    isSingleClick: Boolean = false,
     enabled: Boolean = true,
     isHaptic: Boolean = false,
     onClickLabel: String? = null,
     role: Role? = null,
     onClick: () -> Unit,
 ): Modifier = composed {
-    this then singleClickable(
+    this then clickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = null,
-        onClick = onClick,
+        isSingleClick = isSingleClick,
         enabled = enabled,
         isHaptic = isHaptic,
         onClickLabel = onClickLabel,
         role = role,
+        onClick = onClick,
     )
 }
 
-private fun Modifier.singleClickable(
+private fun Modifier.clickable(
     interactionSource: MutableInteractionSource,
     indication: Indication?,
     onClick: () -> Unit,
-    isHaptic: Boolean,
+    isSingleClick: Boolean = false,
     enabled: Boolean = true,
+    isHaptic: Boolean = false,
     onClickLabel: String? = null,
     role: Role? = null,
     debounceMillis: Long = 300L,
@@ -72,7 +77,12 @@ private fun Modifier.singleClickable(
                 if (isHaptic) {
                     hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
                 }
-                manager.processEvent { onClick() }
+
+                if (isSingleClick) {
+                    manager.processEvent(onClick)
+                } else {
+                    onClick()
+                }
             },
         )
     }

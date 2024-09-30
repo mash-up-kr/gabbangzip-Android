@@ -127,7 +127,7 @@ private fun EventHistoryItemContainer(
 ) {
     Column(
         modifier = modifier
-            .noRippleClickable {
+            .noRippleClickable(isSingleClick = true) {
                 onClickHistoryItem(item)
             },
     ) {
