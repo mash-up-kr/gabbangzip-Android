@@ -17,6 +17,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.Histor
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation.groupDetailNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupdetail.navigation.navigateGroupDetail
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.navigation.groupHomeNavGraph
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.navigation.navigateGroupHome
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.navigation.groupMemberNavGraph
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.navigation.navigateGroupMember
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.mypage.navigation.myPageNavGraph
@@ -77,6 +78,7 @@ fun MainNavHost(
             innerPadding = innerPadding,
             onClickBackButton = onClickBackButton,
             onShowSnackbar = onSnackbarRequired,
+            navigateToGroupHome = { navController.navigateGroupHome() },
         )
         myPageNavGraph(
             innerPadding = innerPadding,
