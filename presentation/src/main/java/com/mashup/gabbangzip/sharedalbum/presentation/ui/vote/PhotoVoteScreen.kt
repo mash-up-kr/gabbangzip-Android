@@ -311,7 +311,7 @@ private fun PhotoCardContent(
 }
 
 @Composable
-fun VoteGuideContainer(modifier: Modifier, onClickCancel: () -> Unit) {
+private fun VoteGuideContainer(modifier: Modifier, onClickCancel: () -> Unit) {
     Box(modifier = modifier) {
         StableImage(
             modifier = Modifier
@@ -402,7 +402,7 @@ private enum class VoteGuide(
 
 @Preview
 @Composable
-fun VoteGuideContainerPreview() {
+private fun VoteGuideContainerPreview() {
     VoteGuideContainer(
         modifier = Modifier.fillMaxSize(),
         onClickCancel = {},
@@ -411,7 +411,7 @@ fun VoteGuideContainerPreview() {
 
 @Preview
 @Composable
-fun VoteGuideContentPreview() {
+private fun VoteGuideContentPreview() {
     VoteGuideContent(
         modifier = Modifier,
         voteGuide = VoteGuide.LIKE,
