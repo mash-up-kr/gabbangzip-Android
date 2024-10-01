@@ -48,7 +48,7 @@ fun GroupMemberScreen(
     viewModel: GroupMemberViewModel = hiltViewModel(),
 ) {
     val clipboardManager = LocalClipboardManager.current
-    val copyLinkMessage = stringResource(id = R.string.button_copy_link_message)
+    val copyLinkMessage = stringResource(id = R.string.button_copy_code_message)
     val invitationMessage = stringResource(id = R.string.invitation_message)
     val playStoreUrl = stringResource(id = R.string.play_store_url)
     val appStoreUrl = stringResource(id = R.string.app_store_url)

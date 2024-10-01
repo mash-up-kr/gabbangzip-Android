@@ -78,7 +78,7 @@
     <string name="group_member_list_title">그룹원</string>
     <string name="group_add_more_member">그룹원을 추가하고 싶으세요?</string>
     <string name="group_maximum_count">그룹 최대 인원은 6명이에요.</string>
-    <string name="button_copy_link">초대코드 복사</string>
+    <string name="button_copy_link">코드 복사</string>
     <string name="vote_icon">투표 아이콘</string>
     <string name="vote_dislike_desc">싫어요</string>
     <string name="vote_like_desc">좋아요</string>
@@ -86,7 +86,7 @@
     <string name="vote_dialog_content">페이지를 나가면\n처음부터 다시 투표 하게돼요.</string>
     <string name="vote_dialog_exit">나가기</string>
     <string name="vote_dialog_keep_vote">계속 투표하기</string>
-    <string name="button_copy_link_message">링크를 복사했어요.</string>
+    <string name="button_copy_code_message">코드를 복사했어요.</string>
 
     <string name="group_add_description">그룹의 대표 사진을 추가해 주세요</string>
     <string name="group_add">이미지 추가</string>
