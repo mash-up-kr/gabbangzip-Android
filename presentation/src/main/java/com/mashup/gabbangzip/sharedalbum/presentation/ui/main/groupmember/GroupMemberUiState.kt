@@ -10,6 +10,7 @@ data class GroupMemberUiState(
     val members: ImmutableList<Member> = ImmutableList(emptyList()),
     val invitationCode: String = "",
     @StringRes val errorMessage: Int? = null,
+    val isLoading: Boolean = false,
 ) {
     val isFull: Boolean = members.size == 6
 }

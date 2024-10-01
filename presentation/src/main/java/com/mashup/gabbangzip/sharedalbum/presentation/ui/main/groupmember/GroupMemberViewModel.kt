@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.MemberDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupMembersUseCase
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.WithdrawGroupUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
@@ -22,6 +23,7 @@ import javax.inject.Inject
 class GroupMemberViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getGroupMembersUseCase: GetGroupMembersUseCase,
+    private val withdrawGroupUseCase: WithdrawGroupUseCase,
 ) : ViewModel() {
     private val groupId = savedStateHandle.get<Long>(MainRoute.GroupDetailRoute.KEY_GROUP_ID)
     private val keyword =
@@ -65,5 +67,37 @@ class GroupMemberViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    fun withdrawGroup(onSuccess: () -> Unit) {
+        updateLoadingState(isLoading = true)
+        viewModelScope.launch {
+            if (groupId != null) {
+                withdrawGroupUseCase(groupId)
+                    .onSuccess {
+                        updateLoadingState(isLoading = false)
+                        onSuccess()
+                    }
+                    .onFailure {
+                        _state.update {
+                            it.copy(
+                                isLoading = false,
+                                errorMessage = R.string.error_retry,
+                            )
+                        }
+                    }
+            } else {
+                _state.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = R.string.error_retry,
+                    )
+                }
+            }
+        }
+    }
+
+    private fun updateLoadingState(isLoading: Boolean) {
+        _state.update { it.copy(isLoading = isLoading) }
     }
 }
