@@ -78,7 +78,7 @@
     <string name="group_member_list_title">그룹원</string>
     <string name="group_add_more_member">그룹원을 추가하고 싶으세요?</string>
     <string name="group_maximum_count">그룹 최대 인원은 6명이에요.</string>
-    <string name="button_copy_link">초대코드 복사</string>
+    <string name="button_copy_link">코드 복사</string>
     <string name="vote_icon">투표 아이콘</string>
     <string name="vote_dislike_desc">싫어요</string>
     <string name="vote_like_desc">좋아요</string>
