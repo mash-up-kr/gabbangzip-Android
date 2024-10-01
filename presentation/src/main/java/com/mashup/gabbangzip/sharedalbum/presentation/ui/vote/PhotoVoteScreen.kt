@@ -3,18 +3,19 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.vote
 import androidx.activity.compose.BackHandler
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -22,7 +23,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -32,11 +32,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
@@ -58,7 +58,6 @@ import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.abs
 
 @Composable
 fun PhotoVoteScreen(
@@ -72,6 +71,8 @@ fun PhotoVoteScreen(
     onSwipeFinish: () -> Unit,
     onUploadPicture: (Boolean) -> Unit,
 ) {
+    var isVoteGuideVisible by remember { mutableStateOf(state.isFirstVisit) }
+
     BackHandler {
         onCancelVote()
     }
@@ -130,8 +131,11 @@ fun PhotoVoteScreen(
             onVoteClick = onVoteClick,
         )
 
-        if (state.isFirstVisit) {
-            VoteGuideContainer(modifier = Modifier.fillMaxSize())
+        if (isVoteGuideVisible) {
+            VoteGuideContainer(
+                modifier = Modifier.fillMaxSize(),
+                onClickCancel = { isVoteGuideVisible = false },
+            )
         }
     }
     PicLoadingIndicator(
@@ -307,21 +311,43 @@ private fun PhotoCardContent(
 }
 
 @Composable
-fun VoteGuideContainer(modifier: Modifier) {
-    var voteGuideState by remember { mutableStateOf(VoteGuide.LIKE) }
-    when (voteGuideState) {
-        VoteGuide.LIKE -> {
+private fun VoteGuideContainer(modifier: Modifier, onClickCancel: () -> Unit) {
+    Box(modifier = modifier) {
+        StableImage(
+            modifier = Modifier
+                .padding(top = 27.dp, end = 16.dp)
+                .size(26.dp)
+                .align(Alignment.TopEnd),
+            drawableResId = R.drawable.ic_cancel,
+            contentDescription = stringResource(id = R.string.cancel),
+            colorFilter = ColorFilter.tint(Gray0),
+        )
+        Column(
+            modifier = modifier
+                .background(color = Color.Black.copy(alpha = 0.4f))
+                .noRippleClickable(onClick = onClickCancel),
+        ) {
             VoteGuideContent(
-                modifier = modifier,
-                voteGuide = voteGuideState,
-                onGuideFinish = {
-                    voteGuideState = VoteGuide.DISLIKE
-                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                voteGuide = VoteGuide.DISLIKE,
+                verticalPadding = 15.dp,
+                contentAlignment = Alignment.BottomCenter,
             )
-        }
-
-        VoteGuide.DISLIKE -> {
-            VoteGuideContent(modifier = modifier, voteGuideState)
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(57.dp),
+            )
+            VoteGuideContent(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                voteGuide = VoteGuide.LIKE,
+                verticalPadding = 13.dp,
+                contentAlignment = Alignment.TopCenter,
+            )
         }
     }
 }
@@ -330,55 +356,28 @@ fun VoteGuideContainer(modifier: Modifier) {
 private fun VoteGuideContent(
     modifier: Modifier,
     voteGuide: VoteGuide,
-    onGuideFinish: () -> Unit = {},
+    verticalPadding: Dp,
+    contentAlignment: Alignment,
 ) {
-    var offset by remember { mutableFloatStateOf(0f) }
-    var alpha by remember { mutableFloatStateOf(1f) }
-    var isVisible by remember { mutableStateOf(true) }
-
-    if (isVisible) {
-        Box(modifier = modifier.background(color = Color.Black.copy(alpha = 0.4f))) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .align(Alignment.Center)
-                    .pointerInput(Unit) {
-                        detectHorizontalDragGestures { _, dragAmount ->
-                            val direction =
-                                if (dragAmount > 0) VoteGuide.LIKE else VoteGuide.DISLIKE
-
-                            if (direction == voteGuide) {
-                                offset += dragAmount
-                                alpha = (1f - abs(offset) / 150f).coerceIn(0f, 1f)
-
-                                isVisible = if (alpha <= 0.1f) {
-                                    onGuideFinish()
-                                    false
-                                } else {
-                                    true
-                                }
-                            }
-                        }
-                    }
-                    .graphicsLayer(
-                        translationX = offset,
-                        alpha = alpha,
-                    )
-                    .animateContentSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    textAlign = TextAlign.Center,
-                    color = Gray0,
-                    text = stringResource(id = voteGuide.textResId),
-                    style = PicTypography.headBold16,
-                )
-                StableImage(
-                    drawableResId = voteGuide.imageResId,
-                    contentDescription = stringResource(id = voteGuide.imageDescResId),
-                )
-            }
+    Box(
+        modifier = modifier,
+        contentAlignment = contentAlignment,
+    ) {
+        Column(
+            modifier = Modifier.wrapContentSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(verticalPadding),
+        ) {
+            Text(
+                textAlign = TextAlign.Center,
+                color = Gray0,
+                text = stringResource(id = voteGuide.textResId),
+                style = PicTypography.headBold16,
+            )
+            StableImage(
+                drawableResId = voteGuide.imageResId,
+                contentDescription = stringResource(id = voteGuide.imageDescResId),
+            )
         }
     }
 }
@@ -399,4 +398,24 @@ private enum class VoteGuide(
         textResId = R.string.guide_like_title,
         imageDescResId = R.string.guide_like_desc,
     ),
+}
+
+@Preview
+@Composable
+private fun VoteGuideContainerPreview() {
+    VoteGuideContainer(
+        modifier = Modifier.fillMaxSize(),
+        onClickCancel = {},
+    )
+}
+
+@Preview
+@Composable
+private fun VoteGuideContentPreview() {
+    VoteGuideContent(
+        modifier = Modifier,
+        voteGuide = VoteGuide.LIKE,
+        verticalPadding = 15.dp,
+        contentAlignment = Alignment.Center,
+    )
 }
