@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -67,9 +66,11 @@ fun LoginScreen(onClickLoginButton: () -> Unit) {
             textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.weight(0.4f))
-        PicIntroLottie(modifier = Modifier
-            .fillMaxWidth(0.6f)
-            .aspectRatio(1f))
+        PicIntroLottie(
+            modifier = Modifier
+                .fillMaxWidth(0.6f)
+                .aspectRatio(1f),
+        )
         Spacer(modifier = Modifier.weight(1f))
         KakaoLoginButton(
             modifier = Modifier
