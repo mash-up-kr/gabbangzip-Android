@@ -78,7 +78,9 @@ fun MainNavHost(
             innerPadding = innerPadding,
             onClickBackButton = onClickBackButton,
             onShowSnackbar = onSnackbarRequired,
-            navigateToGroupHome = { navController.navigateGroupHome() },
+            navigateToGroupHome = {
+                navController.navigateGroupHome()
+            },
         )
         myPageNavGraph(
             innerPadding = innerPadding,

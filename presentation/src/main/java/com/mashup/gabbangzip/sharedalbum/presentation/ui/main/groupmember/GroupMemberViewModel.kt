@@ -3,6 +3,7 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mashup.gabbangzip.sharedalbum.domain.base.PicException
 import com.mashup.gabbangzip.sharedalbum.domain.model.group.MemberDomainModel
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupMembersUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.WithdrawGroupUseCase
@@ -12,11 +13,12 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRou
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,6 +38,9 @@ class GroupMemberViewModel @Inject constructor(
     )
     val state = _state.asStateFlow()
 
+    private val _event: MutableSharedFlow<GroupMemberEvent> = MutableSharedFlow()
+    val event = _event.asSharedFlow()
+
     init {
         if (groupId != null) {
             getGroupMembers(groupId)
@@ -43,9 +48,11 @@ class GroupMemberViewModel @Inject constructor(
     }
 
     private fun getGroupMembers(groupId: Long) {
+        updateLoadingState(isLoading = true)
         viewModelScope.launch {
             getGroupMembersUseCase(groupId)
                 .onSuccess { response ->
+                    updateLoadingState(isLoading = false)
                     _state.update { state ->
                         state.copy(
                             members = ImmutableList(
@@ -56,48 +63,45 @@ class GroupMemberViewModel @Inject constructor(
                             invitationCode = response.invitationCode,
                         )
                     }
-                }.onFailure {
-                    _state.update { state ->
-                        state.copy(
-                            errorMessage = when (it) {
-                                is UnknownHostException -> R.string.error_network
-                                else -> R.string.error_server
-                            },
-                        )
-                    }
+                }.onFailure { e ->
+                    updateLoadingState(isLoading = false)
+                    updateEvent(GroupMemberEvent.FailureWithdrawGroup(mapErrorMessageRes(e)))
                 }
         }
     }
 
     fun withdrawGroup(onSuccess: () -> Unit) {
         updateLoadingState(isLoading = true)
-        viewModelScope.launch {
-            if (groupId != null) {
+        groupId?.let {
+            viewModelScope.launch {
                 withdrawGroupUseCase(groupId)
                     .onSuccess {
                         updateLoadingState(isLoading = false)
                         onSuccess()
+                    }.onFailure { e ->
+                        updateLoadingState(isLoading = false)
+                        updateEvent(GroupMemberEvent.FailureWithdrawGroup(mapErrorMessageRes(e)))
                     }
-                    .onFailure {
-                        _state.update {
-                            it.copy(
-                                isLoading = false,
-                                errorMessage = R.string.error_retry,
-                            )
-                        }
-                    }
-            } else {
-                _state.update {
-                    it.copy(
-                        isLoading = false,
-                        errorMessage = R.string.error_retry,
-                    )
-                }
             }
+        } ?: {
+            updateLoadingState(isLoading = false)
+            updateEvent(GroupMemberEvent.FailureWithdrawGroup(R.string.error_retry))
         }
     }
 
     private fun updateLoadingState(isLoading: Boolean) {
         _state.update { it.copy(isLoading = isLoading) }
+    }
+
+    private fun updateEvent(event: GroupMemberEvent) {
+        viewModelScope.launch { _event.emit(event) }
+    }
+
+    private fun mapErrorMessageRes(e: Throwable): Int {
+        return when (e) {
+            is PicException.UnknownException -> R.string.error_network
+            is PicException.NoWithdrawGroupException -> R.string.group_withdraw_failure
+            else -> R.string.error_server
+        }
     }
 }

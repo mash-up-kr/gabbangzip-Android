@@ -83,6 +83,7 @@ class EventCreationViewModel @Inject constructor(
     }
 
     private fun createEvent(description: String, fileList: List<File>) {
+        updateLoadingState(isLoading = true)
         uiState.value.date?.let { date ->
             viewModelScope.launch {
                 createEventUseCase(

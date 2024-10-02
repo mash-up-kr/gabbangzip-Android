@@ -9,8 +9,11 @@ data class GroupMemberUiState(
     val keyWord: GroupKeyword = GroupKeyword.SCHOOL,
     val members: ImmutableList<Member> = ImmutableList(emptyList()),
     val invitationCode: String = "",
-    @StringRes val errorMessage: Int? = null,
     val isLoading: Boolean = false,
 ) {
     val isFull: Boolean = members.size == 6
+}
+
+sealed interface GroupMemberEvent {
+    data class FailureWithdrawGroup(@StringRes val message: Int) : GroupMemberEvent
 }
