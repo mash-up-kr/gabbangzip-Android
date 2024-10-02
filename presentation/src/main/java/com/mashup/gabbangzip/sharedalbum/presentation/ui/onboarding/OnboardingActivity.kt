@@ -14,11 +14,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
+import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.invitation.InvitationCodeViewModel
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class OnboardingActivity : ComponentActivity() {
+    private val viewModel by viewModels<OnboardingViewModel>()
+    private val pageResourceIdList = listOf(
+        R.drawable.onboarding_1,
+        R.drawable.onboarding_2,
+        R.drawable.onboarding_3,
+        R.drawable.onboarding_4,
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(
@@ -31,7 +42,13 @@ class OnboardingActivity : ComponentActivity() {
             SharedAlbumTheme {
                 Scaffold { contentPadding ->
                     Box(modifier = Modifier.padding(contentPadding)) {
-                        Text(text = "hello world")
+                        OnboardingScreen(
+                            pageResourceIdList = pageResourceIdList,
+                            onClickStart = {
+                                viewModel.saveIsNotFirstOpen()
+                                LoginActivity.openActivity(this@OnboardingActivity)
+                            },
+                        )
                     }
                 }
             }
