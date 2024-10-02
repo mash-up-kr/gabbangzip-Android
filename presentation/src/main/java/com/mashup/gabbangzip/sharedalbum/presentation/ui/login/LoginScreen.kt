@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -65,7 +66,11 @@ fun LoginScreen(onClickLoginButton: () -> Unit) {
             textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.weight(0.4f))
-        PicIntroLottie()
+        PicIntroLottie(
+            modifier = Modifier
+                .fillMaxWidth(0.6f)
+                .aspectRatio(1f),
+        )
         Spacer(modifier = Modifier.weight(1f))
         KakaoLoginButton(
             modifier = Modifier
@@ -85,7 +90,10 @@ fun PicIntroLottie(
     )
 
     Box(modifier = modifier) {
-        LottieAnimation(composition)
+        LottieAnimation(
+            modifier = Modifier.fillMaxSize(),
+            composition = composition,
+        )
     }
 }
 
