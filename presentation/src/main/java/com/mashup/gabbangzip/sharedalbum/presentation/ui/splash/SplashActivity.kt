@@ -22,6 +22,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.SharedAlbumTheme
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.login.LoginActivity
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.MainActivity
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.onboarding.OnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,18 +56,20 @@ class SplashActivity : ComponentActivity() {
                     SplashScreen()
                 }
 
-                when (state.isUserLoggedIn) {
-                    true -> {
+                when {
+                    state.isFirstOpen == true -> {
+                        OnboardingActivity.openActivity(this)
+                        finish()
+                    }
+                    state.isFirstOpen == false && state.isUserLoggedIn == true -> {
                         MainActivity.openActivity(this)
                         finish()
                     }
-
-                    false -> {
+                    state.isFirstOpen == false && state.isUserLoggedIn == false -> {
                         LoginActivity.openActivity(this)
                         finish()
                     }
-
-                    else -> {}
+                    else -> Unit // isFirstOpen, isUserLoggedIn 업데이트를 기다리기
                 }
             }
         }
