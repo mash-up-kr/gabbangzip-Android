@@ -9,7 +9,11 @@ import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.GroupHom
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.navigation.MainRoute
 
 fun NavController.navigateGroupHome() {
-    navigate(MainRoute.GroupHomeRoute.route)
+    navigate(MainRoute.GroupHomeRoute.route) {
+        popUpTo(graph.startDestinationId) {
+            inclusive = true
+        }
+    }
 }
 
 fun NavGraphBuilder.groupHomeNavGraph(
