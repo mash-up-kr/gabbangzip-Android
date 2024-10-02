@@ -13,4 +13,6 @@ interface LocalDataSource {
     fun removeUserInfo()
     fun saveVoteFirstVisit(isFirstVisit: Boolean)
     fun getVoteFirstVisit(): Boolean
+    fun saveIsFirstOpen(isFirstOpen: Boolean)
+    fun getIsFirstOpen(): Boolean
 }
