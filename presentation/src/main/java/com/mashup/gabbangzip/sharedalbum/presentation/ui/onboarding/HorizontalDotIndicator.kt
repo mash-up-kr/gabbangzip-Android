@@ -23,12 +23,12 @@ fun HorizontalDotIndicator(
     unselectedColor: Color,
     @IntRange(from = 1) totalPage: Int,
     @IntRange(from = 1) currentPage: Int,
-    paddingHorizontal: Dp,
+    indicatorSpacing: Dp,
 ) {
     Row {
         for (i in 1..totalPage) {
             CircleUi(
-                modifier = Modifier.padding(start = if (i > 1) paddingHorizontal else 0.dp),
+                modifier = Modifier.padding(start = if (i > 1) indicatorSpacing else 0.dp),
                 size = circleSize,
                 color = if (currentPage == i) selectedColor else unselectedColor,
             )
@@ -58,7 +58,7 @@ fun HorizontalDotIndicatorPreview() {
         unselectedColor = Gray50,
         totalPage = 4,
         currentPage = 2,
-        paddingHorizontal = 30.dp,
+        indicatorSpacing = 30.dp,
     )
 }
 

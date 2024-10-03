@@ -55,7 +55,7 @@ fun OnboardingScreen(
                 unselectedColor = Gray50,
                 totalPage = pagerState.pageCount,
                 currentPage = pagerState.currentPage + 1,
-                paddingHorizontal = 10.dp,
+                indicatorSpacing = 10.dp,
             )
             PicButton(
                 modifier = Modifier
