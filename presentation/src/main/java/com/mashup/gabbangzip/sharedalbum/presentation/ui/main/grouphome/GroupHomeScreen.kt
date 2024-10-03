@@ -53,7 +53,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -117,7 +116,7 @@ fun GroupHomeScreen(
                     .padding(innerPadding),
                 groupList = groupHomeUiState.groupList,
                 filterTagList = groupHomeUiState.filterTagList,
-                viewType = groupHomeUiState.viewType,
+                currentViewType = groupHomeUiState.viewType,
                 onClickGroupDetail = onClickGroupDetail,
                 onClickEventMake = onClickEventMake,
                 onClickMyPage = onClickMyPage,
@@ -149,7 +148,7 @@ fun GroupHomeScreen(
     modifier: Modifier,
     groupList: ImmutableList<GroupInfo>,
     filterTagList: ImmutableList<FilterTag>,
-    viewType: ViewType,
+    currentViewType: ViewType,
     onClickGroupDetail: (id: Long) -> Unit,
     onClickEventMake: (Long) -> Unit,
     onClickMyPage: () -> Unit,
@@ -203,7 +202,7 @@ fun GroupHomeScreen(
                     ViewTypeButton(
                         modifier = Modifier
                             .noRippleClickable {
-                                when (viewType) {
+                                when (currentViewType) {
                                     ViewType.List -> onClickViewType(ViewType.Grid)
                                     ViewType.Grid -> onClickViewType(ViewType.List)
                                 }
@@ -211,7 +210,7 @@ fun GroupHomeScreen(
                             .padding(top = 11.dp, bottom = 11.dp, end = 20.dp)
                             .wrapContentSize()
                             .align(Alignment.CenterEnd),
-                        currentViewType = viewType,
+                        currentViewType = currentViewType,
                     )
                 }
             }
@@ -224,7 +223,7 @@ fun GroupHomeScreen(
                     .background(Gray20),
             )
 
-            when (viewType) {
+            when (currentViewType) {
                 ViewType.List -> {
                     GroupContainerList(
                         groupList = groupList,
@@ -893,7 +892,7 @@ private fun GroupHomeScreenPreview() {
                 ),
             ),
         ),
-        viewType = ViewType.List,
+        currentViewType = ViewType.List,
         onClickGroupDetail = {},
         onClickEventMake = {},
         onClickMyPage = {},
