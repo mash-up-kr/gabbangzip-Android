@@ -37,6 +37,7 @@
     <string name="group_creation_button_description">초대 코드를 받으셨나요?\n코드를 입력해 바로 그룹에 들어갈 수 있어요.</string>
     <string name="group_creation_button_code">초대코드 입력하기</string>
     <string name="next">다음</string>
+    <string name="start">시작하기</string>
     <string name="group_creation_name_title">그룹의 이름은 무엇인가요?</string>
     <string name="group_creation_name_hint">최대 10자 까지 입력 가능해요.</string>
     <string name="group_creation_keyword_title">그룹의 키워드를 선택해 주세요</string>
@@ -143,6 +144,7 @@
     <string name="guide_like_desc">좋아요 가이드 이미지</string>
     <string name="guide_dislike_desc">싫어요 가이드 이미지</string>
     <string name="kook_snackbar">그룹원들을 쿡 찔렀어요!</string>
+    <string name="page_description">%d 페이지 온보딩 화면</string>
 
     <string name="group_withdraw">그룹 나가기</string>
     <string name="group_withdraw_dialog_title">그룹을 나가실건가요?</string>
