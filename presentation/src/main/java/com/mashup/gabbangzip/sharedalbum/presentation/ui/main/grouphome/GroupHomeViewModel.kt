@@ -6,6 +6,7 @@ import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupListUseCas
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.FilterTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.GroupHomeUiState
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.ViewType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toFilterTag
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.toUiModel
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
@@ -26,8 +27,12 @@ class GroupHomeViewModel @Inject constructor(
 ) : ViewModel() {
     private val groupUiState = getGroupListUseCase()
     private val selectedTagFlow = MutableStateFlow(FilterTag.getTotalFilter())
+    private val viewTypeFlow = MutableStateFlow(ViewType.List)
+    private val optionFlow = selectedTagFlow.combine(viewTypeFlow) { selectedTag, viewType ->
+        Pair(selectedTag, viewType)
+    }
 
-    val uiState = groupUiState.combine(selectedTagFlow) { groupList, selectedTag ->
+    val uiState = groupUiState.combine(optionFlow) { groupList, (selectedTag, viewType) ->
         if (groupList.isEmpty()) {
             GroupHomeUiState.NoGroup
         } else {
@@ -50,6 +55,7 @@ class GroupHomeViewModel @Inject constructor(
                             .toFilterTag(isSelected = it.keyword == selectedTag.name)
                     }.distinct(),
                 ),
+                viewType = viewType,
             )
         }
     }.catch {
@@ -70,6 +76,12 @@ class GroupHomeViewModel @Inject constructor(
     fun clickedFilterTag(filterTag: FilterTag) {
         viewModelScope.launch {
             selectedTagFlow.emit(filterTag)
+        }
+    }
+
+    fun clickedViewType(viewType: ViewType) {
+        viewModelScope.launch {
+            viewTypeFlow.emit(viewType)
         }
     }
 }
