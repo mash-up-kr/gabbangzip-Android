@@ -7,7 +7,7 @@ class GetIsFirstOpenUseCase @Inject constructor(
     private val configRepository: ConfigRepository,
 ) {
     suspend operator fun invoke(): Result<Boolean> {
-        return kotlin.runCatching {
+        return runCatching {
             configRepository.getIsFirstOpen()
         }
     }
