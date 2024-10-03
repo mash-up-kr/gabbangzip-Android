@@ -189,16 +189,29 @@ fun GroupHomeScreen(
                     modifier = Modifier
                         .width(100.dp)
                         .wrapContentHeight()
-                        .background(brush = Brush.linearGradient(listOf(Color.Transparent, Gray0, Gray0)))
+                        .background(
+                            brush = Brush.linearGradient(
+                                listOf(
+                                    Color.Transparent,
+                                    Gray0,
+                                    Gray0,
+                                ),
+                            ),
+                        )
                         .align(Alignment.CenterEnd),
                 ) {
                     ViewTypeButton(
                         modifier = Modifier
+                            .noRippleClickable {
+                                when (viewType) {
+                                    ViewType.List -> onClickViewType(ViewType.Grid)
+                                    ViewType.Grid -> onClickViewType(ViewType.List)
+                                }
+                            }
                             .padding(top = 11.dp, bottom = 11.dp, end = 20.dp)
                             .wrapContentSize()
                             .align(Alignment.CenterEnd),
                         currentViewType = viewType,
-                        onClickViewType = onClickViewType,
                     )
                 }
             }
@@ -224,7 +237,10 @@ fun GroupHomeScreen(
                 }
 
                 ViewType.Grid -> {
-                    // Todo : Grid 개발
+                    GroupContainerGrid(
+                        groupList = groupList,
+                        onClickGroupDetail = onClickGroupDetail,
+                    )
                 }
             }
         }
@@ -243,15 +259,9 @@ fun GroupHomeScreen(
 private fun ViewTypeButton(
     modifier: Modifier,
     currentViewType: ViewType,
-    onClickViewType: (ViewType) -> Unit,
 ) {
     StableImage(
-        modifier = modifier.noRippleClickable {
-            when (currentViewType) {
-                ViewType.List -> onClickViewType(ViewType.Grid)
-                ViewType.Grid -> onClickViewType(ViewType.List)
-            }
-        },
+        modifier = modifier,
         drawableResId = when (currentViewType) {
             ViewType.List -> R.drawable.align_grid
             ViewType.Grid -> R.drawable.align_list
@@ -309,8 +319,52 @@ private fun GroupContainerList(
 @Composable
 private fun GroupContainerGrid(
     groupList: ImmutableList<GroupInfo>,
+    onClickGroupDetail: (id: Long) -> Unit,
 ) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(vertical = 18.dp, horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(18.dp),
+        horizontalArrangement = Arrangement.spacedBy(21.dp),
+    ) {
+        items(items = groupList) { groupInfo ->
+            GroupContainerGridItem(
+                groupInfo = groupInfo,
+                onClickGroupDetail = onClickGroupDetail,
+            )
+        }
+    }
+}
 
+@Composable
+private fun GroupContainerGridItem(
+    groupInfo: GroupInfo,
+    onClickGroupDetail: (id: Long) -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .noRippleClickable { onClickGroupDetail(groupInfo.id) },
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        FrontCardImage(
+            modifier = Modifier.fillMaxSize(),
+            frameResId = groupInfo.frontImageFrame.frameResId,
+            imageUrl = groupInfo.cardFrontImageUrl,
+            backgroundColor = Gray0,
+        )
+        Text(
+            text = groupInfo.name,
+            style = PicTypography.headBold16,
+            color = Gray80,
+        )
+        GroupTag(
+            modifier = Modifier.fillMaxWidth(),
+            keyword = groupInfo.keyword,
+            statusDesc = groupInfo.statusDescription,
+        )
+    }
 }
 
 @Composable
