@@ -1,4 +1,4 @@
-package com.mashup.gabbangzip.sharedalbum.presentation.ui.onboarding
+package com.mashup.gabbangzip.sharedalbum.presentation.ui.common
 
 import androidx.annotation.IntRange
 import androidx.compose.foundation.background
@@ -17,7 +17,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 
 @Composable
-fun HorizontalDotIndicator(
+fun PicHorizontalDotIndicator(
     circleSize: Dp,
     selectedColor: Color,
     unselectedColor: Color,
@@ -52,7 +52,7 @@ private fun CircleUi(
 @Preview(showBackground = true)
 @Composable
 private fun HorizontalDotIndicatorPreview() {
-    HorizontalDotIndicator(
+    PicHorizontalDotIndicator(
         circleSize = 50.dp,
         selectedColor = Gray80,
         unselectedColor = Gray50,

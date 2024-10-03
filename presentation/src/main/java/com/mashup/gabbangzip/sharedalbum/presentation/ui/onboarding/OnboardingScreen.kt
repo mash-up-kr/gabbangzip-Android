@@ -19,6 +19,7 @@ import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray50
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicButton
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicHorizontalDotIndicator
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.StableImage
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -49,7 +50,7 @@ fun OnboardingScreen(
                 .align(Alignment.BottomCenter),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            HorizontalDotIndicator(
+            PicHorizontalDotIndicator(
                 circleSize = 8.dp,
                 selectedColor = Gray80,
                 unselectedColor = Gray50,
