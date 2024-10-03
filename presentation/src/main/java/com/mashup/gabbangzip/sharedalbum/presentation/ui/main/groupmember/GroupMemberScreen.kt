@@ -78,9 +78,7 @@ fun GroupMemberScreen(
             confirmText = stringResource(id = R.string.group_withdraw_dialog_dismiss),
             onDismiss = {
                 showExitDialog = false
-                viewModel.withdrawGroup(
-                    onSuccess = { navigateToGroupHome() },
-                )
+                viewModel.withdrawGroup()
             },
             onConfirm = { showExitDialog = false },
             onDismissRequest = { showExitDialog = false },
@@ -107,7 +105,7 @@ fun GroupMemberScreen(
     LaunchedEffect(null) {
         viewModel.event.collect {
             when (it) {
-                is GroupMemberEvent.SuccessWithdrawGroup -> Unit
+                is GroupMemberEvent.SuccessWithdrawGroup -> navigateToGroupHome()
                 is GroupMemberEvent.FailureWithdrawGroup -> {
                     onSnackbarRequired(PicSnackbarType.WARNING, getString(context, it.message))
                 }

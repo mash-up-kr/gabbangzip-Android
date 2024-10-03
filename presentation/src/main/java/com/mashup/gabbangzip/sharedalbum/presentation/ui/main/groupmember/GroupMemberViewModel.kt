@@ -70,14 +70,14 @@ class GroupMemberViewModel @Inject constructor(
         }
     }
 
-    fun withdrawGroup(onSuccess: () -> Unit) {
+    fun withdrawGroup() {
         updateLoadingState(isLoading = true)
         groupId?.let {
             viewModelScope.launch {
                 withdrawGroupUseCase(groupId)
                     .onSuccess {
                         updateLoadingState(isLoading = false)
-                        onSuccess()
+                        updateEvent(GroupMemberEvent.SuccessWithdrawGroup)
                     }.onFailure { e ->
                         updateLoadingState(isLoading = false)
                         updateEvent(GroupMemberEvent.FailureWithdrawGroup(mapErrorMessageRes(e)))
