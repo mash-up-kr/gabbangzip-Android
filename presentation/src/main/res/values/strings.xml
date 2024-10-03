@@ -147,6 +147,12 @@
     <string name="align_list">한줄로 보기</string>
     <string name="align_grid">두줄로 보기</string>
 
+    <string name="group_withdraw">그룹 나가기</string>
+    <string name="group_withdraw_dialog_title">그룹을 나가실건가요?</string>
+    <string name="group_withdraw_dialog_content">그룹을 나가면 함께 네컷을 만들 수 없어요.</string>
+    <string name="group_withdraw_dialog_dismiss">닫기</string>
+    <string name="group_withdraw_failure">네컷을 만드는 중이면 나갈 수 없어요</string>
+
     <string name="error_network">네트워크가 연결되어 있지 않습니다</string>
     <string name="error_server">서버가 원활하지 않습니다</string>
 </resources>

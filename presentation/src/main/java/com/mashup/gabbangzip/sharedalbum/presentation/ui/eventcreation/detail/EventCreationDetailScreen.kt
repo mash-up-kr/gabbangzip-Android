@@ -83,7 +83,7 @@ fun EventCreationDetailScreen(
                 onDismissButtonClicked()
             },
             onConfirm = { showExitDialog = false },
-            onDismissRequest = {},
+            onDismissRequest = { showExitDialog = false },
         )
     }
 

@@ -5,4 +5,5 @@ sealed class PicException : Throwable() {
     data object UnknownException : PicException()
     data object GroupOverflowException : PicException()
     data object InvalidGroupCodeException : PicException()
+    data object NoWithdrawGroupException : PicException()
 }

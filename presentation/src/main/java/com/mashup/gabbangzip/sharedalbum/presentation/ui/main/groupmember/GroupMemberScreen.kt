@@ -1,6 +1,7 @@
 package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -17,16 +18,24 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.getString
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mashup.gabbangzip.sharedalbum.presentation.R
@@ -34,28 +43,46 @@ import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.PicTypography
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicBackButtonTopBar
+import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicDialog
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.PicNormalButton
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.common.model.PicSnackbarType
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.groupmember.model.Member
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.model.GroupKeyword
 import com.mashup.gabbangzip.sharedalbum.presentation.utils.ImmutableList
+import com.mashup.gabbangzip.sharedalbum.presentation.utils.noRippleClickable
 
 @Composable
 fun GroupMemberScreen(
     innerPadding: PaddingValues,
     onClickBackButton: () -> Unit,
     onSnackbarRequired: (type: PicSnackbarType, message: String) -> Unit,
+    navigateToGroupHome: () -> Unit,
     viewModel: GroupMemberViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
     val copyLinkMessage = stringResource(id = R.string.button_copy_code_message)
     val invitationMessage = stringResource(id = R.string.invitation_message)
     val playStoreUrl = stringResource(id = R.string.play_store_url)
     val appStoreUrl = stringResource(id = R.string.app_store_url)
+
+    var showExitDialog by remember { mutableStateOf(false) }
+
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    state.errorMessage?.let { errorMessage ->
-        onSnackbarRequired(PicSnackbarType.WARNING, stringResource(id = errorMessage))
+    if (showExitDialog) {
+        PicDialog(
+            titleText = stringResource(id = R.string.group_withdraw_dialog_title),
+            contentText = stringResource(id = R.string.group_withdraw_dialog_content),
+            dismissText = stringResource(id = R.string.group_withdraw),
+            confirmText = stringResource(id = R.string.group_withdraw_dialog_dismiss),
+            onDismiss = {
+                showExitDialog = false
+                viewModel.withdrawGroup()
+            },
+            onConfirm = { showExitDialog = false },
+            onDismissRequest = { showExitDialog = false },
+        )
     }
 
     GroupMemberScreen(
@@ -72,26 +99,52 @@ fun GroupMemberScreen(
             )
             onSnackbarRequired(PicSnackbarType.CHECK, copyLinkMessage)
         },
+        onClickWithdrawButton = { showExitDialog = true },
     )
+
+    LaunchedEffect(null) {
+        viewModel.event.collect {
+            when (it) {
+                is GroupMemberEvent.SuccessWithdrawGroup -> navigateToGroupHome()
+                is GroupMemberEvent.FailureWithdrawGroup -> {
+                    onSnackbarRequired(PicSnackbarType.WARNING, getString(context, it.message))
+                }
+            }
+        }
+    }
 }
 
 @Composable
 private fun GroupMemberScreen(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     state: GroupMemberUiState,
     onClickBackButton: () -> Unit,
     onClickCopyButton: () -> Unit,
+    onClickWithdrawButton: () -> Unit,
 ) {
-    Column(modifier = modifier) {
-        PicBackButtonTopBar(
-            modifier = Modifier.padding(top = 16.dp),
-            titleText = stringResource(id = R.string.group_member_list_title),
-            backButtonClicked = onClickBackButton,
-        )
-        GroupMemberScreenContent(
-            modifier = Modifier.fillMaxWidth(),
-            state = state,
-            onClickCopyButton = onClickCopyButton,
+    Box(modifier = modifier) {
+        Column {
+            PicBackButtonTopBar(
+                modifier = Modifier.padding(top = 16.dp),
+                titleText = stringResource(id = R.string.group_member_list_title),
+                backButtonClicked = onClickBackButton,
+            )
+            GroupMemberScreenContent(
+                modifier = Modifier.fillMaxWidth(),
+                state = state,
+                onClickCopyButton = onClickCopyButton,
+            )
+        }
+        Text(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 24.dp)
+                .noRippleClickable { onClickWithdrawButton() },
+            text = stringResource(id = R.string.group_withdraw),
+            style = PicTypography.bodyMedium14,
+            color = Gray60,
+            textAlign = TextAlign.Center,
+            textDecoration = TextDecoration.Underline,
         )
     }
 }
@@ -214,5 +267,6 @@ private fun GroupMemberScreenPreview(
         state = state,
         onClickBackButton = {},
         onClickCopyButton = {},
+        onClickWithdrawButton = {},
     )
 }
