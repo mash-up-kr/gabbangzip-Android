@@ -107,6 +107,7 @@ fun GroupMemberScreen(
     LaunchedEffect(null) {
         viewModel.event.collect {
             when (it) {
+                is GroupMemberEvent.SuccessWithdrawGroup -> Unit
                 is GroupMemberEvent.FailureWithdrawGroup -> {
                     onSnackbarRequired(PicSnackbarType.WARNING, getString(context, it.message))
                 }
@@ -123,8 +124,8 @@ private fun GroupMemberScreen(
     onClickCopyButton: () -> Unit,
     onClickWithdrawButton: () -> Unit,
 ) {
-    Box {
-        Column(modifier = modifier) {
+    Box(modifier = modifier) {
+        Column {
             PicBackButtonTopBar(
                 modifier = Modifier.padding(top = 16.dp),
                 titleText = stringResource(id = R.string.group_member_list_title),
@@ -138,7 +139,6 @@ private fun GroupMemberScreen(
         }
         Text(
             modifier = Modifier
-                .fillMaxWidth()
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 24.dp)
                 .noRippleClickable { onClickWithdrawButton() },

@@ -15,5 +15,6 @@ data class GroupMemberUiState(
 }
 
 sealed interface GroupMemberEvent {
+    data object SuccessWithdrawGroup : GroupMemberEvent
     data class FailureWithdrawGroup(@StringRes val message: Int) : GroupMemberEvent
 }
