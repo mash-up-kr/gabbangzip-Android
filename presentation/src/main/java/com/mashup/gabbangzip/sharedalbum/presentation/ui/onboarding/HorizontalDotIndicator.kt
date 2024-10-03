@@ -37,7 +37,7 @@ fun HorizontalDotIndicator(
 }
 
 @Composable
-fun CircleUi(
+private fun CircleUi(
     modifier: Modifier = Modifier,
     size: Dp,
     color: Color,
@@ -51,7 +51,7 @@ fun CircleUi(
 
 @Preview(showBackground = true)
 @Composable
-fun HorizontalDotIndicatorPreview() {
+private fun HorizontalDotIndicatorPreview() {
     HorizontalDotIndicator(
         circleSize = 50.dp,
         selectedColor = Gray80,
@@ -64,6 +64,6 @@ fun HorizontalDotIndicatorPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun CircleUiPreview() {
+private fun CircleUiPreview() {
     CircleUi(Modifier, 50.dp, Gray50)
 }

@@ -70,7 +70,7 @@ fun OnboardingScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun OnboardingScreenPreview() {
+private fun OnboardingScreenPreview() {
     OnboardingScreen(
         pageResourceIdList = listOf(),
         onClickStart = {},
