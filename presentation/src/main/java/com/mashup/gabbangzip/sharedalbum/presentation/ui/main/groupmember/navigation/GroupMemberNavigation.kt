@@ -23,6 +23,7 @@ fun NavGraphBuilder.groupMemberNavGraph(
     innerPadding: PaddingValues,
     onClickBackButton: () -> Unit,
     onShowSnackbar: (PicSnackbarType, String) -> Unit,
+    navigateToGroupHome: () -> Unit,
 ) {
     composable(
         route = "${MainRoute.GroupMemberRoute.route}/{$KEY_GROUP_ID}/{$KEY_GROUP_KEYWORD}",
@@ -35,6 +36,7 @@ fun NavGraphBuilder.groupMemberNavGraph(
             innerPadding = innerPadding,
             onClickBackButton = onClickBackButton,
             onSnackbarRequired = onShowSnackbar,
+            navigateToGroupHome = navigateToGroupHome,
         )
     }
 }

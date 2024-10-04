@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mashup.gabbangzip.sharedalbum.presentation.R
+import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray0Alpha80
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray60
 import com.mashup.gabbangzip.sharedalbum.presentation.theme.Gray80
@@ -83,7 +84,7 @@ fun EventCreationDetailScreen(
                 onDismissButtonClicked()
             },
             onConfirm = { showExitDialog = false },
-            onDismissRequest = {},
+            onDismissRequest = { showExitDialog = false },
         )
     }
 
@@ -184,7 +185,12 @@ fun EventCreationDetailScreen(
             },
         )
     }
-    PicLoadingIndicator(modifier = Modifier.fillMaxSize(), isVisible = state.isLoading)
+    PicLoadingIndicator(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Gray0),
+        isVisible = state.isLoading,
+    )
 }
 
 @Composable

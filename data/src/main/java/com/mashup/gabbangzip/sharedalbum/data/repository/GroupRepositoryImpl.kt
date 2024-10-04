@@ -67,11 +67,23 @@ class GroupRepositoryImpl @Inject constructor(
     }
 
     override suspend fun withdrawGroup(groupId: Long): WithdrawalGroupDomainModel {
-        return callApi { groupService.withdrawGroup(groupId) }.toDomainModel()
+        return runCatching {
+            callApi { groupService.withdrawGroup(groupId) }.toDomainModel()
+        }.getOrElse { e ->
+            throw if (e is PicApiException && e.errorResponse != null) {
+                when (e.errorResponse.code) {
+                    CODE_BAD_REQUEST -> PicException.NoWithdrawGroupException
+                    else -> e
+                }
+            } else {
+                e
+            }
+        }
     }
 
     companion object {
         private const val CODE_NOT_EXIST = "C001_NOT_EXIST"
         private const val CODE_ARGUMENT_NOT_VALID = "C009_ARGUMENT_NOT_VALID"
+        private const val CODE_BAD_REQUEST = "C010_BAD_REQUEST"
     }
 }

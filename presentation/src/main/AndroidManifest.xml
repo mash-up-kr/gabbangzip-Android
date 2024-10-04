@@ -61,6 +61,12 @@
             tools:ignore="DiscouragedApi" />
 
         <activity
+            android:name="com.mashup.gabbangzip.sharedalbum.presentation.ui.onboarding.OnboardingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi" />
+
+        <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true"
             android:screenOrientation="portrait"

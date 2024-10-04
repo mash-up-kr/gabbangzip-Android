@@ -76,7 +76,7 @@ fun GroupCreationCompleteScreen(
         content = {
             GroupCreationCompleteContent(
                 clipboardManager = LocalClipboardManager.current,
-                copyLinkMessage = stringResource(id = R.string.button_copy_link_message),
+                copyLinkMessage = stringResource(id = R.string.button_copy_code_message),
                 invitationMessage = stringResource(id = R.string.invitation_message),
                 playStoreUrl = stringResource(id = R.string.play_store_url),
                 appStoreUrl = stringResource(id = R.string.app_store_url),

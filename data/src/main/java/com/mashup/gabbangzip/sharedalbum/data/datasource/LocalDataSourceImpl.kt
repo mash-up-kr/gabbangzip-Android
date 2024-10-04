@@ -155,6 +155,22 @@ class LocalDataSourceImpl @Inject constructor(
         return getBoolean(KEY_VOTE_FIRST_VISIT, true)
     }
 
+    override fun saveIsFirstOpen(isFirstOpen: Boolean) {
+        putBoolean(KEY_IS_FIRST_OPEN, isFirstOpen)
+    }
+
+    override fun getIsFirstOpen(): Boolean {
+        return getBoolean(KEY_IS_FIRST_OPEN, true)
+    }
+
+    override fun saveHomeAlignState(alignState: String) {
+        putString(KEY_HOME_ALIGN_STATE, alignState)
+    }
+
+    override fun getHomeAlignState(): String {
+        return getString(KEY_HOME_ALIGN_STATE, "")
+    }
+
     companion object {
         private const val TAG = "preferences"
         private const val PREF_NAME = "pic_preferences"
@@ -162,5 +178,7 @@ class LocalDataSourceImpl @Inject constructor(
         private const val KEY_REFRESH_TOKEN = "key_refresh_token"
         private const val KEY_USER_NAME = "key_user_name"
         private const val KEY_VOTE_FIRST_VISIT = "key_vote_first_visit"
+        private const val KEY_IS_FIRST_OPEN = "key_is_first_open"
+        private const val KEY_HOME_ALIGN_STATE = "key_home_align_state"
     }
 }
