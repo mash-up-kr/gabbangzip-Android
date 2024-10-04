@@ -1,5 +1,6 @@
 package com.mashup.gabbangzip.sharedalbum.data.di
 
+import com.mashup.gabbangzip.sharedalbum.data.repository.ConfigRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.EventRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.FileRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.GroupRepositoryImpl
@@ -7,6 +8,7 @@ import com.mashup.gabbangzip.sharedalbum.data.repository.LoginRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.NotificationRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.UserRepositoryImpl
 import com.mashup.gabbangzip.sharedalbum.data.repository.VoteRepositoryImpl
+import com.mashup.gabbangzip.sharedalbum.domain.repository.ConfigRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.EventRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.FileRepository
 import com.mashup.gabbangzip.sharedalbum.domain.repository.GroupRepository
@@ -50,4 +52,8 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun bindEventRepository(eventRepository: EventRepositoryImpl): EventRepository
+
+    @Singleton
+    @Binds
+    fun bindConfigRepository(configRepositoryImpl: ConfigRepositoryImpl): ConfigRepository
 }
