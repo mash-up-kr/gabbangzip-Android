@@ -15,7 +15,3 @@ sealed class GroupHomeUiState {
 
     data class Error(@StringRes val errorMessage: Int) : GroupHomeUiState()
 }
-
-enum class ViewType {
-    List, Grid
-}
