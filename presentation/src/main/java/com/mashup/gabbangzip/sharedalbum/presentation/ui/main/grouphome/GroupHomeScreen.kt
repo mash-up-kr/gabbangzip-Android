@@ -10,6 +10,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -184,35 +185,10 @@ fun GroupHomeScreen(
                     filterTagList = filterTagList,
                     onTagClicked = onClickFilterTag,
                 )
-                Box(
-                    modifier = Modifier
-                        .width(100.dp)
-                        .wrapContentHeight()
-                        .background(
-                            brush = Brush.linearGradient(
-                                listOf(
-                                    Color.Transparent,
-                                    Gray0,
-                                    Gray0,
-                                ),
-                            ),
-                        )
-                        .align(Alignment.CenterEnd),
-                ) {
-                    ViewTypeButton(
-                        modifier = Modifier
-                            .noRippleClickable {
-                                when (currentViewType) {
-                                    ViewType.List -> onClickViewType(ViewType.Grid)
-                                    ViewType.Grid -> onClickViewType(ViewType.List)
-                                }
-                            }
-                            .padding(top = 11.dp, bottom = 11.dp, end = 20.dp)
-                            .wrapContentSize()
-                            .align(Alignment.CenterEnd),
-                        currentViewType = currentViewType,
-                    )
-                }
+                ViewTypeWithGradient(
+                    currentViewType = currentViewType,
+                    onClickViewType = onClickViewType,
+                )
             }
 
             Spacer(
@@ -250,6 +226,42 @@ fun GroupHomeScreen(
                 .padding(bottom = 45.dp, end = 16.dp),
             onClickGroupMake = onClickGroupMake,
             onClickGroupEnter = onClickGroupEnter,
+        )
+    }
+}
+
+@Composable
+private fun BoxScope.ViewTypeWithGradient(
+    currentViewType: ViewType,
+    onClickViewType: (ViewType) -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .width(100.dp)
+            .wrapContentHeight()
+            .background(
+                brush = Brush.linearGradient(
+                    listOf(
+                        Color.Transparent,
+                        Gray0,
+                        Gray0,
+                    ),
+                ),
+            )
+            .align(Alignment.CenterEnd),
+    ) {
+        ViewTypeButton(
+            modifier = Modifier
+                .noRippleClickable {
+                    when (currentViewType) {
+                        ViewType.List -> onClickViewType(ViewType.Grid)
+                        ViewType.Grid -> onClickViewType(ViewType.List)
+                    }
+                }
+                .padding(top = 11.dp, bottom = 11.dp, end = 20.dp)
+                .wrapContentSize()
+                .align(Alignment.CenterEnd),
+            currentViewType = currentViewType,
         )
     }
 }
