@@ -14,4 +14,12 @@ class ConfigRepositoryImpl @Inject constructor(
     override suspend fun getIsFirstOpen(): Boolean {
         return localDataSource.getIsFirstOpen()
     }
+
+    override suspend fun saveHomeAlignState(alignState: String) {
+        localDataSource.saveHomeAlignState(alignState)
+    }
+
+    override suspend fun getHomeAlignState(): String {
+        return localDataSource.getHomeAlignState()
+    }
 }

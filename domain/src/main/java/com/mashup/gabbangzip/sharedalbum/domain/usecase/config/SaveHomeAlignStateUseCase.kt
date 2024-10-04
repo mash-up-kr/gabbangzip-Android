@@ -5,10 +5,10 @@ import dagger.Reusable
 import javax.inject.Inject
 
 @Reusable
-class SaveIsFirstOpenUseCase @Inject constructor(
+class SaveHomeAlignStateUseCase @Inject constructor(
     private val configRepository: ConfigRepository,
 ) {
-    suspend operator fun invoke(isFirstOpen: Boolean) {
-        configRepository.saveIsFirstOpen(isFirstOpen)
+    suspend operator fun invoke(alignState: String) {
+        configRepository.saveHomeAlignState(alignState)
     }
 }

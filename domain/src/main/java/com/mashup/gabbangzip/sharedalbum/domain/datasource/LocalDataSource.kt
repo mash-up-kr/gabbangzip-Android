@@ -15,4 +15,6 @@ interface LocalDataSource {
     fun getVoteFirstVisit(): Boolean
     fun saveIsFirstOpen(isFirstOpen: Boolean)
     fun getIsFirstOpen(): Boolean
+    fun saveHomeAlignState(alignState: String)
+    fun getHomeAlignState(): String
 }
