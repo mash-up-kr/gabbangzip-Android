@@ -28,11 +28,8 @@ class GroupHomeViewModel @Inject constructor(
     private val groupUiState = getGroupListUseCase()
     private val selectedTagFlow = MutableStateFlow(FilterTag.getTotalFilter())
     private val viewTypeFlow = MutableStateFlow(ViewType.List)
-    private val optionFlow = selectedTagFlow.combine(viewTypeFlow) { selectedTag, viewType ->
-        Pair(selectedTag, viewType)
-    }
 
-    val uiState = groupUiState.combine(optionFlow) { groupList, (selectedTag, viewType) ->
+    val uiState = combine(groupUiState, selectedTagFlow, viewTypeFlow) { groupList, selectedTag, viewType ->
         if (groupList.isEmpty()) {
             GroupHomeUiState.NoGroup
         } else {
