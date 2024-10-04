@@ -2,6 +2,8 @@ package com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.config.GetHomeAlignStateUseCase
+import com.mashup.gabbangzip.sharedalbum.domain.usecase.config.SaveHomeAlignStateUseCase
 import com.mashup.gabbangzip.sharedalbum.domain.usecase.group.GetGroupListUseCase
 import com.mashup.gabbangzip.sharedalbum.presentation.R
 import com.mashup.gabbangzip.sharedalbum.presentation.ui.main.grouphome.model.FilterTag
@@ -16,6 +18,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
@@ -24,10 +27,18 @@ import javax.inject.Inject
 @HiltViewModel
 class GroupHomeViewModel @Inject constructor(
     getGroupListUseCase: GetGroupListUseCase,
+    getHomeAlignStateUseCase: GetHomeAlignStateUseCase,
+    private val saveHomeAlignStateUseCase: SaveHomeAlignStateUseCase,
 ) : ViewModel() {
     private val groupUiState = getGroupListUseCase()
     private val selectedTagFlow = MutableStateFlow(FilterTag.getTotalFilter())
-    private val viewTypeFlow = MutableStateFlow(ViewType.List)
+    private val viewTypeFlow = MutableStateFlow(ViewType.List).also { viewTypeFlow ->
+        viewModelScope.launch {
+            getHomeAlignStateUseCase()
+                .map { ViewType.valueOf(it) }
+                .collect(viewTypeFlow)
+        }
+    }
 
     val uiState = combine(groupUiState, selectedTagFlow, viewTypeFlow) { groupList, selectedTag, viewType ->
         if (groupList.isEmpty()) {
@@ -79,6 +90,7 @@ class GroupHomeViewModel @Inject constructor(
     fun clickedViewType(viewType: ViewType) {
         viewModelScope.launch {
             viewTypeFlow.emit(viewType)
+            saveHomeAlignStateUseCase(viewType.name)
         }
     }
 }
