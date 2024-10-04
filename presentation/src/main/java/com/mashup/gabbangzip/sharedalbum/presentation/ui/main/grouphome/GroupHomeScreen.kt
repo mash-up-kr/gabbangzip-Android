@@ -200,7 +200,7 @@ fun GroupHomeScreen(
             )
 
             when (currentViewType) {
-                ViewType.List -> {
+                ViewType.LIST -> {
                     GroupContainerList(
                         groupList = groupList,
                         onClickGroupDetail = onClickGroupDetail,
@@ -211,7 +211,7 @@ fun GroupHomeScreen(
                     )
                 }
 
-                ViewType.Grid -> {
+                ViewType.GRID -> {
                     GroupContainerGrid(
                         groupList = groupList,
                         onClickGroupDetail = onClickGroupDetail,
@@ -254,8 +254,8 @@ private fun BoxScope.ViewTypeWithGradient(
             modifier = Modifier
                 .noRippleClickable {
                     when (currentViewType) {
-                        ViewType.List -> onClickViewType(ViewType.Grid)
-                        ViewType.Grid -> onClickViewType(ViewType.List)
+                        ViewType.LIST -> onClickViewType(ViewType.GRID)
+                        ViewType.GRID -> onClickViewType(ViewType.LIST)
                     }
                 }
                 .padding(top = 11.dp, bottom = 11.dp, end = 20.dp)
@@ -274,13 +274,13 @@ private fun ViewTypeButton(
     StableImage(
         modifier = modifier,
         drawableResId = when (currentViewType) {
-            ViewType.List -> R.drawable.align_grid
-            ViewType.Grid -> R.drawable.align_list
+            ViewType.LIST -> R.drawable.align_grid
+            ViewType.GRID -> R.drawable.align_list
         },
         contentDescription = stringResource(
             id = when (currentViewType) {
-                ViewType.List -> R.string.align_grid
-                ViewType.Grid -> R.string.align_list
+                ViewType.LIST -> R.string.align_grid
+                ViewType.GRID -> R.string.align_list
             },
         ),
         colorFilter = ColorFilter.tint(color = Gray50),
@@ -904,7 +904,7 @@ private fun GroupHomeScreenPreview() {
                 ),
             ),
         ),
-        currentViewType = ViewType.List,
+        currentViewType = ViewType.LIST,
         onClickGroupDetail = {},
         onClickEventMake = {},
         onClickMyPage = {},

@@ -32,7 +32,7 @@ class GroupHomeViewModel @Inject constructor(
 ) : ViewModel() {
     private val groupUiState = getGroupListUseCase()
     private val selectedTagFlow = MutableStateFlow(FilterTag.getTotalFilter())
-    private val viewTypeFlow = MutableStateFlow(ViewType.List).also { viewTypeFlow ->
+    private val viewTypeFlow = MutableStateFlow(ViewType.LIST).also { viewTypeFlow ->
         viewModelScope.launch {
             getHomeAlignStateUseCase()
                 .map { ViewType.valueOf(it) }
