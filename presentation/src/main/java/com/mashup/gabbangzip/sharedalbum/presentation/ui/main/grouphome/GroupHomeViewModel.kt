@@ -35,7 +35,7 @@ class GroupHomeViewModel @Inject constructor(
     private val viewTypeFlow = MutableStateFlow(ViewType.LIST).also { viewTypeFlow ->
         viewModelScope.launch {
             getHomeAlignStateUseCase()
-                .map { ViewType.valueOf(it) }
+                .map { kotlin.runCatching { ViewType.valueOf(it) }.getOrDefault(ViewType.LIST) }
                 .collect(viewTypeFlow)
         }
     }
