@@ -97,3 +97,14 @@
         src="https://github.com/user-attachments/assets/f0c99971-3a71-473d-820e-1dbd9df5cac3"
     />
 </div>
+
+
+<br>
+
+| 인트로화면 | 그룹만들기 화면 | 네컷만들기 화면 |
+|-------|-------|-------|
+| ![인트로화면](https://github.com/user-attachments/assets/fd71a1eb-6dbc-4558-bd4e-ac4ddd3225d9) | ![그룹만들기 화면](https://github.com/user-attachments/assets/061bb457-0616-4aea-88d9-999a74eb53a8) | ![네컷만들기 화면](https://github.com/user-attachments/assets/1dd8fd7e-d9c1-4be2-b75f-7315b0c9ac53) |
+
+| 공유하기 화면 | 투표하기 화면 | 홈 화면 |
+|-------|-------|-------|
+| ![공유하기 화면](https://github.com/user-attachments/assets/d3e568b4-9819-493d-81f3-a3d1c43828c2) | ![투표하기 화면](https://github.com/user-attachments/assets/deb4a17f-e55f-4808-bba3-5643da6976b1) | ![홈 화면](https://github.com/user-attachments/assets/015b62d0-48d4-402d-a7e3-d77193003330) |
